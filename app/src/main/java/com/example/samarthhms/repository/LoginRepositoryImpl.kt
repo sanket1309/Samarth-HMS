@@ -5,8 +5,9 @@ import com.example.samarthhms.constants.SchemaName
 import com.example.samarthhms.models.Credentials
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-class LoginRepositoryImpl : LoginRepository{
+class LoginRepositoryImpl @Inject constructor(): LoginRepository{
 
     private val db = FirebaseFirestore.getInstance()
 
@@ -48,7 +49,7 @@ class LoginRepositoryImpl : LoginRepository{
         val reference = db.collection(SchemaName.LOGIN_CREDENTIALS_COLLECTION)
         val document = reference.document(credentials.id)
         try {
-            val snapshot = document.set(credentials)
+            document.set(credentials)
         }catch (e: Exception){
             Log.e("Firestore_Exception","Error while setting credentials : $e")
         }

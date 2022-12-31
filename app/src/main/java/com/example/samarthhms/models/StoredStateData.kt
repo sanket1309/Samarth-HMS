@@ -5,8 +5,8 @@ import com.example.samarthhms.constants.Role
 import java.time.LocalDateTime
 
 data class StoredStateData (
-    val role: Role = Role.NONE,
-    val loggedState: LoggedState = LoggedState.LOGGED_OUT,
-    val id: String? = null,
-    val logInTime: LocalDateTime? = null
+    var role: Role = Role.NONE,
+    var loggedState: LoggedState = LoggedState.LOGGED_OUT,
+    var id: String? = null,
+    var logInTime: LocalDateTime? = null
 )

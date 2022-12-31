@@ -9,4 +9,5 @@ object SchemaName {
     const val USERNAME = "username"
     const val PASSWORD = "password"
     const val ROLE = "role"
+    const val STORED_STATE_TABLE = "stored_state"
 }

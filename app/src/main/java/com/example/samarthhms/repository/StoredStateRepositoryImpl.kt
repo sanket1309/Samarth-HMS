@@ -1,61 +1,66 @@
 package com.example.samarthhms.repository
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.util.Log
-import com.example.samarthhms.constants.LoggedState
-import com.example.samarthhms.constants.Role
-import com.example.samarthhms.constants.StoredState
+import com.example.samarthhms.constants.StoredStateConstants
+import com.example.samarthhms.models.StoredState
 import com.example.samarthhms.models.StoredStateData
 import com.example.samarthhms.utils.DateTimeUtils
+import javax.inject.Inject
 
-class StoredStateRepositoryImpl(context: Context) : StoredStateRepository{
+class StoredStateRepositoryImpl @Inject constructor() : StoredStateRepository{
 
-    private lateinit var sharedPreferences: SharedPreferences
+    @Inject
+    lateinit var storedStateDao: StoredStateDao
 
-    init {
-        sharedPreferences = context.getSharedPreferences(StoredState.LOG_STATE_FILE,Context.MODE_PRIVATE)
-    }
-
-    override fun getStoredState(): StoredStateData {
-        try {
-            val role = sharedPreferences.getString(StoredState.ROLE, Role.NONE.value)
-            val logState =
-                sharedPreferences.getString(StoredState.LOG_STATE, LoggedState.LOGGED_OUT.value)
-            val id = sharedPreferences.getString(StoredState.ID, null)
-            val logInTime = sharedPreferences.getString(StoredState.LAST_LOGIN, null)
-            return StoredStateData(
-                Role.getByValue(role),
-                LoggedState.getByValue(logState),
-                id,
-                DateTimeUtils.getLocalDateTime(logInTime)
-            )
+    override suspend fun getStoredState(): StoredStateData {
+        return try {
+            val storedState = storedStateDao.get(StoredStateConstants.STORED_STATE_KEY)
+            var storedStateData = StoredStateData()
+            if(storedState != null){
+                storedStateData = storeStateToStoreStateData(storedState)
+            }
+            storedStateData
         }catch (e: Exception){
             Log.e("StoredStateError","Error while fetching Stored state : $e")
-            return StoredStateData()
+            StoredStateData()
         }
     }
 
-    override fun setStoredState(storedStateData: StoredStateData) {
+    override suspend fun setStoredState(storedStateData: StoredStateData) {
         try {
-            with(sharedPreferences.edit()){
-                putString(StoredState.ROLE, storedStateData.role.value)
-                putString(StoredState.LOG_STATE, storedStateData.loggedState.value)
-                putString(StoredState.ID, storedStateData.id)
-                putString(StoredState.LAST_LOGIN, storedStateData.logInTime.toString())
-                apply()
-            }
+            val storedState = storeStateDataToStoreState(storedStateData)
+            storedStateDao.insert(storedState)
         }catch (e: Exception){
             Log.e("StoredStateError","Error while setting Stored state : $e")
         }
     }
 
-    override fun getId(): String? {
-        try {
-            return sharedPreferences.getString(StoredState.ID, null)
+    override suspend fun getId(): String? {
+        return try {
+            storedStateDao.getId(StoredStateConstants.STORED_STATE_KEY)
         }catch (e: Exception){
             Log.e("StoredStateError","Error while fetching Id from stored state : $e")
-            return null
+            null
         }
     }
+
+    private fun storeStateToStoreStateData(storedState: StoredState): StoredStateData{
+        return StoredStateData(
+            storedState.role,
+            storedState.loggedState,
+            storedState.id,
+            DateTimeUtils.getLocalDateTime(storedState.entryTime)
+        )
+    }
+
+    private fun storeStateDataToStoreState(storedStateData: StoredStateData): StoredState{
+        return StoredState(
+            StoredStateConstants.STORED_STATE_KEY,
+            storedStateData.role,
+            storedStateData.loggedState,
+            storedStateData.id,
+            storedStateData.logInTime.toString()
+        )
+    }
+
 }

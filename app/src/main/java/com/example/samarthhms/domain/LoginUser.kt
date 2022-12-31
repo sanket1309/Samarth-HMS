@@ -1,37 +1,21 @@
 package com.example.samarthhms.domain
 
-import android.content.Context
 import android.util.Log
 import com.example.samarthhms.constants.LoggedState
-import com.example.samarthhms.constants.StoredState
 import com.example.samarthhms.models.Credentials
 import com.example.samarthhms.models.StoredStateData
-import com.example.samarthhms.repository.LoginRepository
-import com.example.samarthhms.repository.StoredStateRepository
+import com.example.samarthhms.repository.LoginRepositoryImpl
 import com.example.samarthhms.repository.StoredStateRepositoryImpl
-import com.example.samarthhms.usecase.Response
 import com.example.samarthhms.usecase.UseCase
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.util.Objects
 import javax.inject.Inject
-import kotlin.math.log
 
-class LoginUser constructor() : UseCase<LoginResponse, Credentials>() {
+class LoginUser @Inject constructor(private var loginRepository: LoginRepositoryImpl,private var storedStateRepository: StoredStateRepositoryImpl)
+    : UseCase<LoginResponse, Credentials>() {
 
-    @Inject
-    lateinit var loginRepository: LoginRepository
-
-//    @Inject
-    lateinit var storedStateRepository: StoredStateRepositoryImpl
-
-    constructor(context: Context) : this() {
-        storedStateRepository = StoredStateRepositoryImpl(context)
-    }
-
-    override suspend fun run(credentials: Credentials): LoginResponse {
-        return login(credentials)
+    override suspend fun run(params: Credentials): LoginResponse {
+        return login(params)
     }
 
     private suspend fun login(credentials: Credentials) : LoginResponse{

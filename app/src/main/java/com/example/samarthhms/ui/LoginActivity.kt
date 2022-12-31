@@ -4,28 +4,27 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.example.samarthhms.R
 import com.example.samarthhms.constants.Role
 import com.example.samarthhms.databinding.ActivityLoginBinding
 import com.example.samarthhms.domain.LoginResponseStatus
 import com.example.samarthhms.models.Credentials
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
-    val loginViewModel: LoginViewModel by viewModels<LoginViewModel>()
+    private val loginViewModel: LoginViewModel by viewModels()
 
-    lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        initializeView()
     }
 
-    fun initializeView(){
+    private fun initializeView(){
         binding.button.setOnClickListener {
             val username = binding.editTextTextPersonName.text.toString()
             val password = binding.editTextTextPassword.text.toString()
@@ -33,12 +32,16 @@ class LoginActivity : AppCompatActivity() {
             val credentials = Credentials("",role, username, password)
             loginViewModel.login(credentials)
         }
-        loginViewModel.loginUserStatus.observe(this, Observer {
+        binding.msg.text = ""
+        loginViewModel.loginUserStatus.observe(this) {
+            binding.msg.text = it.toString()
             when(it){
                 LoginResponseStatus.SUCCESS -> onSuccess()
-                else -> onFailure()
+                LoginResponseStatus.EXCEPTION -> onFailure()
+                LoginResponseStatus.WRONG_CREDENTIALS -> onFailure()
+                else -> {}
             }
-        })
+        }
 
     }
 
