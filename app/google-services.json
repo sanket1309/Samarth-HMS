@@ -7,9 +7,38 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:745548177763:android:d9cfb498a8f9ff6d5f3356",
+        "mobilesdk_app_id": "1:745548177763:android:45153998a56f06315f3356",
         "android_client_info": {
-          "package_name": "com.example.samarthhms"
+          "package_name": "com.samarthhms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "745548177763-7mged2sgtujjfm10urceabmuvimfa6b0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-GQcHULbdx6N_MR0u1kHL5UjlbyHSnRg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "745548177763-7mged2sgtujjfm10urceabmuvimfa6b0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:745548177763:android:edfc81e8a44901855f3356",
+        "android_client_info": {
+          "package_name": "com.samarthhms.admin"
         }
       },
       "oauth_client": [

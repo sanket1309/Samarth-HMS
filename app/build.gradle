@@ -12,11 +12,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.samarthhms'
+    namespace 'com.samarthhms'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.samarthhms"
+        applicationId "com.samarthhms"
         minSdk 23
         targetSdk 33
         versionCode 1
@@ -24,6 +24,30 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    flavorDimensions "role"
+    productFlavors {
+        admin {
+            applicationIdSuffix ".admin"
+            dimension "role"
+            versionCode 1
+            versionName "1.0"
+        }
+
+        staff {
+            applicationIdSuffix ".staff"
+            dimension "role"
+            versionCode 1
+            versionName "1.0"
+        }
+
+        combined {
+            dimension "role"
+            versionCode 1
+            versionName "1.0"
+        }
+    }
+
 
     buildTypes {
         release {
@@ -41,6 +65,24 @@ android {
     }
     buildFeatures{
         viewBinding true
+    }
+
+    sourceSets {
+        admin {
+            res.srcDirs 'src/admin/res'
+            java.srcDirs 'src/admin/java'
+            manifest.srcFile 'src/admin/AndroidManifest.xml'
+        }
+        staff {
+            res.srcDirs 'src/staff/res'
+            java.srcDirs 'src/staff/java'
+            manifest.srcFile 'src/staff/AndroidManifest.xml'
+        }
+        combined {
+            res.srcDirs 'src/combined/res'
+            java.srcDirs 'src/combined/java'
+            manifest.srcFile 'src/combined/AndroidManifest.xml'
+        }
     }
 }
 
