@@ -28,14 +28,12 @@ android {
     flavorDimensions "role"
     productFlavors {
         admin {
-            applicationIdSuffix ".admin"
             dimension "role"
             versionCode 1
             versionName "1.0"
         }
 
         staff {
-            applicationIdSuffix ".staff"
             dimension "role"
             versionCode 1
             versionName "1.0"
