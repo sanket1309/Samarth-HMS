@@ -8,14 +8,20 @@ import com.samarthhms.constants.Role
 import com.samarthhms.databinding.ActivityLoginBinding
 import com.samarthhms.domain.LoginResponseStatus
 import com.samarthhms.models.Credentials
+import com.samarthhms.navigator.Navigator
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
+    @Inject
+    private lateinit var navigator : Navigator
 
     private val loginViewModel: LoginViewModel by viewModels()
 
     private lateinit var binding: ActivityLoginBinding
+
+    private var roleSelected : Role = Role.NONE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +34,10 @@ class LoginActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             val username = binding.editTextTextPersonName.text.toString()
             val password = binding.editTextTextPassword.text.toString()
-            val role = if (binding.radioButton1.isChecked) Role.ADMIN else Role.STAFF
-            val credentials = Credentials("",role, username, password)
+            roleSelected = if (binding.radioButton1.isChecked) Role.ADMIN else Role.STAFF
+            val credentials = Credentials("",roleSelected, username, password)
             loginViewModel.login(credentials)
+            binding.button.isClickable = false
         }
         binding.msg.text = ""
         loginViewModel.loginUserStatus.observe(this) {
@@ -41,12 +48,14 @@ class LoginActivity : AppCompatActivity() {
                 LoginResponseStatus.WRONG_CREDENTIALS -> onFailure()
                 else -> {}
             }
+            binding.button.isClickable = true
         }
 
     }
 
     private fun onSuccess(){
         Toast.makeText(this, "SUCCESSFULLY LOGGED IN", Toast.LENGTH_SHORT).show()
+        navigator.showDashboard(this, roleSelected)
     }
 
     private fun onFailure(){
