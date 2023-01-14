@@ -15,7 +15,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     @Inject
-    private lateinit var navigator : Navigator
+    lateinit var navigator : Navigator
 
     private val loginViewModel: LoginViewModel by viewModels()
 
@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun onSuccess(){
         Toast.makeText(this, "SUCCESSFULLY LOGGED IN", Toast.LENGTH_SHORT).show()
-        navigator.showDashboard(this, roleSelected)
+        navigator.showDashboard(this@LoginActivity, roleSelected)
     }
 
     private fun onFailure(){

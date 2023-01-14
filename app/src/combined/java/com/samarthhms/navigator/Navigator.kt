@@ -1,5 +1,6 @@
 package com.samarthhms.navigator
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import com.samarthhms.constants.LoggedState
@@ -12,6 +13,7 @@ class Navigator @Inject constructor(){
 
     private fun showLogin(context: Context){
         context.startActivity(Intent(context,LoginActivity::class.java))
+        finishActivity(context)
     }
 
     fun showDashboard(context: Context, role: Role){
@@ -20,12 +22,19 @@ class Navigator @Inject constructor(){
             Role.STAFF -> context.startActivity(Intent(context,LoginActivity::class.java))
             else -> {}
         }
+        finishActivity(context)
     }
 
     fun showMain(context: Context, loginStatusResponse: LoginStatusResponse){
         when(loginStatusResponse.loggedState){
             LoggedState.LOGGED_OUT -> showLogin(context)
             LoggedState.LOGGED_IN -> showDashboard(context, loginStatusResponse.role)
+        }
+    }
+
+    private fun finishActivity(context: Context){
+        if(context is Activity){
+            context.finish()
         }
     }
 }
