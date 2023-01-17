@@ -2,6 +2,7 @@ package com.samarthhms.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.constraintlayout.motion.widget.MotionLayout
 import com.samarthhms.constants.Role
@@ -21,6 +22,8 @@ class LaunchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLaunchBinding
 
+    private var isTransitionCompleted = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLaunchBinding.inflate(layoutInflater)
@@ -35,7 +38,6 @@ class LaunchActivity : AppCompatActivity() {
                 startId: Int,
                 endId: Int
             ) {
-                TODO("Not yet implemented")
             }
 
             override fun onTransitionChange(
@@ -44,10 +46,10 @@ class LaunchActivity : AppCompatActivity() {
                 endId: Int,
                 progress: Float
             ) {
-                TODO("Not yet implemented")
             }
 
             override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
+                isTransitionCompleted = true
                 launchViewModel.getLoginStatus()
             }
 
@@ -57,13 +59,12 @@ class LaunchActivity : AppCompatActivity() {
                 positive: Boolean,
                 progress: Float
             ) {
-                TODO("Not yet implemented")
             }
         })
 
         launchViewModel.loginStatus.observe(this){
-            if(it.role != Role.NONE){
-                navigator.showMain(this@LaunchActivity, it)
+            if(isTransitionCompleted){
+//                navigator.showMain(this@LaunchActivity, it)
             }
         }
 

@@ -116,6 +116,9 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
+    //    Loading Dots Library
+    implementation 'com.github.agrawalsuneet:DotLoadersPack-Android:v1.4.2'
+
     implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0'
 
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.5'

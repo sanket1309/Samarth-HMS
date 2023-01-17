@@ -4,12 +4,13 @@ import android.util.Log
 import com.samarthhms.constants.LoggedState
 import com.samarthhms.constants.Role
 import com.samarthhms.repository.StoredStateRepository
+import com.samarthhms.repository.StoredStateRepositoryImpl
 import com.samarthhms.usecase.UseCase
 import com.samarthhms.utils.DateTimeUtils
 import javax.inject.Inject
 
 class GetLoginStatus
-@Inject constructor(private val storedStateRepository: StoredStateRepository) : UseCase<LoginStatusResponse, UseCase.None>(){
+@Inject constructor(private val storedStateRepository: StoredStateRepositoryImpl) : UseCase<LoginStatusResponse, UseCase.None>(){
 
     private val STAFF_LOGGED_IN_LIMIT_IN_HOURS = 24
 

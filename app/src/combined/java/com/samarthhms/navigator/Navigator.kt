@@ -20,7 +20,10 @@ class Navigator @Inject constructor(){
         when(role){
             Role.ADMIN -> context.startActivity(Intent(context,LoginActivity::class.java))
             Role.STAFF -> context.startActivity(Intent(context,LoginActivity::class.java))
-            else -> {}
+            else -> {
+                showLogin(context)
+                return
+            }
         }
         finishActivity(context)
     }
