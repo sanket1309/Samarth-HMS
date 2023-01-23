@@ -64,7 +64,7 @@ class LaunchActivity : AppCompatActivity() {
 
         launchViewModel.loginStatus.observe(this){
             if(isTransitionCompleted){
-//                navigator.showMain(this@LaunchActivity, it)
+                navigator.showMain(this@LaunchActivity, it)
             }
         }
 

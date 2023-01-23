@@ -31,31 +31,30 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initializeView(){
-        binding.button.setOnClickListener {
-            val username = binding.editTextTextPersonName.text.toString()
-            val password = binding.editTextTextPassword.text.toString()
-            roleSelected = if (binding.radioButton1.isChecked) Role.ADMIN else Role.STAFF
+        binding.loginButton
+            .setOnClickListener {
+            val username = binding.username.text.toString()
+            val password = binding.password.text.toString()
+            roleSelected = if (binding.adminRadioButton.isChecked) Role.ADMIN else Role.STAFF
             val credentials = Credentials("",roleSelected, username, password)
             loginViewModel.login(credentials)
-            binding.button.isClickable = false
+            binding.loginButton.isClickable = false
         }
-        binding.msg.text = ""
         loginViewModel.loginUserStatus.observe(this) {
-            binding.msg.text = it.toString()
             when(it){
                 LoginResponseStatus.SUCCESS -> onSuccess()
                 LoginResponseStatus.EXCEPTION -> onFailure()
                 LoginResponseStatus.WRONG_CREDENTIALS -> onFailure()
                 else -> {}
             }
-            binding.button.isClickable = true
+            binding.loginButton.isClickable = true
         }
 
     }
 
     private fun onSuccess(){
         Toast.makeText(this, "SUCCESSFULLY LOGGED IN", Toast.LENGTH_SHORT).show()
-        navigator.showDashboard(this@LoginActivity, roleSelected)
+//        navigator.showDashboard(this@LoginActivity, roleSelected)
     }
 
     private fun onFailure(){

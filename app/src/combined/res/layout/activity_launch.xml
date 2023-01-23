@@ -11,21 +11,22 @@
 
     <ImageView
         android:id="@+id/launch_logo"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="@dimen/launch_logo_width"
+        android:layout_height="@dimen/launch_logo_height"
         app:srcCompat="@drawable/logo_colored_with_title"
         tools:layout_editor_absoluteX="202dp"
         tools:layout_editor_absoluteY="306dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/developed_by"/>
+        app:layout_constraintBottom_toTopOf="@id/developed_by"
+        android:contentDescription="@string/launch_logo_description"/>
 
     <com.agrawalsuneet.dotsloader.loaders.SlidingLoader
         android:id="@+id/loader"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="@dimen/sliding_loader_width"
+        android:layout_height="@dimen/sliding_loader_height"
+        android:layout_marginTop="@dimen/sliding_loader_margin_top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/launch_logo"
@@ -42,8 +43,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Developed By"
-        android:textSize="12dp"
+        android:text="@string/developed_by_text"
+        android:textSize="@dimen/developed_by_text_size"
         app:layout_constraintBottom_toTopOf="@id/developer_name"/>
 
     <TextView
@@ -51,19 +52,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Sanket Patil"
-        android:textSize="18dp"
+        android:text="@string/developer_name_text"
+        android:textSize="@dimen/developer_name_text_size"
         app:layout_constraintBottom_toTopOf="@id/copyright"
-        android:layout_marginBottom="15dp"/>
+        android:layout_marginBottom="@dimen/developer_name_margin_bottom"/>
 
     <TextView
         android:id="@+id/copyright"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Copyright 2023 ©"
-        android:textSize="11dp"
+        android:text="@string/copyright_text"
+        android:textSize="@dimen/copyright_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="@dimen/copyright_margin_bottom"/>
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

@@ -6,98 +6,162 @@
     android:layout_height="match_parent"
     tools:context=".ui.LoginActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ImageView
+        android:id="@+id/login_background_image"
         android:layout_width="match_parent"
-        android:layout_height="375dp"
-        android:layout_centerVertical="true"
-        android:background="@color/white"
-        android:elevation="15dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="@dimen/login_background_image_height"
+        android:scaleType="fitXY"
+        android:src="@drawable/login_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/login_background_image_description"/>
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:fontFamily="sans-serif-black"
-            android:gravity="center_horizontal"
-            android:padding="15dp"
-            android:text="Welcome"
-            android:textSize="25dp" />
+    <ImageView
+        android:id="@+id/login_logo_image"
+        android:layout_width="@dimen/login_logo_image_width"
+        android:layout_height="@dimen/login_logo_image_height"
+        android:layout_marginTop="@dimen/login_logo_margin_top"
+        android:src="@drawable/login_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/login_background_image_description"/>
 
-        <TextView
-            android:id="@+id/msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:fontFamily="sans-serif-black"
-            android:gravity="center_horizontal"
-            android:padding="15dp"
-            android:textColor="#f00"
-            android:text="Wrong Credentials"
-            android:textSize="25dp" />
+    <TextView
+        android:id="@+id/login_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/login_background_image"
+        android:textSize="@dimen/login_title_text_size"
+        android:layout_marginTop="@dimen/login_title_margin_top"
+        android:layout_marginStart="@dimen/login_screen_margin_start"
+        android:layout_marginEnd="@dimen/login_screen_margin_end"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="@string/login_title_text"/>
 
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp">
+    <View
+        android:id="@+id/underline"
+        android:layout_width="@dimen/underline_width"
+        android:layout_height="@dimen/underline_height"
+        android:layout_marginStart="@dimen/underline_margin_start"
+        android:background="@color/blue_theme"
+        android:layout_marginTop="@dimen/underline_margin_top"
+        app:layout_constraintStart_toStartOf="@id/login_title"
+        app:layout_constraintTop_toBottomOf="@id/login_title"/>
 
-            <RadioButton
-                android:id="@+id/radioButton1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="30dp"
-                android:checked="true"
-                android:text="Admin"
-                android:textSize="20dp" />
+    <TextView
+        android:id="@+id/role_select_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/underline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/login_screen_margin_start"
+        android:layout_marginEnd="@dimen/login_screen_margin_end"
+        android:layout_marginTop="@dimen/role_select_title_margin_top"
+        android:textSize="@dimen/role_select_title_text_size"
+        android:textStyle="bold"
+        android:textColor="@color/blue_theme"
+        android:text="@string/role_select_title_text"/>
 
-            <RadioButton
-                android:id="@+id/radioButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="30dp"
-                android:text="Staff"
-                android:textSize="20dp" />
-        </RadioGroup>
+    <RadioGroup
+        android:id="@+id/role_select_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/login_screen_margin_start"
+        android:layout_marginEnd="@dimen/login_screen_margin_end"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/role_select_title">
 
-        <EditText
-            android:id="@+id/editTextTextPersonName"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="5dp"
-            android:ems="10"
-            android:hint="Username"
-            android:inputType="text" />
+        <RadioButton
+            android:id="@+id/admin_radio_button"
+            android:layout_width="@dimen/role_select_radio_button_width"
+            android:layout_height="@dimen/role_select_radio_button_height"
+            android:layout_marginEnd="@dimen/role_select_radio_button_margin_end"
+            android:button="@null"
+            android:background="@drawable/login_admin_selector"
+            android:checked="true"/>
 
-        <EditText
-            android:id="@+id/editTextTextPassword"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="5dp"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword" />
+        <RadioButton
+            android:id="@+id/staff_radio_button"
+            android:layout_width="@dimen/role_select_radio_button_width"
+            android:layout_height="@dimen/role_select_radio_button_height"
+            android:button="@null"
+            android:background="@drawable/login_staff_selector"
+            android:checked="false"/>
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:text="Login" />
-    </LinearLayout>
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/username_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/role_select_radio_group"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/login_screen_margin_start"
+        android:layout_marginEnd="@dimen/login_screen_margin_end"
+        android:layout_marginTop="@dimen/username_title_margin_top"
+        android:textSize="@dimen/username_title_text_size"
+        android:textStyle="bold"
+        android:textColor="@color/blue_theme"
+        android:text="@string/username_title_text"/>
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edittext_height"
+        android:layout_marginStart="@dimen/login_screen_margin_start"
+        android:layout_marginEnd="@dimen/login_screen_margin_end"
+        android:layout_marginTop="@dimen/username_margin_top"
+        app:layout_constraintTop_toBottomOf="@id/username_title"
+        android:background="@drawable/login_edittext_background"
+        android:hint="@string/username_hint_text"
+        android:padding="@dimen/edittext_padding"
+        android:inputType="text"
+        android:autofillHints="username"/>
+
+    <TextView
+        android:id="@+id/password_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/username"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/login_screen_margin_start"
+        android:layout_marginEnd="@dimen/login_screen_margin_end"
+        android:layout_marginTop="@dimen/password_title_margin_top"
+        android:textSize="@dimen/password_title_text_size"
+        android:textStyle="bold"
+        android:textColor="@color/blue_theme"
+        android:text="@string/password_title_text" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edittext_height"
+        android:layout_marginStart="@dimen/login_screen_margin_start"
+        android:layout_marginEnd="@dimen/login_screen_margin_end"
+        android:layout_marginTop="@dimen/password_title_margin_top"
+        app:layout_constraintTop_toBottomOf="@id/password_title"
+        android:background="@drawable/login_edittext_background"
+        android:hint="@string/password_hint_text"
+        android:padding="@dimen/edittext_padding"
+        android:inputType="textPassword"
+        android:autofillHints="password" />
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/login_button_height"
+        android:layout_marginStart="@dimen/login_screen_margin_start"
+        android:layout_marginEnd="@dimen/login_screen_margin_end"
+        android:layout_marginTop="@dimen/login_button_margin_top"
+        app:layout_constraintTop_toBottomOf="@id/password"
+        android:textAllCaps="false"
+        android:text="@string/login_button_text"
+        android:background="@drawable/login_button_background"
+        app:backgroundTint="@color/blue_theme"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
