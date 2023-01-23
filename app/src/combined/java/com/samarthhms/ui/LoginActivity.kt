@@ -1,13 +1,10 @@
 package com.samarthhms.ui
 
-import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.DrawableContainer.DrawableContainerState
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -50,7 +47,6 @@ class LoginActivity : AppCompatActivity() {
             binding.loginButton.isClickable = false
         }
         loginViewModel.loginUserStatus.observe(this) {
-            Log.i("","Response is : $it")
             when(it){
                 LoginResponseStatus.SUCCESS -> onSuccess()
                 LoginResponseStatus.EXCEPTION -> onFailure()
@@ -59,7 +55,6 @@ class LoginActivity : AppCompatActivity() {
             }
             binding.loginButton.isClickable = true
         }
-
     }
 
     private fun onSuccess(){
