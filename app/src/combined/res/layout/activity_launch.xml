@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".ui.LaunchActivity"
+    android:theme="@style/Theme.Launch"
     app:layoutDescription="@xml/activity_launch_scene">
 
     <ImageView
