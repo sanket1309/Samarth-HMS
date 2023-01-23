@@ -32,11 +32,11 @@
         app:layout_constraintTop_toBottomOf="@id/launch_logo"
         app:slidingloader_animDur="750"
         app:slidingloader_distanceToMove="2"
-        app:slidingloader_dotsDist="3dp"
-        app:slidingloader_dotsRadius="5dp"
-        app:slidingloader_firstDotColor="#ddd"
-        app:slidingloader_secondDotColor="#ddd"
-        app:slidingloader_thirdDotColor="#ddd" />
+        app:slidingloader_dotsDist="@dimen/sliding_loader_dots_distance"
+        app:slidingloader_dotsRadius="@dimen/sliding_loader_dots_radius"
+        app:slidingloader_firstDotColor="@color/sliding_loader_dots_color"
+        app:slidingloader_secondDotColor="@color/sliding_loader_dots_color"
+        app:slidingloader_thirdDotColor="@color/sliding_loader_dots_color" />
 
     <TextView
         android:id="@+id/developed_by"
