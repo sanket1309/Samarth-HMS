@@ -55,5 +55,4 @@
     <dimen name="edittext_padding">10dp</dimen>
 
     <dimen name="login_button_height">60dp</dimen>
-    <dimen name="login_button_margin_top">15dp</dimen>
 </resources>
