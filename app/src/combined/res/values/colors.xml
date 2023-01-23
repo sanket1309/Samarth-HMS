@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue_theme">#0074FF</color>
+    <color name="red">#f00</color>
 
 <!--    LAUNCH SCREEN-->
     <color name="sliding_loader_dots_color">#ddd</color>
