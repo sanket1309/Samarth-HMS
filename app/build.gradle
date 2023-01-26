@@ -1,21 +1,51 @@
+buildscript {
+    ext.lifecycle_version = "2.5.1"
+    ext.room_version = "2.4.3"
+}
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
+    id 'com.google.dagger.hilt.android'
+    id 'kotlin-kapt'
 }
 
 android {
-    namespace 'com.example.samarthhms'
-    compileSdk 32
+    namespace 'com.samarthhms'
+    compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.samarthhms"
+        applicationId "com.samarthhms"
         minSdk 23
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    flavorDimensions "role"
+    productFlavors {
+        admin {
+            dimension "role"
+            versionCode 1
+            versionName "1.0"
+        }
+
+        staff {
+            dimension "role"
+            versionCode 1
+            versionName "1.0"
+        }
+
+        combined {
+            dimension "role"
+            versionCode 1
+            versionName "1.0"
+        }
+    }
+
 
     buildTypes {
         release {
@@ -24,20 +54,82 @@ android {
         }
     }
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures{
+        viewBinding true
+    }
+
+    sourceSets {
+        admin {
+            res.srcDirs 'src/admin/res'
+            java.srcDirs 'src/admin/java'
+            manifest.srcFile 'src/admin/AndroidManifest.xml'
+        }
+        staff {
+            res.srcDirs 'src/staff/res'
+            java.srcDirs 'src/staff/java'
+            manifest.srcFile 'src/staff/AndroidManifest.xml'
+        }
+        combined {
+            res.srcDirs 'src/combined/res'
+            java.srcDirs 'src/combined/java'
+            manifest.srcFile 'src/combined/AndroidManifest.xml'
+        }
+    }
 }
 
 dependencies {
+//    Desugaring
+//    Used to make functions api compatible
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+//    Dagger
+    implementation 'com.google.dagger:dagger-android:2.35.1'
+    implementation 'com.google.dagger:dagger-android-support:2.17'
+    kapt 'com.google.dagger:dagger-android-processor:2.17'
+    kapt 'com.google.dagger:dagger-compiler:2.17'
+
+    implementation "com.google.dagger:hilt-android:2.44.2"
+    kapt "com.google.dagger:hilt-compiler:2.44.2"
+    kapt "androidx.hilt:hilt-compiler:1.0.0-alpha03"
+
+//    ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
+//    Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+
+//    Livedata
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+
+//    For viewModel provider in activity
+    implementation 'androidx.activity:activity-ktx:1.6.1'
+
+//    Room Database
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    //    Loading Dots Library
+    implementation 'com.github.agrawalsuneet:DotLoadersPack-Android:v1.4.2'
+
+    implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0'
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.5'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.8.5'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.8.5'
+
+    implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
