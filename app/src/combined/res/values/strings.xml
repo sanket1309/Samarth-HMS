@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">Samarth HMS</string>
 
-<!--    LAUNCH SCREEN-->
+    <!--    LAUNCH SCREEN-->
     <string name="launch_logo_description">Launch screen logo</string>
     <string name="developed_by_text">Developed By</string>
     <string name="developer_name_text">Sanket Patil</string>
     <string name="copyright_text">Copyright 2023 ©</string>
 
-<!--    LOGIN-->
+    <!--    LOGIN-->
     <string name="login_background_image_description">Login background wallpaper for logo</string>
     <string name="login_logo_image_description">Login logo</string>
     <string name="login_title_text">Login</string>
@@ -17,4 +17,17 @@
     <string name="password_title_text">Password</string>
     <string name="password_hint_text">Enter Password</string>
     <string name="login_button_text">Login</string>
+
+<!--    ADMIN DASHBOARD-->
+    <string name="greeting_text">Good Morning,</string>
+    <string name="admin_name_text">Dr. Sanket</string>
+    <string name="patients_today_count_icon_image_description">Patients today icon</string>
+    <string name="patients_today_count_number_text">10</string>
+    <string name="patients_today_count_title_text">Patients\nToday</string>
+    <string name="unattended_patients_count_icon_image_description">Unattended patients icon</string>
+    <string name="unattended_patients_count_number_text">3</string>
+    <string name="unattended_patients_count_title_text">Unattended\nPatients</string>
+    <string name="admit_patients_count_icon_image_description">Admit patients icon</string>
+    <string name="admit_patients_count_number_text">4</string>
+    <string name="admit_patients_count_title_text">Admit\nPatients</string>
 </resources>

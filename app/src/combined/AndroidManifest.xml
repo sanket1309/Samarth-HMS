@@ -16,6 +16,14 @@
         android:theme="@style/Theme.SamarthHMS"
         tools:targetApi="31">
         <activity
+            android:name=".ui.MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.LaunchActivity"
             android:exported="true"
             android:screenOrientation="portrait"
