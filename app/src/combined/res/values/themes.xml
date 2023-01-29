@@ -30,4 +30,10 @@
         <item name="android:statusBarColor">@color/blue_theme</item>
     </style>
 
+    <style name="Theme.Main" parent="Theme.SamarthHMS">
+        <item name="colorPrimary">@color/blue_theme</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/blue_theme</item>
+    </style>
+
 </resources>

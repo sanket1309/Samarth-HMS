@@ -41,12 +41,15 @@
         android:layout_width="@dimen/admin_dashboard_count_background_width"
         android:layout_height="@dimen/admin_dashboard_count_background_height"
         android:layout_marginTop="@dimen/admin_dashboard_count_margin_top"
+        android:layout_marginBottom="@dimen/admin_dashboard_count_margin_bottom"
+        app:layout_constraintBottom_toTopOf="@id/dashboard_count_bottom_view"
         android:background="@drawable/patients_today_count_background"
         android:orientation="vertical"
         app:layout_constraintEnd_toStartOf="@+id/unattended_patients_count"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/dashboard_background" >
+        app:layout_constraintTop_toTopOf="@id/dashboard_background"
+        android:elevation="@dimen/admin_dashboard_count_elevation">
         
         <ImageView
             android:id="@+id/patients_today_count_icon"
@@ -89,12 +92,15 @@
         android:layout_width="@dimen/admin_dashboard_count_background_width"
         android:layout_height="@dimen/admin_dashboard_count_background_height"
         android:layout_marginTop="@dimen/admin_dashboard_count_margin_top"
+        android:layout_marginBottom="@dimen/admin_dashboard_count_margin_bottom"
+        app:layout_constraintBottom_toTopOf="@id/dashboard_count_bottom_view"
         android:background="@drawable/unattended_patients_count_background"
         android:orientation="vertical"
         app:layout_constraintEnd_toStartOf="@+id/admit_patients_count"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/patients_today_count"
-        app:layout_constraintTop_toTopOf="@id/dashboard_background" >
+        app:layout_constraintTop_toTopOf="@id/dashboard_background"
+        android:elevation="@dimen/admin_dashboard_count_elevation">
 
         <ImageView
             android:id="@+id/unattended_patients_count_icon"
@@ -138,12 +144,15 @@
         android:layout_width="@dimen/admin_dashboard_count_background_width"
         android:layout_height="@dimen/admin_dashboard_count_background_height"
         android:layout_marginTop="@dimen/admin_dashboard_count_margin_top"
+        android:layout_marginBottom="@dimen/admin_dashboard_count_margin_bottom"
+        app:layout_constraintBottom_toTopOf="@id/dashboard_count_bottom_view"
         android:background="@drawable/admit_patients_count_background"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/unattended_patients_count"
-        app:layout_constraintTop_toTopOf="@id/dashboard_background" >
+        app:layout_constraintTop_toTopOf="@id/dashboard_background"
+        android:elevation="@dimen/admin_dashboard_count_elevation">
 
         <ImageView
             android:id="@+id/admit_patients_count_icon"
@@ -180,6 +189,13 @@
             android:textSize="@dimen/admin_dashboard_count_title_text_size"/>
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/dashboard_count_bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dashboard_count_bottom_view_height"
+        android:layout_marginTop="@dimen/dashboard_count_bottom_view_margin_top"
+        app:layout_constraintTop_toBottomOf="@id/dashboard_background" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

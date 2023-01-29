@@ -29,7 +29,11 @@ class StoredStateRepositoryImpl @Inject constructor() : StoredStateRepository{
     override suspend fun setStoredState(storedStateData: StoredStateData) {
         try {
             val storedState = storeStateDataToStoreState(storedStateData)
-            storedStateDao.insert(storedState)
+            val presentStoredState = storedStateDao.get(StoredStateConstants.STORED_STATE_KEY)
+            if(presentStoredState == null)
+                storedStateDao.insert(storedState)
+            else
+                storedStateDao.update(storedState)
         }catch (e: Exception){
             Log.e("StoredStateError","Error while setting Stored state : $e")
         }

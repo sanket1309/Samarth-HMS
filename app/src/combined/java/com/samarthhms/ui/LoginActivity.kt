@@ -59,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun onSuccess(){
         Toast.makeText(this, "SUCCESSFULLY LOGGED IN", Toast.LENGTH_SHORT).show()
-//        navigator.showDashboard(this@LoginActivity, roleSelected)
+        navigator.showDashboard(this@LoginActivity, roleSelected)
     }
 
     private fun onWrongCredentials(){

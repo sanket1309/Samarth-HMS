@@ -17,7 +17,7 @@ class Navigator @Inject constructor(){
         finishActivity(context)
     }
 
-    private fun showDashboard(context: Context, role: Role){
+    fun showDashboard(context: Context, role: Role){
         when(role){
             Role.ADMIN -> context.startActivity(Intent(context,MainActivity::class.java))
             Role.STAFF -> context.startActivity(Intent(context,LoginActivity::class.java))

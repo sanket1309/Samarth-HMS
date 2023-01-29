@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.samarthhms.databinding.FragmentAdminDashboardBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AdminDashboardFragment : Fragment() {
     private lateinit var binding: FragmentAdminDashboardBinding
 
