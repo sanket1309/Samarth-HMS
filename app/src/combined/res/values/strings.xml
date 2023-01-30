@@ -18,7 +18,7 @@
     <string name="password_hint_text">Enter Password</string>
     <string name="login_button_text">Login</string>
 
-<!--    ADMIN DASHBOARD-->
+    <!--    ADMIN DASHBOARD-->
     <string name="greeting_text">Good Morning,</string>
     <string name="admin_name_text">Dr. Sanket</string>
     <string name="patients_today_count_icon_image_description">Patients today icon</string>
@@ -30,4 +30,13 @@
     <string name="admit_patients_count_icon_image_description">Admit patients icon</string>
     <string name="admit_patients_count_number_text">4</string>
     <string name="admit_patients_count_title_text">Admit\nPatients</string>
+
+<!--    ADD PATIENT-->
+    <string name="is_registered_patient_question_text">already a patient ?</string>
+    <string name="find_by_patient_id_button_text">Find by patient ID</string>
+    <string name="find_by_name_button_text">Find by name</string>
+    <string name="find_by_contact_number_button_text">Find by contact number</string>
+    <string name="or_title_text">or</string>
+    <string name="new_patient_question_text">new patient ?</string>
+    <string name="add_new_patient_button_text">Add new patient</string>
 </resources>
