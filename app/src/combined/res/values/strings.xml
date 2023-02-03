@@ -30,6 +30,8 @@
     <string name="admit_patients_count_icon_image_description">Admit patients icon</string>
     <string name="admit_patients_count_number_text">4</string>
     <string name="admit_patients_count_title_text">Admit\nPatients</string>
+    <string name="add_patient_floating_action_button_text">Add Patient</string>
+    <string name="add_patient_floating_action_button_description">Add Patient Button</string>
 
 <!--    ADD PATIENT-->
     <string name="is_registered_patient_question_text">already a patient ?</string>

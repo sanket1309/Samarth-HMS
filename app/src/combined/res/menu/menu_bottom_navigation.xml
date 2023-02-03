@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/adminDashboardFragment"
+        android:icon="@drawable/icon_unattended_patients_count"
+        android:title="Dashboard"/>
+
+    <item
+        android:id="@+id/addPatientFragment"
+        android:icon="@drawable/icon_patients_today_count"
+        android:title="Search"/>
+
+    <item
+        android:id="@+id/adminDashboardFragment2"
+        android:icon="@drawable/icon_admit_patients_count"
+        android:title="Settings"/>
+
+    <item
+        android:id="@+id/adminDashboardFragment3"
+        android:icon="@drawable/icon_menu_circle"
+        android:title="Config"/>
+
+    <item
+        android:id="@+id/adminDashboardFragment4"
+        android:icon="@drawable/icon_menu_rounded_square"
+        android:title="Stats"/>
+</menu>

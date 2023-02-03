@@ -39,7 +39,7 @@
         app:layout_constraintTop_toBottomOf="@id/is_registered_patient_question"
         android:text="@string/find_by_patient_id_button_text"
         android:textAllCaps="false"
-        android:textColor="@color/blue_theme"
+        android:textColor="@drawable/add_patient_button_text_color"
         android:textSize="@dimen/add_patient_button_text_size"/>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -54,7 +54,7 @@
         app:layout_constraintTop_toBottomOf="@id/find_by_patient_id_button"
         android:text="@string/find_by_name_button_text"
         android:textAllCaps="false"
-        android:textColor="@color/blue_theme"
+        android:textColor="@drawable/add_patient_button_text_color"
         android:textSize="@dimen/add_patient_button_text_size"/>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -69,7 +69,7 @@
         app:layout_constraintTop_toBottomOf="@id/find_by_name_button"
         android:text="@string/find_by_contact_number_button_text"
         android:textAllCaps="false"
-        android:textColor="@color/blue_theme"
+        android:textColor="@drawable/add_patient_button_text_color"
         android:textSize="@dimen/add_patient_button_text_size"/>
 
     <TextView
@@ -113,7 +113,7 @@
         app:layout_constraintTop_toBottomOf="@id/new_patient_question"
         android:text="@string/add_new_patient_button_text"
         android:textAllCaps="false"
-        android:textColor="@color/blue_theme"
+        android:textColor="@drawable/add_patient_button_text_color"
         android:textSize="@dimen/add_patient_button_text_size"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

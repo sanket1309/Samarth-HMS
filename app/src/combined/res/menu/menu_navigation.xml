@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/adminDashboardFragment"
+        android:icon="@drawable/icon_unattended_patients_count"
+        android:title="Dashboard"/>
+
+    <item
+        android:id="@+id/addPatientFragment"
+        android:icon="@drawable/icon_patients_today_count"
+        android:title="Search"/>
+
+    <item
+        android:id="@+id/logout"
+        android:title="Features">
+        <menu xmlns:android="http://schemas.android.com/apk/res/android">
+            <item
+                android:id="@+id/adminDashboardFragment1"
+                android:icon="@drawable/icon_unattended_patients_count"
+                android:title="Config"/>
+
+            <item
+                android:id="@+id/addPatientFragment1"
+                android:icon="@drawable/icon_patients_today_count"
+                android:title="Settings"/>
+
+            <item
+                android:id="@+id/logout1"
+                android:title="Logout"/>
+        </menu>
+    </item>
+</menu>

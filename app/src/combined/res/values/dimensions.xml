@@ -56,6 +56,7 @@
     <dimen name="login_edittext_background_stroke_width">4dp</dimen>
 
     <dimen name="login_button_height">60dp</dimen>
+    <dimen name="login_button_background_radius">30dp</dimen>
 
 <!--    ADMIN DASHBOARD-->
     <dimen name="admin_dashboard_background_bottom_radius">40dp</dimen>
@@ -104,6 +105,11 @@
     <dimen name="dashboard_count_bottom_view_height">1dp</dimen>
     <!--    admin_dashboard_count_background_height/2 + admin_dashboard_count_margin_bottom-->
     <dimen name="dashboard_count_bottom_view_margin_top">115dp</dimen>
+
+    <dimen name="add_patient_floating_action_button_width">175dp</dimen>
+    <dimen name="add_patient_floating_action_button_height">60dp</dimen>
+    <dimen name="add_patient_floating_action_button_margin">16dp</dimen>
+    <dimen name="add_patient_floating_action_button_icon_size">17dp</dimen>
 
 <!--    ADD PATIENT-->
     <dimen name="add_patient_background_radius">40dp</dimen>

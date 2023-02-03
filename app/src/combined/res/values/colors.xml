@@ -8,6 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue_theme">#0074FF</color>
+    <color name="light_blue_theme">#6583A8</color>
+    <color name="dark_blue_theme">#015DCC</color>
     <color name="red">#f00</color>
 
 <!--    LAUNCH SCREEN-->

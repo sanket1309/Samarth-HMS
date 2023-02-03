@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.samarthhms.R
 import com.samarthhms.databinding.FragmentAdminDashboardBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,6 +23,10 @@ class AdminDashboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAdminDashboardBinding.inflate(layoutInflater, container, false)
+        binding.extendedFab.setOnClickListener{
+            val controller = findNavController()
+            controller.navigate(R.id.action_adminDashboardFragment_to_addPatientFragment)
+        }
         return binding.root
     }
 }
