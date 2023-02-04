@@ -133,4 +133,32 @@
     <dimen name="add_patient_button_vertical_margin">25dp</dimen>
     <dimen name="add_patient_button_height">55dp</dimen>
     <dimen name="add_patient_button_text_size">20sp</dimen>
+
+<!--    PATIENT INFO LAYOUT-->
+    <dimen name="patient_info_layout_radius">6dp</dimen>
+    <dimen name="patient_info_layout_color_strip_width">10dp</dimen>
+    <dimen name="patient_info_layout_info_block_height">80dp</dimen>
+    <dimen name="patient_info_layout_info_block_elevation">8dp</dimen>
+    <dimen name="patient_info_layout_info_block_horizontal_margin">10dp</dimen>
+    <dimen name="patient_info_layout_info_block_margin_top">4dp</dimen>
+    <dimen name="patient_info_layout_info_block_margin_bottom">8dp</dimen>
+    <dimen name="patient_info_layout_info_block_horizontal_padding">15dp</dimen>
+    <dimen name="patient_info_layout_info_block_vertical_padding">5dp</dimen>
+    <dimen name="patient_info_layout_patient_id_text_size">5dp</dimen>
+    <dimen name="patient_info_layout_patient_name_text_size">20sp</dimen>
+    <dimen name="patient_info_layout_patient_gender_text_size">14sp</dimen>
+    <dimen name="patient_info_layout_patient_age_text_size">@dimen/patient_info_layout_patient_gender_text_size</dimen>
+    <dimen name="patient_info_layout_patient_address_text_size">@dimen/patient_info_layout_patient_gender_text_size</dimen>
+
+<!--    ADD NEW PATIENT-->
+    <dimen name="add_new_patient_horizontal_margin">40dp</dimen>
+    <dimen name="add_new_patient_title_text_size">17sp</dimen>
+    <dimen name="add_new_patient_title_margin_top">10dp</dimen>
+    <dimen name="add_new_patient_edittext_height">50dp</dimen>
+    <dimen name="add_new_patient_edittext_margin_top">7dp</dimen>
+    <dimen name="add_new_patient_field_padding_start">10dp</dimen>
+    <dimen name="gender_radio_group_button_width">0dp</dimen>
+    <dimen name="gender_radio_group_button_height">55dp</dimen>
+    <dimen name="save_new_patient_button_height">55dp</dimen>
+    <dimen name="save_new_patient_button_vertical_margin">15dp</dimen>
 </resources>

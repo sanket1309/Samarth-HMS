@@ -41,4 +41,33 @@
     <string name="or_title_text">or</string>
     <string name="new_patient_question_text">new patient ?</string>
     <string name="add_new_patient_button_text">Add new patient</string>
+
+<!--    PATIENT INFO LAYOUT-->
+    <string name="patient_info_patient_id_text">SBP00047</string>
+    <string name="patient_info_patient_name_text">Sanket Patil</string>
+    <string name="patient_info_patient_age_text">8y 2m</string>
+    <string name="patient_info_patient_gender_text">Male, </string>
+    <string name="patient_info_patient_address_text">Lakhmapur, Tal. Dindori</string>
+
+<!--    ADD NEW PATIENT-->
+    <string name="add_new_patient_first_name_title_text">First Name</string>
+    <string name="add_new_patient_first_name_hint_text">Enter First Name</string>
+    <string name="add_new_patient_middle_name_title_text">Middle Name</string>
+    <string name="add_new_patient_middle_name_hint_text">Enter Middle Name</string>
+    <string name="add_new_patient_last_name_title_text">Last Name</string>
+    <string name="add_new_patient_last_name_hint_text">Enter Last Name</string>
+    <string name="add_new_patient_gender_title_text">Gender</string>
+    <string name="gender_male_radio_group_button_text">Male</string>
+    <string name="gender_female_radio_group_button_text">Female</string>
+    <string name="date_of_birth_title_text">Date Of Birth</string>
+    <string name="date_of_birth_hint_text">DDMMYYYY</string>
+    <string name="contact_number_title_text">Contact Number</string>
+    <string name="contact_number_hint_text">9876543210</string>
+    <string name="town_title_text">Town</string>
+    <string name="town_hint_text">Enter Town</string>
+    <string name="taluka_title_text">Taluka</string>
+    <string name="taluka_hint_text">Enter Taluka</string>
+    <string name="district_title_text">District</string>
+    <string name="district_hint_text">Enter District</string>
+    <string name="save_patient_button_text">Save Patient</string>
 </resources>

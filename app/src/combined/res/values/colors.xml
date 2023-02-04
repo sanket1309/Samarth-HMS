@@ -20,4 +20,9 @@
     <color name="unattended_patients_count_background_color">#FFC107</color>
     <color name="admit_patients_count_background_color">#10D383</color>
     <color name="admin_dashboard_count_icon_color">#55000000</color>
+
+<!--    PATIENT INFO LAYOUT-->
+    <color name="strip_color_red">#ff756b</color>
+    <color name="strip_color_green">#ff756b</color>
+    <color name="strip_color_blue">#ff756b</color>
 </resources>

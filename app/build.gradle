@@ -85,6 +85,8 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
 //    Desugaring
 //    Used to make functions api compatible
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'

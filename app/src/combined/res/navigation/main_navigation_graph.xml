@@ -18,5 +18,14 @@
         android:id="@+id/addPatientFragment"
         android:name="com.samarthhms.ui.AddPatientFragment"
         android:label="Add Patient"
-        tools:layout="@layout/fragment_add_patient" />
+        tools:layout="@layout/fragment_add_patient" >
+        <action
+            android:id="@+id/action_addPatientFragment_to_addNewPatientFragment"
+            app:destination="@id/addNewPatientFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewPatientFragment"
+        android:name="com.samarthhms.ui.AddNewPatientFragment"
+        android:label="New Patient"
+        tools:layout="@layout/fragment_add_new_patient" />
 </navigation>
