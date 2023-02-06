@@ -27,5 +27,9 @@
         android:id="@+id/addNewPatientFragment"
         android:name="com.samarthhms.ui.AddNewPatientFragment"
         android:label="New Patient"
-        tools:layout="@layout/fragment_add_new_patient" />
+        tools:layout="@layout/fragment_add_new_patient" >
+        <action
+            android:id="@+id/action_addNewPatientFragment_to_adminDashboardFragment"
+            app:destination="@id/adminDashboardFragment" />
+    </fragment>
 </navigation>

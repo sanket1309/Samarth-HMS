@@ -3,7 +3,6 @@ package com.samarthhms.domain
 import android.util.Log
 import com.samarthhms.constants.LoggedState
 import com.samarthhms.constants.Role
-import com.samarthhms.repository.StoredStateRepository
 import com.samarthhms.repository.StoredStateRepositoryImpl
 import com.samarthhms.usecase.UseCase
 import com.samarthhms.utils.DateTimeUtils

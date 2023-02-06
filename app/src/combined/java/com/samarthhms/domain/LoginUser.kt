@@ -18,22 +18,22 @@ class LoginUser @Inject constructor(private var loginRepository: LoginRepository
         return login(params)
     }
 
-    private suspend fun login(credentials: Credentials) : LoginResponse{
+    private suspend fun login(credentials: Credentials) : LoginResponse {
         val loginResponse = LoginResponse()
         try {
             val originalCredentials = loginRepository.verifyCredentials(credentials)
             if(Objects.nonNull(originalCredentials)){
                 val storedStateData = StoredStateData(credentials.role,LoggedState.LOGGED_IN,credentials.id, LocalDateTime.now())
                 storedStateRepository.setStoredState(storedStateData)
-                loginResponse.loginResponseStatus = LoginResponseStatus.SUCCESS
+                loginResponse.loginResponseStatus = LoginStatus.SUCCESS
             }
             else{
-                loginResponse.loginResponseStatus = LoginResponseStatus.WRONG_CREDENTIALS
+                loginResponse.loginResponseStatus = LoginStatus.WRONG_CREDENTIALS
             }
             return loginResponse
         }catch (e : Exception){
             Log.e("Login User Error","Error while logging in : $e")
-            loginResponse.loginResponseStatus = LoginResponseStatus.EXCEPTION
+            loginResponse.loginResponseStatus = LoginStatus.EXCEPTION
             return loginResponse
         }
     }

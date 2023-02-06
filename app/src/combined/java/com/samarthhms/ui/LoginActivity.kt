@@ -12,7 +12,7 @@ import androidx.activity.viewModels
 import com.samarthhms.R
 import com.samarthhms.constants.Role
 import com.samarthhms.databinding.ActivityLoginBinding
-import com.samarthhms.domain.LoginResponseStatus
+import com.samarthhms.domain.LoginStatus
 import com.samarthhms.models.Credentials
 import com.samarthhms.navigator.Navigator
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,9 +48,9 @@ class LoginActivity : AppCompatActivity() {
         }
         loginViewModel.loginUserStatus.observe(this) {
             when(it){
-                LoginResponseStatus.SUCCESS -> onSuccess()
-                LoginResponseStatus.EXCEPTION -> onFailure()
-                LoginResponseStatus.WRONG_CREDENTIALS -> onWrongCredentials()
+                LoginStatus.SUCCESS -> onSuccess()
+                LoginStatus.EXCEPTION -> onFailure()
+                LoginStatus.WRONG_CREDENTIALS -> onWrongCredentials()
                 else -> {}
             }
             binding.loginButton.isClickable = true

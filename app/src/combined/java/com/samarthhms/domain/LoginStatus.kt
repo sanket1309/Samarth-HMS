@@ -1,6 +1,6 @@
 package com.samarthhms.domain
 
-enum class LoginResponseStatus {
+enum class LoginStatus {
     SUCCESS,
     WRONG_CREDENTIALS,
     EXCEPTION,

@@ -1,6 +1,7 @@
 package com.samarthhms.utils
 
 import com.google.firebase.Timestamp
+import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -25,9 +26,24 @@ class DateTimeUtils {
             return Timestamp(date)
         }
 
+        fun getLocalDateTime(date: Date): LocalDateTime{
+            return LocalDateTime.ofInstant(Instant.ofEpochMilli(date.time), ZoneId.systemDefault())
+        }
+
         fun getLocalDateTime(timestamp: Timestamp) :LocalDateTime{
             val date = timestamp.toDate()
-            return LocalDateTime.ofInstant(Instant.ofEpochMilli(date.time), ZoneId.systemDefault())
+            return getLocalDateTime(date)
+        }
+
+        fun getLocalDateTimeFromDate(dateVal: String) : LocalDateTime{
+            val date = SimpleDateFormat("dd/MM/yyyy").parse(dateVal)
+            return getLocalDateTime(date)
+        }
+
+        fun isDateBeforeOrEqualToToday(dateVal: String): Boolean{
+            val date = SimpleDateFormat("dd/MM/yyyy").parse(dateVal)
+            val currentDate = Date()
+            return date <= currentDate
         }
     }
 }
