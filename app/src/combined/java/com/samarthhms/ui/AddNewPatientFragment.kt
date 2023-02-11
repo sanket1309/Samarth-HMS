@@ -22,6 +22,7 @@ import com.samarthhms.domain.Status
 import com.samarthhms.models.Patient
 import com.samarthhms.navigator.Navigator
 import com.samarthhms.utils.DateTimeUtils
+import com.samarthhms.utils.StringUtils
 import com.samarthhms.utils.Validation
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -121,15 +122,15 @@ class AddNewPatientFragment : Fragment() {
 
             val patient = Patient(
                 "",
-                firstName,
-                middleName,
-                lastName,
+                StringUtils.formatName(firstName),
+                StringUtils.formatName(middleName),
+                StringUtils.formatName(lastName),
                 gender,
                 contactNumber,
                 DateTimeUtils.getLocalDateTimeFromDate(dateOfBirth),
-                town,
-                taluka,
-                district
+                StringUtils.formatName(town),
+                StringUtils.formatName(taluka),
+                StringUtils.formatName(district)
             )
             addNewPatientViewModel.addPatient(patient)
         }
@@ -161,7 +162,7 @@ class AddNewPatientFragment : Fragment() {
         val fieldInputDrawable = fieldInput.background as StateListDrawable
         val dcs = fieldInputDrawable.constantState as DrawableContainer.DrawableContainerState
         val drawableItem = dcs.children[0] as GradientDrawable
-        val pixels = R.dimen.login_edittext_background_stroke_width * resources.displayMetrics.density.toInt()
+        val pixels = R.dimen.add_visit_edittext_background_stroke_width * resources.displayMetrics.density.toInt()
         drawableItem.setStroke(pixels, colorValue)
     }
 

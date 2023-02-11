@@ -33,7 +33,7 @@ class IdRepositoryImpl @Inject constructor(): IdRepository{
         val reference = db.collection(SchemaName.ID_COLLECTION)
         val document = reference.document(SchemaName.CURRENT_PATIENT_ID)
         try {
-            document.set(patientId)
+            document.update(SchemaName.CURRENT_PATIENT_ID_FIELD,patientId)
         }catch (e: Exception){
             Log.e("Firestore_Exception","Error while setting patient id : $e")
             throw e
