@@ -25,9 +25,10 @@ class GetLoginStatus
                 response.loggedState = LoggedState.LOGGED_OUT
             else if(storedStateData.role == Role.ADMIN && DateTimeUtils.getHoursFrom(storedStateData.logInTime!!) >= ADMIN_LOGGED_IN_LIMIT_IN_HOURS)
                 response.loggedState = LoggedState.LOGGED_OUT
+            Log.i("Get_Login_Status","LoginStatusResponse = $response")
             response
         } catch (e: Exception){
-            Log.e("Get Login Status Error","Error while getting login status in : $e")
+            Log.e("Get_Login_Status","Error while getting login status in : $e")
             LoginStatusResponse()
         }
     }

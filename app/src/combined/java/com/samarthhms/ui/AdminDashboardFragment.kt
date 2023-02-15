@@ -2,39 +2,52 @@ package com.samarthhms.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter
-import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.samarthhms.R
+import com.samarthhms.constants.LoggedState
+import com.samarthhms.constants.Role
 import com.samarthhms.constants.SchemaName
 import com.samarthhms.databinding.FragmentAdminDashboardBinding
 import com.samarthhms.databinding.PatientInfoLayoutBinding
+import com.samarthhms.domain.LoginStatusResponse
 import com.samarthhms.models.Patient
-import com.samarthhms.models.PatientFirebase
+import com.samarthhms.navigator.Navigator
+import com.samarthhms.repository.StoredStateDao
 import com.samarthhms.utils.DateTimeUtils
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.Period
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AdminDashboardFragment : Fragment() {
     private lateinit var binding: FragmentAdminDashboardBinding
 
+    private val viewModel: AdminDashboardViewModel by viewModels()
+
+    @Inject
+    lateinit var storedStateDao: StoredStateDao
+
+    @Inject
+    lateinit var navigator: Navigator
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,27 +57,35 @@ class AdminDashboardFragment : Fragment() {
             val controller = findNavController()
             controller.navigate(R.id.action_adminDashboardFragment_to_addPatientFragment)
         }
+        viewModel.getData()
+        val adapter = PatientAdapter(listOf())
+        binding.patientsTodayRecyclerView.adapter = adapter
+        viewModel.patientsTodayList.observe(viewLifecycleOwner){
+            (binding.patientsTodayRecyclerView.adapter as PatientAdapter).patientsToday = it
+            (binding.patientsTodayRecyclerView.adapter as PatientAdapter).notifyDataSetChanged()
+        }
+        viewModel.patientsTodayCount.observe(viewLifecycleOwner){
+            binding.patientsTodayCountNumber.text = it.toString()
+        }
+        viewModel.unattendedPatientsCount.observe(viewLifecycleOwner){
+            binding.unattendedPatientsCountNumber.text = it.toString()
+        }
+        viewModel.admitPatientsCount.observe(viewLifecycleOwner){
+            binding.admitPatientsCountNumber.text = it.toString()
+        }
 
-        try{
-            val db = FirebaseFirestore.getInstance()
-            val patientsRef = db.collection(SchemaName.PATIENTS_COLLECTION)
-            val query = patientsRef.orderBy("patientId",Query.Direction.DESCENDING)
-//        val query = patientsRef.whereGreaterThanOrEqualTo("visitT",startTime).orderBy("entryTime",Query.Direction.DESCENDING)
-            val options = FirestoreRecyclerOptions.Builder<Patient>()
-                .setQuery(query) { snapshot ->
-                    convertToPatient(snapshot.toObject(PatientFirebase::class.java)!!)
-                }
-                .setLifecycleOwner(this)
-                .build()
-            val adapter = PatientFirestoreRecyclerAdapter(options)
-            val recyclerView = binding.patientsTodayRecyclerView
-            recyclerView.adapter = adapter
-            val patientsTodayCount = binding.patientsTodayCountNumber
-//        greeting = view.findViewById(R.id.greeting)
-//        name = view.findViewById(R.id.name)
-//            updatePatientCount(adapter.itemCount, patientsTodayCount)
-        }catch (e: Exception){
-            Log.e("","SANKET ERROR $e")
+        binding.patientsTodayCount.setOnClickListener{
+            GlobalScope.launch {
+                storedStateDao.delete(SchemaName.STORED_STATE_KEY)
+                navigator.showMain(requireContext(), LoginStatusResponse(Role.ADMIN, LoggedState.LOGGED_OUT))
+            }
+        }
+
+        binding.unattendedPatientsCount.setOnClickListener{
+            GlobalScope.launch {
+                val db = FirebaseFirestore.getInstance()
+                val query = db.collection("Patients").whereEqualTo("patientId","")
+            }
         }
 
         return binding.root
@@ -74,21 +95,6 @@ class AdminDashboardFragment : Fragment() {
         textView.text = itemCount.toString()
     }
 
-    private fun convertToPatient(patientFirebase: PatientFirebase): Patient{
-        return Patient(
-            patientFirebase.patientId,
-            patientFirebase.firstName,
-            patientFirebase.middleName,
-            patientFirebase.lastName,
-            patientFirebase.gender,
-            patientFirebase.contactNumber,
-            DateTimeUtils.getLocalDateTime(patientFirebase.dateOfBirth),
-            patientFirebase.town,
-            patientFirebase.taluka,
-            patientFirebase.district
-        )
-    }
-
     private inner class PatientHolder internal constructor(private val patientInfoLayoutBinding: PatientInfoLayoutBinding) : RecyclerView.ViewHolder(patientInfoLayoutBinding.root) {
         fun bind(patient: Patient) {
             patientInfoLayoutBinding.patientId.text = patient.patientId
@@ -96,6 +102,11 @@ class AdminDashboardFragment : Fragment() {
             patientInfoLayoutBinding.patientGender.text = patient.gender.value + ", "
             patientInfoLayoutBinding.patientAge.text = getAgeText(DateTimeUtils.getTimestamp(patient.dateOfBirth))
             patientInfoLayoutBinding.patientAddress.text = patient.town + ", Tal." + patient.taluka
+            patientInfoLayoutBinding.infoBlock.setOnClickListener{
+                (activity as MainActivity).data = patient
+                val action = AdminDashboardFragmentDirections.actionAdminDashboardFragmentToAddVisitFragment(patient)
+                findNavController().navigate(action)
+            }
         }
 
         fun getAgeText(dob: Timestamp): String{
@@ -110,9 +121,9 @@ class AdminDashboardFragment : Fragment() {
         }
     }
 
-    private inner class PatientFirestoreRecyclerAdapter internal constructor(options: FirestoreRecyclerOptions<Patient>) : FirestoreRecyclerAdapter<Patient, PatientHolder>(options) {
-        override fun onBindViewHolder(patientHolder: PatientHolder, position: Int, patient: Patient) {
-            patientHolder.bind(patient)
+    private inner class PatientAdapter internal constructor(var patientsToday: List<Patient>) : RecyclerView.Adapter<PatientHolder>() {
+        override fun onBindViewHolder(patientHolder: PatientHolder, position: Int) {
+            patientHolder.bind(patientsToday[position])
         }
 
 //        override fun getItemViewType(position: Int): Int {
@@ -124,10 +135,8 @@ class AdminDashboardFragment : Fragment() {
             return PatientHolder(patientInfoLayoutBinding)
         }
 
-        @SuppressLint("NotifyDataSetChanged")
-        override fun onDataChanged() {
-            binding.patientsTodayRecyclerView.adapter?.notifyDataSetChanged()
-            updatePatientCount(itemCount, binding.patientsTodayCountNumber)
+        override fun getItemCount(): Int {
+            return patientsToday.size
         }
     }
 

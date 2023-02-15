@@ -3,6 +3,8 @@ package com.samarthhms
 import android.content.Context
 import androidx.room.Room
 import com.samarthhms.constants.SchemaName
+import com.samarthhms.repository.AdminStateDao
+import com.samarthhms.repository.StaffStateDao
 import com.samarthhms.repository.StoredStateDao
 import com.samarthhms.repository.StoredStateDatabase
 import dagger.Module
@@ -16,7 +18,20 @@ import dagger.hilt.components.SingletonComponent
 object AppModule {
     @Provides
     fun getStoreStateDao(@ApplicationContext context : Context) : StoredStateDao{
-        val db = Room.databaseBuilder(context, StoredStateDatabase::class.java,SchemaName.STORED_STATE_TABLE).build()
+        val db = Room.databaseBuilder(context, StoredStateDatabase::class.java,SchemaName.STORED_STATE_DATABASE).build()
         return db.storedStateDao
     }
+
+    @Provides
+    fun getAdminStateDao(@ApplicationContext context : Context) : AdminStateDao{
+        val db = Room.databaseBuilder(context, StoredStateDatabase::class.java,SchemaName.STORED_STATE_DATABASE).build()
+        return db.adminStateDao
+    }
+
+    @Provides
+    fun getStaffStateDao(@ApplicationContext context : Context) : StaffStateDao{
+        val db = Room.databaseBuilder(context, StoredStateDatabase::class.java,SchemaName.STORED_STATE_DATABASE).build()
+        return db.staffStateDao
+    }
+
 }

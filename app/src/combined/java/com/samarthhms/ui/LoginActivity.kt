@@ -73,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
         val fieldInputDrawable = fieldInput.background as StateListDrawable
         val dcs = fieldInputDrawable.constantState as DrawableContainerState
         val drawableItem = dcs.children[0] as GradientDrawable
-        val pixels = R.dimen.add_visit_edittext_background_stroke_width * resources.displayMetrics.density.toInt()
+        val pixels = R.dimen.login_edittext_background_stroke_width * resources.displayMetrics.density.toInt()
         drawableItem.setStroke(pixels, colorValue)
     }
 

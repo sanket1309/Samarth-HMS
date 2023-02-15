@@ -2,6 +2,6 @@ package com.samarthhms.domain
 
 import com.samarthhms.domain.Status
 
-class AddNewPatientResponse {
+class AddPatientVisitResponse {
     var status: Status? = Status.NONE
 }

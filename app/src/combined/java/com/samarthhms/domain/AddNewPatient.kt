@@ -2,7 +2,8 @@ package com.samarthhms.domain
 
 import android.util.Log
 import com.samarthhms.models.Patient
-import com.samarthhms.repository.*
+import com.samarthhms.repository.IdRepositoryImpl
+import com.samarthhms.repository.PatientRepositoryImpl
 import com.samarthhms.usecase.UseCase
 import com.samarthhms.utils.IdUtils
 import javax.inject.Inject
@@ -20,11 +21,12 @@ class AddNewPatient @Inject constructor(private var patientRepository: PatientRe
             val currentPatientId = idRepository.getCurrentPatientId()
             patient.patientId = currentPatientId
             patientRepository.addPatient(patient)
-            idRepository.setCurrentPatientId(IdUtils.incrementPatientId(currentPatientId))
+            idRepository.updateCurrentPatientId(IdUtils.incrementPatientId(currentPatientId))
+            Log.i("Add_New_Patient","Successfully added new patient")
             addNewPatientResponse.status = Status.SUCCESS
             addNewPatientResponse
         }catch (e : Exception){
-            Log.e("Add New Patient Error","Error while adding new patient : $e")
+            Log.e("Add_New_Patient","Error while adding new patient : $e")
             addNewPatientResponse.status = Status.FAILURE
             addNewPatientResponse
         }

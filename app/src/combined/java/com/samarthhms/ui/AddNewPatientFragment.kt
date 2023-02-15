@@ -5,6 +5,7 @@ import android.graphics.drawable.DrawableContainer
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
 import android.os.Bundle
+import android.os.Parcel
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,10 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.fasterxml.jackson.annotation.JsonValue
+import com.fasterxml.jackson.databind.MapperFeature
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.json.JsonMapper
 import com.samarthhms.R
 import com.samarthhms.constants.Gender
 import com.samarthhms.databinding.FragmentAddNewPatientBinding
@@ -36,6 +41,8 @@ class AddNewPatientFragment : Fragment() {
     private lateinit var binding: FragmentAddNewPatientBinding
 
     private val addNewPatientViewModel: AddNewPatientViewModel by viewModels()
+
+    private lateinit var patientData: Patient
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -132,6 +139,7 @@ class AddNewPatientFragment : Fragment() {
                 StringUtils.formatName(taluka),
                 StringUtils.formatName(district)
             )
+            patientData = patient
             addNewPatientViewModel.addPatient(patient)
         }
 
@@ -149,7 +157,8 @@ class AddNewPatientFragment : Fragment() {
     private fun onSuccess(){
         Toast.makeText(activity, "Added Record Successfully", Toast.LENGTH_SHORT).show()
         val controller = findNavController()
-        controller.navigate(R.id.action_addNewPatientFragment_to_adminDashboardFragment)
+        val action = AddNewPatientFragmentDirections.actionAddNewPatientFragmentToAddVisitFragment(patientData)
+        controller.navigate(action)
     }
 
     private fun onFailure(){
@@ -162,7 +171,7 @@ class AddNewPatientFragment : Fragment() {
         val fieldInputDrawable = fieldInput.background as StateListDrawable
         val dcs = fieldInputDrawable.constantState as DrawableContainer.DrawableContainerState
         val drawableItem = dcs.children[0] as GradientDrawable
-        val pixels = R.dimen.add_visit_edittext_background_stroke_width * resources.displayMetrics.density.toInt()
+        val pixels = R.dimen.login_edittext_background_stroke_width * resources.displayMetrics.density.toInt()
         drawableItem.setStroke(pixels, colorValue)
     }
 

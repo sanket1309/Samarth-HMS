@@ -1,13 +1,13 @@
 package com.samarthhms.repository
 
 import android.util.Log
+import com.google.firebase.firestore.FirebaseFirestore
 import com.samarthhms.constants.SchemaName
 import com.samarthhms.models.Credentials
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class LoginRepositoryImpl @Inject constructor(): LoginRepository{
+class LoginRepositoryImpl @Inject constructor(): LoginRepository {
 
     private val db = FirebaseFirestore.getInstance()
 
@@ -21,37 +21,44 @@ class LoginRepositoryImpl @Inject constructor(): LoginRepository{
             val snapshot = query.get().await()
             if(snapshot.documents.isNotEmpty()) {
                 val data = snapshot.documents.first()
-                return data.toObject(Credentials::class.java)
+                val originalCredentials = data.toObject(Credentials::class.java)
+                Log.i("Login_Repository_Impl", "Fetched matching credentials")
+                return originalCredentials
             }
+            Log.i("Login_Repository_Impl", "Couldn't find matching credentials")
             return null
         }catch (e: Exception){
-            Log.e("Firestore_Exception","Error while verifying credentials : $e")
+            Log.e("Login_Repository_Impl", "Error while verifying credentials : $e")
+            throw e
         }
-        return null
     }
 
     override suspend fun getCredentials(id: String): Credentials? {
-        val reference = db.collection(SchemaName.LOGIN_CREDENTIALS_COLLECTION)
-        val document = reference.document(id)
         try {
+            val reference = db.collection(SchemaName.LOGIN_CREDENTIALS_COLLECTION)
+            val document = reference.document(id)
             val snapshot = document.get().await()
             if(snapshot.exists()){
                 val originalCredentials = snapshot.toObject(Credentials::class.java)
+                Log.i("Login_Repository_Impl", "Fetched matching credentials")
                 return originalCredentials!!
             }
+            Log.i("Login_Repository_Impl", "Couldn't find matching credentials")
+            return null
         }catch (e: Exception){
-            Log.e("Firestore_Exception","Error while fetching credentials : $e")
+            Log.e("Login_Repository_Impl", "Error while fetching credentials : $e")
+            throw e
         }
-        return null
     }
 
     override suspend fun setCredentials(credentials: Credentials) {
-        val reference = db.collection(SchemaName.LOGIN_CREDENTIALS_COLLECTION)
-        val document = reference.document(credentials.id)
         try {
+            val reference = db.collection(SchemaName.LOGIN_CREDENTIALS_COLLECTION)
+            val document = reference.document(credentials.id)
             document.set(credentials)
+            Log.i("Login_Repository_Impl", "Successfully set credentials")
         }catch (e: Exception){
-            Log.e("Firestore_Exception","Error while setting credentials : $e")
+            Log.e("Login_Repository_Impl", "Error while setting credentials : $e")
         }
     }
 }

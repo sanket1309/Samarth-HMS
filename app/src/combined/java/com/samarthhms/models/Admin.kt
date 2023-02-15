@@ -6,14 +6,14 @@ import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
 @Parcelize
-data class Patient(
-    var patientId: String = "",
+data class Admin(
+    var adminId: String = "",
     val firstName: String = "",
     val middleName: String = "",
     val lastName: String = "",
     val gender: Gender = Gender.MALE,
     val contactNumber: String = "",
-    val dateOfBirth: LocalDateTime = LocalDateTime.now(),
+    val dateOfBirth: LocalDateTime? = LocalDateTime.now(),
     val town: String = "",
     val taluka: String = "",
     val district: String = ""

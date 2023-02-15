@@ -25,4 +25,9 @@
     <color name="strip_color_red">#ff756b</color>
     <color name="strip_color_green">#ff756b</color>
     <color name="strip_color_blue">#ff756b</color>
+
+<!--    ADD PATIENT VISIT-->
+    <color name="add_visit_edittext_background_color">#E6E6E6</color>
+    <color name="add_visit_edittext_background_stroke_color">@color/blue_theme</color>
+    <color name="add_visit_edittext_text_color">#616161</color>
 </resources>

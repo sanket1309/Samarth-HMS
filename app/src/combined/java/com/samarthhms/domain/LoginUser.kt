@@ -2,16 +2,21 @@ package com.samarthhms.domain
 
 import android.util.Log
 import com.samarthhms.constants.LoggedState
+import com.samarthhms.constants.Role
 import com.samarthhms.models.Credentials
 import com.samarthhms.models.StoredStateData
+import com.samarthhms.repository.AdminRepositoryImpl
 import com.samarthhms.repository.LoginRepositoryImpl
+import com.samarthhms.repository.StaffRepositoryImpl
 import com.samarthhms.repository.StoredStateRepositoryImpl
 import com.samarthhms.usecase.UseCase
 import java.time.LocalDateTime
 import java.util.Objects
 import javax.inject.Inject
 
-class LoginUser @Inject constructor(private var loginRepository: LoginRepositoryImpl,private var storedStateRepository: StoredStateRepositoryImpl)
+class LoginUser @Inject constructor(private var loginRepository: LoginRepositoryImpl, private var storedStateRepository: StoredStateRepositoryImpl,
+                                    private var adminRepository: AdminRepositoryImpl, private var staffRepository: StaffRepositoryImpl
+)
     : UseCase<LoginResponse, Credentials>() {
 
     override suspend fun run(params: Credentials): LoginResponse {
@@ -23,16 +28,28 @@ class LoginUser @Inject constructor(private var loginRepository: LoginRepository
         try {
             val originalCredentials = loginRepository.verifyCredentials(credentials)
             if(Objects.nonNull(originalCredentials)){
-                val storedStateData = StoredStateData(credentials.role,LoggedState.LOGGED_IN,credentials.id, LocalDateTime.now())
+                val storedStateData = StoredStateData(credentials.role,LoggedState.LOGGED_IN,originalCredentials?.id, LocalDateTime.now())
+                if(storedStateData.role == Role.ADMIN){
+                    val admin = adminRepository.getAdmin(storedStateData.id!!)!!
+                    storedStateRepository.setAdminState(admin)
+                    Log.i("Login_User","Stored admin state")
+                }
+                else{
+                    val staff = staffRepository.getStaff(storedStateData.id!!)!!
+                    storedStateRepository.setStaffState(staff)
+                    Log.i("Login_User","Stored staff state")
+                }
                 storedStateRepository.setStoredState(storedStateData)
+                Log.i("Login_User","Successfully logged in user")
                 loginResponse.loginResponseStatus = LoginStatus.SUCCESS
             }
             else{
+                Log.i("Login_User","Wrong credentials")
                 loginResponse.loginResponseStatus = LoginStatus.WRONG_CREDENTIALS
             }
             return loginResponse
         }catch (e : Exception){
-            Log.e("Login User Error","Error while logging in : $e")
+            Log.e("Login_User","Error while logging in : $e")
             loginResponse.loginResponseStatus = LoginStatus.EXCEPTION
             return loginResponse
         }

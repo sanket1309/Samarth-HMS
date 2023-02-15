@@ -16,6 +16,10 @@ class DateTimeUtils {
             return LocalDateTime.parse(value, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
         }
 
+        fun getDate(localDateTime: LocalDateTime): String {
+            return DateTimeFormatter.ofPattern("ddMMyyyy").format(localDateTime)
+        }
+
         fun getHoursFrom(localDateTime: LocalDateTime):Long{
             return localDateTime.until(LocalDateTime.now(), ChronoUnit.HOURS)
         }

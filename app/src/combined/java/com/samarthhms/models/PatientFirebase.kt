@@ -2,7 +2,6 @@ package com.samarthhms.models
 
 import com.google.firebase.Timestamp
 import com.samarthhms.constants.Gender
-import java.time.LocalDateTime
 
 data class PatientFirebase(
     val patientId: String = "",

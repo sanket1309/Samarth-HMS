@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_adminDashboardFragment_to_addPatientFragment"
             app:destination="@id/addPatientFragment" />
+        <action
+            android:id="@+id/action_adminDashboardFragment_to_addVisitFragment"
+            app:destination="@id/addVisitFragment" />
     </fragment>
     <fragment
         android:id="@+id/addPatientFragment"
@@ -30,6 +33,20 @@
         tools:layout="@layout/fragment_add_new_patient" >
         <action
             android:id="@+id/action_addNewPatientFragment_to_adminDashboardFragment"
+            app:destination="@id/adminDashboardFragment" />
+        <action
+            android:id="@+id/action_addNewPatientFragment_to_addVisitFragment"
+            app:destination="@id/addVisitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addVisitFragment"
+        android:name="com.samarthhms.ui.AddVisitFragment"
+        android:label="Add Visit" >
+        <argument
+            android:name="patient"
+            app:argType="com.samarthhms.models.Patient" />
+        <action
+            android:id="@+id/action_addVisitFragment_to_adminDashboardFragment"
             app:destination="@id/adminDashboardFragment" />
     </fragment>
 </navigation>

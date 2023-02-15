@@ -5,6 +5,7 @@ object SchemaName {
     const val LOGIN_CREDENTIALS_COLLECTION = "Login_Credentials"
     const val USERNAME = "username"
     const val PASSWORD = "password"
+    const val ROLE = "role"
 
     //Id
     const val ID_COLLECTION = "Id"
@@ -17,12 +18,20 @@ object SchemaName {
 
     //Patient
     const val PATIENTS_COLLECTION = "Patients"
-    const val PATIENT_ID = "Patients"
+    const val PATIENT_ID = "patientId"
 
-    const val ADMIN_COLLECTION = "Admin"
+    //Visit
+    const val VISITS_COLLECTION = "Visits"
+
+    const val ADMINS_COLLECTION = "Admins"
     const val STAFF_COLLECTION = "Staff"
     const val STAFF_STATUS_COLLECTION = "Staff_Status"
 
-    const val ROLE = "role"
-    const val STORED_STATE_TABLE = "stored_state"
+    const val STORED_STATE_DATABASE = "combined_stored_state_database"
+    const val STORED_STATE_TABLE = "combined_stored_state_table"
+    const val STORED_STATE_KEY = "stored_state_key"
+    const val ADMIN_STATE_TABLE = "combined_admin_state_table"
+    const val ADMIN_STATE_KEY = "admin_state_key"
+    const val STAFF_STATE_TABLE = "combined_staff_state_table"
+    const val STAFF_STATE_KEY = "staff_state_key"
 }

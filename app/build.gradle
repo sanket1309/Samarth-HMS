@@ -8,6 +8,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
     id 'com.google.dagger.hilt.android'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-parcelize'
     id 'kotlin-kapt'
 }
 
@@ -129,8 +131,12 @@ dependencies {
 
     implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
     implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.5.3"
     implementation 'com.firebaseui:firebase-ui-firestore:8.0.2'
     implementation 'com.github.arefbhrn:MaskedEditText:1.0.0'
+
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.12.1'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.4'
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
