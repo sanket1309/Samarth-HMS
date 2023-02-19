@@ -7,12 +7,12 @@ import java.time.LocalDateTime
 
 @Parcelize
 data class Visit(
-    var visitId: String,
-    val patientId: String,
-    val adminId: String,
-    val attendantId: String,
-    val attendantRole: Role,
-    val visitTime: LocalDateTime,
-    val isAttended: Boolean,
-    val isAdmitted: Boolean
+    var visitId: String = "",
+    var patientId: String = "",
+    var adminId: String = "",
+    var attendantId: String = "",
+    var attendantRole: Role = Role.STAFF,
+    var visitTime: LocalDateTime = LocalDateTime.now(),
+    var isAttended: Boolean = false,
+    var isAdmitted: Boolean = false
 ): Parcelable

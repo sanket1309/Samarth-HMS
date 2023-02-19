@@ -19,11 +19,16 @@ object SchemaName {
     //Patient
     const val PATIENTS_COLLECTION = "Patients"
     const val PATIENT_ID = "patientId"
+    const val CONTACT_NUMBER = "contactNumber"
+    const val FIRST_NAME = "firstName"
+    const val MIDDLE_NAME = "middleName"
+    const val LAST_NAME = "lastName"
 
     //Visit
     const val VISITS_COLLECTION = "Visits"
+    const val VISIT_TIME = "visitTime"
 
-    const val ADMINS_COLLECTION = "Admins"
+    const val ADMINS_COLLECTION = "Admins_Collection"
     const val STAFF_COLLECTION = "Staff"
     const val STAFF_STATUS_COLLECTION = "Staff_Status"
 

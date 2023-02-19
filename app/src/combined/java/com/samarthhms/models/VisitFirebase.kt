@@ -4,12 +4,12 @@ import com.google.firebase.Timestamp
 import com.samarthhms.constants.Role
 
 data class VisitFirebase(
-    val visitId: String,
-    val patientId: String,
-    val adminId: String,
-    val attendantId: String,
-    val attendantRole: Role,
-    val visitTime: Timestamp,
-    val isAttended: Boolean,
-    val isAdmitted: Boolean
+    var visitId: String = "",
+    var patientId: String = "",
+    var adminId: String = "",
+    var attendantId: String = "",
+    var attendantRole: Role = Role.STAFF,
+    var visitTime: Timestamp = Timestamp.now(),
+    var isAttended: Boolean = false,
+    var isAdmitted: Boolean = false
 )

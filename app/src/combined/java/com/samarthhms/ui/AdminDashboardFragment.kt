@@ -18,8 +18,11 @@ import com.samarthhms.constants.Role
 import com.samarthhms.constants.SchemaName
 import com.samarthhms.databinding.FragmentAdminDashboardBinding
 import com.samarthhms.databinding.PatientInfoLayoutBinding
+import com.samarthhms.databinding.VisitInfoLayoutBinding
 import com.samarthhms.domain.LoginStatusResponse
 import com.samarthhms.models.Patient
+import com.samarthhms.models.PatientVisitInfo
+import com.samarthhms.models.VisitFirebase
 import com.samarthhms.navigator.Navigator
 import com.samarthhms.repository.StoredStateDao
 import com.samarthhms.utils.DateTimeUtils
@@ -57,7 +60,8 @@ class AdminDashboardFragment : Fragment() {
             val controller = findNavController()
             controller.navigate(R.id.action_adminDashboardFragment_to_addPatientFragment)
         }
-        viewModel.getData()
+        viewModel.updateData()
+        viewModel.addListener()
         val adapter = PatientAdapter(listOf())
         binding.patientsTodayRecyclerView.adapter = adapter
         viewModel.patientsTodayList.observe(viewLifecycleOwner){
@@ -74,6 +78,10 @@ class AdminDashboardFragment : Fragment() {
             binding.admitPatientsCountNumber.text = it.toString()
         }
 
+        binding.dashboardUpdateDataButton.setOnClickListener{
+            viewModel.updateData()
+        }
+
         binding.patientsTodayCount.setOnClickListener{
             GlobalScope.launch {
                 storedStateDao.delete(SchemaName.STORED_STATE_KEY)
@@ -84,7 +92,15 @@ class AdminDashboardFragment : Fragment() {
         binding.unattendedPatientsCount.setOnClickListener{
             GlobalScope.launch {
                 val db = FirebaseFirestore.getInstance()
-                val query = db.collection("Patients").whereEqualTo("patientId","")
+                val doc = db.collection(SchemaName.VISITS_COLLECTION).document()
+                val visit = VisitFirebase(
+                    doc.id,
+                    "SBP00005",
+                    "rJmBWYee8TqOjwId1cF1",
+                    "rJmBWYee8TqOjwId1cF1",
+                    Role.ADMIN
+                )
+                doc.set(visit)
             }
         }
 
@@ -95,18 +111,28 @@ class AdminDashboardFragment : Fragment() {
         textView.text = itemCount.toString()
     }
 
-    private inner class PatientHolder internal constructor(private val patientInfoLayoutBinding: PatientInfoLayoutBinding) : RecyclerView.ViewHolder(patientInfoLayoutBinding.root) {
-        fun bind(patient: Patient) {
-            patientInfoLayoutBinding.patientId.text = patient.patientId
-            patientInfoLayoutBinding.patientName.text = patient.firstName + " " + patient.lastName
-            patientInfoLayoutBinding.patientGender.text = patient.gender.value + ", "
-            patientInfoLayoutBinding.patientAge.text = getAgeText(DateTimeUtils.getTimestamp(patient.dateOfBirth))
-            patientInfoLayoutBinding.patientAddress.text = patient.town + ", Tal." + patient.taluka
-            patientInfoLayoutBinding.infoBlock.setOnClickListener{
+    private inner class PatientHolder internal constructor(private val visitInfoLayoutBinding: VisitInfoLayoutBinding) : RecyclerView.ViewHolder(visitInfoLayoutBinding.root) {
+        fun bind(patientVisitInfo: PatientVisitInfo) {
+            val patient = patientVisitInfo.patient
+            visitInfoLayoutBinding.patientId.text = patient.patientId
+            visitInfoLayoutBinding.patientName.text = patient.firstName + " " + patient.lastName
+            visitInfoLayoutBinding.patientGender.text = patient.gender.value + ", "
+            visitInfoLayoutBinding.patientAge.text = getAgeText(DateTimeUtils.getTimestamp(patient.dateOfBirth))
+            visitInfoLayoutBinding.patientAddress.text = patient.town + ", Tal." + patient.taluka
+            visitInfoLayoutBinding.visitTime.text = getDisplayTime(DateTimeUtils.getTimestamp(patientVisitInfo.visitTime))
+            visitInfoLayoutBinding.infoBlock.setOnClickListener{
                 (activity as MainActivity).data = patient
                 val action = AdminDashboardFragmentDirections.actionAdminDashboardFragmentToAddVisitFragment(patient)
                 findNavController().navigate(action)
             }
+        }
+
+        fun getDisplayTime(time : Timestamp) :String{
+            val sfd = SimpleDateFormat("hh:mm aa")
+            var timeStr = sfd.format(time.toDate()).toString()
+            timeStr = timeStr.subSequence(0,6).toString() + timeStr.subSequence(6,8).toString().uppercase()
+            if(timeStr.first() == '0') timeStr = " "+timeStr.substring(1)
+            return timeStr
         }
 
         fun getAgeText(dob: Timestamp): String{
@@ -121,7 +147,7 @@ class AdminDashboardFragment : Fragment() {
         }
     }
 
-    private inner class PatientAdapter internal constructor(var patientsToday: List<Patient>) : RecyclerView.Adapter<PatientHolder>() {
+    private inner class PatientAdapter internal constructor(var patientsToday: List<PatientVisitInfo>) : RecyclerView.Adapter<PatientHolder>() {
         override fun onBindViewHolder(patientHolder: PatientHolder, position: Int) {
             patientHolder.bind(patientsToday[position])
         }
@@ -131,8 +157,8 @@ class AdminDashboardFragment : Fragment() {
 //        }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PatientHolder {
-            val patientInfoLayoutBinding = PatientInfoLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return PatientHolder(patientInfoLayoutBinding)
+            val visitInfoLayoutBinding = VisitInfoLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return PatientHolder(visitInfoLayoutBinding)
         }
 
         override fun getItemCount(): Int {

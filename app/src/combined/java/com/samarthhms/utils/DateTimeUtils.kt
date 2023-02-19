@@ -20,6 +20,14 @@ class DateTimeUtils {
             return DateTimeFormatter.ofPattern("ddMMyyyy").format(localDateTime)
         }
 
+        fun getStartOfDate(date: LocalDateTime): LocalDateTime {
+            return date.toLocalDate().atStartOfDay()
+        }
+
+        fun getEndOfDate(date: LocalDateTime): LocalDateTime {
+            return date.toLocalDate().atStartOfDay().plusDays(1)
+        }
+
         fun getHoursFrom(localDateTime: LocalDateTime):Long{
             return localDateTime.until(LocalDateTime.now(), ChronoUnit.HOURS)
         }

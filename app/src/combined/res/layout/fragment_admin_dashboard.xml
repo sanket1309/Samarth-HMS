@@ -50,7 +50,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/dashboard_background"
         android:elevation="@dimen/admin_dashboard_count_elevation">
-        
+
         <ImageView
             android:id="@+id/patients_today_count_icon"
             android:layout_width="@dimen/admin_dashboard_count_icon_image_width"
@@ -84,7 +84,7 @@
             android:textColor="@color/white"
             android:layout_gravity="center"
             android:textSize="@dimen/admin_dashboard_count_title_text_size"/>
-        
+
     </LinearLayout>
 
     <LinearLayout
@@ -199,7 +199,7 @@
 
     <TextView
         android:id="@+id/patients_today_title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
@@ -207,7 +207,21 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dashboard_count_bottom_view"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/dashboard_update_data_button"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintTop_toBottomOf="@id/dashboard_count_bottom_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Update"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:background="@drawable/dashboard_update_button_background"
+        android:textAllCaps="false"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/patients_today_recycler_view"
@@ -230,13 +244,13 @@
         android:text="@string/add_patient_floating_action_button_text"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        app:icon="@drawable/icon_add_patient_fab"
-        app:iconSize="@dimen/add_patient_floating_action_button_icon_size"
-        app:iconGravity="textStart"
-        app:iconTint="@color/white"
         android:backgroundTint="@color/blue_theme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--app:icon="@drawable/icon_add_patient_fab"
+            app:iconSize="@dimen/add_patient_floating_action_button_icon_size"
+            app:iconGravity="textStart"
+            app:iconTint="@color/white"-->
