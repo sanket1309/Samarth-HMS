@@ -199,36 +199,36 @@
 
     <TextView
         android:id="@+id/patients_today_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:text="Patients Today"
+        android:layout_marginStart="@dimen/patients_today_title_horizontal_margin"
+        android:layout_marginEnd="@dimen/patients_today_title_horizontal_margin"
+        android:text="@string/patients_today_title_text"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="@dimen/patients_today_title_text_size"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dashboard_count_bottom_view"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/dashboard_update_data_button"
-        android:layout_width="wrap_content"
-        android:layout_height="34dp"
-        android:layout_marginEnd="15dp"
-        app:layout_constraintTop_toBottomOf="@id/dashboard_count_bottom_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="Update"
-        android:textSize="12sp"
-        android:textColor="@color/white"
-        android:background="@drawable/dashboard_update_button_background"
-        android:textAllCaps="false"/>
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/dashboard_update_data_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="@dimen/dashboard_update_button_background_height"-->
+<!--        android:layout_marginEnd="@dimen/dashboard_update_button_margin_end"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/dashboard_count_bottom_view"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:text="@string/dashboard_update_button_text"-->
+<!--        android:textSize="@dimen/dashboard_update_button_text_size"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:background="@drawable/dashboard_update_button_background"-->
+<!--        android:textAllCaps="false"/>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/patients_today_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="7dp"
+        android:layout_marginTop="@dimen/patients_today_recycler_view_vertical_margin"
+        android:layout_marginBottom="@dimen/patients_today_recycler_view_vertical_margin"
         app:layout_constraintTop_toBottomOf="@id/patients_today_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>

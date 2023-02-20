@@ -30,6 +30,8 @@
     <string name="admit_patients_count_icon_image_description">Admit patients icon</string>
     <string name="admit_patients_count_number_text">4</string>
     <string name="admit_patients_count_title_text">Admit\nPatients</string>
+    <string name="patients_today_title_text">Patients Today</string>
+    <string name="dashboard_update_button_text">Update</string>
     <string name="add_patient_floating_action_button_text">＋ Add Patient</string>
     <string name="add_patient_floating_action_button_description">Add Patient Button</string>
 
@@ -48,6 +50,9 @@
     <string name="patient_info_patient_age_text">8y 2m</string>
     <string name="patient_info_patient_gender_text">Male, </string>
     <string name="patient_info_patient_address_text">Lakhmapur, Tal. Dindori</string>
+
+    <!--    VISIT INFO LAYOUT-->
+    <string name="visit_info_visit_time_text">8:00 AM</string>
 
 <!--    ADD NEW PATIENT, ADD PATIENT VISIT-->
     <string name="patient_id_title_text">Patient Id</string>
