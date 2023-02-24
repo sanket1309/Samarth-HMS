@@ -20,6 +20,10 @@ class DateTimeUtils {
             return DateTimeFormatter.ofPattern("ddMMyyyy").format(localDateTime)
         }
 
+        fun getDurationTillNowInYearsAndMonths(localDateTime: LocalDateTime): String {
+            return DateTimeFormatter.ofPattern("ddMMyyyy").format(localDateTime)
+        }
+
         fun getStartOfDate(date: LocalDateTime): LocalDateTime {
             return date.toLocalDate().atStartOfDay()
         }

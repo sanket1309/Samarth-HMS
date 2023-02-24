@@ -161,7 +161,7 @@
     <dimen name="patient_info_layout_patient_age_text_size">@dimen/patient_info_layout_patient_gender_text_size</dimen>
     <dimen name="patient_info_layout_patient_address_text_size">@dimen/patient_info_layout_patient_gender_text_size</dimen>
 
-    <!--    VISIT INFO LAYOUT-->
+<!--    VISIT INFO LAYOUT-->
     <dimen name="visit_info_visit_time_text_size">20sp</dimen>
 
 <!--    ADD NEW PATIENT-->
@@ -175,4 +175,26 @@
     <dimen name="gender_radio_group_button_height">55dp</dimen>
     <dimen name="save_new_patient_button_height">55dp</dimen>
     <dimen name="save_new_patient_button_vertical_margin">15dp</dimen>
+
+<!--    FIND PATIENT BY-->
+    <dimen name="find_patient_by_title_padding_start">10dp</dimen>
+    <dimen name="find_patient_by_title_padding_end">@dimen/find_patient_by_title_padding_start</dimen>
+    <dimen name="find_patient_by_title_margin_top">10dp</dimen>
+    <dimen name="find_patient_by_title_horizontal_margin">20dp</dimen>
+    <dimen name="find_patient_by_title_text_size">17sp</dimen>
+    <dimen name="find_patient_by_patient_id_prefix_width">70dp</dimen>
+    <dimen name="find_patient_by_field_radius">25dp</dimen>
+    <!--    find_patient_by_field_radius*2-->
+    <dimen name="find_patient_by_field_height">50dp</dimen>
+    <dimen name="find_patient_by_field_margin_top">5dp</dimen>
+    <dimen name="find_patient_by_field_horizontal_padding">10dp</dimen>
+    <dimen name="find_patient_by_field_text_size">20sp</dimen>
+    <dimen name="find_patient_by_result_text_margin_top">15dp</dimen>
+    <dimen name="find_patient_by_result_text_margin_start">@dimen/find_patient_by_title_horizontal_margin</dimen>
+    <dimen name="find_patient_by_result_text_margin_end">@dimen/find_patient_by_title_horizontal_margin</dimen>
+    <dimen name="find_patient_by_result_text_size">17sp</dimen>
+    <dimen name="find_patient_by_result_margin_top">10dp</dimen>
+    <dimen name="find_patient_by_search_button_width">200dp</dimen>
+    <dimen name="find_patient_by_search_button_height">50dp</dimen>
+    <dimen name="find_patient_by_search_button_vertical_margin">20dp</dimen>
 </resources>

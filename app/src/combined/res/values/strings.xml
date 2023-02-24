@@ -79,4 +79,19 @@
     <string name="district_hint_text">Enter District</string>
     <string name="save_patient_button_text">Save Patient</string>
     <string name="add_visit_button_text">Add Visit</string>
+
+<!--    FIND PATIENT BY-->
+    <string name="find_patient_by_patient_id_title_text">@string/patient_id_title_text</string>
+    <string name="find_patient_by_first_name_title_text">@string/add_new_patient_first_name_title_text</string>
+    <string name="find_patient_by_first_name_hint_text">@string/add_new_patient_first_name_hint_text</string>
+    <string name="find_patient_by_middle_name_title_text">@string/add_new_patient_middle_name_title_text</string>
+    <string name="find_patient_by_middle_name_hint_text">@string/add_new_patient_middle_name_hint_text</string>
+    <string name="find_patient_by_last_name_title_text">@string/add_new_patient_last_name_title_text</string>
+    <string name="find_patient_by_last_name_hint_text">@string/add_new_patient_last_name_hint_text</string>
+    <string name="find_patient_by_contact_number_title_text">@string/contact_number_title_text</string>
+    <string name="find_patient_by_contact_number_hint_text">@string/contact_number_hint_text</string>
+    <string name="find_patient_by_patient_id_prefix_text">SBP</string>
+    <string name="find_patient_by_patient_id_suffix_text">00000</string>
+    <string name="find_patient_by_result_found_text">No Result Found</string>
+    <string name="find_patient_by_search_button_text">Search</string>
 </resources>

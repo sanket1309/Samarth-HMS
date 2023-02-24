@@ -78,10 +78,6 @@ class AdminDashboardFragment : Fragment() {
             binding.admitPatientsCountNumber.text = it.toString()
         }
 
-        binding.dashboardUpdateDataButton.setOnClickListener{
-            viewModel.updateData()
-        }
-
         binding.patientsTodayCount.setOnClickListener{
             GlobalScope.launch {
                 storedStateDao.delete(SchemaName.STORED_STATE_KEY)

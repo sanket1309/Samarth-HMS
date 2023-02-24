@@ -24,7 +24,10 @@ class AddPatientFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAddPatientBinding.inflate(layoutInflater, container, false)
-//        binding.findByPatientIdButton.setOnClickListener{changeButtonTheme(it as Button, true)}
+        binding.findByPatientIdButton.setOnClickListener{
+            val controller = findNavController()
+            controller.navigate(R.id.action_addPatientFragment_to_findPatientByPatientIdFragment)
+        }
 //        binding.findByNameButton.setOnClickListener{changeButtonTheme(it as Button, true)}
 //        binding.findByContactNumberButton.setOnClickListener{}
         binding.addNewPatientButton.setOnClickListener{

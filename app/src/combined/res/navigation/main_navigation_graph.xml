@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_addPatientFragment_to_addNewPatientFragment"
             app:destination="@id/addNewPatientFragment" />
+        <action
+            android:id="@+id/action_addPatientFragment_to_findPatientByPatientIdFragment"
+            app:destination="@id/findPatientByPatientIdFragment5" />
     </fragment>
     <fragment
         android:id="@+id/addNewPatientFragment"
@@ -49,4 +52,9 @@
             android:id="@+id/action_addVisitFragment_to_adminDashboardFragment"
             app:destination="@id/adminDashboardFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/findPatientByPatientIdFragment5"
+        android:name="com.samarthhms.ui.FindPatientByPatientIdFragment"
+        android:label="Search Patient"
+        tools:layout="@layout/fragment_find_patient_by_patient_id" />
 </navigation>

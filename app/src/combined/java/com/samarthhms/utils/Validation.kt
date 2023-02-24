@@ -3,6 +3,16 @@ package com.samarthhms.utils
 
 class Validation {
     companion object{
+        fun validatePatientId(patientId: String):Boolean{
+            if(patientId.substring(0,3) != IdUtils.PATIENT_ID_PREFIX){
+                return false
+            }
+            if(patientId.length != 8){
+                return false
+            }
+            return patientId.substring(3).matches(Regex("^[0-9]*$"))
+        }
+
         fun validateUserName(userName: String):Boolean{
             return true
         }
