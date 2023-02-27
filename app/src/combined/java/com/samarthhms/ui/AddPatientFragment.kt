@@ -28,8 +28,14 @@ class AddPatientFragment : Fragment() {
             val controller = findNavController()
             controller.navigate(R.id.action_addPatientFragment_to_findPatientByPatientIdFragment)
         }
-//        binding.findByNameButton.setOnClickListener{changeButtonTheme(it as Button, true)}
-//        binding.findByContactNumberButton.setOnClickListener{}
+        binding.findByNameButton.setOnClickListener{
+            val controller = findNavController()
+            controller.navigate(R.id.action_addPatientFragment_to_findPatientByNameFragment)
+        }
+        binding.findByContactNumberButton.setOnClickListener{
+            val controller = findNavController()
+            controller.navigate(R.id.action_addPatientFragment_to_findPatientByContactNumberFragment)
+        }
         binding.addNewPatientButton.setOnClickListener{
             val controller = findNavController()
             controller.navigate(R.id.action_addPatientFragment_to_addNewPatientFragment)

@@ -27,7 +27,13 @@
             app:destination="@id/addNewPatientFragment" />
         <action
             android:id="@+id/action_addPatientFragment_to_findPatientByPatientIdFragment"
-            app:destination="@id/findPatientByPatientIdFragment5" />
+            app:destination="@id/findPatientByPatientIdFragment" />
+        <action
+            android:id="@+id/action_addPatientFragment_to_findPatientByContactNumberFragment"
+            app:destination="@id/findPatientByContactNumberFragment" />
+        <action
+            android:id="@+id/action_addPatientFragment_to_findPatientByNameFragment"
+            app:destination="@id/findPatientByNameFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewPatientFragment"
@@ -53,8 +59,28 @@
             app:destination="@id/adminDashboardFragment" />
     </fragment>
     <fragment
-        android:id="@+id/findPatientByPatientIdFragment5"
+        android:id="@+id/findPatientByPatientIdFragment"
         android:name="com.samarthhms.ui.FindPatientByPatientIdFragment"
         android:label="Search Patient"
-        tools:layout="@layout/fragment_find_patient_by_patient_id" />
+        tools:layout="@layout/fragment_find_patient_by_patient_id" >
+        <action
+            android:id="@+id/action_findPatientByPatientIdFragment_to_addVisitFragment"
+            app:destination="@id/addVisitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/findPatientByNameFragment"
+        android:name="com.samarthhms.ui.FindPatientByNameFragment"
+        android:label="Search Patient" >
+        <action
+            android:id="@+id/action_findPatientByNameFragment_to_addVisitFragment"
+            app:destination="@id/addVisitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/findPatientByContactNumberFragment"
+        android:name="com.samarthhms.ui.FindPatientByContactNumberFragment"
+        android:label="Search Patient" >
+        <action
+            android:id="@+id/action_findPatientByContactNumberFragment_to_addVisitFragment"
+            app:destination="@id/addVisitFragment" />
+    </fragment>
 </navigation>

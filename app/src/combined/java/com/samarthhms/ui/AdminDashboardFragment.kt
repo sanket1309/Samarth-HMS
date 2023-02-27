@@ -35,7 +35,7 @@ import java.time.Period
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AdminDashboardFragment : Fragment() {
+class AdminDashboardFragment : Fragment(),RecyclerOnItemViewClickListener {
     private lateinit var binding: FragmentAdminDashboardBinding
 
     private val viewModel: AdminDashboardViewModel by viewModels()
@@ -62,11 +62,11 @@ class AdminDashboardFragment : Fragment() {
         }
         viewModel.updateData()
         viewModel.addListener()
-        val adapter = PatientAdapter(listOf())
+        val adapter = VisitInfoAdapter(context, this, listOf())
         binding.patientsTodayRecyclerView.adapter = adapter
         viewModel.patientsTodayList.observe(viewLifecycleOwner){
-            (binding.patientsTodayRecyclerView.adapter as PatientAdapter).patientsToday = it
-            (binding.patientsTodayRecyclerView.adapter as PatientAdapter).notifyDataSetChanged()
+            (binding.patientsTodayRecyclerView.adapter as VisitInfoAdapter).patientsToday = it
+            (binding.patientsTodayRecyclerView.adapter as VisitInfoAdapter).notifyDataSetChanged()
         }
         viewModel.patientsTodayCount.observe(viewLifecycleOwner){
             binding.patientsTodayCountNumber.text = it.toString()
@@ -103,63 +103,7 @@ class AdminDashboardFragment : Fragment() {
         return binding.root
     }
 
-    private fun updatePatientCount(itemCount : Int, textView: TextView){
-        textView.text = itemCount.toString()
-    }
-
-    private inner class PatientHolder internal constructor(private val visitInfoLayoutBinding: VisitInfoLayoutBinding) : RecyclerView.ViewHolder(visitInfoLayoutBinding.root) {
-        fun bind(patientVisitInfo: PatientVisitInfo) {
-            val patient = patientVisitInfo.patient
-            visitInfoLayoutBinding.patientId.text = patient.patientId
-            visitInfoLayoutBinding.patientName.text = patient.firstName + " " + patient.lastName
-            visitInfoLayoutBinding.patientGender.text = patient.gender.value + ", "
-            visitInfoLayoutBinding.patientAge.text = getAgeText(DateTimeUtils.getTimestamp(patient.dateOfBirth))
-            visitInfoLayoutBinding.patientAddress.text = patient.town + ", Tal." + patient.taluka
-            visitInfoLayoutBinding.visitTime.text = getDisplayTime(DateTimeUtils.getTimestamp(patientVisitInfo.visitTime))
-            visitInfoLayoutBinding.infoBlock.setOnClickListener{
-                (activity as MainActivity).data = patient
-                val action = AdminDashboardFragmentDirections.actionAdminDashboardFragmentToAddVisitFragment(patient)
-                findNavController().navigate(action)
-            }
-        }
-
-        fun getDisplayTime(time : Timestamp) :String{
-            val sfd = SimpleDateFormat("hh:mm aa")
-            var timeStr = sfd.format(time.toDate()).toString()
-            timeStr = timeStr.subSequence(0,6).toString() + timeStr.subSequence(6,8).toString().uppercase()
-            if(timeStr.first() == '0') timeStr = " "+timeStr.substring(1)
-            return timeStr
-        }
-
-        fun getAgeText(dob: Timestamp): String{
-            val formattedDate = SimpleDateFormat("ddMMyyyy").format(dob.toDate())
-            val localDate = LocalDate.of(formattedDate.substring(4).toInt(),
-                formattedDate.substring(2,4).toInt(),
-                formattedDate.substring(0,2).toInt())
-            val period = Period.between(localDate, LocalDate.now())
-            val years = if(period.years <= 9) " ${period.years}" else period.years.toString()
-            val months = if(period.months <= 9) " ${period.months}" else period.months.toString()
-            return "${years}y ${months}m"
-        }
-    }
-
-    private inner class PatientAdapter internal constructor(var patientsToday: List<PatientVisitInfo>) : RecyclerView.Adapter<PatientHolder>() {
-        override fun onBindViewHolder(patientHolder: PatientHolder, position: Int) {
-            patientHolder.bind(patientsToday[position])
-        }
-
-//        override fun getItemViewType(position: Int): Int {
-//            return (itemCount-position-1)%3
-//        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PatientHolder {
-            val visitInfoLayoutBinding = VisitInfoLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return PatientHolder(visitInfoLayoutBinding)
-        }
-
-        override fun getItemCount(): Int {
-            return patientsToday.size
-        }
+    override fun onItemClicked(data: Any) {
     }
 
 }

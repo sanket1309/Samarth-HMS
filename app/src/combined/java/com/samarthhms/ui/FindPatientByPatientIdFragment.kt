@@ -9,9 +9,11 @@ import android.view.View.*
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.Timestamp
 import com.samarthhms.databinding.FragmentFindPatientByPatientIdBinding
 import com.samarthhms.domain.Status
+import com.samarthhms.models.Patient
 import com.samarthhms.utils.DateTimeUtils
 import com.samarthhms.utils.IdUtils
 import com.samarthhms.utils.StringUtils
@@ -20,6 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.Period
+import java.util.Objects
 
 @AndroidEntryPoint
 class FindPatientByPatientIdFragment : Fragment() {
@@ -27,6 +30,8 @@ class FindPatientByPatientIdFragment : Fragment() {
     private lateinit var binding: FragmentFindPatientByPatientIdBinding
 
     private val viewModel: FindPatientByPatientIdViewModel by viewModels()
+
+    private var selectedPatient: Patient? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,15 +41,24 @@ class FindPatientByPatientIdFragment : Fragment() {
         binding.searchButton.setOnClickListener{
             val patientId = IdUtils.PATIENT_ID_PREFIX + binding.patientId.text
             if(!Validation.validatePatientId(patientId)){
+                Toast.makeText(activity, "Invalid Patient ID",Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             viewModel.findPatient(patientId)
+        }
+
+        binding.patientInfo.root.setOnClickListener{
+            if(selectedPatient != null){
+                val action = FindPatientByPatientIdFragmentDirections.actionFindPatientByPatientIdFragmentToAddVisitFragment(selectedPatient!!)
+                findNavController().navigate(action)
+            }
         }
 
         viewModel.searchStatus.observe(viewLifecycleOwner){
             val patientInfoLayout = binding.patientInfo
             if(it == Status.SUCCESS){
                 val patient = viewModel.patient.value
+                selectedPatient = patient
                 if(patient == null){
                     patientInfoLayout.root.visibility = GONE
                     binding.resultText.text = StringUtils.getResultFoundText(0)
