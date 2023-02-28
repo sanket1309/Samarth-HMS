@@ -1,31 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/adminDashboardFragment"
-        android:icon="@drawable/icon_unattended_patients_count"
-        android:title="Dashboard"/>
 
     <item
-        android:id="@+id/addPatientFragment"
-        android:icon="@drawable/icon_patients_today_count"
-        android:title="Search"/>
-
-    <item
-        android:id="@+id/logout"
+        android:id="@+id/features"
         android:title="Features">
-        <menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <menu>
+            <item
+                android:id="@+id/adminDashboardFragment"
+                android:icon="@drawable/icon_unattended_patients_count"
+                android:title="Dashboard"/>
+
+            <item
+                android:id="@+id/addPatientFragment"
+                android:icon="@drawable/icon_unattended_patients_count"
+                android:title="Search Patient"/>
+
+            <item
+                android:id="@+id/addPatientFragment2"
+                android:icon="@drawable/icon_unattended_patients_count"
+                android:title="Search Visits"/>
+
+            <item
+                android:id="@+id/addPatientFragment3"
+                android:icon="@drawable/icon_unattended_patients_count"
+                android:title="Patients Today"/>
+
+            <item
+                android:id="@+id/addPatientFragment4"
+                android:icon="@drawable/icon_unattended_patients_count"
+                android:title="Admit Patients"/>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/admin_options"
+        android:title="Admin Options">
+        <menu>
+            <item
+                android:id="@+id/adminDashboardFragment5"
+                android:icon="@drawable/icon_unattended_patients_count"
+                android:title="Switch Admin"/>
+
+            <item
+                android:id="@+id/addPatientFragment6"
+                android:icon="@drawable/icon_unattended_patients_count"
+                android:title="Admin Settings"/>
+
+            <item
+                android:id="@+id/addPatientFragment7"
+                android:icon="@drawable/icon_unattended_patients_count"
+                android:title="Staff Settings"/>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/reports"
+        android:title="Reports">
+        <menu>
+            <item
+                android:id="@+id/adminDashboardFragment7"
+                android:icon="@drawable/icon_unattended_patients_count"
+                android:title="Generate Discharge Card"/>
+
+            <item
+                android:id="@+id/addPatientFragment8"
+                android:icon="@drawable/icon_unattended_patients_count"
+                android:title="Generate OPD Bill"/>
+
+            <item
+                android:id="@+id/addPatientFragment9"
+                android:icon="@drawable/icon_unattended_patients_count"
+                android:title="Generate IPD Bill"/>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/statistics"
+        android:title="Statistics">
+        <menu>
+            <item
+                android:id="@+id/adminDashboardFragment6"
+                android:icon="@drawable/icon_unattended_patients_count"
+                android:title="Visit Statistics"/>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/config"
+        android:title="Configuration">
+        <menu>
             <item
                 android:id="@+id/adminDashboardFragment1"
                 android:icon="@drawable/icon_unattended_patients_count"
-                android:title="Config"/>
+                android:title="Bill Number/ IPD Number"/>
 
             <item
                 android:id="@+id/addPatientFragment1"
-                android:icon="@drawable/icon_patients_today_count"
-                android:title="Settings"/>
+                android:icon="@drawable/icon_unattended_patients_count"
+                android:title="Discharge Card Templates"/>
 
             <item
+                android:id="@+id/addPatientFragment5"
+                android:icon="@drawable/icon_unattended_patients_count"
+                android:title="Bill Rates"/>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/update"
+        android:title="Updates">
+        <menu>
+            <item
+                android:id="@+id/update1"
+                android:icon="@drawable/icon_unattended_patients_count"
+                android:title="Check Updates"/>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/logout"
+        android:title="Logout">
+        <menu>
+            <item
                 android:id="@+id/logout1"
+                android:icon="@drawable/icon_unattended_patients_count"
                 android:title="Logout"/>
         </menu>
     </item>

@@ -7,21 +7,21 @@
 
     <item
         android:id="@+id/addPatientFragment"
-        android:icon="@drawable/icon_patients_today_count"
+        android:icon="@drawable/icon_unattended_patients_count"
         android:title="Search"/>
 
     <item
         android:id="@+id/adminDashboardFragment2"
-        android:icon="@drawable/icon_admit_patients_count"
+        android:icon="@drawable/icon_unattended_patients_count"
         android:title="Settings"/>
 
     <item
         android:id="@+id/adminDashboardFragment3"
-        android:icon="@drawable/icon_menu_circle"
+        android:icon="@drawable/icon_unattended_patients_count"
         android:title="Config"/>
 
     <item
         android:id="@+id/adminDashboardFragment4"
-        android:icon="@drawable/icon_menu_rounded_square"
+        android:icon="@drawable/icon_unattended_patients_count"
         android:title="Stats"/>
 </menu>

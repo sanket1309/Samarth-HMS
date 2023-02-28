@@ -65,7 +65,7 @@ class FindPatientByPatientIdFragment : Fragment() {
                     return@observe
                 }
                 patientInfoLayout.patientId.text = patient.patientId
-                patientInfoLayout.patientName.text = patient.firstName + patient.lastName
+                patientInfoLayout.patientName.text = patient.firstName + " " + patient.lastName
                 patientInfoLayout.patientAddress.text = patient.town +" Tal."+ patient.taluka
                 patientInfoLayout.patientGender.text = patient.gender.value+", "
                 patientInfoLayout.patientAge.text = getAgeText(DateTimeUtils.getTimestamp(patient.dateOfBirth))

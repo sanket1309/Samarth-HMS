@@ -32,17 +32,17 @@
     <string name="admit_patients_count_title_text">Admit\nPatients</string>
     <string name="patients_today_title_text">Patients Today</string>
     <string name="dashboard_update_button_text">Update</string>
-    <string name="add_patient_floating_action_button_text">＋ Add Patient</string>
+    <string name="add_patient_floating_action_button_text">Add Patient</string>
     <string name="add_patient_floating_action_button_description">Add Patient Button</string>
 
 <!--    ADD PATIENT-->
-    <string name="is_registered_patient_question_text">already a patient ?</string>
-    <string name="find_by_patient_id_button_text">Find by patient ID</string>
-    <string name="find_by_name_button_text">Find by name</string>
-    <string name="find_by_contact_number_button_text">Find by contact number</string>
-    <string name="or_title_text">or</string>
-    <string name="new_patient_question_text">new patient ?</string>
-    <string name="add_new_patient_button_text">Add new patient</string>
+    <string name="is_registered_patient_question_text">Registered Patient ?</string>
+    <string name="find_by_patient_id_button_text">Find By Patient ID</string>
+    <string name="find_by_name_button_text">Find By Name</string>
+    <string name="find_by_contact_number_button_text">Find By Contact Number</string>
+    <string name="or_title_text">Or</string>
+    <string name="new_patient_question_text">New Patient ?</string>
+    <string name="add_new_patient_button_text">Add New Patient</string>
 
 <!--    PATIENT INFO LAYOUT-->
     <string name="patient_info_patient_id_text">SBP00047</string>
