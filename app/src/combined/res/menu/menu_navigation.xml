@@ -11,23 +11,23 @@
                 android:title="Dashboard"/>
 
             <item
-                android:id="@+id/addPatientFragment"
+                android:id="@+id/REPLACE_1"
                 android:icon="@drawable/icon_unattended_patients_count"
                 android:title="Search Patient"/>
 
             <item
-                android:id="@+id/addPatientFragment2"
+                android:id="@+id/REPLACE_2"
                 android:icon="@drawable/icon_unattended_patients_count"
                 android:title="Search Visits"/>
 
             <item
-                android:id="@+id/addPatientFragment3"
+                android:id="@+id/patientsTodayFragment"
                 android:icon="@drawable/icon_unattended_patients_count"
                 android:title="Patients Today"/>
 
             <item
-                android:id="@+id/addPatientFragment4"
-                android:icon="@drawable/icon_unattended_patients_count"
+                android:id="@+id/REPLACE_4"
+                android:icon="@drawable/icon_admit_patients_count"
                 android:title="Admit Patients"/>
         </menu>
     </item>
@@ -37,17 +37,17 @@
         android:title="Admin Options">
         <menu>
             <item
-                android:id="@+id/adminDashboardFragment5"
+                android:id="@+id/REPLACE_6"
                 android:icon="@drawable/icon_unattended_patients_count"
                 android:title="Switch Admin"/>
 
             <item
-                android:id="@+id/addPatientFragment6"
+                android:id="@+id/REPLACE_7"
                 android:icon="@drawable/icon_unattended_patients_count"
                 android:title="Admin Settings"/>
 
             <item
-                android:id="@+id/addPatientFragment7"
+                android:id="@+id/REPLACE_8"
                 android:icon="@drawable/icon_unattended_patients_count"
                 android:title="Staff Settings"/>
         </menu>
@@ -58,17 +58,17 @@
         android:title="Reports">
         <menu>
             <item
-                android:id="@+id/adminDashboardFragment7"
+                android:id="@+id/REPLACE_9"
                 android:icon="@drawable/icon_unattended_patients_count"
                 android:title="Generate Discharge Card"/>
 
             <item
-                android:id="@+id/addPatientFragment8"
+                android:id="@+id/REPLACE_10"
                 android:icon="@drawable/icon_unattended_patients_count"
                 android:title="Generate OPD Bill"/>
 
             <item
-                android:id="@+id/addPatientFragment9"
+                android:id="@+id/REPLACE_11"
                 android:icon="@drawable/icon_unattended_patients_count"
                 android:title="Generate IPD Bill"/>
         </menu>
@@ -79,7 +79,7 @@
         android:title="Statistics">
         <menu>
             <item
-                android:id="@+id/adminDashboardFragment6"
+                android:id="@+id/REPLACE_12"
                 android:icon="@drawable/icon_unattended_patients_count"
                 android:title="Visit Statistics"/>
         </menu>
@@ -90,19 +90,29 @@
         android:title="Configuration">
         <menu>
             <item
-                android:id="@+id/adminDashboardFragment1"
+                android:id="@+id/REPLACE_13"
                 android:icon="@drawable/icon_unattended_patients_count"
                 android:title="Bill Number/ IPD Number"/>
 
             <item
-                android:id="@+id/addPatientFragment1"
+                android:id="@+id/REPLACE_14"
                 android:icon="@drawable/icon_unattended_patients_count"
                 android:title="Discharge Card Templates"/>
 
             <item
-                android:id="@+id/addPatientFragment5"
+                android:id="@+id/REPLACE_15"
                 android:icon="@drawable/icon_unattended_patients_count"
                 android:title="Bill Rates"/>
+
+            <item
+                android:id="@+id/REPLACE_18"
+                android:icon="@drawable/icon_unattended_patients_count"
+                android:title="SMS Templates"/>
+
+            <item
+                android:id="@+id/REPLACE_19"
+                android:icon="@drawable/icon_unattended_patients_count"
+                android:title="SMS Config"/>
         </menu>
     </item>
 
@@ -111,7 +121,7 @@
         android:title="Updates">
         <menu>
             <item
-                android:id="@+id/update1"
+                android:id="@+id/REPLACE_16"
                 android:icon="@drawable/icon_unattended_patients_count"
                 android:title="Check Updates"/>
         </menu>
@@ -122,7 +132,7 @@
         android:title="Logout">
         <menu>
             <item
-                android:id="@+id/logout1"
+                android:id="@+id/REPLACE_17"
                 android:icon="@drawable/icon_unattended_patients_count"
                 android:title="Logout"/>
         </menu>

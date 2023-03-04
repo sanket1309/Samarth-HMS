@@ -94,4 +94,7 @@
     <string name="find_patient_by_patient_id_suffix_text">00000</string>
     <string name="find_patient_by_result_found_text">No Result Found</string>
     <string name="find_patient_by_search_button_text">Search</string>
+
+<!--    PATIENTS TODAY-->
+    <string name="patients_today_result_count_title_text">8 Patients</string>
 </resources>

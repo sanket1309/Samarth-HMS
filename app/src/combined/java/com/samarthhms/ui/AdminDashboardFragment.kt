@@ -78,27 +78,16 @@ class AdminDashboardFragment : Fragment(),RecyclerOnItemViewClickListener {
             binding.admitPatientsCountNumber.text = it.toString()
         }
 
-        binding.patientsTodayCount.setOnClickListener{
-            GlobalScope.launch {
-                storedStateDao.delete(SchemaName.STORED_STATE_KEY)
-                navigator.showMain(requireContext(), LoginStatusResponse(Role.ADMIN, LoggedState.LOGGED_OUT))
-            }
+        binding.patientsTodayCountTitle.setOnClickListener{
+            findNavController().navigate(R.id.action_adminDashboardFragment_to_patientsTodayFragment)
         }
 
-        binding.unattendedPatientsCount.setOnClickListener{
-            GlobalScope.launch {
-                val db = FirebaseFirestore.getInstance()
-                val doc = db.collection(SchemaName.VISITS_COLLECTION).document()
-                val visit = VisitFirebase(
-                    doc.id,
-                    "SBP00005",
-                    "rJmBWYee8TqOjwId1cF1",
-                    "rJmBWYee8TqOjwId1cF1",
-                    Role.ADMIN
-                )
-                doc.set(visit)
-            }
-        }
+//        binding.patientsTodayCount.setOnClickListener{
+//            GlobalScope.launch {
+//                storedStateDao.delete(SchemaName.STORED_STATE_KEY)
+//                navigator.showMain(requireContext(), LoginStatusResponse(Role.ADMIN, LoggedState.LOGGED_OUT))
+//            }
+//        }
 
         return binding.root
     }

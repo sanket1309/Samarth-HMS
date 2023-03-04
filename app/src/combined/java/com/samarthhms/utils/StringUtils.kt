@@ -10,6 +10,14 @@ class StringUtils {
             }
         }
 
+        fun getPatientCountText(resultCount: Int): String {
+            return when(resultCount){
+                0 -> "No Patient"
+                1 -> " 1 Patient"
+                else -> " $resultCount Results"
+            }
+        }
+
         fun formatName(name: String): String {
             if (name.isBlank()) return name
             return name.lowercase().replaceFirstChar { it.uppercase() }
