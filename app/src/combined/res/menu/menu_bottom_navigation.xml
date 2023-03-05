@@ -2,26 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/adminDashboardFragment"
-        android:icon="@drawable/icon_unattended_patients_count"
+        android:icon="@drawable/navigation_icon_dashboard"
         android:title="Dashboard"/>
 
     <item
         android:id="@+id/REPLACE_1"
-        android:icon="@drawable/icon_unattended_patients_count"
+        android:icon="@drawable/navigation_icon_search"
         android:title="Search"/>
 
     <item
         android:id="@+id/REPLACE_2"
-        android:icon="@drawable/icon_unattended_patients_count"
+        android:icon="@drawable/navigation_icon_setting"
         android:title="Settings"/>
 
     <item
         android:id="@+id/REPLACE_3"
-        android:icon="@drawable/icon_unattended_patients_count"
+        android:icon="@drawable/navigation_icon_settings"
         android:title="Config"/>
 
     <item
         android:id="@+id/REPLACE_4"
-        android:icon="@drawable/icon_unattended_patients_count"
+        android:icon="@drawable/navigation_icon_statistics"
         android:title="Stats"/>
 </menu>
