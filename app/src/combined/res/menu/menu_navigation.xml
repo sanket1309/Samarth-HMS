@@ -132,7 +132,7 @@
         android:title="Logout">
         <menu>
             <item
-                android:id="@+id/REPLACE_17"
+                android:id="@+id/logout_option"
                 android:icon="@drawable/icon_unattended_patients_count"
                 android:title="Logout"/>
         </menu>

@@ -5,6 +5,7 @@ import com.samarthhms.models.*
 interface StoredStateRepository {
     suspend fun getStoredState(): StoredStateData
     suspend fun setStoredState(storedStateData: StoredStateData)
+    suspend fun removeStoredState()
     suspend fun getAdminState(): AdminState
     suspend fun setAdminState(admin: Admin)
     suspend fun getStaffState(): StaffState

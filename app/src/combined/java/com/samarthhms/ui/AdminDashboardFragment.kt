@@ -81,14 +81,7 @@ class AdminDashboardFragment : Fragment(),RecyclerOnItemViewClickListener {
         binding.patientsTodayCountTitle.setOnClickListener{
             findNavController().navigate(R.id.action_adminDashboardFragment_to_patientsTodayFragment)
         }
-
-//        binding.patientsTodayCount.setOnClickListener{
-//            GlobalScope.launch {
-//                storedStateDao.delete(SchemaName.STORED_STATE_KEY)
-//                navigator.showMain(requireContext(), LoginStatusResponse(Role.ADMIN, LoggedState.LOGGED_OUT))
-//            }
-//        }
-
+        
         return binding.root
     }
 

@@ -77,6 +77,15 @@ class StoredStateRepositoryImpl @Inject constructor() : StoredStateRepository {
         }
     }
 
+    override suspend fun removeStoredState() {
+        try {
+            storedStateDao.delete(SchemaName.STORED_STATE_KEY)
+            Log.i("Stored_State_Repository_Impl", "Successfully deleted storedState")
+        }catch (e: Exception){
+            Log.e("Stored_State_Repository_Impl", "Error while deleting Stored state : $e")
+        }
+    }
+
     override suspend fun getAdminState(): AdminState {
         try {
             val adminState = adminStateDao.get(SchemaName.ADMIN_STATE_KEY)

@@ -1,28 +1,39 @@
 package com.samarthhms.ui
 
+import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.content.res.ResourcesCompat
+import androidx.appcompat.app.AlertDialog
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 import com.samarthhms.R
-import com.samarthhms.databinding.ActivityLoginBinding
+import com.samarthhms.constants.LoggedState
+import com.samarthhms.constants.Role
 import com.samarthhms.databinding.ActivityMainBinding
+import com.samarthhms.domain.LoginStatusResponse
+import com.samarthhms.domain.Status
 import com.samarthhms.navigator.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
 
     @Inject
     lateinit var navigator : Navigator
 
     private lateinit var binding: ActivityMainBinding
+
+    private val viewModel: MainViewModel by viewModels()
 
     lateinit var data: Any
 
@@ -53,5 +64,40 @@ class MainActivity : AppCompatActivity() {
 
         val navView = binding.navigationView
         NavigationUI.setupWithNavController(navView, navController)
+        navView.setNavigationItemSelectedListener(this)
+
+        viewModel.logoutUserStatus.observe(this){
+            when(it){
+                Status.SUCCESS -> {
+                    navigator.showMain(this, LoginStatusResponse(Role.NONE, LoggedState.LOGGED_OUT))
+                }
+                Status.FAILURE -> {
+                    Toast.makeText(this, "Something Went Wrong", Toast.LENGTH_SHORT).show()
+                }
+                else -> {}
+            }
+        }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.logout_option){
+            val dialogClickListener = DialogInterface.OnClickListener{
+                dialog, which ->
+                when(which){
+                    DialogInterface.BUTTON_POSITIVE -> {
+                        viewModel.logout()
+                    }
+                    DialogInterface.BUTTON_NEGATIVE -> {
+                        dialog.dismiss()
+                    }
+                }
+            }
+            val alertDialogBuilder = AlertDialog.Builder(this)
+            alertDialogBuilder.setMessage("Are you sure, you want to logout?")
+                .setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener)
+                .show()
+        }
+        return true
     }
 }
