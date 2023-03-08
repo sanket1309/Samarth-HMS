@@ -95,7 +95,7 @@
                 android:title="Bill Number/ IPD Number"/>
 
             <item
-                android:id="@+id/REPLACE_14"
+                android:id="@+id/dischargeCardTemplateFragment"
                 android:icon="@drawable/navigation_icon_template"
                 android:title="Discharge Card Templates"/>
 

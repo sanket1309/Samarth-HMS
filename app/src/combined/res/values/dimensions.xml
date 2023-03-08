@@ -123,7 +123,7 @@
     <dimen name="add_patient_floating_action_button_icon_size">17dp</dimen>
 
 <!--    ADD PATIENT-->
-    <dimen name="add_patient_background_radius">40dp</dimen>
+    <dimen name="add_patient_background_radius">25dp</dimen>
     <dimen name="add_patient_background_height">@dimen/add_patient_background_radius</dimen>
     <dimen name="add_patient_background_horizontal_margin">50dp</dimen>
 

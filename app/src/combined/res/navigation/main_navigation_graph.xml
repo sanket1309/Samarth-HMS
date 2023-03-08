@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_adminDashboardFragment_to_patientsTodayFragment"
             app:destination="@id/patientsTodayFragment" />
+        <action
+            android:id="@+id/action_adminDashboardFragment_to_dischargeCardTemplateFragment"
+            app:destination="@id/dischargeCardTemplateFragment" />
     </fragment>
     <fragment
         android:id="@+id/addPatientFragment"
@@ -90,4 +93,8 @@
         android:id="@+id/patientsTodayFragment"
         android:name="com.samarthhms.ui.PatientsTodayFragment"
         android:label="Patients Today" />
+    <fragment
+        android:id="@+id/dischargeCardTemplateFragment"
+        android:name="com.samarthhms.ui.DischargeCardTemplateFragment"
+        android:label="Templates" />
 </navigation>

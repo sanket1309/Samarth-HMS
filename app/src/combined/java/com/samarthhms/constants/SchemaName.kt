@@ -39,4 +39,7 @@ object SchemaName {
     const val ADMIN_STATE_KEY = "admin_state_key"
     const val STAFF_STATE_TABLE = "combined_staff_state_table"
     const val STAFF_STATE_KEY = "staff_state_key"
+
+    const val MEDICINE_TEMPLATE_COLLECTION = "Medicine_Templates"
+    const val PATIENT_HISTORY_TEMPLATE_COLLECTION = "Medicine_Templates"
 }

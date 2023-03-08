@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
@@ -97,6 +98,10 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
                 .setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener)
                 .show()
+        }
+        if(item.itemId == R.id.dischargeCardTemplateFragment){
+            supportFragmentManager.findFragmentById(R.id.nav_host)?.findNavController()?.navigate(R.id.dischargeCardTemplateFragment)
+            binding.drawerLayout.closeDrawers()
         }
         return true
     }
