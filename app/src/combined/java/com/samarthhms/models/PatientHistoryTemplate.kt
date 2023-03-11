@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 
 @Parcelize
 data class PatientHistoryTemplate(
-    var templateId: String,
-    var templateName: String,
-    var templateData: String
+    var templateId: String = "",
+    var templateName: String = "",
+    var templateData: String = ""
 ): Parcelable

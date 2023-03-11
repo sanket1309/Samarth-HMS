@@ -41,5 +41,5 @@ object SchemaName {
     const val STAFF_STATE_KEY = "staff_state_key"
 
     const val MEDICINE_TEMPLATE_COLLECTION = "Medicine_Templates"
-    const val PATIENT_HISTORY_TEMPLATE_COLLECTION = "Medicine_Templates"
+    const val PATIENT_HISTORY_TEMPLATE_COLLECTION = "Patient_History_Templates"
 }

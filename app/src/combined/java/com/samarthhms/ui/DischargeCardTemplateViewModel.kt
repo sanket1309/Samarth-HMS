@@ -6,19 +6,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.samarthhms.constants.SchemaName
-import com.samarthhms.domain.AddMedicineTemplate
-import com.samarthhms.domain.GetDischargeCardTemplate
-import com.samarthhms.domain.GetPatientsToday
-import com.samarthhms.domain.Status
+import com.samarthhms.domain.*
 import com.samarthhms.models.DischargeCardTemplate
 import com.samarthhms.models.MedicineTemplate
+import com.samarthhms.models.PatientHistoryTemplate
 import com.samarthhms.models.PatientVisitInfo
 import com.samarthhms.usecase.UseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class DischargeCardTemplateViewModel @Inject constructor(val getDischargeCardTemplate: GetDischargeCardTemplate, val addMedicineTemplate: AddMedicineTemplate) : ViewModel() {
+class DischargeCardTemplateViewModel @Inject constructor(val getDischargeCardTemplate: GetDischargeCardTemplate, val addMedicineTemplate: AddMedicineTemplate,
+val addPatientHistoryTemplate: AddPatientHistoryTemplate, val deleteMedicineTemplate: DeleteMedicineTemplate,
+val deletePatientHistoryTemplate: DeletePatientHistoryTemplate) : ViewModel() {
 
     private val _getDischargeCardTemplateStatus: MutableLiveData<Status> = MutableLiveData(Status.NONE)
     val getDischargeCardTemplateStatus : LiveData<Status> = _getDischargeCardTemplateStatus
@@ -29,7 +29,6 @@ class DischargeCardTemplateViewModel @Inject constructor(val getDischargeCardTem
     fun getData(){
         getDischargeCardTemplate(UseCase.None()) {
             _getDischargeCardTemplateStatus.value = it.status
-            Log.i("CHECK","result\n${it.dischargeCardTemplate?.medicineTemplates}")
             if(it.dischargeCardTemplate == null){
                 _dischargeCardTemplate.value = DischargeCardTemplate(listOf(), listOf())
                 return@getDischargeCardTemplate
@@ -38,12 +37,35 @@ class DischargeCardTemplateViewModel @Inject constructor(val getDischargeCardTem
         }
     }
 
-    fun changeStatus(){
-        _getDischargeCardTemplateStatus.value = Status.NONE
-    }
-
     fun addMedicineTemplate(medicineTemplate: MedicineTemplate){
         addMedicineTemplate(medicineTemplate) {
+            if(it.status == Status.SUCCESS){
+                _getDischargeCardTemplateStatus.value = Status.NONE
+                getData()
+            }
+        }
+    }
+
+    fun deleteMedicineTemplate(templateId: String){
+        deleteMedicineTemplate(templateId) {
+            if(it.status == Status.SUCCESS){
+                _getDischargeCardTemplateStatus.value = Status.NONE
+                getData()
+            }
+        }
+    }
+
+    fun addPatientHistoryTemplate(patientHistoryTemplate: PatientHistoryTemplate){
+        addPatientHistoryTemplate(patientHistoryTemplate) {
+            if(it.status == Status.SUCCESS){
+                _getDischargeCardTemplateStatus.value = Status.NONE
+                getData()
+            }
+        }
+    }
+
+    fun deletePatientHistoryTemplate(templateId: String){
+        deletePatientHistoryTemplate(templateId) {
             if(it.status == Status.SUCCESS){
                 _getDischargeCardTemplateStatus.value = Status.NONE
                 getData()

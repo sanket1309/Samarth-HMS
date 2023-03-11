@@ -11,14 +11,14 @@ import java.time.LocalDateTime
 import javax.inject.Inject
 
 class GetDischargeCardTemplate
-@Inject constructor(private val medicineTemplateRepository: MedicineTemplateRepositoryImpl) : UseCase<GetDischargeCardTemplateResponse, UseCase.None>(){
+@Inject constructor(private val medicineTemplateRepository: MedicineTemplateRepositoryImpl, private val patientHistoryTemplateRepository: PatientHistoryTemplateRepositoryImpl) : UseCase<GetDischargeCardTemplateResponse, UseCase.None>(){
 
     override suspend fun run(params: None): GetDischargeCardTemplateResponse {
         return try {
             val response = GetDischargeCardTemplateResponse()
             val medicineTemplates = medicineTemplateRepository.getAllTemplates()
             medicineTemplates.sortedBy { it.templateData }
-            val patientHistoryTemplates = listOf<PatientHistoryTemplate>()
+            val patientHistoryTemplates = patientHistoryTemplateRepository.getAllTemplates()
             patientHistoryTemplates.sortedBy { it.templateName }
 
             response.status = Status.SUCCESS
