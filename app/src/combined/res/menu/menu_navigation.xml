@@ -58,7 +58,7 @@
         android:title="Reports">
         <menu>
             <item
-                android:id="@+id/REPLACE_9"
+                android:id="@+id/generateDischargeCardFragment"
                 android:icon="@drawable/navigation_icon_report"
                 android:title="Generate Discharge Card"/>
 

@@ -12,7 +12,7 @@ data class AdminState(
     var key: String,
 
     @ColumnInfo(name = "admin_id")
-    var admin_id: String? = null,
+    var adminId: String? = null,
 
     @ColumnInfo(name = "first_name")
     var firstName: String? = null,

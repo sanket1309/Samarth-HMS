@@ -16,8 +16,18 @@ class DateTimeUtils {
             return LocalDateTime.parse(value, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
         }
 
+        fun getLocalDateTime(date: String?, time: String?): LocalDateTime? {
+            if(date == null || time == null) return null
+            return LocalDateTime.parse(date+" "+time.lowercase(), DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a"))
+        }
+
         fun getDate(localDateTime: LocalDateTime): String {
             return DateTimeFormatter.ofPattern("ddMMyyyy").format(localDateTime)
+        }
+
+        fun getDateTime(localDateTime: LocalDateTime): String {
+            return DateTimeFormatter.ofPattern("d/M/yyyy hh:mm a").format(localDateTime)
+                .uppercase(Locale.getDefault())
         }
 
         fun getDurationTillNowInYearsAndMonths(localDateTime: LocalDateTime): String {

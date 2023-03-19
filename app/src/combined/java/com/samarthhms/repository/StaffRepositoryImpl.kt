@@ -3,9 +3,7 @@ package com.samarthhms.repository
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.samarthhms.constants.SchemaName
-import com.samarthhms.models.Converters
-import com.samarthhms.models.Staff
-import com.samarthhms.models.StaffFirebase
+import com.samarthhms.models.*
 import kotlinx.coroutines.tasks.await
 import java.util.*
 import javax.inject.Inject
@@ -29,6 +27,23 @@ class StaffRepositoryImpl @Inject constructor(): StaffRepository {
             return staff
         }catch (e: Exception){
             Log.e("Staff_Repository_Impl", "Error while fetching staff : $e")
+            throw e
+        }
+    }
+
+    override suspend fun getAllStaff(): List<Staff> {
+        try {
+            val reference = db.collection(SchemaName.STAFF_COLLECTION)
+            val snapshots = reference.get().await()
+            if(Objects.isNull(snapshots)){
+                Log.i("Staff_Repository_Impl", "No staff found")
+                return listOf()
+            }
+            val staff = snapshots.map { Converters.convertToStaff(it.toObject(StaffFirebase::class.java)) }
+            Log.i("Staff_Repository_Impl", "Fetched ${staff.size} staff records")
+            return staff
+        }catch (e: Exception){
+            Log.e("Staff_Repository_Impl", "Error while fetching all staff : $e")
             throw e
         }
     }

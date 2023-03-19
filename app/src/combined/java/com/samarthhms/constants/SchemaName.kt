@@ -37,6 +37,7 @@ object SchemaName {
     const val STORED_STATE_KEY = "stored_state_key"
     const val ADMIN_STATE_TABLE = "combined_admin_state_table"
     const val ADMIN_STATE_KEY = "admin_state_key"
+    const val SWITCH_ADMIN_STATE_KEY = "switch_admin_state_key"
     const val STAFF_STATE_TABLE = "combined_staff_state_table"
     const val STAFF_STATE_KEY = "staff_state_key"
 

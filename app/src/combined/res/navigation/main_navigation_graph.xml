@@ -56,7 +56,8 @@
     <fragment
         android:id="@+id/addVisitFragment"
         android:name="com.samarthhms.ui.AddVisitFragment"
-        android:label="Add Visit" >
+        android:label="Add Visit"
+        tools:layout="@layout/fragment_add_visit">
         <argument
             android:name="patient"
             app:argType="com.samarthhms.models.Patient" />
@@ -76,7 +77,8 @@
     <fragment
         android:id="@+id/findPatientByNameFragment"
         android:name="com.samarthhms.ui.FindPatientByNameFragment"
-        android:label="Search Patient" >
+        android:label="Search Patient"
+        tools:layout="@layout/fragment_find_patient_by_name">
         <action
             android:id="@+id/action_findPatientByNameFragment_to_addVisitFragment"
             app:destination="@id/addVisitFragment" />
@@ -84,7 +86,8 @@
     <fragment
         android:id="@+id/findPatientByContactNumberFragment"
         android:name="com.samarthhms.ui.FindPatientByContactNumberFragment"
-        android:label="Search Patient" >
+        android:label="Search Patient"
+        tools:layout="@layout/fragment_find_patient_by_contact_number">
         <action
             android:id="@+id/action_findPatientByContactNumberFragment_to_addVisitFragment"
             app:destination="@id/addVisitFragment" />
@@ -92,9 +95,21 @@
     <fragment
         android:id="@+id/patientsTodayFragment"
         android:name="com.samarthhms.ui.PatientsTodayFragment"
+        tools:layout="@layout/fragment_patients_today"
         android:label="Patients Today" />
     <fragment
         android:id="@+id/dischargeCardTemplateFragment"
         android:name="com.samarthhms.ui.DischargeCardTemplateFragment"
+        tools:layout="@layout/fragment_discharge_card_template"
         android:label="Templates" />
+    <fragment
+        android:id="@+id/generateDischargeCardFragment"
+        android:name="com.samarthhms.ui.GenerateDischargeCardFragment"
+        android:label="Discharge Card"
+        tools:layout="@layout/fragment_generate_discharge_card" />
+    <fragment
+        android:id="@+id/comingSoonFragment"
+        android:name="com.samarthhms.ui.ComingSoonFragment"
+        android:label="Feature"
+        tools:layout="@layout/fragment_coming_soon" />
 </navigation>

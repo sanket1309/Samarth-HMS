@@ -33,6 +33,23 @@ class AdminRepositoryImpl @Inject constructor(): AdminRepository {
         }
     }
 
+    override suspend fun getAllAdmins(): List<Admin> {
+        try {
+            val reference = db.collection(SchemaName.ADMINS_COLLECTION)
+            val snapshots = reference.get().await()
+            if(Objects.isNull(snapshots)){
+                Log.i("Admin_Repository_Impl", "No admin found")
+                return listOf()
+            }
+            val admins = snapshots.map { Converters.convertToAdmin(it.toObject(AdminFirebase::class.java)) }
+            Log.i("Admin_Repository_Impl", "Fetched ${admins.size} admins")
+            return admins
+        }catch (e: Exception){
+            Log.e("Admin_Repository_Impl", "Error while fetching all admin : $e")
+            throw e
+        }
+    }
+
     override suspend fun addAdmin(admin: Admin) {
         try {
             val reference = db.collection(SchemaName.ADMINS_COLLECTION)

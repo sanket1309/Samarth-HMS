@@ -46,8 +46,8 @@ class StoredStateRepositoryImpl @Inject constructor() : StoredStateRepository {
             val storedState = storedStateDao.get(SchemaName.STORED_STATE_KEY)
             if(storedState!!.role == Role.ADMIN){
                 val adminState = adminStateDao.get(SchemaName.ADMIN_STATE_KEY)!!
-                Log.i("Stored_State_Repository_Impl", "Fetched admin Id : ${adminState.admin_id}")
-                return adminState.admin_id
+                Log.i("Stored_State_Repository_Impl", "Fetched admin Id : ${adminState.adminId}")
+                return adminState.adminId
             } else if(storedState.role == Role.STAFF){
                 val staffState = staffStateDao.get(SchemaName.STAFF_STATE_KEY)!!
                 Log.i("Stored_State_Repository_Impl", "Fetched admin Id : ${staffState.adminId}")
@@ -109,6 +109,33 @@ class StoredStateRepositoryImpl @Inject constructor() : StoredStateRepository {
             Log.i("Stored_State_Repository_Impl", "Successfully set adminState : $adminState")
         }catch (e: Exception){
             Log.e("Stored_State_Repository_Impl", "Error while Updating Admin state : $e")
+            throw e
+        }
+    }
+
+    override suspend fun getSwitchAdminState(): AdminState {
+        try {
+            val adminState = adminStateDao.get(SchemaName.SWITCH_ADMIN_STATE_KEY)
+            return adminState!!
+        }catch (e: Exception){
+            Log.e("Stored_State_Repository_Impl", "Error while fetching Switch Admin state : $e")
+            throw e
+        }
+    }
+
+    override suspend fun setSwitchAdminState(admin: Admin) {
+        try {
+            val adminState = Converters.convertToAdminState(admin)
+            val presentAdminState = adminStateDao.get(SchemaName.SWITCH_ADMIN_STATE_KEY)
+            if(presentAdminState == null){
+                adminStateDao.insert(adminState)
+            }
+            else{
+                adminStateDao.update(adminState)
+            }
+            Log.i("Stored_State_Repository_Impl", "Successfully set Switch adminState : $adminState")
+        }catch (e: Exception){
+            Log.e("Stored_State_Repository_Impl", "Error while Updating Switch Admin state : $e")
             throw e
         }
     }

@@ -8,6 +8,8 @@ interface StoredStateRepository {
     suspend fun removeStoredState()
     suspend fun getAdminState(): AdminState
     suspend fun setAdminState(admin: Admin)
+    suspend fun getSwitchAdminState(): AdminState
+    suspend fun setSwitchAdminState(admin: Admin)
     suspend fun getStaffState(): StaffState
     suspend fun setStaffState(staff: Staff)
     suspend fun getAdminId(): String?

@@ -41,7 +41,7 @@ class PatientsTodayFragment : Fragment(), RecyclerOnItemViewClickListener{
         return binding.root
     }
 
-    override fun onItemClicked(data: Any) {
+    override fun onItemClicked(data: Any, requester: String) {
     }
 
 }

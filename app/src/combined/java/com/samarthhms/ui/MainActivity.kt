@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -15,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.navigation.NavigationView.GONE
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 import com.samarthhms.R
 import com.samarthhms.constants.LoggedState
@@ -32,7 +34,7 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
     @Inject
     lateinit var navigator : Navigator
 
-    private lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
 
     private val viewModel: MainViewModel by viewModels()
 
@@ -82,6 +84,7 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.logout_option){
+            binding.bottomNavigation.visibility = GONE
             val dialogClickListener = DialogInterface.OnClickListener{
                 dialog, which ->
                 when(which){
@@ -99,10 +102,29 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
                 .setNegativeButton("No", dialogClickListener)
                 .show()
         }
-        if(item.itemId == R.id.dischargeCardTemplateFragment){
+        else if(item.itemId == R.id.dischargeCardTemplateFragment){
+            binding.bottomNavigation.visibility = GONE
             supportFragmentManager.findFragmentById(R.id.nav_host)?.findNavController()?.navigate(R.id.dischargeCardTemplateFragment)
             binding.drawerLayout.closeDrawers()
         }
+        else if(item.itemId == R.id.generateDischargeCardFragment){
+            binding.bottomNavigation.visibility = GONE
+            supportFragmentManager.findFragmentById(R.id.nav_host)?.findNavController()?.navigate(R.id.generateDischargeCardFragment)
+            binding.drawerLayout.closeDrawers()
+        }
+        else {
+            val comingSoonItems = listOf(R.id.REPLACE_1,R.id.REPLACE_2,R.id.REPLACE_3,R.id.REPLACE_4,R.id.REPLACE_6,R.id.REPLACE_7,
+                    R.id.REPLACE_8,R.id.REPLACE_10,R.id.REPLACE_11,R.id.REPLACE_12,R.id.REPLACE_13,R.id.REPLACE_15,R.id.REPLACE_16,R.id.REPLACE_18,R.id.REPLACE_19)
+            if(item.itemId in comingSoonItems){
+                binding.bottomNavigation.visibility = GONE
+                supportFragmentManager.findFragmentById(R.id.nav_host)?.findNavController()?.navigate(R.id.comingSoonFragment)
+                binding.drawerLayout.closeDrawers()
+            }
+        }
         return true
+    }
+
+    fun startProgressBar(isVisible: Boolean){
+        binding.progressBar.visibility = if(isVisible) View.VISIBLE else View.GONE
     }
 }
