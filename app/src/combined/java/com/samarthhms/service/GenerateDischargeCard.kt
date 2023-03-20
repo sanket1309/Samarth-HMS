@@ -42,23 +42,25 @@ class GenerateDischargeCard @Inject constructor(){
     inner class HeaderPageEvent : PdfPageEventHelper(){
         override fun onStartPage(writer: PdfWriter?, document: Document?) {
             val pdfService = PdfService()
-            val table = pdfService.createTable(2, listOf(20f,80f))
+            val table = pdfService.createTable(3, listOf(20f,65f,15f))
 
-            table.addCell(getCell(getImage(R.drawable.logo_colored, CompressFormat.JPEG,80f)))
-            var cell = getCell(getImage(R.drawable.pdf_title_only, CompressFormat.PNG, 80f), padding = listOf(-1f,-1f,5f,-1f))
+            table.addCell(getCell(getImage(R.drawable.logo_colored, CompressFormat.JPEG,50f), padding = listOf(-1f, -1f, 5f, -1f)))
+            var cell = getCell(getImage(R.drawable.pdf_sub_title_only, CompressFormat.PNG, 60f), padding = listOf(-1f,-1f,12f,-1f))
             cell.verticalAlignment = Element.ALIGN_BOTTOM
             table.addCell(cell)
+            table.addCell(getCell(getImage(R.drawable.mother_child_symbol, CompressFormat.PNG,50f)))
 
-            cell = getCell("", 6f, colspan = 2)
+            cell = getCell("", 6f, colspan = 3)
             cell.backgroundColor = BaseColor(130,92,158)
             table.addCell(cell)
 
             cell = getCell("")
-            table.addCell(cell)
-            cell = getCell(getImage(R.drawable.pdf_address,CompressFormat.PNG, 20f), padding = listOf(3f, -1f, 3f, -1f))
+//            table.addCell(cell)
+            cell = getCell(getImage(R.drawable.pdf_address,CompressFormat.PNG, 10f) , padding = listOf(3f, 70f, 3f, 70f), colspan = 3)
+            cell.horizontalAlignment = Element.ALIGN_CENTER
             table.addCell(cell)
 
-            cell = getCell("", 15f, colspan = 2)
+            cell = getCell("", 15f, colspan = 3)
             table.addCell(cell)
 
             document?.add(table)
@@ -126,6 +128,8 @@ class GenerateDischargeCard @Inject constructor(){
 
         table = pdfService.createTable(2, listOf(42f,58f))
 
+        table.isSplitLate = false
+
         data = "Patient ID : " + dischargeCard.patientId
         table.addCell(getCell(data, 2))
 
@@ -137,7 +141,7 @@ class GenerateDischargeCard @Inject constructor(){
         table.addCell(getCell(data))
 
         data = "Address : " + dischargeCard.address + "\n" +
-               "Mobile Number    : " + dischargeCard.contactNumber + " Kg"
+               "Mobile Number    : " + dischargeCard.contactNumber
         table.addCell(getCell(data))
 
         data = "Date Of Admission : " + DateTimeUtils.getDateTime(dischargeCard.dateOfAdmission)

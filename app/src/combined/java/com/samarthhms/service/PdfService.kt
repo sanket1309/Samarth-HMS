@@ -23,7 +23,7 @@ class PdfService {
 
     fun createDocument(): Document {
         val document = Document()
-        document.setMargins(30f, 30f, 30f, 30f)
+        document.setMargins(30f, 30f, 15f, 30f)
         document.pageSize = PageSize.LETTER
         return document
     }
