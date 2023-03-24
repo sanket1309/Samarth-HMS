@@ -112,4 +112,9 @@
         android:name="com.samarthhms.ui.ComingSoonFragment"
         android:label="Feature"
         tools:layout="@layout/fragment_coming_soon" />
+    <fragment
+        android:id="@+id/switchAdminFragment"
+        android:name="com.samarthhms.ui.SwitchAdminFragment"
+        android:label="Switch Admin"
+        tools:layout="@layout/fragment_switch_admin" />
 </navigation>

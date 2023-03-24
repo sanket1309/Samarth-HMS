@@ -20,12 +20,12 @@ class AddPatientVisit @Inject constructor(private var visitRepository: VisitRepo
         val addPatientVisitResponse = AddPatientVisitResponse()
         return try {
             val storedState = storedStateRepository.getStoredState()
-            val adminId = storedStateRepository.getAdminId()
+            val adminId = if(storedStateRepository.isSwitchStatePresent()) storedStateRepository.getSwitchAdminState().adminId else storedStateRepository.getId()
             val visit = Visit(
                 "",
                 patient.patientId,
                 adminId!!,
-                storedState.id!!,
+                adminId,
                 storedState.role,
                 LocalDateTime.now(),
                 isAttended = false,

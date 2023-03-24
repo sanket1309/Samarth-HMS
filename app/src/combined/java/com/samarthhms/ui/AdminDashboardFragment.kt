@@ -24,11 +24,16 @@ import com.samarthhms.BuildConfig
 import com.samarthhms.R
 import com.samarthhms.constants.Gender
 import com.samarthhms.databinding.FragmentAdminDashboardBinding
+import com.samarthhms.models.Admin
 import com.samarthhms.models.DischargeCard
 import com.samarthhms.navigator.Navigator
+import com.samarthhms.repository.AdminRepository
+import com.samarthhms.repository.AdminRepositoryImpl
 import com.samarthhms.repository.StoredStateDao
 import com.samarthhms.service.GenerateDischargeCard
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import javax.inject.Inject
 
@@ -48,6 +53,9 @@ class AdminDashboardFragment : Fragment(),RecyclerOnItemViewClickListener {
     @Inject
     lateinit var generateDischargeCard: GenerateDischargeCard
 
+    @Inject
+    lateinit var adminRepository: AdminRepositoryImpl
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -59,6 +67,8 @@ class AdminDashboardFragment : Fragment(),RecyclerOnItemViewClickListener {
     ): View? {
         (activity as MainActivity).binding.bottomNavigation.visibility = NavigationView.VISIBLE
         binding = FragmentAdminDashboardBinding.inflate(layoutInflater, container, false)
+        startProgressBar(true)
+        viewModel.updateGreetings()
         binding.extendedFab.setOnClickListener{
             val controller = findNavController()
             controller.navigate(R.id.action_adminDashboardFragment_to_addPatientFragment)
@@ -79,6 +89,17 @@ class AdminDashboardFragment : Fragment(),RecyclerOnItemViewClickListener {
         }
         viewModel.admitPatientsCount.observe(viewLifecycleOwner){
             binding.admitPatientsCountNumber.text = it.toString()
+        }
+
+        viewModel.greeting.observe(viewLifecycleOwner){
+            binding.greeting.text = it.toString()
+        }
+
+        viewModel.userName.observe(viewLifecycleOwner){
+            if(it.isNotBlank()){
+                startProgressBar(false)
+            }
+            binding.adminName.text = it.toString()
         }
 
         binding.patientsTodayCountTitle.setOnClickListener{
@@ -193,5 +214,11 @@ class AdminDashboardFragment : Fragment(),RecyclerOnItemViewClickListener {
 
     override fun onItemClicked(data: Any, requester: String) {
     }
+
+    fun startProgressBar(isVisible: Boolean){
+        binding.root.isClickable = !isVisible
+        (activity as MainActivity).startProgressBar(isVisible)
+    }
+
 
 }

@@ -27,6 +27,7 @@ object SchemaName {
     //Visit
     const val VISITS_COLLECTION = "Visits"
     const val VISIT_TIME = "visitTime"
+    const val ADMIN_ID = "adminId"
 
     const val ADMINS_COLLECTION = "Admins_Collection"
     const val STAFF_COLLECTION = "Staff"

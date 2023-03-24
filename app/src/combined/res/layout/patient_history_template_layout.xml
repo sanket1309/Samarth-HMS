@@ -37,8 +37,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:minLines="6"
-        android:maxLines="12"
-        android:scrollbars="vertical"
         android:padding="10dp"
         android:hint="Enter Template"
         app:layout_constraintTop_toBottomOf="@id/template_name"

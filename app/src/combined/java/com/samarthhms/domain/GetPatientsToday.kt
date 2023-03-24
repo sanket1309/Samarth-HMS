@@ -9,12 +9,13 @@ import java.time.LocalDateTime
 import javax.inject.Inject
 
 class GetPatientsToday
-@Inject constructor(private val patientRepository: PatientRepositoryImpl, private val visitRepository: VisitRepositoryImpl) : UseCase<GetPatientsTodayResponse, UseCase.None>(){
+@Inject constructor(private val patientRepository: PatientRepositoryImpl, private val visitRepository: VisitRepositoryImpl, private val storedStateRepository: StoredStateRepositoryImpl) : UseCase<GetPatientsTodayResponse, UseCase.None>(){
 
     override suspend fun run(params: None): GetPatientsTodayResponse {
         return try {
             val response = GetPatientsTodayResponse()
-            val visitsToday = visitRepository.getVisitsOnDate(LocalDateTime.now())
+            val adminId = if(storedStateRepository.isSwitchStatePresent()) storedStateRepository.getSwitchAdminState().adminId else storedStateRepository.getId()
+            val visitsToday = visitRepository.getVisitsOnDateByAdmin(adminId!!,LocalDateTime.now())
             val patientsToday = patientRepository.findPatientByPatientId(visitsToday.map { it.patientId })
             val mapOfPatientIdToPatient = HashMap<String, Patient>()
             patientsToday.forEach { mapOfPatientIdToPatient[it.patientId] = it }

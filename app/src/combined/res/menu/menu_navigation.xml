@@ -37,7 +37,7 @@
         android:title="Admin Options">
         <menu>
             <item
-                android:id="@+id/REPLACE_6"
+                android:id="@+id/switchAdminFragment"
                 android:icon="@drawable/navigation_icon_switch_admin"
                 android:title="Switch Admin"/>
 

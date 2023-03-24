@@ -15,6 +15,9 @@ interface AdminStateDao {
     @Update
     suspend fun update(adminState: AdminState)
 
+    @Query("DELETE FROM "+SchemaName.ADMIN_STATE_TABLE+" WHERE `key` = :key")
+    fun delete(key: String)
+
     @Query("SELECT * FROM "+SchemaName.ADMIN_STATE_TABLE+" WHERE `key` = :key")
     fun get(key: String): AdminState?
 

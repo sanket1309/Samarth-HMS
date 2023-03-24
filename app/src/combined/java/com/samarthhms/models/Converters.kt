@@ -99,9 +99,9 @@ class Converters {
             )
         }
 
-        fun convertToAdminState(admin: Admin): AdminState{
+        fun convertToAdminState(admin: Admin, key:String = SchemaName.ADMIN_STATE_KEY): AdminState{
             return AdminState(
-                SchemaName.ADMIN_STATE_KEY,
+                key,
                 admin.adminId,
                 admin.firstName,
                 admin.middleName,

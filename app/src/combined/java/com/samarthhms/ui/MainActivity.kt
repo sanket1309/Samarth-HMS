@@ -112,8 +112,13 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
             supportFragmentManager.findFragmentById(R.id.nav_host)?.findNavController()?.navigate(R.id.generateDischargeCardFragment)
             binding.drawerLayout.closeDrawers()
         }
+        else if(item.itemId == R.id.switchAdminFragment){
+            binding.bottomNavigation.visibility = GONE
+            supportFragmentManager.findFragmentById(R.id.nav_host)?.findNavController()?.navigate(R.id.switchAdminFragment)
+            binding.drawerLayout.closeDrawers()
+        }
         else {
-            val comingSoonItems = listOf(R.id.REPLACE_1,R.id.REPLACE_2,R.id.REPLACE_3,R.id.REPLACE_4,R.id.REPLACE_6,R.id.REPLACE_7,
+            val comingSoonItems = listOf(R.id.REPLACE_1,R.id.REPLACE_2,R.id.REPLACE_3,R.id.REPLACE_4,R.id.REPLACE_7,
                     R.id.REPLACE_8,R.id.REPLACE_10,R.id.REPLACE_11,R.id.REPLACE_12,R.id.REPLACE_13,R.id.REPLACE_15,R.id.REPLACE_16,R.id.REPLACE_18,R.id.REPLACE_19)
             if(item.itemId in comingSoonItems){
                 binding.bottomNavigation.visibility = GONE

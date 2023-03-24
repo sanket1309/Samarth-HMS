@@ -8,6 +8,7 @@ import com.samarthhms.repository.AdminStateDao
 import com.samarthhms.repository.StaffStateDao
 import com.samarthhms.repository.StoredStateDao
 import com.samarthhms.repository.StoredStateRepository
+import java.util.Objects
 import javax.inject.Inject
 
 class StoredStateRepositoryImpl @Inject constructor() : StoredStateRepository {
@@ -113,11 +114,21 @@ class StoredStateRepositoryImpl @Inject constructor() : StoredStateRepository {
         }
     }
 
+    override suspend fun isSwitchStatePresent(): Boolean {
+        try {
+            val adminState = adminStateDao.get(SchemaName.SWITCH_ADMIN_STATE_KEY)
+            return Objects.nonNull(adminState)
+        }catch (e: Exception){
+            Log.e("Stored_State_Repository_Impl", "Error while fetching Switch Admin state : $e")
+            throw e
+        }
+    }
+
     override suspend fun getSwitchAdminState(): AdminState {
         try {
             val adminState = adminStateDao.get(SchemaName.SWITCH_ADMIN_STATE_KEY)
             return adminState!!
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Log.e("Stored_State_Repository_Impl", "Error while fetching Switch Admin state : $e")
             throw e
         }
@@ -125,7 +136,7 @@ class StoredStateRepositoryImpl @Inject constructor() : StoredStateRepository {
 
     override suspend fun setSwitchAdminState(admin: Admin) {
         try {
-            val adminState = Converters.convertToAdminState(admin)
+            val adminState = Converters.convertToAdminState(admin, SchemaName.SWITCH_ADMIN_STATE_KEY)
             val presentAdminState = adminStateDao.get(SchemaName.SWITCH_ADMIN_STATE_KEY)
             if(presentAdminState == null){
                 adminStateDao.insert(adminState)
@@ -137,6 +148,15 @@ class StoredStateRepositoryImpl @Inject constructor() : StoredStateRepository {
         }catch (e: Exception){
             Log.e("Stored_State_Repository_Impl", "Error while Updating Switch Admin state : $e")
             throw e
+        }
+    }
+
+    override suspend fun removeSwitchState() {
+        try {
+            adminStateDao.delete(SchemaName.SWITCH_ADMIN_STATE_KEY)
+            Log.i("Stored_State_Repository_Impl", "Successfully deleted switch state")
+        }catch (e: Exception){
+            Log.e("Stored_State_Repository_Impl", "Error while deleting switch state : $e")
         }
     }
 

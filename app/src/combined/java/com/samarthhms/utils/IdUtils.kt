@@ -2,6 +2,7 @@ package com.samarthhms.utils
 
 import android.util.Log
 import com.google.firebase.Timestamp
+import com.google.type.DateTime
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDateTime
@@ -42,6 +43,23 @@ class IdUtils {
             }
         }
 
-
+        fun incrementYearWiseId(id: String): String {
+            try{
+                if(!Validation.validateIpdNumber(id)){
+                    throw Exception("Invalid ID")
+                }
+                val serialNumber = id.substring(0,2)
+                val yearNumber = id.substring(3)
+                return if(yearNumber == DateTimeUtils.getCurrentYear().substring(2)){
+                    serialNumber.toInt().plus(1).toString()+"/"+yearNumber
+                }
+                else{
+                    "01/"+yearNumber.toInt().plus(1)
+                }
+            }catch (e: Exception){
+                Log.e("Id_Utils_Error","Error while incrementing year wise id")
+                throw e
+            }
+        }
     }
 }

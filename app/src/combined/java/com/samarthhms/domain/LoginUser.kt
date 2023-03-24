@@ -39,6 +39,7 @@ class LoginUser @Inject constructor(private var loginRepository: LoginRepository
                     storedStateRepository.setStaffState(staff)
                     Log.i("Login_User","Stored staff state")
                 }
+                storedStateRepository.removeSwitchState()
                 storedStateRepository.setStoredState(storedStateData)
                 Log.i("Login_User","Successfully logged in user")
                 loginResponse.loginResponseStatus = LoginStatus.SUCCESS

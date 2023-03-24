@@ -16,7 +16,13 @@ class SwitchAdmin
         return try {
             val response = SwitchAdminResponse()
             val switchAdmin = adminRepository.getAdmin(params)!!
-            storedStateRepository.setSwitchAdminState(switchAdmin)
+            val userId = storedStateRepository.getId()
+            if(switchAdmin.adminId != userId) {
+                storedStateRepository.setSwitchAdminState(switchAdmin)
+            }
+            else{
+                storedStateRepository.removeSwitchState()
+            }
             response.status = Status.SUCCESS
             Log.i("Switch_Admin","Switched to admin")
             response

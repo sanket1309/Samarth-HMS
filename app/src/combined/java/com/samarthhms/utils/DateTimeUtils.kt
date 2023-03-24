@@ -1,6 +1,7 @@
 package com.samarthhms.utils
 
 import com.google.firebase.Timestamp
+import com.google.type.DateTime
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDateTime
@@ -14,6 +15,14 @@ class DateTimeUtils {
         fun getLocalDateTime(value: String?): LocalDateTime? {
             if(value == null) return null
             return LocalDateTime.parse(value, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+        }
+
+        fun getHours(): Int {
+            return DateTimeFormatter.ofPattern("HH").format(LocalDateTime.now()).toInt()
+        }
+
+        fun getCurrentYear(): String {
+            return DateTimeFormatter.ofPattern("yyyy").format(LocalDateTime.now())
         }
 
         fun getLocalDateTime(date: String?, time: String?): LocalDateTime? {
