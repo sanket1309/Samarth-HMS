@@ -34,6 +34,10 @@ class DateTimeUtils {
             return DateTimeFormatter.ofPattern("ddMMyyyy").format(localDateTime)
         }
 
+        fun getDateFormat(localDateTime: LocalDateTime): String {
+            return DateTimeFormatter.ofPattern("d/M/yyyy").format(localDateTime)
+        }
+
         fun getDateTime(localDateTime: LocalDateTime): String {
             return DateTimeFormatter.ofPattern("d/M/yyyy hh:mm a").format(localDateTime)
                 .uppercase(Locale.getDefault())

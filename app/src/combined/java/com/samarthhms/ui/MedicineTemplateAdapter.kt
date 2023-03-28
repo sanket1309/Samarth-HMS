@@ -41,9 +41,6 @@ class MedicineTemplateAdapter internal constructor(var context: Context, var rec
         return templates.size
     }
 
-    fun addEmptyItemView(){
-    }
-
     inner class MedicineTemplateHolder internal constructor(private val medicineTemplateLayoutBinding: MedicineTemplateLayoutBinding) : RecyclerView.ViewHolder(medicineTemplateLayoutBinding.root) {
         fun bind(medicineTemplate: MedicineTemplate) {
             onChangeClickable(false)

@@ -117,4 +117,9 @@
         android:name="com.samarthhms.ui.SwitchAdminFragment"
         android:label="Switch Admin"
         tools:layout="@layout/fragment_switch_admin" />
+    <fragment
+        android:id="@+id/generateBillFragment"
+        android:name="com.samarthhms.ui.GenerateBillFragment"
+        android:label="Bill"
+        tools:layout="@layout/fragment_generate_bill" />
 </navigation>

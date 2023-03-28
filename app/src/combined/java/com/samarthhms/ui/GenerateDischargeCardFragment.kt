@@ -124,19 +124,14 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
         ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE), 2)
 
         viewModel.getDischargeCardStatus.observe(viewLifecycleOwner){
-            Log.d("","1, ${it.name}")
             if(it == Status.NONE){
                 startProgressBar(false)
-                Log.d("","2")
                 return@observe
             }
-            Log.d("","3")
             if(PackageManager.PERMISSION_GRANTED != context?.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ||
                 PackageManager.PERMISSION_GRANTED != context?.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)){
-                Log.d("","4")
                 return@observe
             }
-            Log.d("","5")
             if(it == Status.SUCCESS && viewModel.dischargeCardFile.value != null){
                 startProgressBar(false)
                 Log.d("","6 ")
@@ -153,10 +148,9 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
 //                    sharingIntent.type = "application/pdf"
 //                    sharingIntent.putExtra(Intent.EXTRA_STREAM, uriPath)
 //                    startActivity(Intent.createChooser(sharingIntent, "Share using"))
-                }catch (e: Exception){
-                    Log.e("", "Error: ", e)
+                }catch (_: Exception){
+
                 }
-                Log.d("","7")
             }
         }
         return binding.root

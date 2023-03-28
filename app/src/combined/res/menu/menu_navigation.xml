@@ -63,7 +63,7 @@
                 android:title="Generate Discharge Card"/>
 
             <item
-                android:id="@+id/REPLACE_10"
+                android:id="@+id/generateBillFragment"
                 android:icon="@drawable/navigation_icon_bill"
                 android:title="Generate OPD Bill"/>
 

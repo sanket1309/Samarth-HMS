@@ -9,8 +9,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Timestamp
 import com.samarthhms.R
-import com.samarthhms.databinding.AdminLayoutBinding
 import com.samarthhms.databinding.PatientInfoLayoutBinding
+import com.samarthhms.databinding.SwitchAdminLayoutBinding
 import com.samarthhms.databinding.VisitInfoLayoutBinding
 import com.samarthhms.domain.SwitchAdmin
 import com.samarthhms.models.Patient
@@ -27,7 +27,7 @@ class SwitchAdminAdapter internal constructor(var recyclerOnItemViewClickListene
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SwitchAdminAdapter.SwitchAdminHolder {
-        val adminLayoutBinding = AdminLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val adminLayoutBinding = SwitchAdminLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SwitchAdminHolder(adminLayoutBinding)
     }
 
@@ -35,7 +35,7 @@ class SwitchAdminAdapter internal constructor(var recyclerOnItemViewClickListene
         return admins.size
     }
 
-    inner class SwitchAdminHolder internal constructor(private val adminLayoutBinding: AdminLayoutBinding) : RecyclerView.ViewHolder(adminLayoutBinding.root) {
+    inner class SwitchAdminHolder internal constructor(private val adminLayoutBinding: SwitchAdminLayoutBinding) : RecyclerView.ViewHolder(adminLayoutBinding.root) {
         fun bind(switchAdmin: SwitchAdminData) {
             adminLayoutBinding.adminName.text = switchAdmin.admin?.firstName + " " + switchAdmin.admin?.lastName
             adminLayoutBinding.selfTitle.visibility = if(switchAdmin.isAccountOwner) View.VISIBLE else View.GONE

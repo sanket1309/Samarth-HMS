@@ -123,6 +123,8 @@ dependencies {
     //    Loading Dots Library
     implementation 'com.github.agrawalsuneet:DotLoadersPack-Android:v1.4.2'
 
+    implementation 'pl.allegro.finance:tradukisto:1.12.0'
+
     implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0'
 
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.5'

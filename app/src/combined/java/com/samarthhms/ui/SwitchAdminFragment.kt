@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import com.samarthhms.R
-import com.samarthhms.databinding.AdminLayoutBinding
+import com.samarthhms.databinding.SwitchAdminLayoutBinding
 import com.samarthhms.databinding.FragmentSwitchAdminBinding
 import com.samarthhms.domain.Status
 import com.samarthhms.domain.SwitchAdmin
