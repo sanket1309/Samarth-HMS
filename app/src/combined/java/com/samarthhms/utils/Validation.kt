@@ -22,10 +22,12 @@ class Validation {
         }
 
         fun validateUserName(userName: String):Boolean{
+            if(userName.isBlank()) return false
             return true
         }
 
         fun validatePassword(password: String):Boolean{
+            if(password.isBlank()) return false
             return true
         }
 

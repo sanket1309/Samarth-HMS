@@ -104,8 +104,7 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
             return true
         }
 
-        val comingSoonItems = listOf(R.id.REPLACE_1,R.id.REPLACE_2,R.id.REPLACE_3,R.id.REPLACE_4,R.id.REPLACE_7,
-                    R.id.REPLACE_8,R.id.REPLACE_11,R.id.REPLACE_12,R.id.REPLACE_13,R.id.REPLACE_15,R.id.REPLACE_16,R.id.REPLACE_18,R.id.REPLACE_19)
+        val comingSoonItems = listOf(R.id.REPLACE_1,R.id.REPLACE_2,R.id.REPLACE_3,R.id.REPLACE_4,R.id.REPLACE_7,R.id.REPLACE_11,R.id.REPLACE_12,R.id.REPLACE_13,R.id.REPLACE_15,R.id.REPLACE_16,R.id.REPLACE_18,R.id.REPLACE_19)
         val destId = if(item.itemId in comingSoonItems) R.id.comingSoonFragment else item.itemId
         binding.bottomNavigation.visibility = GONE
         supportFragmentManager.findFragmentById(R.id.nav_host)?.findNavController()?.navigate(destId)

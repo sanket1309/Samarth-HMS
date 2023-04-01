@@ -7,6 +7,7 @@ import com.samarthhms.models.*
 import kotlinx.coroutines.tasks.await
 import java.util.*
 import javax.inject.Inject
+import javax.xml.validation.Schema
 
 class StaffRepositoryImpl @Inject constructor(): StaffRepository {
 
@@ -31,10 +32,10 @@ class StaffRepositoryImpl @Inject constructor(): StaffRepository {
         }
     }
 
-    override suspend fun getAllStaff(): List<Staff> {
+    override suspend fun getAllStaff(adminId: String): List<Staff> {
         try {
             val reference = db.collection(SchemaName.STAFF_COLLECTION)
-            val snapshots = reference.get().await()
+            val snapshots = reference.whereEqualTo(SchemaName.ADMIN_ID, adminId).get().await()
             if(Objects.isNull(snapshots)){
                 Log.i("Staff_Repository_Impl", "No staff found")
                 return listOf()
@@ -48,15 +49,32 @@ class StaffRepositoryImpl @Inject constructor(): StaffRepository {
         }
     }
 
-    override suspend fun addStaff(staff: Staff) {
+    override suspend fun addStaff(staff: Staff):String? {
         val reference = db.collection(SchemaName.STAFF_COLLECTION)
-        val document = reference.document()
+        val document = if(staff.staffId.isBlank()) reference.document() else reference.document(staff.staffId)
         staff.staffId = document.id
-        try {
+        return try {
             document.set(Converters.convertToStaffFirebase(staff))
             Log.i("Staff_Repository_Impl", "Successfully added staff : [$staff]")
+            return staff.staffId
         }catch (e: Exception){
             Log.e("Staff_Repository_Impl", "Error while adding staff : $e")
+            null
+        }
+    }
+
+    override suspend fun removeStaff(staffId: String) {
+        val reference = db.collection(SchemaName.STAFF_COLLECTION)
+        val referenceDelete = db.collection(SchemaName.STAFF_DELETE_COLLECTION)
+        val document = reference.document(staffId)
+        val documentDelete = referenceDelete.document(staffId)
+        try {
+            val staff = document.get().await().toObject(StaffFirebase::class.java)!!
+            document.delete()
+            documentDelete.set(staff)
+            Log.i("Staff_Repository_Impl", "Successfully removed staff : [$staff]")
+        }catch (e: Exception){
+            Log.e("Staff_Repository_Impl", "Error while removing staff : $e")
         }
     }
 }

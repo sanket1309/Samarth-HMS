@@ -61,4 +61,19 @@ class LoginRepositoryImpl @Inject constructor(): LoginRepository {
             Log.e("Login_Repository_Impl", "Error while setting credentials : $e")
         }
     }
+
+    override suspend fun removeCredentials(id: String) {
+        try {
+            val reference = db.collection(SchemaName.LOGIN_CREDENTIALS_COLLECTION)
+            val referenceDelete = db.collection(SchemaName.LOGIN_CREDENTIALS_DELETE_COLLECTION)
+            val document = reference.document(id)
+            val documentDelete = referenceDelete.document(id)
+            val credentials = document.get().await()
+            document.delete()
+            documentDelete.set(credentials)
+            Log.i("Login_Repository_Impl", "Successfully set credentials")
+        }catch (e: Exception){
+            Log.e("Login_Repository_Impl", "Error while setting credentials : $e")
+        }
+    }
 }

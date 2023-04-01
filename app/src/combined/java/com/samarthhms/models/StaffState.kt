@@ -29,8 +29,5 @@ data class StaffState(
     var lastName: String? = null,
 
     @ColumnInfo(name = "gender")
-    var gender: Gender = Gender.MALE,
-
-    @ColumnInfo(name = "date_of_birth")
-    var dateOfBirth: String? = null
+    var gender: Gender = Gender.MALE
 )

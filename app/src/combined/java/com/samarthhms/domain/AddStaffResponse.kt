@@ -5,7 +5,6 @@ import com.samarthhms.models.PatientVisitInfo
 import com.samarthhms.models.Staff
 import com.samarthhms.models.StaffDetails
 
-class GetAllStaffResponse {
+class AddStaffResponse {
     var status: Status? = Status.NONE
-    var data: List<StaffDetails> = listOf()
 }

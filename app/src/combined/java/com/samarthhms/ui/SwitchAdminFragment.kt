@@ -59,7 +59,7 @@ class SwitchAdminFragment : Fragment(), RecyclerOnItemViewClickListener {
         return binding.root
     }
 
-    override fun onItemClicked(data: Any, requester: String) {
+    override fun onItemClicked(data: Any?, requester: String) {
         if(data is SwitchAdminData){
             val dialogClickListener = DialogInterface.OnClickListener{
                     dialog, which ->

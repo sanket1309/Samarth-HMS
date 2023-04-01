@@ -76,10 +76,7 @@ class Converters {
                 staffFirebase.lastName,
                 staffFirebase.gender,
                 staffFirebase.contactNumber,
-                DateTimeUtils.getLocalDateTime(staffFirebase.dateOfBirth?:Timestamp.now()),
-                staffFirebase.town,
-                staffFirebase.taluka,
-                staffFirebase.district
+                staffFirebase.address
             )
         }
 
@@ -92,10 +89,7 @@ class Converters {
                 staff.lastName,
                 staff.gender,
                 staff.contactNumber,
-                DateTimeUtils.getTimestamp(staff.dateOfBirth?: LocalDateTime.now()),
-                staff.town,
-                staff.taluka,
-                staff.district
+                staff.address
             )
         }
 
@@ -119,8 +113,7 @@ class Converters {
                 staff.firstName,
                 staff.middleName,
                 staff.lastName,
-                staff.gender,
-                staff.dateOfBirth.toString()
+                staff.gender
             )
         }
 

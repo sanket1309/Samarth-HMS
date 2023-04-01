@@ -14,8 +14,5 @@ data class StaffFirebase(
     val lastName: String = "",
     val gender: Gender = Gender.MALE,
     val contactNumber: String = "",
-    val dateOfBirth: Timestamp? = Timestamp.now(),
-    val town: String = "",
-    val taluka: String = "",
-    val district: String = ""
+    val address: String = ""
 ): Parcelable

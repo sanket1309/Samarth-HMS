@@ -24,6 +24,7 @@ import androidx.core.content.FileProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.samarthhms.BuildConfig
 import com.samarthhms.R
@@ -149,23 +150,8 @@ class GenerateBillFragment : Fragment() {
             }
             if(it == Status.SUCCESS && viewModel.billFile.value != null){
                 startProgressBar(false)
-                Log.d("","6 ")
-                try {
-                    val uriPath = FileProvider.getUriForFile(requireContext(), BuildConfig.APPLICATION_ID +".provider", viewModel.billFile.value!!)
-                    val pdfIntent = Intent(Intent.ACTION_VIEW)
-                    pdfIntent.setDataAndType(uriPath, "application/pdf")
-                    pdfIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    pdfIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    pdfIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-                    startActivity(pdfIntent)
-
-//                    val sharingIntent = Intent(Intent.ACTION_SEND)
-//                    sharingIntent.type = "application/pdf"
-//                    sharingIntent.putExtra(Intent.EXTRA_STREAM, uriPath)
-//                    startActivity(Intent.createChooser(sharingIntent, "Share using"))
-                }catch (_: Exception){
-
-                }
+                val action = GenerateBillFragmentDirections.actionGenerateBillFragmentToPdfDetailsFragment(viewModel.billFile.value!!)
+                findNavController().navigate(action)
             }
         }
 

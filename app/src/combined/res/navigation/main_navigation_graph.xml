@@ -106,7 +106,11 @@
         android:id="@+id/generateDischargeCardFragment"
         android:name="com.samarthhms.ui.GenerateDischargeCardFragment"
         android:label="Discharge Card"
-        tools:layout="@layout/fragment_generate_discharge_card" />
+        tools:layout="@layout/fragment_generate_discharge_card" >
+        <action
+            android:id="@+id/action_generateDischargeCardFragment_to_pdfDetailsFragment"
+            app:destination="@id/pdfDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/comingSoonFragment"
         android:name="com.samarthhms.ui.ComingSoonFragment"
@@ -121,5 +125,47 @@
         android:id="@+id/generateBillFragment"
         android:name="com.samarthhms.ui.GenerateBillFragment"
         android:label="Bill"
-        tools:layout="@layout/fragment_generate_bill" />
+        tools:layout="@layout/fragment_generate_bill" >
+        <action
+            android:id="@+id/action_generateBillFragment_to_pdfDetailsFragment"
+            app:destination="@id/pdfDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pdfDetailsFragment"
+        android:name="com.samarthhms.ui.PdfDetailsFragment"
+        android:label="File Options"
+        tools:layout="@layout/fragment_pdf_details">
+        <argument
+            android:name="file"
+            app:argType="java.io.File" />
+    </fragment>
+    <fragment
+        android:id="@+id/staffSettingsFragment"
+        android:name="com.samarthhms.ui.StaffSettingsFragment"
+        android:label="Staff Settings"
+        tools:layout="@layout/fragment_staff_settings" >
+        <action
+            android:id="@+id/action_staffSettingsFragment_to_addStaffFragment"
+            app:destination="@id/addStaffFragment" />
+        <action
+            android:id="@+id/action_staffSettingsFragment_to_staffDetailsFragment"
+            app:destination="@id/staffDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addStaffFragment"
+        android:name="com.samarthhms.ui.AddStaffFragment"
+        android:label="Add Staff"
+        tools:layout="@layout/fragment_add_staff" />
+    <fragment
+        android:id="@+id/staffDetailsFragment"
+        android:name="com.samarthhms.ui.StaffDetailsFragment"
+        android:label="Staff Details"
+        tools:layout="@layout/fragment_staff_details" >
+        <argument
+            android:name="staffDetails"
+            app:argType="com.samarthhms.models.StaffDetails" />
+        <action
+            android:id="@+id/action_staffDetailsFragment_to_staffSettingsFragment"
+            app:destination="@id/staffSettingsFragment" />
+    </fragment>
 </navigation>

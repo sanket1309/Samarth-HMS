@@ -20,18 +20,18 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.firestore.FirebaseFirestore
 import com.samarthhms.BuildConfig
 import com.samarthhms.R
 import com.samarthhms.constants.Gender
+import com.samarthhms.constants.SchemaName
 import com.samarthhms.databinding.FragmentAdminDashboardBinding
-import com.samarthhms.models.Admin
-import com.samarthhms.models.Bill
-import com.samarthhms.models.BillItem
-import com.samarthhms.models.DischargeCard
+import com.samarthhms.models.*
 import com.samarthhms.navigator.Navigator
 import com.samarthhms.repository.AdminRepository
 import com.samarthhms.repository.AdminRepositoryImpl
 import com.samarthhms.repository.StoredStateDao
+import com.samarthhms.repository.StoredStateRepositoryImpl
 import com.samarthhms.service.GenerateBill
 import com.samarthhms.service.GenerateDischargeCard
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,9 +48,6 @@ class AdminDashboardFragment : Fragment(),RecyclerOnItemViewClickListener {
     private val viewModel: AdminDashboardViewModel by viewModels()
 
     @Inject
-    lateinit var storedStateDao: StoredStateDao
-
-    @Inject
     lateinit var navigator: Navigator
 
     @Inject
@@ -61,6 +58,9 @@ class AdminDashboardFragment : Fragment(),RecyclerOnItemViewClickListener {
 
     @Inject
     lateinit var adminRepository: AdminRepositoryImpl
+
+    @Inject
+    lateinit var storedStateRepository: StoredStateRepositoryImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -215,6 +215,48 @@ class AdminDashboardFragment : Fragment(),RecyclerOnItemViewClickListener {
 //            startActivity(pdfIntent)
 //        }
 
+        binding.unattendedPatientsCount.setOnClickListener{
+            val db = FirebaseFirestore.getInstance()
+            val ref = db.collection(SchemaName.STAFF_COLLECTION)
+            val refStatus = db.collection(SchemaName.STAFF_STATUS_COLLECTION)
+            GlobalScope.launch {
+                val adminId = storedStateRepository.getAdminId()!!
+                ref.document("1").set(
+                    Converters.convertToStaffFirebase(Staff(
+                        adminId,
+                        "1",
+                        "Max",
+                        "",
+                        "Payne"
+                        ))
+                )
+                refStatus.document("1").set(StaffStatus("1"))
+
+                ref.document("2").set(
+                    Converters.convertToStaffFirebase(Staff(
+                        adminId,
+                        "2",
+                        "Courteney",
+                        "",
+                        "Cox"
+                    ))
+                )
+                refStatus.document("2").set(StaffStatus("2"))
+
+                ref.document("3").set(
+                    Converters.convertToStaffFirebase(Staff(
+                        adminId,
+                        "3",
+                        "Matt",
+                        "",
+                        "Blanc"
+                    ))
+                )
+                refStatus.document("3").set(StaffStatus("3"))
+
+            }
+        }
+
         binding.admitPatientsCount.setOnClickListener{
             val treatmentCharges = listOf<BillItem>(
                 BillItem("Registration", 350, 1),
@@ -270,7 +312,7 @@ class AdminDashboardFragment : Fragment(),RecyclerOnItemViewClickListener {
         return binding.root
     }
 
-    override fun onItemClicked(data: Any, requester: String) {
+    override fun onItemClicked(data: Any?, requester: String) {
     }
 
     fun startProgressBar(isVisible: Boolean){

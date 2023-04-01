@@ -71,7 +71,7 @@ class FindPatientByNameFragment : Fragment(), RecyclerOnItemViewClickListener {
         return binding.root
     }
 
-    override fun onItemClicked(data: Any, requester: String) {
+    override fun onItemClicked(data: Any?, requester: String) {
         if(data is Patient){
             val action = FindPatientByNameFragmentDirections.actionFindPatientByNameFragmentToAddVisitFragment(data)
             findNavController().navigate(action)

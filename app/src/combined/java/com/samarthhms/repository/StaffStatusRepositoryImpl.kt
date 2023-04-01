@@ -35,10 +35,24 @@ class StaffStatusRepositoryImpl @Inject constructor(): StaffStatusRepository {
 
     override suspend fun addStaffStatus(staffStatus: StaffStatus) {
         val reference = db.collection(SchemaName.STAFF_STATUS_COLLECTION)
-        val document = reference.document()
-        staffStatus.staffId = document.id
+        val document = reference.document(staffStatus.staffId)
         try {
             document.set(staffStatus)
+            Log.i("Staff_Status_Repository_Impl", "Successfully added staff : [$staffStatus]")
+        }catch (e: Exception){
+            Log.e("Staff_Status_Repository_Impl", "Error while adding staff : $e")
+        }
+    }
+
+    override suspend fun removeStaffStatus(staffId: String) {
+        val reference = db.collection(SchemaName.STAFF_STATUS_COLLECTION)
+        val referenceDelete = db.collection(SchemaName.STAFF_STATUS_DELETE_COLLECTION)
+        val document = reference.document(staffId)
+        val documentDelete = referenceDelete.document(staffId)
+        try {
+            val staffStatus = document.get().await()
+            document.delete()
+            documentDelete.set(staffStatus)
             Log.i("Staff_Status_Repository_Impl", "Successfully added staff : [$staffStatus]")
         }catch (e: Exception){
             Log.e("Staff_Status_Repository_Impl", "Error while adding staff : $e")

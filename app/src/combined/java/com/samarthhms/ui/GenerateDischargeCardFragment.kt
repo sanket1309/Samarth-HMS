@@ -24,6 +24,7 @@ import androidx.core.content.FileProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.samarthhms.BuildConfig
@@ -134,23 +135,8 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
             }
             if(it == Status.SUCCESS && viewModel.dischargeCardFile.value != null){
                 startProgressBar(false)
-                Log.d("","6 ")
-                try {
-                    val uriPath = FileProvider.getUriForFile(requireContext(), BuildConfig.APPLICATION_ID +".provider", viewModel.dischargeCardFile.value!!)
-                    val pdfIntent = Intent(Intent.ACTION_VIEW)
-                    pdfIntent.setDataAndType(uriPath, "application/pdf")
-                    pdfIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    pdfIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    pdfIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-                    startActivity(pdfIntent)
-
-//                    val sharingIntent = Intent(Intent.ACTION_SEND)
-//                    sharingIntent.type = "application/pdf"
-//                    sharingIntent.putExtra(Intent.EXTRA_STREAM, uriPath)
-//                    startActivity(Intent.createChooser(sharingIntent, "Share using"))
-                }catch (_: Exception){
-
-                }
+                val action = GenerateDischargeCardFragmentDirections.actionGenerateDischargeCardFragmentToPdfDetailsFragment(viewModel.dischargeCardFile.value!!)
+                findNavController().navigate(action)
             }
         }
         return binding.root
@@ -480,7 +466,7 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
         bottomSheetDialog?.show()
     }
 
-    override fun onItemClicked(data: Any, requester: String) {
+    override fun onItemClicked(data: Any?, requester: String) {
         if(data is PatientHistoryTemplate){
             binding.patientHistory.setText(data.templateData)
             bottomSheetDialog?.cancel()

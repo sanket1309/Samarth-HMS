@@ -47,7 +47,7 @@
                 android:title="Admin Settings"/>
 
             <item
-                android:id="@+id/REPLACE_8"
+                android:id="@+id/staffSettingsFragment"
                 android:icon="@drawable/navigation_icon_setting"
                 android:title="Staff Settings"/>
         </menu>

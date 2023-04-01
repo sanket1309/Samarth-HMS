@@ -25,7 +25,6 @@ class SwitchAdminViewModel
 
     fun getAdmins(){
         getSwitchAdmins(UseCase.None()){
-            Log.e("", "Result VIEWMODEL : ${it.data}")
             _switchAdmins.value = it.data
         }
     }
