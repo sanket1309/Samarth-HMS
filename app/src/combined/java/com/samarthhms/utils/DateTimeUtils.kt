@@ -35,7 +35,7 @@ class DateTimeUtils {
         }
 
         fun getDateFormat(localDateTime: LocalDateTime): String {
-            return DateTimeFormatter.ofPattern("d/M/yyyy").format(localDateTime)
+            return DateTimeFormatter.ofPattern("d/MM/yyyy").format(localDateTime)
         }
 
         fun getDateTime(localDateTime: LocalDateTime): String {

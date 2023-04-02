@@ -42,7 +42,7 @@
                 android:title="Switch Admin"/>
 
             <item
-                android:id="@+id/REPLACE_7"
+                android:id="@+id/adminSettingsFragment"
                 android:icon="@drawable/navigation_icon_setting"
                 android:title="Admin Settings"/>
 
@@ -65,12 +65,7 @@
             <item
                 android:id="@+id/generateBillFragment"
                 android:icon="@drawable/navigation_icon_bill"
-                android:title="Generate OPD Bill"/>
-
-            <item
-                android:id="@+id/REPLACE_11"
-                android:icon="@drawable/navigation_icon_bill"
-                android:title="Generate IPD Bill"/>
+                android:title="Generate Bill"/>
         </menu>
     </item>
 

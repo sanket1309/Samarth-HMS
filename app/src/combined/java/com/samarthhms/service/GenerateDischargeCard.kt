@@ -125,6 +125,15 @@ class GenerateDischargeCard @Inject constructor(){
 //        document.add(Paragraph(" ",bodyFont))
         document.add(table)
         document.add(Paragraph(" ",bodyFont))
+        table = pdfService.createTable(2, listOf(70f,30f))
+        cell = getCell(" ")
+        cell.border = Rectangle.NO_BORDER
+        table.addCell(cell)
+        cell = getCell("Date : "+DateTimeUtils.getDateFormat(dischargeCard.dateOfDischarge))
+        cell.border = Rectangle.NO_BORDER
+        table.addCell(cell)
+        document.add(table)
+        document.add(Paragraph(" ",bodyFont))
 
         table = pdfService.createTable(2, listOf(42f,58f))
 

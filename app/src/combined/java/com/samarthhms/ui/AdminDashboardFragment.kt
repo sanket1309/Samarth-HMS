@@ -215,48 +215,6 @@ class AdminDashboardFragment : Fragment(),RecyclerOnItemViewClickListener {
 //            startActivity(pdfIntent)
 //        }
 
-        binding.unattendedPatientsCount.setOnClickListener{
-            val db = FirebaseFirestore.getInstance()
-            val ref = db.collection(SchemaName.STAFF_COLLECTION)
-            val refStatus = db.collection(SchemaName.STAFF_STATUS_COLLECTION)
-            GlobalScope.launch {
-                val adminId = storedStateRepository.getAdminId()!!
-                ref.document("1").set(
-                    Converters.convertToStaffFirebase(Staff(
-                        adminId,
-                        "1",
-                        "Max",
-                        "",
-                        "Payne"
-                        ))
-                )
-                refStatus.document("1").set(StaffStatus("1"))
-
-                ref.document("2").set(
-                    Converters.convertToStaffFirebase(Staff(
-                        adminId,
-                        "2",
-                        "Courteney",
-                        "",
-                        "Cox"
-                    ))
-                )
-                refStatus.document("2").set(StaffStatus("2"))
-
-                ref.document("3").set(
-                    Converters.convertToStaffFirebase(Staff(
-                        adminId,
-                        "3",
-                        "Matt",
-                        "",
-                        "Blanc"
-                    ))
-                )
-                refStatus.document("3").set(StaffStatus("3"))
-
-            }
-        }
-
         binding.admitPatientsCount.setOnClickListener{
             val treatmentCharges = listOf<BillItem>(
                 BillItem("Registration", 350, 1),

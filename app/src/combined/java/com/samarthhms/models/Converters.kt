@@ -46,9 +46,7 @@ class Converters {
                 adminFirebase.gender,
                 adminFirebase.contactNumber,
                 DateTimeUtils.getLocalDateTime(adminFirebase.dateOfBirth?: Timestamp.now()),
-                adminFirebase.town,
-                adminFirebase.taluka,
-                adminFirebase.district
+                adminFirebase.address
             )
         }
 
@@ -61,9 +59,7 @@ class Converters {
                 admin.gender,
                 admin.contactNumber,
                 DateTimeUtils.getTimestamp(admin.dateOfBirth?: LocalDateTime.now()),
-                admin.town,
-                admin.taluka,
-                admin.district
+                admin.address
             )
         }
 

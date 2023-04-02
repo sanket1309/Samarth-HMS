@@ -21,10 +21,12 @@ import androidx.navigation.fragment.findNavController
 import com.samarthhms.R
 import com.samarthhms.constants.Gender
 import com.samarthhms.constants.Role
+import com.samarthhms.databinding.FragmentAddAdminBinding
 import com.samarthhms.databinding.FragmentAddStaffBinding
 import com.samarthhms.domain.Status
+import com.samarthhms.models.Admin
+import com.samarthhms.models.AdminDetails
 import com.samarthhms.models.Credentials
-import com.samarthhms.models.Patient
 import com.samarthhms.models.Staff
 import com.samarthhms.utils.DateTimeUtils
 import com.samarthhms.utils.StringUtils
@@ -32,20 +34,20 @@ import com.samarthhms.utils.Validation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddStaffFragment : Fragment() {
+class AddAdminFragment : Fragment() {
 
-    private val viewModel: AddStaffViewModel by viewModels()
+    private val viewModel: AddAdminViewModel by viewModels()
 
-    private lateinit var binding: FragmentAddStaffBinding
+    private lateinit var binding: FragmentAddAdminBinding
 
-    private lateinit var staff: Staff
+    private lateinit var adminDetails: AdminDetails
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAddStaffBinding.inflate(layoutInflater, container, false)
-        binding.saveStaffButton.setOnClickListener {
+        binding = FragmentAddAdminBinding.inflate(layoutInflater, container, false)
+        binding.saveAdminButton.setOnClickListener {
             var invalidColor = R.color.red
             var validColor = R.color.blue_theme
 
@@ -92,6 +94,14 @@ class AddStaffFragment : Fragment() {
                 )
             }
 
+            val dob = binding.dateOfBirth.text.toString()
+            if (!Validation.validateDate(dob)) {
+                changeColorOfInputFields(binding.dateOfBirthTitle, binding.dateOfBirth, invalidColor)
+                return@setOnClickListener
+            } else {
+                changeColorOfInputFields(binding.dateOfBirthTitle, binding.dateOfBirth, validColor)
+            }
+
             val address = binding.address.text.toString()
             if (address.isBlank()) {
                 changeColorOfInputFields(binding.addressTitle, binding.address, invalidColor)
@@ -116,20 +126,20 @@ class AddStaffFragment : Fragment() {
                 changeColorOfInputFields(binding.setPasswordTitle, binding.password, validColor)
             }
 
-            staff = Staff(
-                "",
+            adminDetails = AdminDetails("",Admin(
                 "",
                 StringUtils.formatName(firstName),
                 StringUtils.formatName(middleName),
                 StringUtils.formatName(lastName),
                 gender,
                 contactNumber,
+                DateTimeUtils.getLocalDateTimeFromDate(dob),
                 address
-            )
-            viewModel.addStaff(staff, Credentials("", Role.STAFF, username, password))
+            ),null,Credentials("", Role.ADMIN, username, password))
+            viewModel.addAdmin(adminDetails)
         }
 
-        viewModel.addStaffStatus.observe(viewLifecycleOwner) {
+        viewModel.addAdminStatus.observe(viewLifecycleOwner) {
             when (it) {
                 Status.SUCCESS -> onSuccess()
                 Status.FAILURE -> onFailure()
@@ -158,12 +168,7 @@ class AddStaffFragment : Fragment() {
     }
 
     private fun onSuccess() {
-        Toast.makeText(activity, "Added Staff Successfully", Toast.LENGTH_SHORT).show()
-        val controller = findNavController()
-//        val action = AddNewPatientFragmentDirections.actionAddNewPatientFragmentToAddVisitFragment(
-//            patientData
-//        )
-//        controller.navigate(action)
+        Toast.makeText(activity, "Added Admin Successfully", Toast.LENGTH_SHORT).show()
     }
 
     private fun onFailure() {

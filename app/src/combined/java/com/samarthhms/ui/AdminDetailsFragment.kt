@@ -5,11 +5,11 @@ import android.content.DialogInterface
 import android.graphics.drawable.DrawableContainer
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
-import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,36 +17,32 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.samarthhms.R
 import com.samarthhms.constants.Gender
 import com.samarthhms.constants.Role
-import com.samarthhms.databinding.FragmentAddStaffBinding
+import com.samarthhms.databinding.FragmentAdminDetailsBinding
 import com.samarthhms.databinding.FragmentStaffDetailsBinding
 import com.samarthhms.domain.Status
-import com.samarthhms.models.Credentials
-import com.samarthhms.models.Staff
-import com.samarthhms.models.StaffDetails
-import com.samarthhms.models.StaffStatus
+import com.samarthhms.models.*
+import com.samarthhms.utils.DateTimeUtils
 import com.samarthhms.utils.StringUtils
 import com.samarthhms.utils.Validation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class StaffDetailsFragment : Fragment() {
+class AdminDetailsFragment : Fragment() {
 
-    private val viewModel: StaffDetailsViewModel by viewModels()
+    private val viewModel: AdminDetailsViewModel by viewModels()
 
-    private lateinit var binding: FragmentStaffDetailsBinding
+    private lateinit var binding: FragmentAdminDetailsBinding
 
-    private lateinit var staffDetails: StaffDetails
+    private lateinit var adminDetails: AdminDetails
 
-    private lateinit var staff: Staff
+    private lateinit var admin: Admin
 
     private var isEdit: Boolean = false
 
@@ -54,28 +50,29 @@ class StaffDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentStaffDetailsBinding.inflate(layoutInflater, container, false)
-        staffDetails = StaffDetailsFragmentArgs.fromBundle(requireArguments()).staffDetails
-        staff = staffDetails.staff!!
+        binding = FragmentAdminDetailsBinding.inflate(layoutInflater, container, false)
+        adminDetails = AdminDetailsFragmentArgs.fromBundle(requireArguments()).adminDetails
+        admin = adminDetails.admin
         onSave()
 
-        binding.firstName.setText(staff.firstName)
-        binding.middleName.setText(staff.middleName)
-        binding.lastName.setText(staff.lastName)
-        if(staff.gender == Gender.MALE){
+        binding.firstName.setText(admin.firstName)
+        binding.middleName.setText(admin.middleName)
+        binding.lastName.setText(admin.lastName)
+        if(admin.gender == Gender.MALE){
             binding.genderMaleRadioGroupButton.isChecked = true
         }
         else{
             binding.genderFemaleRadioGroupButton.isChecked = true
         }
-        binding.contactNumber.setText(staff.contactNumber)
-        binding.address.setText(staff.address)
-        binding.username.setText(staffDetails.staffCredentials!!.username)
-        binding.password.setText(staffDetails.staffCredentials!!.password)
+        binding.dateOfBirth.setText(DateTimeUtils.getDate(admin.dateOfBirth!!))
+        binding.contactNumber.setText(admin.contactNumber)
+        binding.address.setText(admin.address)
+        binding.username.setText(adminDetails.adminCredentials!!.username)
+        binding.password.setText(adminDetails.adminCredentials!!.password)
         changeEditField(false)
 
-        binding.saveStaffButton.visibility = View.GONE
-        binding.saveStaffButton.setOnClickListener {
+        binding.saveAdminButton.visibility = View.GONE
+        binding.saveAdminButton.setOnClickListener {
             var invalidColor = R.color.red
             var validColor = R.color.blue_theme
 
@@ -105,6 +102,14 @@ class StaffDetailsFragment : Fragment() {
 
             val gender =
                 if (binding.genderMaleRadioGroupButton.isChecked) Gender.MALE else Gender.FEMALE
+
+            val dob = binding.dateOfBirth.text.toString()
+            if (Validation.validateDate(dob)) {
+                changeColorOfInputFields(binding.dateOfBirthTitle, binding.dateOfBirth, invalidColor)
+                return@setOnClickListener
+            } else {
+                changeColorOfInputFields(binding.dateOfBirthTitle, binding.dateOfBirth, validColor)
+            }
 
             val contactNumber = binding.contactNumber.text.toString().replace(" ", "")
             if (!Validation.validateContactNumber(contactNumber)) {
@@ -146,51 +151,54 @@ class StaffDetailsFragment : Fragment() {
                 changeColorOfInputFields(binding.setPasswordTitle, binding.password, validColor)
             }
 
-            val newStaffDetails = StaffDetails(staff.staffId,
-                Staff(
-                staff.adminId,
-                staff.staffId,
-                StringUtils.formatName(firstName),
-                StringUtils.formatName(middleName),
-                StringUtils.formatName(lastName),
-                gender,
-                contactNumber,
-                address
-            ),
-            StaffStatus(staff.staffId),
-            Credentials(staff.staffId, Role.STAFF, username, password))
-            if(areEqual(staffDetails, newStaffDetails)){
+            val newAdminDetails = AdminDetails(admin.adminId,
+                Admin(
+                    admin.adminId,
+                    StringUtils.formatName(firstName),
+                    StringUtils.formatName(middleName),
+                    StringUtils.formatName(lastName),
+                    gender,
+                    contactNumber,
+                    DateTimeUtils.getLocalDateTimeFromDate(dob),
+                    address
+                ),
+                null,
+                Credentials(admin.adminId, Role.ADMIN, username, password)
+            )
+            if(areEqual(adminDetails, newAdminDetails)){
                 Toast.makeText(activity, "Nothing has been updated", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            val dialogClickListener = DialogInterface.OnClickListener{
-                    dialog, which ->
-                when(which){
-                    DialogInterface.BUTTON_POSITIVE -> {
-                        viewModel.addStaff(newStaffDetails)
-                    }
-                    DialogInterface.BUTTON_NEGATIVE -> {
-                        dialog.dismiss()
+            binding.deleteAdminButton.setOnClickListener {
+                val dialogClickListener = DialogInterface.OnClickListener{
+                        dialog, which ->
+                    when(which){
+                        DialogInterface.BUTTON_POSITIVE -> {
+                            viewModel.addAdmin(newAdminDetails)
+                        }
+                        DialogInterface.BUTTON_NEGATIVE -> {
+                            dialog.dismiss()
+                        }
                     }
                 }
+                val alertDialogBuilder = AlertDialog.Builder(requireContext())
+                alertDialogBuilder.setMessage("Are you sure, you want to update staff?")
+                    .setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener)
+                    .show()
             }
-            val alertDialogBuilder = AlertDialog.Builder(requireContext())
-            alertDialogBuilder.setMessage("Are you sure, you want to update staff?")
-                .setPositiveButton("Yes", dialogClickListener)
-                .setNegativeButton("No", dialogClickListener)
-                .show()
         }
 
-        binding.editStaffButton.setOnClickListener {
+        binding.editAdminButton.setOnClickListener {
             onEdit()
         }
 
-        binding.deleteStaffButton.setOnClickListener {
+        binding.deleteAdminButton.setOnClickListener {
             val dialogClickListener = DialogInterface.OnClickListener{
                     dialog, which ->
                 when(which){
                     DialogInterface.BUTTON_POSITIVE -> {
-                        viewModel.removeStaff(staff.staffId)
+                        viewModel.removeAdmin(admin.adminId)
                     }
                     DialogInterface.BUTTON_NEGATIVE -> {
                         dialog.dismiss()
@@ -208,19 +216,19 @@ class StaffDetailsFragment : Fragment() {
             onShowPassword()
         }
 
-        viewModel.addStaffStatus.observe(viewLifecycleOwner) {
+        viewModel.addAdminStatus.observe(viewLifecycleOwner) {
             when (it) {
-                Status.SUCCESS -> onSuccess("Updated Staff Details")
+                Status.SUCCESS -> onSuccess("Updated Admin Details")
                 Status.FAILURE -> onFailure()
                 else -> {}
             }
         }
 
-        viewModel.removeStaffStatus.observe(viewLifecycleOwner) {
+        viewModel.removeAdminStatus.observe(viewLifecycleOwner) {
             when (it) {
                 Status.SUCCESS -> {
-                    onSuccess("Removed Staff")
-                    val action = StaffDetailsFragmentDirections.actionStaffDetailsFragmentToStaffSettingsFragment()
+                    onSuccess("Removed Admin")
+                    val action = AdminDetailsFragmentDirections.actionAdminDetailsFragmentToAdminSettingsFragment()
                     findNavController().navigate(action)
                 }
                 Status.FAILURE -> onFailure()
@@ -231,27 +239,27 @@ class StaffDetailsFragment : Fragment() {
         return binding.root
     }
 
-    fun areEqual(a: StaffDetails, b: StaffDetails): Boolean{
-        return a.staff!!.firstName == b.staff!!.firstName &&
-               a.staff.middleName == b.staff.middleName &&
-               a.staff.lastName == b.staff.lastName &&
-               a.staff.gender == b.staff.gender &&
-               a.staff.contactNumber == b.staff.contactNumber &&
-               a.staff.address == b.staff.address &&
-               a.staffCredentials!!.username == b.staffCredentials!!.username &&
-               a.staffCredentials!!.password == b.staffCredentials!!.password
+    fun areEqual(a: AdminDetails, b: AdminDetails): Boolean{
+        return a.admin!!.firstName == b.admin!!.firstName &&
+                a.admin.middleName == b.admin.middleName &&
+                a.admin.lastName == b.admin.lastName &&
+                a.admin.gender == b.admin.gender &&
+                a.admin.contactNumber == b.admin.contactNumber &&
+                a.admin.address == b.admin.address &&
+                a.adminCredentials!!.username == b.adminCredentials!!.username &&
+                a.adminCredentials!!.password == b.adminCredentials!!.password
     }
 
     fun onEdit(){
-        binding.editStaffButton.visibility = View.INVISIBLE
-        binding.saveStaffButton.visibility = View.VISIBLE
+        binding.editAdminButton.visibility = View.INVISIBLE
+        binding.saveAdminButton.visibility = View.VISIBLE
         isEdit = true
         changeEditField(true)
     }
 
     fun onSave(){
-        binding.saveStaffButton.visibility = View.INVISIBLE
-        binding.editStaffButton.visibility = View.VISIBLE
+        binding.saveAdminButton.visibility = View.INVISIBLE
+        binding.editAdminButton.visibility = View.VISIBLE
         isEdit = false
         changeEditField(false)
     }
@@ -264,6 +272,8 @@ class StaffDetailsFragment : Fragment() {
         onEditable(isEdit, binding.middleName)
         binding.lastName.setBackgroundResource(drawable)
         onEditable(isEdit, binding.lastName)
+        binding.dateOfBirth.setBackgroundResource(drawable)
+        onEditable(isEdit, binding.dateOfBirth)
         binding.contactNumber.setBackgroundResource(drawable)
         onEditable(isEdit, binding.contactNumber)
         binding.address.setBackgroundResource(drawable)

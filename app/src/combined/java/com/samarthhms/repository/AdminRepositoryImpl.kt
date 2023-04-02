@@ -50,12 +50,29 @@ class AdminRepositoryImpl @Inject constructor(): AdminRepository {
         }
     }
 
-    override suspend fun addAdmin(admin: Admin) {
+    override suspend fun addAdmin(admin: Admin): String? {
         try {
             val reference = db.collection(SchemaName.ADMINS_COLLECTION)
-            val document = reference.document()
+            val document = if(admin.adminId.isNotBlank()) reference.document(admin.adminId) else reference.document()
             admin.adminId = document.id
             document.set(Converters.convertToAdminFirebase(admin))
+            Log.i("Admin_Repository_Impl", "Added admin successfully")
+            return admin.adminId
+        }catch (e: Exception){
+            Log.e("Admin_Repository_Impl", "Error while adding admin : $e")
+            return null
+        }
+    }
+
+    override suspend fun removeAdmin(adminId: String) {
+        try {
+            val reference = db.collection(SchemaName.ADMINS_COLLECTION)
+            val referenceDelete = db.collection(SchemaName.ADMINS_DELETE_COLLECTION)
+            val document = reference.document(adminId)
+            val documentDelete = referenceDelete.document(adminId)
+            val admin = document.get().await()
+            document.delete()
+            documentDelete.set(admin)
             Log.i("Admin_Repository_Impl", "Added admin successfully")
         }catch (e: Exception){
             Log.e("Admin_Repository_Impl", "Error while adding admin : $e")

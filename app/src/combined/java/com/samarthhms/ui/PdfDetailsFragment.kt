@@ -25,6 +25,7 @@ class PdfDetailsFragment : Fragment() {
     ): View? {
         binding = FragmentPdfDetailsBinding.inflate(layoutInflater, container, false)
         val file = PdfDetailsFragmentArgs.fromBundle(requireArguments()).file
+        binding.fileName.text = file.name
         val uriPath = FileProvider.getUriForFile(requireContext(), BuildConfig.APPLICATION_ID +".provider", file)
 
         binding.openPdfButton.setOnClickListener{
