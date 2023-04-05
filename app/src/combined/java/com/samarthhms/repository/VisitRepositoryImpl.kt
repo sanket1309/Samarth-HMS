@@ -2,6 +2,7 @@ package com.samarthhms.repository
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.samarthhms.constants.SchemaName
 import com.samarthhms.models.Converters
 import com.samarthhms.models.PatientFirebase
@@ -16,9 +17,10 @@ import javax.inject.Inject
 class VisitRepositoryImpl @Inject constructor(): VisitRepository {
 
     private val db = FirebaseFirestore.getInstance()
-    override suspend fun getVisitsOnDate(localDateTime: LocalDateTime): List<Visit> {
+    override suspend fun getVisitsByAttendentAfter(attendentId: String, localDateTime: LocalDateTime): List<Visit> {
         val reference = db.collection(SchemaName.VISITS_COLLECTION)
-        val query = reference.whereGreaterThanOrEqualTo(SchemaName.VISIT_TIME, DateTimeUtils.getTimestamp(DateTimeUtils.getStartOfDate(localDateTime)))
+        val query = reference.whereGreaterThanOrEqualTo(SchemaName.VISIT_TIME, DateTimeUtils.getTimestamp(localDateTime))
+            .whereEqualTo(SchemaName.ATTENDANT_ID, attendentId).orderBy(SchemaName.VISIT_TIME, Query.Direction.DESCENDING).limit(1)
         try {
             val snapshots = query.get().await()
             if(!snapshots.isEmpty){

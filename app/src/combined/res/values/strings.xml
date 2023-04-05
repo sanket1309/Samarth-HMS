@@ -35,7 +35,7 @@
     <string name="add_patient_floating_action_button_text">Add Patient</string>
     <string name="add_patient_floating_action_button_description">Add Patient Button</string>
 
-<!--    ADD PATIENT-->
+    <!--    ADD PATIENT-->
     <string name="is_registered_patient_question_text">Registered Patient ?</string>
     <string name="find_by_patient_id_button_text">Find By Patient ID</string>
     <string name="find_by_name_button_text">Find By Name</string>
@@ -44,7 +44,7 @@
     <string name="new_patient_question_text">New Patient ?</string>
     <string name="add_new_patient_button_text">Add New Patient</string>
 
-<!--    PATIENT INFO LAYOUT-->
+    <!--    PATIENT INFO LAYOUT-->
     <string name="patient_info_patient_id_text">SBP00047</string>
     <string name="patient_info_patient_name_text">Sanket Patil</string>
     <string name="patient_info_patient_age_text">8y 2m</string>
@@ -54,7 +54,7 @@
     <!--    VISIT INFO LAYOUT-->
     <string name="visit_info_visit_time_text">8:00 AM</string>
 
-<!--    ADD NEW PATIENT, ADD PATIENT VISIT-->
+    <!--    ADD NEW PATIENT, ADD PATIENT VISIT-->
     <string name="patient_id_title_text">Patient Id</string>
     <string name="patient_id_hint_text">Enter Patient Id</string>
     <string name="add_new_patient_first_name_title_text">First Name</string>
@@ -80,7 +80,7 @@
     <string name="save_patient_button_text">Save Patient</string>
     <string name="add_visit_button_text">Add Visit</string>
 
-<!--    FIND PATIENT BY-->
+    <!--    FIND PATIENT BY-->
     <string name="find_patient_by_patient_id_title_text">@string/patient_id_title_text</string>
     <string name="find_patient_by_first_name_title_text">@string/add_new_patient_first_name_title_text</string>
     <string name="find_patient_by_first_name_hint_text">@string/add_new_patient_first_name_hint_text</string>
@@ -95,6 +95,6 @@
     <string name="find_patient_by_result_found_text">No Result Found</string>
     <string name="find_patient_by_search_button_text">Search</string>
 
-<!--    PATIENTS TODAY-->
+    <!--    PATIENTS TODAY-->
     <string name="patients_today_result_count_title_text">8 Patients</string>
 </resources>

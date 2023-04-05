@@ -31,9 +31,11 @@ object SchemaName {
     const val VISITS_DELETE_COLLECTION = "Visits_Delete"
     const val VISIT_TIME = "visitTime"
     const val ADMIN_ID = "adminId"
+    const val ATTENDANT_ID = "attendantId"
 
     const val ADMINS_COLLECTION = "Admins_Collection"
     const val ADMINS_DELETE_COLLECTION = "Admins_Delete_Collection"
+    const val STAFF_ID = "staffId"
     const val STAFF_COLLECTION = "Staff"
     const val STAFF_STATUS_COLLECTION = "Staff_Status"
     const val STAFF_DELETE_COLLECTION = "Staff_Delete"

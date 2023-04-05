@@ -1,6 +1,7 @@
 package com.samarthhms.domain
 
 import android.util.Log
+import com.samarthhms.constants.Role
 import com.samarthhms.models.Patient
 import com.samarthhms.models.Visit
 import com.samarthhms.repository.StoredStateRepositoryImpl
@@ -20,12 +21,13 @@ class AddPatientVisit @Inject constructor(private var visitRepository: VisitRepo
         val addPatientVisitResponse = AddPatientVisitResponse()
         return try {
             val storedState = storedStateRepository.getStoredState()
-            val adminId = if(storedStateRepository.isSwitchStatePresent()) storedStateRepository.getSwitchAdminState().adminId else storedStateRepository.getId()
+            val id = if(storedStateRepository.isSwitchStatePresent()) storedStateRepository.getSwitchAdminState().adminId else storedStateRepository.getId()
+            val adminId = if(storedState.role == Role.STAFF) storedStateRepository.getStaffState().adminId else id
             val visit = Visit(
                 "",
                 patient.patientId,
                 adminId!!,
-                adminId,
+                id!!,
                 storedState.role,
                 LocalDateTime.now(),
                 isAttended = false,

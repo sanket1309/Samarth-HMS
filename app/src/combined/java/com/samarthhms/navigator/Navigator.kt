@@ -8,6 +8,7 @@ import com.samarthhms.constants.Role
 import com.samarthhms.domain.LoginStatusResponse
 import com.samarthhms.ui.LoginActivity
 import com.samarthhms.ui.MainActivity
+import com.samarthhms.ui.StaffMainActivity
 import javax.inject.Inject
 
 class Navigator @Inject constructor(){
@@ -20,7 +21,7 @@ class Navigator @Inject constructor(){
     fun showDashboard(context: Context, role: Role){
         when(role){
             Role.ADMIN -> context.startActivity(Intent(context,MainActivity::class.java))
-            Role.STAFF -> context.startActivity(Intent(context,LoginActivity::class.java))
+            Role.STAFF -> context.startActivity(Intent(context,StaffMainActivity::class.java))
             else -> {
                 showLogin(context)
                 return

@@ -71,9 +71,7 @@ class AddVisitFragment : Fragment() {
 
     private fun onSuccess(){
         Toast.makeText(activity, "Added Visit Successfully", Toast.LENGTH_SHORT).show()
-        val controller = findNavController()
-        val action = AddVisitFragmentDirections.actionAddVisitFragmentToAdminDashboardFragment()
-        controller.navigate(action)
+        findNavController().popBackStack(R.id.addPatientFragment, true)
     }
 
     private fun onFailure(){

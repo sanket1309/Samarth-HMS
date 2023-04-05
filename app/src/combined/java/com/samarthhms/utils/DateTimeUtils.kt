@@ -1,5 +1,6 @@
 package com.samarthhms.utils
 
+import android.util.Log
 import com.google.firebase.Timestamp
 import com.google.type.DateTime
 import java.text.SimpleDateFormat
@@ -19,6 +20,14 @@ class DateTimeUtils {
 
         fun getHours(): Int {
             return DateTimeFormatter.ofPattern("HH").format(LocalDateTime.now()).toInt()
+        }
+
+        fun getDay(): String {
+            return DateTimeFormatter.ofPattern("EEEE").format(LocalDateTime.now()).toString()
+        }
+
+        fun getDate(): String {
+            return DateTimeFormatter.ofPattern("MMM dd").format(LocalDateTime.now()).toString()
         }
 
         fun getCurrentYear(): String {
@@ -66,10 +75,13 @@ class DateTimeUtils {
         }
 
         fun getLocalDateTime(date: Date): LocalDateTime{
-            return LocalDateTime.ofInstant(Instant.ofEpochMilli(date.time), ZoneId.systemDefault())
+            val time = LocalDateTime.ofInstant(Instant.ofEpochMilli(date.time), ZoneId.systemDefault())
+//            Log.d("DEBUG_STAFF","LOCALDATETIME : $time")
+            return time
         }
 
         fun getLocalDateTime(timestamp: Timestamp) :LocalDateTime{
+//            Log.d("DEBUG_STAFF", "TIMESTAMP FB DATE : ${timestamp.toDate()}")
             val date = timestamp.toDate()
             return getLocalDateTime(date)
         }

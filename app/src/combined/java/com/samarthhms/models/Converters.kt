@@ -1,5 +1,6 @@
 package com.samarthhms.models
 
+import android.util.Log
 import com.google.firebase.Timestamp
 import com.samarthhms.constants.SchemaName
 import com.samarthhms.utils.DateTimeUtils
@@ -114,7 +115,8 @@ class Converters {
         }
 
         fun convertToVisit(visitFirebase: VisitFirebase): Visit{
-            return Visit(
+            Log.d("DEBUG_VISIT_TIME","FB TIME DATE : ${visitFirebase.visitTime.toDate()}")
+            val visit = Visit(
                 visitFirebase.visitId,
                 visitFirebase.patientId,
                 visitFirebase.adminId,
@@ -124,6 +126,8 @@ class Converters {
                 visitFirebase.isAttended,
                 visitFirebase.isAdmitted
             )
+            Log.d("DEBUG_VISIT_TIME","LOCAL TIME : ${visit.visitTime}")
+            return visit
         }
 
         fun convertToVisitFirebase(visit: Visit): VisitFirebase {
