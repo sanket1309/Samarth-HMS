@@ -1,5 +1,7 @@
 package com.samarthhms.ui
 
+import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -15,15 +17,20 @@ import com.google.firebase.Timestamp
 import com.samarthhms.R
 import com.samarthhms.databinding.FragmentStaffHomeBinding
 import com.samarthhms.databinding.VisitInfoLayoutBinding
+import com.samarthhms.navigator.Navigator
 import com.samarthhms.utils.DateTimeUtils
 import com.samarthhms.utils.StringUtils
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.Period
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class StaffHomeFragment : Fragment() {
+
+    @Inject
+    lateinit var navigator: Navigator
 
     private val viewModel: StaffHomeViewModel by viewModels()
 
@@ -34,7 +41,7 @@ class StaffHomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentStaffHomeBinding.inflate(layoutInflater, container, false)
-        try{
+
         viewModel.updateData()
         viewModel.updateGreetingsAndInfo()
         binding.recentlyAdded.visibility = View.GONE
@@ -59,6 +66,14 @@ class StaffHomeFragment : Fragment() {
             binding.date.text = it
         }
 
+        viewModel.isLocked.observe(viewLifecycleOwner){
+            if(it){
+                val intent = Intent(context, StaffLockActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
+            }
+        }
+
         viewModel.recentVisit.observe(viewLifecycleOwner){
             if(it!=null) {
                 binding.recentlyAdded.visibility = View.VISIBLE
@@ -74,8 +89,6 @@ class StaffHomeFragment : Fragment() {
                 binding.recentlyAdded.visibility = View.GONE
                 binding.recentVisit.root.visibility = View.GONE
             }
-        }}catch (e: Exception){
-            Log.e("","ERROR IN STAFF : ",e)
         }
         return binding.root
     }

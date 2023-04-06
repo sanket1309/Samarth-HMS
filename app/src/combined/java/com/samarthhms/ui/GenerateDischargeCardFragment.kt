@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.samarthhms.BuildConfig
 import com.samarthhms.R
+import com.samarthhms.constants.Constants
 import com.samarthhms.constants.Gender
 import com.samarthhms.databinding.FragmentGenerateDischargeCardBinding
 import com.samarthhms.domain.Status
@@ -66,7 +67,7 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
         binding = FragmentGenerateDischargeCardBinding.inflate(layoutInflater, container, false)
         binding.courseList.adapter = MedicineTemplateListAdapter(mutableListOf())
         binding.medicationList.adapter = MedicineTemplateListAdapter(mutableListOf())
-        binding.adviceList.adapter = MedicineTemplateListAdapter(mutableListOf())
+        binding.adviceList.adapter = MedicineTemplateListAdapter(Constants.DischargeCardConstants.ADVICE_LIST.toMutableList())
 
         startProgressBar(true)
         viewModel.getData()
@@ -146,23 +147,23 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
         val invalidColor = R.color.red
         val validColor = R.color.blue_theme
 
-        val patientId = IdUtils.PATIENT_ID_PREFIX + binding.patientId.text
-        if (!Validation.validatePatientId(patientId)) {
-            changeTextColorOfTextView(binding.patientIdTitle, invalidColor)
-            changeBorderColorOfPrefix(binding.patientIdPrefix, invalidColor)
-            changeBorderColorOfSuffix(binding.patientId, invalidColor)
-            return null
-        }else{
-            changeTextColorOfTextView(binding.patientIdTitle, validColor)
-            changeBorderColorOfPrefix(binding.patientIdPrefix, validColor)
-            changeBorderColorOfSuffix(binding.patientId, validColor)
-        }
+//        val patientId = IdUtils.PATIENT_ID_PREFIX + binding.patientId.text
+//        if (!Validation.validatePatientId(patientId)) {
+//            changeTextColorOfTextView(binding.patientIdTitle, invalidColor)
+//            changeBorderColorOfPrefix(binding.patientIdPrefix, invalidColor)
+//            changeBorderColorOfSuffix(binding.patientId, invalidColor)
+//            return null
+//        }else{
+//            changeTextColorOfTextView(binding.patientIdTitle, validColor)
+//            changeBorderColorOfPrefix(binding.patientIdPrefix, validColor)
+//            changeBorderColorOfSuffix(binding.patientId, validColor)
+//        }
 
         val ipdNumber = binding.ipdNumber.text.toString()
         if (!Validation.validateIpdNumber(ipdNumber)) {
             changeTextColorOfTextView(binding.ipdNumberTitle, invalidColor)
             changeBorderColorOfEditText(binding.ipdNumber, invalidColor)
-            binding.ipdNumber.addTextChangedListener {  }
+//            binding.ipdNumber.addTextChangedListener {  }
             return null
         }else{
             changeTextColorOfTextView(binding.ipdNumberTitle, validColor)
@@ -201,27 +202,27 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
 
         val gender = if(binding.genderMaleRadioGroupButton.isChecked) Gender.MALE else Gender.FEMALE
 
-        val weightVal = binding.weight.text.toString()
-        val weight = if(weightVal.isEmpty()) 0f else weightVal.toFloat()
-        if (weight <= 0f) {
-            changeTextColorOfTextView(binding.weightTitle, invalidColor)
-            changeBorderColorOfEditText(binding.weight, invalidColor)
-            return null
-        }else{
-            changeTextColorOfTextView(binding.weightTitle, validColor)
-            changeBorderColorOfEditText(binding.weight, validColor)
-        }
-
-        val heightVal = binding.height.text.toString()
-        val height = if(heightVal.isEmpty()) 0f else heightVal.toFloat()
-        if (height <= 0f) {
-            changeTextColorOfTextView(binding.heightTitle, invalidColor)
-            changeBorderColorOfEditText(binding.height, invalidColor)
-            return null
-        }else{
-            changeTextColorOfTextView(binding.heightTitle, validColor)
-            changeBorderColorOfEditText(binding.height, validColor)
-        }
+//        val weightVal = binding.weight.text.toString()
+//        val weight = if(weightVal.isEmpty()) 0f else weightVal.toFloat()
+//        if (weight <= 0f) {
+//            changeTextColorOfTextView(binding.weightTitle, invalidColor)
+//            changeBorderColorOfEditText(binding.weight, invalidColor)
+//            return null
+//        }else{
+//            changeTextColorOfTextView(binding.weightTitle, validColor)
+//            changeBorderColorOfEditText(binding.weight, validColor)
+//        }
+//
+//        val heightVal = binding.height.text.toString()
+//        val height = if(heightVal.isEmpty()) 0f else heightVal.toFloat()
+//        if (height <= 0f) {
+//            changeTextColorOfTextView(binding.heightTitle, invalidColor)
+//            changeBorderColorOfEditText(binding.height, invalidColor)
+//            return null
+//        }else{
+//            changeTextColorOfTextView(binding.heightTitle, validColor)
+//            changeBorderColorOfEditText(binding.height, validColor)
+//        }
 
         val age = binding.age.text.toString()
         if (age.isEmpty()) {
@@ -395,15 +396,16 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
             adviceList.add(itemBinding.template.text.toString())
         }
         val dischargeCard = DischargeCard(
-            patientId,
+//            patientId,
+            "",
             ipdNumber,
             StringUtils.formatName(firstName),
             StringUtils.formatName(middleName),
             StringUtils.formatName(lastName),
             gender,
             contactNumber,
-            weight,
-            height,
+            0f,
+            0f,
             0f,
             age,
             DateTimeUtils.getLocalDateTimeFromDate(dob),

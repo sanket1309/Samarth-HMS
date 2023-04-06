@@ -133,12 +133,12 @@ class GenerateBill @Inject constructor(){
 
         var table = pdfService.createTable(2, listOf(50f,50f), 90f)
 
-        data = "Patient ID : " + bill.patientId
-        cell = getCell(data, 2)
-        cell.border = Rectangle.NO_BORDER
-        table.addCell(cell)
+//        data = "Patient ID : " + bill.patientId
+//        cell = getCell(data, 2)
+//        cell.border = Rectangle.NO_BORDER
+//        table.addCell(cell)
 
-        data = "Patients Name : " + bill.firstName + " " + bill.middleName + " " + bill.lastName
+        data = "Patient Name : " + bill.firstName + " " + bill.middleName + " " + bill.lastName
         cell = getCell(data)
         cell.border = Rectangle.NO_BORDER
         table.addCell(cell)
@@ -254,7 +254,8 @@ class GenerateBill @Inject constructor(){
     }
 
     private fun getFileName(bill: Bill): String{
-        return "Generated_Bill_"+bill.patientId+"_"+bill.lastName+".pdf"
+//        return "Generated_Bill_"+bill.patientId+"_"+bill.lastName+".pdf"
+        return "Generated_Bill_"+bill.firstName+"_"+bill.lastName+".pdf"
     }
 
     private fun getCell(title: String,data: String, isTitleOnNewLine: Boolean, colspan: Int = 1): PdfPCell{

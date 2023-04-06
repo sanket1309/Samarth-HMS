@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/adminDashboardFragment"
-        android:name="com.samarthhms.ui.AdminDashboardFragment"
+        android:name="com.samarthhms.staff.AdminDashboardFragment"
         android:label="Dashboard"
         tools:layout="@layout/fragment_admin_dashboard" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/addPatientFragment"
-        android:name="com.samarthhms.ui.AddPatientFragment"
+        android:name="com.samarthhms.staff.AddPatientFragment"
         android:label="Add Patient"
         tools:layout="@layout/fragment_add_patient" >
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/addNewPatientFragment"
-        android:name="com.samarthhms.ui.AddNewPatientFragment"
+        android:name="com.samarthhms.staff.AddNewPatientFragment"
         android:label="New Patient"
         tools:layout="@layout/fragment_add_new_patient" >
         <action
@@ -55,19 +55,19 @@
     </fragment>
     <fragment
         android:id="@+id/addVisitFragment"
-        android:name="com.samarthhms.ui.AddVisitFragment"
+        android:name="com.samarthhms.staff.AddVisitFragment"
         android:label="Add Visit"
         tools:layout="@layout/fragment_add_visit">
         <argument
             android:name="patient"
-            app:argType="com.samarthhms.models.Patient" />
+            app:argType="com.samarthhms.staff.Patient" />
         <action
             android:id="@+id/action_addVisitFragment_to_adminDashboardFragment"
             app:destination="@id/adminDashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/findPatientByPatientIdFragment"
-        android:name="com.samarthhms.ui.FindPatientByPatientIdFragment"
+        android:name="com.samarthhms.staff.FindPatientByPatientIdFragment"
         android:label="Search Patient"
         tools:layout="@layout/fragment_find_patient_by_patient_id" >
         <action
@@ -76,7 +76,7 @@
     </fragment>
     <fragment
         android:id="@+id/findPatientByNameFragment"
-        android:name="com.samarthhms.ui.FindPatientByNameFragment"
+        android:name="com.samarthhms.staff.FindPatientByNameFragment"
         android:label="Search Patient"
         tools:layout="@layout/fragment_find_patient_by_name">
         <action
@@ -85,7 +85,7 @@
     </fragment>
     <fragment
         android:id="@+id/findPatientByContactNumberFragment"
-        android:name="com.samarthhms.ui.FindPatientByContactNumberFragment"
+        android:name="com.samarthhms.staff.FindPatientByContactNumberFragment"
         android:label="Search Patient"
         tools:layout="@layout/fragment_find_patient_by_contact_number">
         <action
@@ -94,17 +94,17 @@
     </fragment>
     <fragment
         android:id="@+id/patientsTodayFragment"
-        android:name="com.samarthhms.ui.PatientsTodayFragment"
+        android:name="com.samarthhms.staff.PatientsTodayFragment"
         tools:layout="@layout/fragment_patients_today"
         android:label="Patients Today" />
     <fragment
         android:id="@+id/dischargeCardTemplateFragment"
-        android:name="com.samarthhms.ui.DischargeCardTemplateFragment"
+        android:name="com.samarthhms.staff.DischargeCardTemplateFragment"
         tools:layout="@layout/fragment_discharge_card_template"
         android:label="Templates" />
     <fragment
         android:id="@+id/generateDischargeCardFragment"
-        android:name="com.samarthhms.ui.GenerateDischargeCardFragment"
+        android:name="com.samarthhms.staff.GenerateDischargeCardFragment"
         android:label="Discharge Card"
         tools:layout="@layout/fragment_generate_discharge_card" >
         <action
@@ -113,17 +113,17 @@
     </fragment>
     <fragment
         android:id="@+id/comingSoonFragment"
-        android:name="com.samarthhms.ui.ComingSoonFragment"
+        android:name="com.samarthhms.staff.ComingSoonFragment"
         android:label="Feature"
         tools:layout="@layout/fragment_coming_soon" />
     <fragment
         android:id="@+id/switchAdminFragment"
-        android:name="com.samarthhms.ui.SwitchAdminFragment"
+        android:name="com.samarthhms.staff.SwitchAdminFragment"
         android:label="Switch Admin"
         tools:layout="@layout/fragment_switch_admin" />
     <fragment
         android:id="@+id/generateBillFragment"
-        android:name="com.samarthhms.ui.GenerateBillFragment"
+        android:name="com.samarthhms.staff.GenerateBillFragment"
         android:label="Bill"
         tools:layout="@layout/fragment_generate_bill" >
         <action
@@ -132,7 +132,7 @@
     </fragment>
     <fragment
         android:id="@+id/pdfDetailsFragment"
-        android:name="com.samarthhms.ui.PdfDetailsFragment"
+        android:name="com.samarthhms.staff.PdfDetailsFragment"
         android:label="File Options"
         tools:layout="@layout/fragment_pdf_details">
         <argument
@@ -141,7 +141,7 @@
     </fragment>
     <fragment
         android:id="@+id/staffSettingsFragment"
-        android:name="com.samarthhms.ui.StaffSettingsFragment"
+        android:name="com.samarthhms.staff.StaffSettingsFragment"
         android:label="Staff Settings"
         tools:layout="@layout/fragment_staff_settings" >
         <action
@@ -153,24 +153,24 @@
     </fragment>
     <fragment
         android:id="@+id/addStaffFragment"
-        android:name="com.samarthhms.ui.AddStaffFragment"
+        android:name="com.samarthhms.staff.AddStaffFragment"
         android:label="Add Staff"
         tools:layout="@layout/fragment_add_staff" />
     <fragment
         android:id="@+id/staffDetailsFragment"
-        android:name="com.samarthhms.ui.StaffDetailsFragment"
+        android:name="com.samarthhms.staff.StaffDetailsFragment"
         android:label="Staff Details"
         tools:layout="@layout/fragment_staff_details" >
         <argument
             android:name="staffDetails"
-            app:argType="com.samarthhms.models.StaffDetails" />
+            app:argType="com.samarthhms.staff.StaffDetails" />
         <action
             android:id="@+id/action_staffDetailsFragment_to_staffSettingsFragment"
             app:destination="@id/staffSettingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/adminSettingsFragment"
-        android:name="com.samarthhms.ui.AdminSettingsFragment"
+        android:name="com.samarthhms.staff.AdminSettingsFragment"
         android:label="Admin Settings"
         tools:layout="@layout/fragment_admin_settings" >
         <action
@@ -182,19 +182,19 @@
     </fragment>
     <fragment
         android:id="@+id/adminDetailsFragment"
-        android:name="com.samarthhms.ui.AdminDetailsFragment"
+        android:name="com.samarthhms.staff.AdminDetailsFragment"
         android:label="Admin Details"
         tools:layout="@layout/fragment_admin_details" >
         <argument
             android:name="adminDetails"
-            app:argType="com.samarthhms.models.AdminDetails" />
+            app:argType="com.samarthhms.staff.AdminDetails" />
         <action
             android:id="@+id/action_adminDetailsFragment_to_adminSettingsFragment"
             app:destination="@id/adminSettingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addAdminFragment"
-        android:name="com.samarthhms.ui.AddAdminFragment"
+        android:name="com.samarthhms.staff.AddAdminFragment"
         android:label="Add Admin"
         tools:layout="@layout/fragment_add_admin" />
 </navigation>

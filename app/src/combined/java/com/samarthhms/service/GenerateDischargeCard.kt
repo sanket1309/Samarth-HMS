@@ -139,10 +139,10 @@ class GenerateDischargeCard @Inject constructor(){
 
         table.isSplitLate = false
 
-        data = "Patient ID : " + dischargeCard.patientId
-        table.addCell(getCell(data, 2))
+//        data = "Patient ID : " + dischargeCard.patientId
+//        table.addCell(getCell(data, 2))
 
-        data = "Patients Name : " + dischargeCard.firstName + " " + dischargeCard.middleName + " " + dischargeCard.lastName
+        data = "Patient Name : " + dischargeCard.firstName + " " + dischargeCard.middleName + " " + dischargeCard.lastName
         table.addCell(getCell(data, 2))
 
         data = "Age / Sex : " + dischargeCard.ageFormat + " / " + dischargeCard.gender.value + "\n" +
@@ -200,7 +200,8 @@ class GenerateDischargeCard @Inject constructor(){
     }
 
     private fun getFileName(dischargeCard: DischargeCard): String{
-        return "Generated_Card_"+dischargeCard.patientId+"_"+dischargeCard.lastName+".pdf"
+//        return "Generated_Card_"+dischargeCard.patientId+"_"+dischargeCard.lastName+".pdf"
+        return "Generated_Card_"+dischargeCard.firstName+"_"+dischargeCard.lastName+".pdf"
     }
 
     private fun getCell(title: String,data: String, isTitleOnNewLine: Boolean, colspan: Int = 1): PdfPCell{

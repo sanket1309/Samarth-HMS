@@ -46,9 +46,9 @@ class LoginActivity : AppCompatActivity() {
             loginViewModel.login(credentials)
             binding.loginButton.isClickable = false
         }
-        loginViewModel.loginUserStatus.observe(this) {
-            when(it){
-                LoginStatus.SUCCESS -> onSuccess()
+        loginViewModel.loginUserResponse.observe(this) {
+            when(it.loginResponseStatus){
+                LoginStatus.SUCCESS -> onSuccess(it.isLocked)
                 LoginStatus.EXCEPTION -> onFailure()
                 LoginStatus.WRONG_CREDENTIALS -> onWrongCredentials()
                 else -> {}
@@ -57,9 +57,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun onSuccess(){
+    private fun onSuccess(isLocked: Boolean){
         Toast.makeText(this, "SUCCESSFULLY LOGGED IN", Toast.LENGTH_SHORT).show()
-        navigator.showDashboard(this@LoginActivity, roleSelected)
+        navigator.showDashboard(this@LoginActivity, roleSelected, isLocked)
     }
 
     private fun onWrongCredentials(){

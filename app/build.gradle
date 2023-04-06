@@ -38,13 +38,14 @@ android {
         staff {
             dimension "role"
             versionCode 1
-            versionName "1.0"
+            versionName "1.0.0"
+            applicationIdSuffix ".staff"
         }
 
         combined {
             dimension "role"
             versionCode 1
-            versionName "1.0"
+            versionName "1.0.0"
         }
     }
 

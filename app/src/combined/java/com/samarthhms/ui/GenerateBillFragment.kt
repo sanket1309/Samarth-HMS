@@ -28,6 +28,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.samarthhms.BuildConfig
 import com.samarthhms.R
+import com.samarthhms.constants.Constants
 import com.samarthhms.constants.Gender
 import com.samarthhms.databinding.FragmentGenerateBillBinding
 import com.samarthhms.domain.Status
@@ -56,25 +57,14 @@ class GenerateBillFragment : Fragment() {
     ): View? {
         binding = FragmentGenerateBillBinding.inflate(layoutInflater, container, false)
 
-        val treatmentCharges = listOf<BillItem>(
-            BillItem("Registration", 350, 0),
-            BillItem("Consultation/ Doctors/ Round charges", 800, 0),
-            BillItem("Nursing charges", 450, 0),
-            BillItem("Room/ Bed charges (Special room)", 1500, 0),
-            BillItem("BMW", 100, 0)
-        )
+        val treatmentCharges = Constants.BillConstants.DEFAULT_TREATMENT_CHARGES
 
-        val managementCharges = listOf<BillItem>(
-            BillItem("Procedure IV Canula charges", 200, 0),
-            BillItem("Fluid management", 200, 0),
-            BillItem("Emergency charges", 500, 0),
-            BillItem("Nebulization charges", 20, 0)
-        )
+        val managementCharges = Constants.BillConstants.DEFAULT_MANAGEMENT_CHARGES
 
         binding.treatmentCharges.adapter = BillAdapter(this, treatmentCharges.toMutableList())
         binding.managementCharges.adapter = BillAdapter(this, managementCharges.toMutableList())
 //        updateBillTotal(getTotal(treatmentCharges)+getTotal(managementCharges))
-        binding.otherCharges.itemName.setText("Other Charges")
+        binding.otherCharges.itemName.setText(Constants.BillConstants.OTHER_CHARGES_NAME)
 
         binding.addTreatmentChargesButton.setOnClickListener{
             val adapter = binding.treatmentCharges.adapter as BillAdapter
@@ -162,17 +152,17 @@ class GenerateBillFragment : Fragment() {
         val invalidColor = R.color.red
         val validColor = R.color.blue_theme
 
-        val patientId = IdUtils.PATIENT_ID_PREFIX + binding.patientId.text
-        if (!Validation.validatePatientId(patientId)) {
-            changeTextColorOfTextView(binding.patientIdTitle, invalidColor)
-            changeBorderColorOfPrefix(binding.patientIdPrefix, invalidColor)
-            changeBorderColorOfSuffix(binding.patientId, invalidColor)
-            return null
-        }else{
-            changeTextColorOfTextView(binding.patientIdTitle, validColor)
-            changeBorderColorOfPrefix(binding.patientIdPrefix, validColor)
-            changeBorderColorOfSuffix(binding.patientId, validColor)
-        }
+//        val patientId = IdUtils.PATIENT_ID_PREFIX + binding.patientId.text
+//        if (!Validation.validatePatientId(patientId)) {
+//            changeTextColorOfTextView(binding.patientIdTitle, invalidColor)
+//            changeBorderColorOfPrefix(binding.patientIdPrefix, invalidColor)
+//            changeBorderColorOfSuffix(binding.patientId, invalidColor)
+//            return null
+//        }else{
+//            changeTextColorOfTextView(binding.patientIdTitle, validColor)
+//            changeBorderColorOfPrefix(binding.patientIdPrefix, validColor)
+//            changeBorderColorOfSuffix(binding.patientId, validColor)
+//        }
 
         val billNumber = binding.billNumber.text.toString()
         if (!Validation.validateIpdNumber(billNumber)) {
@@ -331,7 +321,8 @@ class GenerateBillFragment : Fragment() {
         var otherCharges = BillItem(itemName, rate, quantity)
 
         val bill = Bill(
-            patientId,
+//            patientId,
+            "",
             "",
             "",
             billNumber,

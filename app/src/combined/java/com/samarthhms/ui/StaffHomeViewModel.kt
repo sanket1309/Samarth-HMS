@@ -68,36 +68,27 @@ class StaffHomeViewModel @Inject constructor(val getRecentVisit: GetRecentVisit,
     }
 
     fun updateData(){
-        try{
         getRecentVisit(UseCase.None()) {
-            try {
-                Log.d("DEBUG_STAFF", "STATUS : ${it.status}, DATA : ${it.data}")
-                _getRecentVisitStatus.value = it.status
-                if (it.data.isEmpty()) {
-                    _recentVisit.value = null
-                    return@getRecentVisit
-                }
-                Log.d("DEBUG_STAFF", "HERE 1")
-                _recentVisit.value = it.data!!.first()
-                Log.d("DEBUG_STAFF", "HERE 2")
-            }catch(e: Exception){
-                Log.e("DEBUG_STAFF","2 Excpetion ==> ",e)
+            Log.d("DEBUG_STAFF", "STATUS : ${it.status}, DATA : ${it.data}")
+            _getRecentVisitStatus.value = it.status
+            if (it.data.isEmpty()) {
+                _recentVisit.value = null
+                return@getRecentVisit
             }
-        }}catch(e: Exception){
-            Log.e("DEBUG_STAFF","Excpetion ==> ",e)
+            _recentVisit.value = it.data!!.first()
         }
     }
 
     init {
-//        val db = FirebaseFirestore.getInstance()
-//        var id: String=""
-//        GlobalScope.launch {
-//            id = storedStateRepositoryImpl.getId()!!
-//            val reference = db.collection(SchemaName.STAFF_STATUS_COLLECTION).whereEqualTo(SchemaName.STAFF_ID, id)
-//            reference.addSnapshotListener{
-//                 snapshot,_ ->
-//                _isLocked.value = snapshot?.toObjects(StaffStatus::class.java)?.first()?.isLocked
-//            }
-//        }
+        val db = FirebaseFirestore.getInstance()
+        var id: String=""
+        GlobalScope.launch {
+            id = storedStateRepositoryImpl.getId()!!
+            val reference = db.collection(SchemaName.STAFF_STATUS_COLLECTION).whereEqualTo(SchemaName.STAFF_ID, id)
+            reference.addSnapshotListener{
+                 snapshot,_ ->
+                _isLocked.value = snapshot?.toObjects(StaffStatus::class.java)?.first()?.isLocked
+            }
+        }
     }
 }

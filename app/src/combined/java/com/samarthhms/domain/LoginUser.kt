@@ -5,17 +5,15 @@ import com.samarthhms.constants.LoggedState
 import com.samarthhms.constants.Role
 import com.samarthhms.models.Credentials
 import com.samarthhms.models.StoredStateData
-import com.samarthhms.repository.AdminRepositoryImpl
-import com.samarthhms.repository.LoginRepositoryImpl
-import com.samarthhms.repository.StaffRepositoryImpl
-import com.samarthhms.repository.StoredStateRepositoryImpl
+import com.samarthhms.repository.*
 import com.samarthhms.usecase.UseCase
 import java.time.LocalDateTime
 import java.util.Objects
 import javax.inject.Inject
 
 class LoginUser @Inject constructor(private var loginRepository: LoginRepositoryImpl, private var storedStateRepository: StoredStateRepositoryImpl,
-                                    private var adminRepository: AdminRepositoryImpl, private var staffRepository: StaffRepositoryImpl
+                                    private var adminRepository: AdminRepositoryImpl, private var staffRepository: StaffRepositoryImpl,
+                                    private var staffStatusRepository: StaffStatusRepositoryImpl
 )
     : UseCase<LoginResponse, Credentials>() {
 
@@ -41,6 +39,10 @@ class LoginUser @Inject constructor(private var loginRepository: LoginRepository
                 }
                 storedStateRepository.removeSwitchState()
                 storedStateRepository.setStoredState(storedStateData)
+                if(credentials.role == Role.STAFF){
+                    loginResponse.isLocked = staffStatusRepository.getStaffStatus(storedStateRepository.getId()!!)!!.isLocked
+                }
+
                 Log.i("Login_User","Successfully logged in user")
                 loginResponse.loginResponseStatus = LoginStatus.SUCCESS
             }

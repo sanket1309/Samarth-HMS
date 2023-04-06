@@ -12,16 +12,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val loginUser: LoginUser) : ViewModel(){
-    private val _loginUserStatus = MutableLiveData(LoginStatus.NONE)
-    val loginUserStatus : LiveData<LoginStatus> = _loginUserStatus
+    private val _loginUserResponse = MutableLiveData(LoginResponse())
+    val loginUserResponse : LiveData<LoginResponse> = _loginUserResponse
 
     fun login(credentials: Credentials){
         loginUser(credentials){
-            onLoginResponse(it)
+            _loginUserResponse.value = it
         }
-    }
-
-    private fun onLoginResponse(loginResponse: LoginResponse){
-        _loginUserStatus.value = loginResponse.loginResponseStatus
     }
 }
