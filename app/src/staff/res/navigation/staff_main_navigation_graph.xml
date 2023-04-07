@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation_graph"
+    app:startDestination="@id/StaffHomeFragment">
+    <fragment
+        android:id="@+id/addNewPatientFragment"
+        android:name="com.samarthhms.staff.ui.AddNewPatientFragment"
+        android:label="New Patient"
+        tools:layout="@layout/fragment_add_new_patient" >
+        <action
+            android:id="@+id/action_addNewPatientFragment_to_addVisitFragment"
+            app:destination="@id/addVisitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPatientFragment"
+        android:name="com.samarthhms.staff.ui.AddPatientFragment"
+        android:label="Add Patient"
+        tools:layout="@layout/fragment_add_patient" >
+        <action
+            android:id="@+id/action_addPatientFragment_to_findPatientByPatientIdFragment"
+            app:destination="@id/findPatientByPatientIdFragment" />
+        <action
+            android:id="@+id/action_addPatientFragment_to_findPatientByNameFragment"
+            app:destination="@id/findPatientByNameFragment" />
+        <action
+            android:id="@+id/action_addPatientFragment_to_findPatientByContactNumberFragment"
+            app:destination="@id/findPatientByContactNumberFragment" />
+        <action
+            android:id="@+id/action_addPatientFragment_to_addNewPatientFragment"
+            app:destination="@id/addNewPatientFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/StaffHomeFragment"
+        android:name="com.samarthhms.staff.ui.StaffHomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_staff_home" >
+        <action
+            android:id="@+id/action_staffHomeFragment_to_addPatientFragment"
+            app:destination="@id/addPatientFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/findPatientByPatientIdFragment"
+        android:name="com.samarthhms.staff.ui.FindPatientByPatientIdFragment"
+        android:label="Search Patient"
+        tools:layout="@layout/fragment_find_patient_by_patient_id" >
+        <action
+            android:id="@+id/action_findPatientByPatientIdFragment_to_addVisitFragment"
+            app:destination="@id/addVisitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/findPatientByContactNumberFragment"
+        android:name="com.samarthhms.staff.ui.FindPatientByContactNumberFragment"
+        android:label="Search Patient" >
+        <action
+            android:id="@+id/action_findPatientByContactNumberFragment_to_addVisitFragment"
+            app:destination="@id/addVisitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/findPatientByNameFragment"
+        android:name="com.samarthhms.staff.ui.FindPatientByNameFragment"
+        android:label="Search Patient" >
+        <action
+            android:id="@+id/action_findPatientByNameFragment_to_addVisitFragment"
+            app:destination="@id/addVisitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addVisitFragment"
+        android:name="com.samarthhms.staff.ui.AddVisitFragment"
+        android:label="Add Visit" >
+        <argument
+            android:name="patient"
+            app:argType="com.samarthhms.staff.models.Patient" />
+    </fragment>
+</navigation>
