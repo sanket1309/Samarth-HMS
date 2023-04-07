@@ -38,7 +38,7 @@
         android:layout_marginEnd="@dimen/login_screen_margin_end"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:text="@string/login_title_text"/>
+        android:text="Staff Login"/>
 
     <View
         android:id="@+id/underline"
@@ -51,7 +51,7 @@
         app:layout_constraintTop_toBottomOf="@id/login_title"/>
 
     <TextView
-        android:id="@+id/role_select_title"
+        android:id="@+id/username_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/underline"
@@ -59,50 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/login_screen_margin_start"
         android:layout_marginEnd="@dimen/login_screen_margin_end"
-        android:layout_marginTop="@dimen/role_select_title_margin_top"
-        android:textSize="@dimen/role_select_title_text_size"
-        android:textStyle="bold"
-        android:textColor="@color/blue_theme"
-        android:text="@string/role_select_title_text"/>
-
-    <RadioGroup
-        android:id="@+id/role_select_radio_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/login_screen_margin_start"
-        android:layout_marginEnd="@dimen/login_screen_margin_end"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/role_select_title">
-
-        <RadioButton
-            android:id="@+id/admin_radio_button"
-            android:layout_width="@dimen/role_select_radio_button_width"
-            android:layout_height="@dimen/role_select_radio_button_height"
-            android:layout_marginEnd="@dimen/role_select_radio_button_margin_end"
-            android:button="@null"
-            android:background="@drawable/login_admin_selector"
-            android:checked="true"/>
-
-        <RadioButton
-            android:id="@+id/staff_radio_button"
-            android:layout_width="@dimen/role_select_radio_button_width"
-            android:layout_height="@dimen/role_select_radio_button_height"
-            android:button="@null"
-            android:background="@drawable/login_staff_selector"
-            android:checked="false"/>
-
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/username_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/role_select_radio_group"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/login_screen_margin_start"
-        android:layout_marginEnd="@dimen/login_screen_margin_end"
-        android:layout_marginTop="@dimen/username_title_margin_top"
+        android:layout_marginTop="30dp"
         android:textSize="@dimen/username_title_text_size"
         android:textStyle="bold"
         android:textColor="@color/blue_theme"

@@ -3,6 +3,8 @@ package com.samarthhms.staff.domain
 import android.util.Log
 import com.samarthhms.staff.constants.LoggedState
 import com.samarthhms.staff.constants.Role
+import com.samarthhms.staff.repository.LoginRepository
+import com.samarthhms.staff.repository.LoginRepositoryImpl
 import com.samarthhms.staff.repository.StaffStatusRepositoryImpl
 import com.samarthhms.staff.repository.StoredStateRepositoryImpl
 import com.samarthhms.staff.usecase.UseCase
@@ -10,7 +12,7 @@ import com.samarthhms.staff.utils.DateTimeUtils
 import javax.inject.Inject
 
 class GetLoginStatus
-@Inject constructor(private val storedStateRepository: StoredStateRepositoryImpl, private val staffStatusRepository: StaffStatusRepositoryImpl) : UseCase<LoginStatusResponse, UseCase.None>(){
+@Inject constructor(private val storedStateRepository: StoredStateRepositoryImpl, private val staffStatusRepository: StaffStatusRepositoryImpl, val loginRepository: LoginRepositoryImpl) : UseCase<LoginStatusResponse, UseCase.None>(){
 
     private val STAFF_LOGGED_IN_LIMIT_IN_HOURS = 24
 
@@ -20,6 +22,9 @@ class GetLoginStatus
         return try {
             val storedStateData = storedStateRepository.getStoredState()
             val response = LoginStatusResponse()
+            if(loginRepository.getCredentials(storedStateData.id!!)==null){
+                return response
+            }
             response.role = storedStateData.role
             response.loggedState = storedStateData.loggedState
             if(storedStateData.role == Role.STAFF && DateTimeUtils.getHoursFrom(storedStateData.logInTime!!) >= STAFF_LOGGED_IN_LIMIT_IN_HOURS)

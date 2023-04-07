@@ -42,6 +42,7 @@ import com.samarthhms.utils.IdUtils
 import com.samarthhms.utils.StringUtils
 import com.samarthhms.utils.Validation
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDateTime
 import java.util.*
 
 
@@ -202,16 +203,16 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
 
         val gender = if(binding.genderMaleRadioGroupButton.isChecked) Gender.MALE else Gender.FEMALE
 
-//        val weightVal = binding.weight.text.toString()
-//        val weight = if(weightVal.isEmpty()) 0f else weightVal.toFloat()
-//        if (weight <= 0f) {
-//            changeTextColorOfTextView(binding.weightTitle, invalidColor)
-//            changeBorderColorOfEditText(binding.weight, invalidColor)
-//            return null
-//        }else{
-//            changeTextColorOfTextView(binding.weightTitle, validColor)
-//            changeBorderColorOfEditText(binding.weight, validColor)
-//        }
+        val weightVal = binding.weight.text.toString()
+        val weight = if(weightVal.isEmpty()) 0f else weightVal.toFloat()
+        if (weight <= 0f) {
+            changeTextColorOfTextView(binding.weightTitle, invalidColor)
+            changeBorderColorOfEditText(binding.weight, invalidColor)
+            return null
+        }else{
+            changeTextColorOfTextView(binding.weightTitle, validColor)
+            changeBorderColorOfEditText(binding.weight, validColor)
+        }
 //
 //        val heightVal = binding.height.text.toString()
 //        val height = if(heightVal.isEmpty()) 0f else heightVal.toFloat()
@@ -234,15 +235,15 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
             changeBorderColorOfEditText(binding.age, validColor)
         }
 
-        val dob = binding.dateOfBirth.text.toString()
-        if (!Validation.validateDate(dob)) {
-            changeTextColorOfTextView(binding.dateOfBirthTitle, invalidColor)
-            changeBorderColorOfEditText(binding.dateOfBirth, invalidColor)
-            return null
-        }else{
-            changeTextColorOfTextView(binding.dateOfBirthTitle, validColor)
-            changeBorderColorOfEditText(binding.dateOfBirth, validColor)
-        }
+//        val dob = binding.dateOfBirth.text.toString()
+//        if (!Validation.validateDate(dob)) {
+//            changeTextColorOfTextView(binding.dateOfBirthTitle, invalidColor)
+//            changeBorderColorOfEditText(binding.dateOfBirth, invalidColor)
+//            return null
+//        }else{
+//            changeTextColorOfTextView(binding.dateOfBirthTitle, validColor)
+//            changeBorderColorOfEditText(binding.dateOfBirth, validColor)
+//        }
 
         val contactNumber = binding.contactNumber.text.toString().replace(" ","")
         if (!Validation.validateContactNumber(contactNumber)) {
@@ -404,11 +405,12 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
             StringUtils.formatName(lastName),
             gender,
             contactNumber,
-            0f,
+            weight,
             0f,
             0f,
             age,
-            DateTimeUtils.getLocalDateTimeFromDate(dob),
+//            DateTimeUtils.getLocalDateTimeFromDate(dob),
+            LocalDateTime.now(),
             DateTimeUtils.getLocalDateTime(doa, toa)!!,
             DateTimeUtils.getLocalDateTime(dod, tod)!!,
             address, diagnosis, patientHistory, pastHistory, familyHistory,

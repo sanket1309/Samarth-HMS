@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
             .setOnClickListener {
             val username = binding.username.text.toString()
             val password = binding.password.text.toString()
-            roleSelected = if (binding.adminRadioButton.isChecked) Role.ADMIN else Role.STAFF
+            roleSelected = Role.STAFF
             val credentials = Credentials("",roleSelected, username, password)
             loginViewModel.login(credentials)
             binding.loginButton.isClickable = false

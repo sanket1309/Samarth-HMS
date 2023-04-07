@@ -2,11 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_navigation_graph"
+    android:id="@+id/staff_main_navigation_graph"
     app:startDestination="@id/StaffHomeFragment">
     <fragment
         android:id="@+id/addNewPatientFragment"
-        android:name="com.samarthhms.staff.AddNewPatientFragment"
+        android:name="com.samarthhms.ui.AddNewPatientFragment"
         android:label="New Patient"
         tools:layout="@layout/fragment_add_new_patient" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/addPatientFragment"
-        android:name="com.samarthhms.staff.AddPatientFragment"
+        android:name="com.samarthhms.ui.AddPatientFragment"
         android:label="Add Patient"
         tools:layout="@layout/fragment_add_patient" >
         <action
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/StaffHomeFragment"
-        android:name="com.samarthhms.staff.StaffHomeFragment"
+        android:name="com.samarthhms.ui.StaffHomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_staff_home" >
         <action
@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/findPatientByPatientIdFragment"
-        android:name="com.samarthhms.staff.FindPatientByPatientIdFragment"
+        android:name="com.samarthhms.ui.FindPatientByPatientIdFragment"
         android:label="Search Patient"
         tools:layout="@layout/fragment_find_patient_by_patient_id" >
         <action
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/findPatientByContactNumberFragment"
-        android:name="com.samarthhms.staff.FindPatientByContactNumberFragment"
+        android:name="com.samarthhms.ui.FindPatientByContactNumberFragment"
         android:label="Search Patient" >
         <action
             android:id="@+id/action_findPatientByContactNumberFragment_to_addVisitFragment"
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/findPatientByNameFragment"
-        android:name="com.samarthhms.staff.FindPatientByNameFragment"
+        android:name="com.samarthhms.ui.FindPatientByNameFragment"
         android:label="Search Patient" >
         <action
             android:id="@+id/action_findPatientByNameFragment_to_addVisitFragment"
@@ -67,10 +67,10 @@
     </fragment>
     <fragment
         android:id="@+id/addVisitFragment"
-        android:name="com.samarthhms.staff.AddVisitFragment"
+        android:name="com.samarthhms.ui.AddVisitFragment"
         android:label="Add Visit" >
         <argument
             android:name="patient"
-            app:argType="com.samarthhms.staff.Patient" />
+            app:argType="com.samarthhms.models.Patient" />
     </fragment>
 </navigation>

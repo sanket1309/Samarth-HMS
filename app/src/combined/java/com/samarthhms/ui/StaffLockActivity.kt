@@ -1,17 +1,27 @@
 package com.samarthhms.ui
 
+import android.content.DialogInterface
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.window.OnBackInvokedCallback
-import android.window.OnBackInvokedDispatcher
-import androidx.activity.OnBackPressedCallback
-import androidx.annotation.RequiresApi
-import androidx.core.os.BuildCompat
+import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.samarthhms.R
+import com.samarthhms.databinding.ActivityStaffLockBinding
+import com.samarthhms.constants.LoggedState
+import com.samarthhms.constants.Role
 import com.samarthhms.constants.SchemaName
+import com.samarthhms.domain.LoginStatusResponse
+import com.samarthhms.domain.Status
 import com.samarthhms.models.StaffStatus
 import com.samarthhms.navigator.Navigator
 import com.samarthhms.repository.StoredStateRepositoryImpl
@@ -21,7 +31,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class StaffLockActivity : AppCompatActivity() {
+class StaffLockActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
     lateinit var navigator: Navigator
@@ -29,22 +39,52 @@ class StaffLockActivity : AppCompatActivity() {
     @Inject
     lateinit var storedStateRepository: StoredStateRepositoryImpl
 
+    lateinit var binding: ActivityStaffLockBinding
+
+    private val viewModel: StaffLockViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_staff_lock)
+        binding = ActivityStaffLockBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        initializeView()
+    }
 
-        val db = FirebaseFirestore.getInstance()
-        var id: String=""
-        GlobalScope.launch {
-            id = storedStateRepository.getId()!!
-            val reference = db.collection(SchemaName.STAFF_STATUS_COLLECTION).whereEqualTo(
-                SchemaName.STAFF_ID, id)
-            reference.addSnapshotListener{
-                    snapshot,_ ->
-                val isLocked = snapshot?.toObjects(StaffStatus::class.java)?.first()?.isLocked?: false
-                if(!isLocked){
-                    onUnlock()
+    private fun initializeView() {
+        val toolbar = binding.materialToolbar
+        toolbar.setTitleTextColor(resources.getColor(R.color.white, null))
+        toolbar.title = ""
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(true)
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_staff) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        val builder = AppBarConfiguration.Builder(navController.graph)
+        val drawer = binding.drawerLayout
+        builder.setOpenableLayout(drawer)
+        val appBarConfiguration = builder.build()
+        toolbar.setupWithNavController(navController, appBarConfiguration)
+
+        val navView = binding.navigationView
+        NavigationUI.setupWithNavController(navView, navController)
+        navView.setNavigationItemSelectedListener(this)
+
+        viewModel.logoutUserStatus.observe(this){
+            when(it){
+                Status.SUCCESS -> {
+                    navigator.showMain(this, LoginStatusResponse(Role.NONE, LoggedState.LOGGED_OUT))
                 }
+                Status.FAILURE -> {
+                    Toast.makeText(this, "Something Went Wrong", Toast.LENGTH_SHORT).show()
+                }
+                else -> {}
+            }
+        }
+
+        viewModel.isLocked.observe(this){
+            if(!it){
+                onUnlock()
             }
         }
     }
@@ -53,5 +93,31 @@ class StaffLockActivity : AppCompatActivity() {
         val intent = Intent(this, StaffMainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.logout_option) {
+            val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
+                when (which) {
+                    DialogInterface.BUTTON_POSITIVE -> {
+                        viewModel.logout()
+                    }
+                    DialogInterface.BUTTON_NEGATIVE -> {
+                        dialog.dismiss()
+                    }
+                }
+            }
+            val alertDialogBuilder = AlertDialog.Builder(this)
+            alertDialogBuilder.setMessage("Are you sure, you want to logout?")
+                .setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener)
+                .show()
+            return true
+        }
+        return true
+    }
+
+    fun startProgressBar(isVisible: Boolean){
+        binding.progressBar.visibility = if(isVisible) View.VISIBLE else View.GONE
     }
 }
