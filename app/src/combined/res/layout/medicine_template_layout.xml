@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <EditText
+        android:id="@+id/template"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:hint="Enter Template"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/add_visit_edittext_background"/>
+
+    <TextView
+        android:id="@+id/edit_button"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="20dp"
+        android:textSize="15sp"
+        android:text="Edit"
+        android:textColor="@color/blue_theme"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/template"
+        app:layout_constraintEnd_toStartOf="@id/delete_button"/>
+
+    <TextView
+        android:id="@+id/save_button"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="20dp"
+        android:textSize="15sp"
+        android:text="Save"
+        android:textColor="@color/blue_theme"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/template"
+        app:layout_constraintEnd_toStartOf="@id/delete_button"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:textSize="15sp"
+        android:text="Delete"
+        android:textColor="@color/blue_theme"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/template"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

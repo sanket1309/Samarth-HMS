@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.AdminDashboardFragment">
+
+    <View
+        android:id="@+id/dashboard_background"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dashboard_background_height"
+        android:background="@drawable/admin_dashboard_background"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/greeting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/greeting_margin_start"
+        android:layout_marginTop="@dimen/greeting_margin_top"
+        android:text="@string/greeting_text"
+        android:textColor="@color/white"
+        android:textSize="@dimen/greeting_text_size"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/admin_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/admin_name_margin_start"
+        android:text="@string/admin_name_text"
+        android:textColor="@color/white"
+        android:textSize="@dimen/admin_name_text_size"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/greeting" />
+
+    <LinearLayout
+        android:id="@+id/patients_today_count"
+        android:layout_width="@dimen/admin_dashboard_count_background_width"
+        android:layout_height="@dimen/admin_dashboard_count_background_height"
+        android:layout_marginTop="@dimen/admin_dashboard_count_margin_top"
+        android:layout_marginBottom="@dimen/admin_dashboard_count_margin_bottom"
+        app:layout_constraintBottom_toTopOf="@id/dashboard_count_bottom_view"
+        android:background="@drawable/patients_today_count_background"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/unattended_patients_count"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/dashboard_background"
+        android:elevation="@dimen/admin_dashboard_count_elevation">
+
+        <ImageView
+            android:id="@+id/patients_today_count_icon"
+            android:layout_width="@dimen/admin_dashboard_count_icon_image_width"
+            android:layout_height="@dimen/admin_dashboard_count_icon_image_height"
+            android:src="@drawable/icon_patients_today_count"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/admin_dashboard_count_icon_image_margin_top"
+            android:alpha="0.8"
+            android:contentDescription="@string/patients_today_count_icon_image_description"/>
+
+        <TextView
+            android:id="@+id/patients_today_count_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/patients_today_count_number_text"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:textSize="@dimen/admin_dashboard_count_number_text_size"
+            android:layout_marginTop="@dimen/admin_dashboard_count_number_margin_top"
+            android:paddingTop="@dimen/admin_dashboard_count_number_padding_top"
+            android:paddingBottom="@dimen/admin_dashboard_count_number_padding_bottom"/>
+
+        <TextView
+            android:id="@+id/patients_today_count_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/patients_today_count_title_text"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:textSize="@dimen/admin_dashboard_count_title_text_size"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/unattended_patients_count"
+        android:layout_width="@dimen/admin_dashboard_count_background_width"
+        android:layout_height="@dimen/admin_dashboard_count_background_height"
+        android:layout_marginTop="@dimen/admin_dashboard_count_margin_top"
+        android:layout_marginBottom="@dimen/admin_dashboard_count_margin_bottom"
+        app:layout_constraintBottom_toTopOf="@id/dashboard_count_bottom_view"
+        android:background="@drawable/unattended_patients_count_background"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/admit_patients_count"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/patients_today_count"
+        app:layout_constraintTop_toTopOf="@id/dashboard_background"
+        android:elevation="@dimen/admin_dashboard_count_elevation">
+
+        <ImageView
+            android:id="@+id/unattended_patients_count_icon"
+            android:layout_width="@dimen/admin_dashboard_count_icon_image_width"
+            android:layout_height="@dimen/admin_dashboard_count_icon_image_height"
+            android:src="@drawable/icon_unattended_patients_count"
+            app:tint="@color/white"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/admin_dashboard_count_icon_image_margin_top"
+            android:alpha="0.8"
+            android:contentDescription="@string/unattended_patients_count_icon_image_description"/>
+
+        <TextView
+            android:id="@+id/unattended_patients_count_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/unattended_patients_count_number_text"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:textSize="@dimen/admin_dashboard_count_number_text_size"
+            android:layout_marginTop="@dimen/admin_dashboard_count_number_margin_top"
+            android:paddingTop="@dimen/admin_dashboard_count_number_padding_top"
+            android:paddingBottom="@dimen/admin_dashboard_count_number_padding_bottom"/>
+
+        <TextView
+            android:id="@+id/unattended_patients_count_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/unattended_patients_count_title_text"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:textSize="@dimen/admin_dashboard_count_title_text_size"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/admit_patients_count"
+        android:layout_width="@dimen/admin_dashboard_count_background_width"
+        android:layout_height="@dimen/admin_dashboard_count_background_height"
+        android:layout_marginTop="@dimen/admin_dashboard_count_margin_top"
+        android:layout_marginBottom="@dimen/admin_dashboard_count_margin_bottom"
+        app:layout_constraintBottom_toTopOf="@id/dashboard_count_bottom_view"
+        android:background="@drawable/admit_patients_count_background"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/unattended_patients_count"
+        app:layout_constraintTop_toTopOf="@id/dashboard_background"
+        android:elevation="@dimen/admin_dashboard_count_elevation">
+
+        <ImageView
+            android:id="@+id/admit_patients_count_icon"
+            android:layout_width="@dimen/admin_dashboard_count_icon_image_width"
+            android:layout_height="@dimen/admin_dashboard_count_icon_image_height"
+            android:src="@drawable/icon_admit_patients_count"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/admin_dashboard_count_icon_image_margin_top"
+            android:alpha="0.8"
+            android:contentDescription="@string/admit_patients_count_icon_image_description"/>
+
+        <TextView
+            android:id="@+id/admit_patients_count_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/admit_patients_count_number_text"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:textSize="@dimen/admin_dashboard_count_number_text_size"
+            android:layout_marginTop="@dimen/admin_dashboard_count_number_margin_top"
+            android:paddingTop="@dimen/admin_dashboard_count_number_padding_top"
+            android:paddingBottom="@dimen/admin_dashboard_count_number_padding_bottom"/>
+
+        <TextView
+            android:id="@+id/admit_patients_count_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/admit_patients_count_title_text"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:textSize="@dimen/admin_dashboard_count_title_text_size"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/dashboard_count_bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dashboard_count_bottom_view_height"
+        android:layout_marginTop="@dimen/dashboard_count_bottom_view_margin_top"
+        app:layout_constraintTop_toBottomOf="@id/dashboard_background" />
+
+    <TextView
+        android:id="@+id/patients_today_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/patients_today_title_horizontal_margin"
+        android:layout_marginEnd="@dimen/patients_today_title_horizontal_margin"
+        android:text="@string/patients_today_title_text"
+        android:textColor="@color/black"
+        android:textSize="@dimen/patients_today_title_text_size"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dashboard_count_bottom_view"/>
+
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/dashboard_update_data_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="@dimen/dashboard_update_button_background_height"-->
+<!--        android:layout_marginEnd="@dimen/dashboard_update_button_margin_end"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/dashboard_count_bottom_view"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:text="@string/dashboard_update_button_text"-->
+<!--        android:textSize="@dimen/dashboard_update_button_text_size"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:background="@drawable/dashboard_update_button_background"-->
+<!--        android:textAllCaps="false"/>-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/patients_today_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/patients_today_recycler_view_vertical_margin"
+        android:layout_marginBottom="@dimen/patients_today_recycler_view_vertical_margin"
+        app:layout_constraintTop_toBottomOf="@id/patients_today_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    <ImageView
+        android:id="@+id/no_results_image"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:src="@drawable/empty_box"
+        app:layout_constraintTop_toTopOf="@id/patients_today_recycler_view"
+        app:layout_constraintBottom_toTopOf="@id/extended_fab"
+        app:layout_constraintStart_toStartOf="@id/patients_today_recycler_view"
+        app:layout_constraintEnd_toEndOf="@id/patients_today_recycler_view"/>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/extended_fab"
+        android:layout_width="@dimen/add_patient_floating_action_button_width"
+        android:layout_height="@dimen/add_patient_floating_action_button_height"
+        android:layout_gravity="bottom|end"
+        android:gravity="center"
+        android:layout_margin="@dimen/add_patient_floating_action_button_margin"
+        android:contentDescription="@string/add_patient_floating_action_button_description"
+        android:text="@string/add_patient_floating_action_button_text"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/blue_theme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+    <!--app:icon="@drawable/icon_add_patient_fab"
+            app:iconSize="@dimen/add_patient_floating_action_button_icon_size"
+            app:iconGravity="textStart"
+            app:iconTint="@color/white"-->

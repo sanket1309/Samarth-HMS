@@ -1,8 +1,6 @@
 package com.samarthhms.usecase
 
-import com.samarthhms.domain.LoginResponse
 import kotlinx.coroutines.*
-import kotlin.reflect.KFunction1
 
 abstract class UseCase<out Type, in Params> where Type : Any {
 

@@ -5,15 +5,15 @@ enum class Role(val value: String) {
     STAFF("Staff"),
     NONE("None");
 
-    companion object{
-        fun getByValue(value: String?): Role{
-            return when(value){
-                ADMIN.value -> ADMIN
-                STAFF.value -> STAFF
-                else -> NONE
-            }
-        }
-    }
+//    companion object{
+//        fun getByValue(value: String?): Role{
+//            return when(value){
+//                ADMIN.value -> ADMIN
+//                STAFF.value -> STAFF
+//                else -> NONE
+//            }
+//        }
+//    }
 
 
 }

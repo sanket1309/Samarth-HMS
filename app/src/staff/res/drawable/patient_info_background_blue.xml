@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/color_block">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/strip_color_blue"/>
+            <corners android:radius="@dimen/patient_info_layout_radius"/>
+        </shape>
+    </item>
+    <item android:left="@dimen/patient_info_layout_color_strip_width">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white" />
+            <corners android:topRightRadius="@dimen/patient_info_layout_radius"
+                android:bottomRightRadius="@dimen/patient_info_layout_radius"/>
+        </shape>
+    </item>
+</layer-list>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/patients_today_count_background_color"/>
+            <corners android:radius="@dimen/admin_dashboard_count_background_radius"/>
+            <size android:width="@dimen/admin_dashboard_count_background_width" android:height="@dimen/admin_dashboard_count_background_height"/>
+        </shape>
+    </item>
+    <item
+        android:top="@dimen/admin_dashboard_count_icon_top"
+        android:left="@dimen/admin_dashboard_count_icon_left"
+        android:right="@dimen/admin_dashboard_count_icon_right"
+        android:bottom="@dimen/admin_dashboard_count_icon_bottom">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/admin_dashboard_count_icon_radius"/>
+            <solid android:color="@color/admin_dashboard_count_icon_color"/>
+        </shape>
+
+    </item>
+</layer-list>

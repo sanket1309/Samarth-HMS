@@ -7,6 +7,9 @@ import com.samarthhms.constants.LoggedState
 import com.samarthhms.constants.Role
 import com.samarthhms.domain.LoginStatusResponse
 import com.samarthhms.ui.LoginActivity
+import com.samarthhms.ui.MainActivity
+import com.samarthhms.ui.StaffLockActivity
+import com.samarthhms.ui.StaffMainActivity
 import javax.inject.Inject
 
 class Navigator @Inject constructor(){
@@ -16,10 +19,17 @@ class Navigator @Inject constructor(){
         finishActivity(context)
     }
 
-    fun showDashboard(context: Context, role: Role){
+    fun showDashboard(context: Context, role: Role, isLocked: Boolean){
         when(role){
-            Role.ADMIN -> context.startActivity(Intent(context,LoginActivity::class.java))
-            Role.STAFF -> context.startActivity(Intent(context,LoginActivity::class.java))
+            Role.ADMIN -> context.startActivity(Intent(context,MainActivity::class.java))
+            Role.STAFF -> {
+                if(!isLocked){
+                    context.startActivity(Intent(context,StaffMainActivity::class.java))
+                }
+                else{
+                    context.startActivity(Intent(context,StaffLockActivity::class.java))
+                }
+            }
             else -> {
                 showLogin(context)
                 return
@@ -31,7 +41,7 @@ class Navigator @Inject constructor(){
     fun showMain(context: Context, loginStatusResponse: LoginStatusResponse){
         when(loginStatusResponse.loggedState){
             LoggedState.LOGGED_OUT -> showLogin(context)
-            LoggedState.LOGGED_IN -> showDashboard(context, loginStatusResponse.role)
+            LoggedState.LOGGED_IN -> showDashboard(context, loginStatusResponse.role, loginStatusResponse.isLocked)
         }
     }
 

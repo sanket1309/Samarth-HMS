@@ -8,8 +8,27 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue_theme">#0074FF</color>
-    <color name="red">#f00</color>
+    <color name="light_blue_theme">#6583A8</color>
+    <color name="dark_blue_theme">#015DCC</color>
+    <color name="red">#FF5151</color>
 
 <!--    LAUNCH SCREEN-->
     <color name="sliding_loader_dots_color">#ddd</color>
+
+<!--    ADMIN DASHBOARD-->
+    <color name="patients_today_count_background_color">#FF2362</color>
+    <color name="unattended_patients_count_background_color">#FFC107</color>
+    <color name="admit_patients_count_background_color">#10D383</color>
+    <color name="admin_dashboard_count_icon_color">#55000000</color>
+
+<!--    PATIENT INFO LAYOUT-->
+    <color name="strip_color_red">#ff756b</color>
+    <color name="strip_color_green">#99ffbe</color>
+    <color name="strip_color_yellow">#99ffbe</color>
+    <color name="strip_color_blue">#b9d5fa</color>
+
+<!--    ADD PATIENT VISIT-->
+    <color name="add_visit_edittext_background_color">#E6E6E6</color>
+    <color name="add_visit_edittext_background_stroke_color">@color/blue_theme</color>
+    <color name="add_visit_edittext_text_color">#616161</color>
 </resources>

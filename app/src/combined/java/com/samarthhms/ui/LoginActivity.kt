@@ -3,16 +3,16 @@ package com.samarthhms.ui
 import android.graphics.drawable.DrawableContainer.DrawableContainerState
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.samarthhms.R
 import com.samarthhms.constants.Role
 import com.samarthhms.databinding.ActivityLoginBinding
-import com.samarthhms.domain.LoginResponseStatus
+import com.samarthhms.domain.LoginStatus
 import com.samarthhms.models.Credentials
 import com.samarthhms.navigator.Navigator
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,20 +46,20 @@ class LoginActivity : AppCompatActivity() {
             loginViewModel.login(credentials)
             binding.loginButton.isClickable = false
         }
-        loginViewModel.loginUserStatus.observe(this) {
-            when(it){
-                LoginResponseStatus.SUCCESS -> onSuccess()
-                LoginResponseStatus.EXCEPTION -> onFailure()
-                LoginResponseStatus.WRONG_CREDENTIALS -> onWrongCredentials()
+        loginViewModel.loginUserResponse.observe(this) {
+            when(it.loginResponseStatus){
+                LoginStatus.SUCCESS -> onSuccess(it.isLocked)
+                LoginStatus.EXCEPTION -> onFailure()
+                LoginStatus.WRONG_CREDENTIALS -> onWrongCredentials()
                 else -> {}
             }
             binding.loginButton.isClickable = true
         }
     }
 
-    private fun onSuccess(){
+    private fun onSuccess(isLocked: Boolean){
         Toast.makeText(this, "SUCCESSFULLY LOGGED IN", Toast.LENGTH_SHORT).show()
-//        navigator.showDashboard(this@LoginActivity, roleSelected)
+        navigator.showDashboard(this@LoginActivity, roleSelected, isLocked)
     }
 
     private fun onWrongCredentials(){

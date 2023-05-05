@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:left="-4dp" android:id="@+id/item">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white"/>
+            <stroke android:color="@color/blue_theme" android:width="@dimen/login_edittext_background_stroke_width"/>
+            <corners android:topRightRadius="@dimen/login_edittext_background_radius"
+                android:bottomRightRadius="@dimen/login_edittext_background_radius"/>
+        </shape>
+    </item>
+</layer-list>
