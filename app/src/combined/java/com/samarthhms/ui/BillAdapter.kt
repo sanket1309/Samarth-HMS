@@ -33,7 +33,7 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.Period
 
-class BillAdapter internal constructor(var generateBillFragment: GenerateBillFragment,var billItems: MutableList<BillItem>) : RecyclerView.Adapter<BillAdapter.BillItemHolder>() {
+class BillAdapter internal constructor(var generateBillFragment: OnUpdateBillSumListener,var billItems: MutableList<BillItem>) : RecyclerView.Adapter<BillAdapter.BillItemHolder>() {
     override fun onBindViewHolder(medicineTemplateHolder: BillAdapter.BillItemHolder, position: Int) {
         medicineTemplateHolder.bind(billItems[position])
     }
@@ -64,7 +64,7 @@ class BillAdapter internal constructor(var generateBillFragment: GenerateBillFra
                 notifyItemRemoved(absoluteAdapterPosition)
                 val rate = if(billItemLayoutBinding.rate.text.isBlank()) 0 else billItemLayoutBinding.rate.text.toString().toInt()
                 val quantity = if(billItemLayoutBinding.quantity.text.isBlank()) 0 else billItemLayoutBinding.quantity.text.toString().toInt()
-                generateBillFragment.updateBillTotal(-rate*quantity)
+                generateBillFragment.update(-rate*quantity)
             }
             billItemLayoutBinding.rate.addTextChangedListener(object: TextWatcher{
                 override fun beforeTextChanged( s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -102,7 +102,7 @@ class BillAdapter internal constructor(var generateBillFragment: GenerateBillFra
             val sum = rate * quantity
             billItemLayoutBinding.sum.setText(sum.toString())
             if(isNewlyAdded) previousSum = 0
-            generateBillFragment.updateBillTotal(sum-previousSum)
+            generateBillFragment.update(sum-previousSum)
         }
     }
 }

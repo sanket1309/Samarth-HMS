@@ -57,6 +57,17 @@
         android:id="@+id/reports"
         android:title="Reports">
         <menu>
+
+            <item
+                android:id="@+id/recentDischargeCardsFragment"
+                android:icon="@drawable/navigation_icon_report"
+                android:title="Recent Discharge Cards"/>
+
+            <item
+                android:id="@+id/recentBillsFragment"
+                android:icon="@drawable/navigation_icon_bill"
+                android:title="Recent Bills"/>
+
             <item
                 android:id="@+id/generateDischargeCardFragment"
                 android:icon="@drawable/navigation_icon_report"

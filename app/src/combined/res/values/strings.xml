@@ -103,4 +103,6 @@
     <string name="discharge_card_family_history">Not significant. No family H/o of asthma.</string>
     <string name="discharge_card_investigations">22/3/23—hb-10.2, WBC –8000 Platelet count-327000, CRP- 7.0, Stool and
 microscopic reports attached with discharge card</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

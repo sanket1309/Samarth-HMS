@@ -14,7 +14,9 @@ class Validation {
         }
 
         fun validateIpdNumber(ipdNumber: String):Boolean{
-            return ipdNumber.matches(Regex("^[0-9]{2}[\\/][0-9]{2}$"))
+            return ipdNumber.matches(Regex("^[0-9]{1}[\\/][0-9]{2}$")) ||
+            ipdNumber.matches(Regex("^[0-9]{2}[\\/][0-9]{2}$")) ||
+            ipdNumber.matches(Regex("^[0-9]{3}[\\/][0-9]{2}$"))
         }
 
         fun validateTime(time: String):Boolean{

@@ -12,7 +12,7 @@ import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
-class GenerateDischargeCardViewModel @Inject constructor(val getDischargeCardTemplate: GetDischargeCardTemplate, val getDischargeCard: GetDischargeCard) : ViewModel() {
+class GenerateDischargeCardViewModel @Inject constructor(val getDischargeCardTemplate: GetDischargeCardTemplate, val getDischargeCard: GetDischargeCard, val saveDischargeCard: SaveDischargeCard) : ViewModel() {
 
     private val _getDischargeCardTemplateStatus: MutableLiveData<Status> = MutableLiveData(Status.NONE)
     val getDischargeCardTemplateStatus : LiveData<Status> = _getDischargeCardTemplateStatus
@@ -25,6 +25,9 @@ class GenerateDischargeCardViewModel @Inject constructor(val getDischargeCardTem
 
     private val _dischargeCardFile: MutableLiveData<File?> = MutableLiveData(null)
     val dischargeCardFile : LiveData<File?> = _dischargeCardFile
+
+    private val _saveDischargeCardStatus: MutableLiveData<Status> = MutableLiveData(Status.NONE)
+    val saveDischargeCardStatus : LiveData<Status> = _saveDischargeCardStatus
 
     fun getData(){
         getDischargeCardTemplate(UseCase.None()) {
@@ -40,8 +43,17 @@ class GenerateDischargeCardViewModel @Inject constructor(val getDischargeCardTem
     fun makeDischargeCard(dischargeCard: DischargeCard){
         _getDischargeCardStatus.value = Status.NONE
         getDischargeCard(dischargeCard){
-            _getDischargeCardStatus.value = it.status
             _dischargeCardFile.value = it.file
+            _getDischargeCardStatus.value = it.status
         }
     }
+
+    fun saveDischargeCard(previousIpdNumber: String, dischargeCard: DischargeCard){
+        _saveDischargeCardStatus.value = Status.NONE
+        val request = SaveDischargeCardRequest(previousIpdNumber, dischargeCard)
+        saveDischargeCard(request){
+            _saveDischargeCardStatus.value = it.status
+        }
+    }
+
 }

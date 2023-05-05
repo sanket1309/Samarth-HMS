@@ -4,6 +4,23 @@ import pl.allegro.finance.tradukisto.ValueConverters
 
 class StringUtils {
     companion object{
+
+        fun getShowingBillsText(resultCount: Int): String {
+            return when(resultCount){
+                0 -> "No bills to show"
+                1 -> "Showing 1 bill"
+                else -> "Showing $resultCount bills"
+            }
+        }
+
+        fun getShowingDischargeCardsText(resultCount: Int): String {
+            return when(resultCount){
+                0 -> "No discharge cards to show"
+                1 -> "Showing 1 discharge card"
+                else -> "Showing $resultCount discharge cards"
+            }
+        }
+
         fun getResultFoundText(resultCount: Int): String {
             return when(resultCount){
                 0 -> "No Result Found"
@@ -44,6 +61,36 @@ class StringUtils {
         fun getAmountInWords(amount: Int): String{
             val converters = ValueConverters.ENGLISH_INTEGER
             return converters.asWords(amount).uppercase()
+        }
+
+        fun formatYearWiseId(id: String): String {
+            return id.padStart(6, '0')
+        }
+
+        fun formatYearWiseIdGeneral(id: String): String {
+            var result = id
+            if(id.length == 6 && id[0] =='0'){
+                result = id.substring(1)
+            }
+            return result
+        }
+
+        fun formatYearWiseIdSpacePadded(id: String): String {
+            var result = id
+            if(id.length == 6 && id[0] =='0'){
+                result = id.substring(1)
+            }
+            return result.padStart(6, ' ')
+        }
+
+        fun formatYearWiseIdForFirebase(id: String): String {
+            var result = id.split("/")
+            return result[0]+"-"+result[1]
+        }
+
+        fun formatYearWiseIdFromFirebaseId(id: String): String {
+            var result = id.split("-")
+            return result[0]+"/"+result[1]
         }
     }
 }

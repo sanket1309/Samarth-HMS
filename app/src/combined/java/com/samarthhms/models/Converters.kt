@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.firebase.Timestamp
 import com.samarthhms.constants.SchemaName
 import com.samarthhms.utils.DateTimeUtils
+import com.samarthhms.utils.StringUtils
 import java.time.LocalDateTime
 
 class Converters {
@@ -115,7 +116,6 @@ class Converters {
         }
 
         fun convertToVisit(visitFirebase: VisitFirebase): Visit{
-            Log.d("DEBUG_VISIT_TIME","FB TIME DATE : ${visitFirebase.visitTime.toDate()}")
             val visit = Visit(
                 visitFirebase.visitId,
                 visitFirebase.patientId,
@@ -126,7 +126,6 @@ class Converters {
                 visitFirebase.isAttended,
                 visitFirebase.isAdmitted
             )
-            Log.d("DEBUG_VISIT_TIME","LOCAL TIME : ${visit.visitTime}")
             return visit
         }
 
@@ -142,6 +141,114 @@ class Converters {
                 visit.isAdmitted
             )
         }
+
+        fun convertToBill(billFirebase: BillFirebase): Bill{
+            val bill = Bill(
+                billFirebase.patientId,
+                billFirebase.visitId,
+                billFirebase.admitId,
+                StringUtils.formatYearWiseIdFromFirebaseId(billFirebase.billNumber),
+                billFirebase.firstName,
+                billFirebase.middleName,
+                billFirebase.lastName,
+                billFirebase.gender,
+                billFirebase.age,
+                billFirebase.contactNumber,
+                DateTimeUtils.getLocalDateTime(billFirebase.dateOfAdmission),
+                DateTimeUtils.getLocalDateTime(billFirebase.dateOfDischarge),
+                billFirebase.address,
+                billFirebase.diagnosis,
+                billFirebase.treatmentCharges,
+                billFirebase.managementCharges,
+                billFirebase.otherCharges,
+                billFirebase.sum
+            )
+            return bill
+        }
+
+        fun convertToBillFirebase(bill: Bill): BillFirebase{
+            val billFirebase = BillFirebase(
+                bill.patientId,
+                bill.visitId,
+                bill.admitId,
+                StringUtils.formatYearWiseIdForFirebase(bill.billNumber),
+                bill.firstName,
+                bill.middleName,
+                bill.lastName,
+                bill.gender,
+                bill.age,
+                bill.contactNumber,
+                DateTimeUtils.getTimestamp(bill.dateOfAdmission),
+                DateTimeUtils.getTimestamp(bill.dateOfDischarge),
+                bill.address,
+                bill.diagnosis,
+                bill.treatmentCharges,
+                bill.managementCharges,
+                bill.otherCharges,
+                bill.sum
+            )
+            return billFirebase
+        }
+
+        fun convertToDischargeCard(dischargeCardFirebase: DischargeCardFirebase): DischargeCard{
+            val dischargeCard = DischargeCard(
+                dischargeCardFirebase.patientId,
+                StringUtils.formatYearWiseIdFromFirebaseId(dischargeCardFirebase.ipdNumber),
+                dischargeCardFirebase.firstName,
+                dischargeCardFirebase.middleName,
+                dischargeCardFirebase.lastName,
+                dischargeCardFirebase.gender,
+                dischargeCardFirebase.contactNumber,
+                dischargeCardFirebase.weight,
+                dischargeCardFirebase.height,
+                dischargeCardFirebase.age,
+                dischargeCardFirebase.ageFormat,
+                DateTimeUtils.getLocalDateTime(dischargeCardFirebase.dateOfBirth),
+                DateTimeUtils.getLocalDateTime(dischargeCardFirebase.dateOfAdmission),
+                DateTimeUtils.getLocalDateTime(dischargeCardFirebase.dateOfDischarge),
+                dischargeCardFirebase.address,
+                dischargeCardFirebase.diagnosis,
+                dischargeCardFirebase.patientHistory,
+                dischargeCardFirebase.pastHistory,
+                dischargeCardFirebase.familyHistory,
+                dischargeCardFirebase.course,
+                dischargeCardFirebase.investigations,
+                dischargeCardFirebase.medicationsOnDischarge,
+                dischargeCardFirebase.advice
+            )
+            return dischargeCard
+        }
+
+        fun convertToDischargeCardFirebase(dischargeCard: DischargeCard): DischargeCardFirebase{
+            val dischargeCardFirebase = DischargeCardFirebase(
+                dischargeCard.patientId,
+                StringUtils.formatYearWiseIdForFirebase(dischargeCard.ipdNumber),
+                dischargeCard.firstName,
+                dischargeCard.middleName,
+                dischargeCard.lastName,
+                dischargeCard.gender,
+                dischargeCard.contactNumber,
+                dischargeCard.weight,
+                dischargeCard.height,
+                dischargeCard.age,
+                dischargeCard.ageFormat,
+                DateTimeUtils.getTimestamp(dischargeCard.dateOfBirth),
+                DateTimeUtils.getTimestamp(dischargeCard.dateOfAdmission),
+                DateTimeUtils.getTimestamp(dischargeCard.dateOfDischarge),
+                dischargeCard.address,
+                dischargeCard.diagnosis,
+                dischargeCard.patientHistory,
+                dischargeCard.pastHistory,
+                dischargeCard.familyHistory,
+                dischargeCard.course,
+                dischargeCard.investigations,
+                dischargeCard.medicationsOnDischarge,
+                dischargeCard.advice
+            )
+            return dischargeCardFirebase
+        }
+
+
 
         fun storeStateToStoreStateData(storedState: StoredState): StoredStateData {
             return StoredStateData(

@@ -109,7 +109,8 @@
         tools:layout="@layout/fragment_generate_discharge_card" >
         <action
             android:id="@+id/action_generateDischargeCardFragment_to_pdfDetailsFragment"
-            app:destination="@id/pdfDetailsFragment" />
+            app:destination="@id/pdfDetailsFragment"
+            app:popUpTo="@id/adminDashboardFragment"/>
     </fragment>
     <fragment
         android:id="@+id/comingSoonFragment"
@@ -128,7 +129,8 @@
         tools:layout="@layout/fragment_generate_bill" >
         <action
             android:id="@+id/action_generateBillFragment_to_pdfDetailsFragment"
-            app:destination="@id/pdfDetailsFragment" />
+            app:destination="@id/pdfDetailsFragment"
+            app:popUpTo="@id/adminDashboardFragment"/>
     </fragment>
     <fragment
         android:id="@+id/pdfDetailsFragment"
@@ -197,4 +199,47 @@
         android:name="com.samarthhms.ui.AddAdminFragment"
         android:label="Add Admin"
         tools:layout="@layout/fragment_add_admin" />
+    <fragment
+        android:id="@+id/editBillFragment"
+        android:name="com.samarthhms.ui.EditBillFragment"
+        android:label="Bill"
+        tools:layout="@layout/fragment_edit_bill" >
+        <argument
+            android:name="bill"
+            app:argType="com.samarthhms.models.Bill" />
+        <action
+            android:id="@+id/action_editBillFragment_to_pdfDetailsFragment"
+            app:destination="@id/pdfDetailsFragment"
+            app:popUpTo="@id/adminDashboardFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/editDischargeCardFragment"
+        android:name="com.samarthhms.ui.EditDischargeCardFragment"
+        android:label="Discharge Card"
+        tools:layout="@layout/fragment_edit_discharge_card" >
+        <argument
+            android:name="dischargeCard"
+            app:argType="com.samarthhms.models.DischargeCard" />
+        <action
+            android:id="@+id/action_editDischargeCardFragment_to_pdfDetailsFragment"
+            app:destination="@id/pdfDetailsFragment"
+            app:popUpTo="@id/adminDashboardFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/recentBillsFragment"
+        android:name="com.samarthhms.ui.RecentBillsFragment"
+        android:label="Recent Bills"
+        tools:layout="@layout/fragment_recent_bills" >
+        <action
+            android:id="@+id/action_recentBillsFragment_to_editBillFragment"
+            app:destination="@id/editBillFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recentDischargeCardsFragment"
+        android:name="com.samarthhms.ui.RecentDischargeCardsFragment"
+        android:label="Recent Discharge Cards" >
+        <action
+            android:id="@+id/action_recentDischargeCardsFragment_to_editDischargeCardFragment"
+            app:destination="@id/editDischargeCardFragment" />
+    </fragment>
 </navigation>

@@ -228,7 +228,7 @@ class GenerateBill @Inject constructor(){
         table.addCell(cell)
 
         tableInfo = pdfService.createTable(2, listOf(60f, 40f))
-        cell = getCellBody("In Words :- "+StringUtils.getAmountInWords(bill.sum)+" RUPEES", false, 70f)
+        cell = getCellBody("In Words :- "+StringUtils.getAmountInWords(bill.sum)+" RUPEES ONLY", false, 70f)
         cell.border = Rectangle.NO_BORDER
         tableInfo.addCell(cell)
         cell = getCellBody("Authority sign / stamp", true, 70f)

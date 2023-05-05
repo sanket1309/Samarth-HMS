@@ -31,12 +31,10 @@ import com.samarthhms.BuildConfig
 import com.samarthhms.R
 import com.samarthhms.constants.Constants
 import com.samarthhms.constants.Gender
+import com.samarthhms.databinding.FragmentEditDischargeCardBinding
 import com.samarthhms.databinding.FragmentGenerateDischargeCardBinding
 import com.samarthhms.domain.Status
-import com.samarthhms.models.DischargeCard
-import com.samarthhms.models.DischargeCardTemplate
-import com.samarthhms.models.MedicineTemplate
-import com.samarthhms.models.PatientHistoryTemplate
+import com.samarthhms.models.*
 import com.samarthhms.utils.DateTimeUtils
 import com.samarthhms.utils.IdUtils
 import com.samarthhms.utils.StringUtils
@@ -47,11 +45,11 @@ import java.util.*
 
 
 @AndroidEntryPoint
-class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListener {
+class EditDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListener {
 
     private val viewModel: GenerateDischargeCardViewModel by viewModels()
 
-    private lateinit var binding: FragmentGenerateDischargeCardBinding
+    private lateinit var binding: FragmentEditDischargeCardBinding
 
     private var bottomSheetDialog: BottomSheetDialog? = null
 
@@ -61,19 +59,67 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
 
     var MEDICATION_MEDICINE_TEMPLATE_REQUESTER = "MEDICATION_MEDICINE_TEMPLATE_REQUESTER"
 
+    private var previousIpdNumber: String = ""
+
     private var dischargeCard: DischargeCard? = null
+
+    private fun initializeData(dischargeCard: DischargeCard){
+        previousIpdNumber = dischargeCard.ipdNumber
+        binding.ipdNumber.setText(StringUtils.formatYearWiseIdGeneral(dischargeCard.ipdNumber))
+        binding.firstName.setText(dischargeCard.firstName)
+        binding.middleName.setText(dischargeCard.middleName)
+        binding.lastName.setText(dischargeCard.lastName)
+        if(dischargeCard.gender == Gender.MALE){
+            binding.genderMaleRadioGroupButton.isChecked = true
+        }
+        else{
+            binding.genderFemaleRadioGroupButton.isChecked = true
+        }
+        binding.age.setText(dischargeCard.ageFormat)
+
+        binding.weight.setText(dischargeCard.weight.toString())
+        binding.contactNumber.setText(dischargeCard.contactNumber)
+        binding.dateOfAdmission.setText(DateTimeUtils.getDate(dischargeCard.dateOfAdmission))
+        binding.timeOfAdmission.setText(DateTimeUtils.getTime(dischargeCard.dateOfAdmission))
+        binding.dateOfDischarge.setText(DateTimeUtils.getDate(dischargeCard.dateOfDischarge))
+        binding.timeOfDischarge.setText(DateTimeUtils.getTime(dischargeCard.dateOfDischarge))
+        binding.address.setText(dischargeCard.address)
+        binding.diagnosis.setText(dischargeCard.diagnosis)
+        binding.patientHistory.setText(dischargeCard.patientHistory)
+        binding.pastHistory.setText(dischargeCard.pastHistory)
+        binding.familyHistory.setText(dischargeCard.familyHistory)
+        binding.investigations.setText(dischargeCard.investigations)
+
+        val courseList = mutableListOf<MedicineTemplate>()
+        for(templateData in dischargeCard.course){
+            courseList.add(MedicineTemplate("",templateData))
+        }
+        binding.courseList.adapter = MedicineTemplateListAdapter(courseList)
+
+        val medicationList = mutableListOf<MedicineTemplate>()
+        for(templateData in dischargeCard.medicationsOnDischarge){
+            medicationList.add(MedicineTemplate("",templateData))
+        }
+        binding.medicationList.adapter = MedicineTemplateListAdapter(medicationList)
+
+        val adviceList = mutableListOf<MedicineTemplate>()
+        for(templateData in dischargeCard.advice){
+            adviceList.add(MedicineTemplate("",templateData))
+        }
+        binding.adviceList.adapter = MedicineTemplateListAdapter(adviceList)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentGenerateDischargeCardBinding.inflate(layoutInflater, container, false)
-        binding.courseList.adapter = MedicineTemplateListAdapter(mutableListOf())
-        binding.medicationList.adapter = MedicineTemplateListAdapter(mutableListOf())
-        binding.adviceList.adapter = MedicineTemplateListAdapter(Constants.DischargeCardConstants.ADVICE_LIST.toMutableList())
+        binding = FragmentEditDischargeCardBinding.inflate(layoutInflater, container, false)
 
         startProgressBar(true)
         viewModel.getData()
+
+        val dischargeCard = EditDischargeCardFragmentArgs.fromBundle(requireArguments()).dischargeCard
+        initializeData(dischargeCard)
 
         viewModel.dischargeCardTemplate.observe(viewLifecycleOwner){
             if(viewModel.getDischargeCardTemplateStatus.value == Status.SUCCESS){
@@ -118,9 +164,9 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
 
         binding.generateDischargeCardButton.setOnClickListener{
             startProgressBar(true)
-            dischargeCard = getDischargeCard()
-            if(Objects.nonNull(dischargeCard)){
-                viewModel.saveDischargeCard(dischargeCard!!.ipdNumber,dischargeCard!!)
+            this.dischargeCard = getDischargeCard()
+            if(Objects.nonNull(this.dischargeCard)){
+                viewModel.saveDischargeCard(previousIpdNumber, this.dischargeCard!!)
             }else{
                 startProgressBar(false)
             }
@@ -139,7 +185,7 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
             }
             if(it == Status.SUCCESS && viewModel.dischargeCardFile.value != null){
                 startProgressBar(false)
-                val action = GenerateDischargeCardFragmentDirections.actionGenerateDischargeCardFragmentToPdfDetailsFragment(viewModel.dischargeCardFile.value!!)
+                val action = EditDischargeCardFragmentDirections.actionEditDischargeCardFragmentToPdfDetailsFragment(viewModel.dischargeCardFile.value!!)
                 findNavController().navigate(action)
             }
         }
@@ -151,7 +197,7 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
             }
             if(it == Status.SUCCESS){
                 startProgressBar(false)
-                viewModel.makeDischargeCard(dischargeCard!!)
+                viewModel.makeDischargeCard(this.dischargeCard!!)
             }
         }
         return binding.root

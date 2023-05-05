@@ -44,11 +44,16 @@ class DateTimeUtils {
         }
 
         fun getDateFormat(localDateTime: LocalDateTime): String {
-            return DateTimeFormatter.ofPattern("d/MM/yyyy").format(localDateTime)
+            return DateTimeFormatter.ofPattern("dd/MM/yyyy").format(localDateTime)
+        }
+
+        fun getTime(localDateTime: LocalDateTime): String {
+            return DateTimeFormatter.ofPattern("hh:mm a").format(localDateTime)
+                .uppercase(Locale.getDefault())
         }
 
         fun getDateTime(localDateTime: LocalDateTime): String {
-            return DateTimeFormatter.ofPattern("d/M/yyyy hh:mm a").format(localDateTime)
+            return DateTimeFormatter.ofPattern("dd/M/yyyy hh:mm a").format(localDateTime)
                 .uppercase(Locale.getDefault())
         }
 

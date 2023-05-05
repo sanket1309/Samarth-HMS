@@ -30,6 +30,7 @@ import com.samarthhms.BuildConfig
 import com.samarthhms.R
 import com.samarthhms.constants.Constants
 import com.samarthhms.constants.Gender
+import com.samarthhms.databinding.FragmentEditBillBinding
 import com.samarthhms.databinding.FragmentGenerateBillBinding
 import com.samarthhms.domain.Status
 import com.samarthhms.models.Bill
@@ -43,30 +44,59 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
-class GenerateBillFragment : Fragment(), OnUpdateBillSumListener {
+class EditBillFragment : Fragment(), OnUpdateBillSumListener {
 
     private val viewModel: GenerateBillViewModel by viewModels()
 
-    private lateinit var binding: FragmentGenerateBillBinding
+    private lateinit var binding: FragmentEditBillBinding
 
     private var billTotal: Int = 0
 
+    private var previousBillNumber: String = ""
+
     private var bill: Bill? = null
+
+    private fun initializeData(bill: Bill){
+        previousBillNumber = bill.billNumber
+        binding.billNumber.setText(StringUtils.formatYearWiseIdGeneral(bill.billNumber))
+        binding.firstName.setText(bill.firstName)
+        binding.middleName.setText(bill.middleName)
+        binding.lastName.setText(bill.lastName)
+        if(bill.gender == Gender.MALE){
+            binding.genderMaleRadioGroupButton.isChecked = true
+        }
+        else{
+            binding.genderFemaleRadioGroupButton.isChecked = true
+        }
+        binding.age.setText(bill.age)
+        binding.contactNumber.setText(bill.contactNumber)
+        binding.dateOfAdmission.setText(DateTimeUtils.getDate(bill.dateOfAdmission))
+        binding.dateOfDischarge.setText(DateTimeUtils.getDate(bill.dateOfDischarge))
+        binding.address.setText(bill.address)
+        binding.diagnosis.setText(bill.diagnosis)
+
+        binding.treatmentCharges.adapter = BillAdapter(this, bill.treatmentCharges.toMutableList())
+        binding.managementCharges.adapter = BillAdapter(this, bill.managementCharges.toMutableList())
+
+        binding.otherCharges.itemName.setText(bill.otherCharges.itemName)
+        binding.otherCharges.rate.setText(bill.otherCharges.rate.toString())
+        binding.otherCharges.quantity.setText(bill.otherCharges.quantity.toString())
+        binding.otherCharges.sum.setText((bill.otherCharges.rate*bill.otherCharges.quantity).toString())
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentGenerateBillBinding.inflate(layoutInflater, container, false)
+        binding = FragmentEditBillBinding.inflate(layoutInflater, container, false)
 
         val treatmentCharges = Constants.BillConstants.DEFAULT_TREATMENT_CHARGES
 
         val managementCharges = Constants.BillConstants.DEFAULT_MANAGEMENT_CHARGES
 
-        binding.treatmentCharges.adapter = BillAdapter(this, treatmentCharges.toMutableList())
-        binding.managementCharges.adapter = BillAdapter(this, managementCharges.toMutableList())
-//        update(getTotal(treatmentCharges)+getTotal(managementCharges))
-        binding.otherCharges.itemName.setText(Constants.BillConstants.OTHER_CHARGES_NAME)
+        val bill = EditBillFragmentArgs.fromBundle(requireArguments()).bill
+        initializeData(bill)
 
         binding.addTreatmentChargesButton.setOnClickListener{
             val adapter = binding.treatmentCharges.adapter as BillAdapter
@@ -123,9 +153,9 @@ class GenerateBillFragment : Fragment(), OnUpdateBillSumListener {
 
         binding.generateBillButton.setOnClickListener{
             startProgressBar(true)
-            bill = getBill()
-            if(Objects.nonNull(bill)){
-                viewModel.saveBill(bill!!.billNumber, bill!!)
+            this.bill = getBill()
+            if(Objects.nonNull(this.bill)){
+                viewModel.saveBill(previousBillNumber, this.bill!!)
             }else{
                 startProgressBar(false)
             }
@@ -142,7 +172,7 @@ class GenerateBillFragment : Fragment(), OnUpdateBillSumListener {
             }
             if(it == Status.SUCCESS && viewModel.billFile.value != null){
                 startProgressBar(false)
-                val action = GenerateBillFragmentDirections.actionGenerateBillFragmentToPdfDetailsFragment(viewModel.billFile.value!!)
+                val action = EditBillFragmentDirections.actionEditBillFragmentToPdfDetailsFragment(viewModel.billFile.value!!)
                 findNavController().navigate(action)
             }
         }
@@ -154,7 +184,7 @@ class GenerateBillFragment : Fragment(), OnUpdateBillSumListener {
             }
             if(it == Status.SUCCESS){
                 startProgressBar(false)
-                viewModel.makeBill(bill!!)
+                viewModel.makeBill(this.bill!!)
             }
         }
 
@@ -181,7 +211,6 @@ class GenerateBillFragment : Fragment(), OnUpdateBillSumListener {
         if (!Validation.validateIpdNumber(billNumber)) {
             changeTextColorOfTextView(binding.billNumberTitle, invalidColor)
             changeBorderColorOfEditText(binding.billNumber, invalidColor)
-            binding.billNumber.addTextChangedListener {  }
             return null
         }else{
             changeTextColorOfTextView(binding.billNumberTitle, validColor)

@@ -41,6 +41,15 @@ object SchemaName {
     const val STAFF_DELETE_COLLECTION = "Staff_Delete"
     const val STAFF_STATUS_DELETE_COLLECTION = "Staff_Status_Delete"
 
+    const val BILL_COLLECTION = "Bill_Collection"
+    const val DISCHARGE_CARD_COLLECTION = "Discharge_Card_Collection"
+    const val BILL_NUMBER = "billNumber"
+    const val IPD_NUMBER = "ipdNumber"
+//    const val STAFF_COLLECTION = "Staff"
+//    const val STAFF_STATUS_COLLECTION = "Staff_Status"
+//    const val STAFF_DELETE_COLLECTION = "Staff_Delete"
+//    const val STAFF_STATUS_DELETE_COLLECTION = "Staff_Status_Delete"
+
     const val STORED_STATE_DATABASE = "combined_stored_state_database"
     const val STORED_STATE_TABLE = "combined_stored_state_table"
     const val STORED_STATE_KEY = "stored_state_key"
