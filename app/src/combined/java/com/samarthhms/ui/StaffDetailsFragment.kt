@@ -76,6 +76,7 @@ class StaffDetailsFragment : Fragment() {
 
             val firstName = binding.firstName.text.toString()
             if (!Validation.validateName(firstName)) {
+                Toast.makeText(activity, "Invalid First Name", Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.firstNameTitle, binding.firstName, invalidColor)
                 return@setOnClickListener
             } else {
@@ -84,6 +85,7 @@ class StaffDetailsFragment : Fragment() {
 
             val middleName = binding.middleName.text.toString()
             if (!Validation.validateName(middleName)) {
+                Toast.makeText(activity, "Invalid Middle Name", Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.middleNameTitle, binding.middleName, invalidColor)
                 return@setOnClickListener
             } else {
@@ -92,6 +94,7 @@ class StaffDetailsFragment : Fragment() {
 
             val lastName = binding.lastName.text.toString()
             if (!Validation.validateName(lastName)) {
+                Toast.makeText(activity, "Invalid Last Name", Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.lastNameTitle, binding.lastName, invalidColor)
                 return@setOnClickListener
             } else {
@@ -103,6 +106,7 @@ class StaffDetailsFragment : Fragment() {
 
             val contactNumber = binding.contactNumber.text.toString().replace(" ", "")
             if (!Validation.validateContactNumber(contactNumber)) {
+                Toast.makeText(activity, "Invalid Contact Number", Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(
                     binding.contactNumberTitle,
                     binding.contactNumber,
@@ -119,6 +123,7 @@ class StaffDetailsFragment : Fragment() {
 
             val address = binding.address.text.toString()
             if (address.isBlank()) {
+                Toast.makeText(activity, "Invalid Address", Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.addressTitle, binding.address, invalidColor)
                 return@setOnClickListener
             } else {
@@ -127,6 +132,7 @@ class StaffDetailsFragment : Fragment() {
 
             val username = binding.username.text.toString()
             if (!Validation.validateUserName(username)) {
+                Toast.makeText(activity, "Invalid Username", Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.setUsernameTitle, binding.username, invalidColor)
                 return@setOnClickListener
             } else {
@@ -135,6 +141,7 @@ class StaffDetailsFragment : Fragment() {
 
             val password = binding.password.text.toString()
             if (!Validation.validatePassword(password)) {
+                Toast.makeText(activity, "Invalid Password", Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.setPasswordTitle, binding.password, invalidColor)
                 return@setOnClickListener
             } else {
@@ -163,6 +170,7 @@ class StaffDetailsFragment : Fragment() {
                 when(which){
                     DialogInterface.BUTTON_POSITIVE -> {
                         viewModel.addStaff(newStaffDetails)
+                        staffDetails = newStaffDetails
                     }
                     DialogInterface.BUTTON_NEGATIVE -> {
                         dialog.dismiss()
@@ -242,6 +250,7 @@ class StaffDetailsFragment : Fragment() {
         binding.saveStaffButton.visibility = View.VISIBLE
         isEdit = true
         changeEditField(true)
+        onHidePassword()
     }
 
     private fun onSave(){
@@ -249,6 +258,7 @@ class StaffDetailsFragment : Fragment() {
         binding.editStaffButton.visibility = View.VISIBLE
         isEdit = false
         changeEditField(false)
+        onHidePassword()
     }
 
     private fun changeEditField(isEdit: Boolean){
@@ -288,6 +298,15 @@ class StaffDetailsFragment : Fragment() {
         else{
             binding.password.transformationMethod = PasswordTransformationMethod.getInstance()
             state = "Show"
+        }
+        binding.showPasswordButton.text = state
+    }
+
+    private fun onHidePassword(){
+        var state = binding.showPasswordButton.text.toString()
+        if(state == "Show"){
+            binding.password.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            state = "Hide"
         }
         binding.showPasswordButton.text = state
     }

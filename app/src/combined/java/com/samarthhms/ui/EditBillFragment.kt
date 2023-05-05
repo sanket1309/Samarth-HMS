@@ -196,7 +196,7 @@ class EditBillFragment : Fragment(), OnUpdateBillSumListener {
 
         val billNumber = binding.billNumber.text.toString()
         if (!Validation.validateIpdNumber(billNumber)) {
-            Toast.makeText(activity, "Invalid IPD Number", Toast.LENGTH_SHORT).show()
+
             changeTextColorOfTextView(binding.billNumberTitle, invalidColor)
             changeBorderColorOfEditText(binding.billNumber, invalidColor)
             return null

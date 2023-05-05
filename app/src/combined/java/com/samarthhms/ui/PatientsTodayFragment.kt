@@ -28,9 +28,16 @@ class PatientsTodayFragment : Fragment(), RecyclerOnItemViewClickListener{
         viewModel.addListener()
         val adapter = VisitInfoAdapter(context, this, listOf())
         binding.patientsTodayRecyclerView.adapter = adapter
+        binding.noResultsImage.visibility = View.GONE
         viewModel.patientsTodayList.observe(viewLifecycleOwner){
             (binding.patientsTodayRecyclerView.adapter as VisitInfoAdapter).patientsToday = it
             (binding.patientsTodayRecyclerView.adapter as VisitInfoAdapter).notifyDataSetChanged()
+            if(it.isEmpty()){
+                binding.noResultsImage.visibility = View.VISIBLE
+            }
+            else{
+                binding.noResultsImage.visibility = View.GONE
+            }
         }
         viewModel.patientsTodayCount.observe(viewLifecycleOwner){
             binding.patientsTodayCountTitle.text = StringUtils.getPatientCountText(it)

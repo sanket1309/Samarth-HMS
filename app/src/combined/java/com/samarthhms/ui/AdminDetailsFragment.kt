@@ -77,6 +77,7 @@ class AdminDetailsFragment : Fragment() {
 
             val firstName = binding.firstName.text.toString()
             if (!Validation.validateName(firstName)) {
+                Toast.makeText(activity, "Invalid First Name", Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.firstNameTitle, binding.firstName, invalidColor)
                 return@setOnClickListener
             } else {
@@ -85,6 +86,7 @@ class AdminDetailsFragment : Fragment() {
 
             val middleName = binding.middleName.text.toString()
             if (!Validation.validateName(middleName)) {
+                Toast.makeText(activity, "Invalid Middle Name", Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.middleNameTitle, binding.middleName, invalidColor)
                 return@setOnClickListener
             } else {
@@ -93,6 +95,7 @@ class AdminDetailsFragment : Fragment() {
 
             val lastName = binding.lastName.text.toString()
             if (!Validation.validateName(lastName)) {
+                Toast.makeText(activity, "Invalid Last Name", Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.lastNameTitle, binding.lastName, invalidColor)
                 return@setOnClickListener
             } else {
@@ -103,7 +106,8 @@ class AdminDetailsFragment : Fragment() {
                 if (binding.genderMaleRadioGroupButton.isChecked) Gender.MALE else Gender.FEMALE
 
             val dob = binding.dateOfBirth.text.toString()
-            if (Validation.validateDate(dob)) {
+            if (!Validation.validateDate(dob)) {
+                Toast.makeText(activity, "Invalid Date of Birth", Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.dateOfBirthTitle, binding.dateOfBirth, invalidColor)
                 return@setOnClickListener
             } else {
@@ -112,6 +116,7 @@ class AdminDetailsFragment : Fragment() {
 
             val contactNumber = binding.contactNumber.text.toString().replace(" ", "")
             if (!Validation.validateContactNumber(contactNumber)) {
+                Toast.makeText(activity, "Invalid Contact Number", Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(
                     binding.contactNumberTitle,
                     binding.contactNumber,
@@ -128,6 +133,7 @@ class AdminDetailsFragment : Fragment() {
 
             val address = binding.address.text.toString()
             if (address.isBlank()) {
+                Toast.makeText(activity, "Invalid Address", Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.addressTitle, binding.address, invalidColor)
                 return@setOnClickListener
             } else {
@@ -136,6 +142,7 @@ class AdminDetailsFragment : Fragment() {
 
             val username = binding.username.text.toString()
             if (!Validation.validateUserName(username)) {
+                Toast.makeText(activity, "Invalid Username", Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.setUsernameTitle, binding.username, invalidColor)
                 return@setOnClickListener
             } else {
@@ -144,6 +151,7 @@ class AdminDetailsFragment : Fragment() {
 
             val password = binding.password.text.toString()
             if (!Validation.validatePassword(password)) {
+                Toast.makeText(activity, "Invalid Password", Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.setPasswordTitle, binding.password, invalidColor)
                 return@setOnClickListener
             } else {
@@ -168,24 +176,23 @@ class AdminDetailsFragment : Fragment() {
                 Toast.makeText(activity, "Nothing has been updated", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            binding.deleteAdminButton.setOnClickListener {
-                val dialogClickListener = DialogInterface.OnClickListener{
-                        dialog, which ->
-                    when(which){
-                        DialogInterface.BUTTON_POSITIVE -> {
-                            viewModel.addAdmin(newAdminDetails)
-                        }
-                        DialogInterface.BUTTON_NEGATIVE -> {
-                            dialog.dismiss()
-                        }
+            val dialogClickListener = DialogInterface.OnClickListener{
+                    dialog, which ->
+                when(which){
+                    DialogInterface.BUTTON_POSITIVE -> {
+                        viewModel.addAdmin(newAdminDetails)
+                        adminDetails = newAdminDetails
+                    }
+                    DialogInterface.BUTTON_NEGATIVE -> {
+                        dialog.dismiss()
                     }
                 }
-                val alertDialogBuilder = AlertDialog.Builder(requireContext())
-                alertDialogBuilder.setMessage("Are you sure, you want to update staff?")
-                    .setPositiveButton("Yes", dialogClickListener)
-                    .setNegativeButton("No", dialogClickListener)
-                    .show()
             }
+            val alertDialogBuilder = AlertDialog.Builder(requireContext())
+            alertDialogBuilder.setMessage("Are you sure, you want to update admin?")
+                .setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener)
+                .show()
         }
 
         binding.editAdminButton.setOnClickListener {
@@ -197,7 +204,7 @@ class AdminDetailsFragment : Fragment() {
                     dialog, which ->
                 when(which){
                     DialogInterface.BUTTON_POSITIVE -> {
-                        viewModel.removeAdmin(admin.adminId)
+//                        viewModel.removeAdmin(admin.adminId)
                     }
                     DialogInterface.BUTTON_NEGATIVE -> {
                         dialog.dismiss()
@@ -254,6 +261,7 @@ class AdminDetailsFragment : Fragment() {
         binding.saveAdminButton.visibility = View.VISIBLE
         isEdit = true
         changeEditField(true)
+        onHidePassword()
     }
 
     fun onSave(){
@@ -261,6 +269,7 @@ class AdminDetailsFragment : Fragment() {
         binding.editAdminButton.visibility = View.VISIBLE
         isEdit = false
         changeEditField(false)
+        onHidePassword()
     }
 
     fun changeEditField(isEdit: Boolean){
@@ -302,6 +311,15 @@ class AdminDetailsFragment : Fragment() {
         else{
             binding.password.transformationMethod = PasswordTransformationMethod.getInstance()
             state = "Show"
+        }
+        binding.showPasswordButton.text = state
+    }
+
+    private fun onHidePassword(){
+        var state = binding.showPasswordButton.text.toString()
+        if(state == "Show"){
+            binding.password.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            state = "Hide"
         }
         binding.showPasswordButton.text = state
     }
