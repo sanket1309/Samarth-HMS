@@ -16,15 +16,17 @@ import com.samarthhms.repository.StoredStateRepositoryImpl
 import com.samarthhms.usecase.UseCase
 import com.samarthhms.utils.DateTimeUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@OptIn(DelicateCoroutinesApi::class)
 @HiltViewModel
 class StaffHomeViewModel @Inject constructor(val getRecentVisit: GetRecentVisit, val getUser: GetUser, val storedStateRepositoryImpl: StoredStateRepositoryImpl): ViewModel() {
 
     private val _getRecentVisitStatus: MutableLiveData<Status> = MutableLiveData(Status.NONE)
-    val getRecentVisitStatus : LiveData<Status> = _getRecentVisitStatus
+//    val getRecentVisitStatus : LiveData<Status> = _getRecentVisitStatus
 
     private val _recentVisit: MutableLiveData<PatientVisitInfo?> = MutableLiveData(null)
     val recentVisit : LiveData<PatientVisitInfo?> = _recentVisit
@@ -47,8 +49,8 @@ class StaffHomeViewModel @Inject constructor(val getRecentVisit: GetRecentVisit,
     fun updateGreetingsAndInfo(){
         _greeting.value = getGreeting()
         getUser(UseCase.None()){
-            var firstName:String = ""
-            var prefix:String = ""
+            var firstName = ""
+            var prefix = ""
             if(it.userRole == Role.ADMIN){
                 firstName = it.admin?.firstName?:""
                 prefix = "Dr. "
@@ -61,7 +63,7 @@ class StaffHomeViewModel @Inject constructor(val getRecentVisit: GetRecentVisit,
         }
     }
 
-    fun getGreeting(): String{
+    private fun getGreeting(): String{
         val hours = DateTimeUtils.getHours()
         return if(hours in 0 until 12) "Good Morning,"
         else if(hours in 12 until 18) "Good Afternoon,"
@@ -76,15 +78,14 @@ class StaffHomeViewModel @Inject constructor(val getRecentVisit: GetRecentVisit,
                 _recentVisit.value = null
                 return@getRecentVisit
             }
-            _recentVisit.value = it.data!!.first()
+            _recentVisit.value = it.data.first()
         }
     }
 
     init {
         val db = FirebaseFirestore.getInstance()
-        var id: String=""
         GlobalScope.launch {
-            id = storedStateRepositoryImpl.getId()!!
+            val id = storedStateRepositoryImpl.getId()!!
             val reference = db.collection(SchemaName.STAFF_STATUS_COLLECTION).whereEqualTo(SchemaName.STAFF_ID, id)
             reference.addSnapshotListener{
                  snapshot,_ ->

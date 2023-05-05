@@ -1,5 +1,6 @@
 package com.samarthhms.utils
 
+import android.annotation.SuppressLint
 import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
 import java.time.Instant
@@ -55,17 +56,17 @@ class DateTimeUtils {
                 .uppercase(Locale.getDefault())
         }
 
-        fun getDurationTillNowInYearsAndMonths(localDateTime: LocalDateTime): String {
-            return DateTimeFormatter.ofPattern("ddMMyyyy").format(localDateTime)
-        }
+//        fun getDurationTillNowInYearsAndMonths(localDateTime: LocalDateTime): String {
+//            return DateTimeFormatter.ofPattern("ddMMyyyy").format(localDateTime)
+//        }
 
         fun getStartOfDate(date: LocalDateTime): LocalDateTime {
             return date.toLocalDate().atStartOfDay()
         }
 
-        fun getEndOfDate(date: LocalDateTime): LocalDateTime {
-            return date.toLocalDate().atStartOfDay().plusDays(1)
-        }
+//        fun getEndOfDate(date: LocalDateTime): LocalDateTime {
+//            return date.toLocalDate().atStartOfDay().plusDays(1)
+//        }
 
         fun getHoursFrom(localDateTime: LocalDateTime):Long{
             return localDateTime.until(LocalDateTime.now(), ChronoUnit.HOURS)
@@ -77,27 +78,28 @@ class DateTimeUtils {
             return Timestamp(date)
         }
 
-        fun getLocalDateTime(date: Date): LocalDateTime{
-            val time = LocalDateTime.ofInstant(Instant.ofEpochMilli(date.time), ZoneId.systemDefault())
-//            Log.d("DEBUG_STAFF","LOCALDATETIME : $time")
-            return time
+        private fun getLocalDateTime(date: Date): LocalDateTime {
+            return LocalDateTime.ofInstant(Instant.ofEpochMilli(date.time), ZoneId.systemDefault())
         }
 
         fun getLocalDateTime(timestamp: Timestamp) :LocalDateTime{
-//            Log.d("DEBUG_STAFF", "TIMESTAMP FB DATE : ${timestamp.toDate()}")
             val date = timestamp.toDate()
             return getLocalDateTime(date)
         }
 
+        @SuppressLint("SimpleDateFormat")
         fun getLocalDateTimeFromDate(dateVal: String) : LocalDateTime{
             val date = SimpleDateFormat("dd/MM/yyyy").parse(dateVal)
-            return getLocalDateTime(date)
+            if(date != null)
+                return getLocalDateTime(date)
+            return LocalDateTime.now()
         }
 
-        fun isDateBeforeOrEqualToToday(dateVal: String): Boolean{
-            val date = SimpleDateFormat("dd/MM/yyyy").parse(dateVal)
-            val currentDate = Date()
-            return date <= currentDate
-        }
+//        @SuppressLint("SimpleDateFormat")
+//        fun isDateBeforeOrEqualToToday(dateVal: String): Boolean{
+//            val date = SimpleDateFormat("dd/MM/yyyy").parse(dateVal)
+//            val currentDate = Date()
+//            return date <= currentDate
+//        }
     }
 }

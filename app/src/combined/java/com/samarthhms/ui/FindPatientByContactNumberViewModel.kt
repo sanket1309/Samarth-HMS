@@ -1,6 +1,5 @@
 package com.samarthhms.ui
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,7 +21,6 @@ class FindPatientByContactNumberViewModel @Inject constructor(val findPatientByC
     fun getPatients(contactNumber: String){
         findPatientByContactNumber(contactNumber) {
             _getPatientsStatus.value = it.status
-            Log.i("VIEWMODEL","STATUS : ${it.status}\nDATA FETCHED : ${it.data}")
             if(it.data == null){
                 return@findPatientByContactNumber
             }

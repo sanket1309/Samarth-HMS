@@ -1,6 +1,7 @@
 package com.samarthhms.ui
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,10 +34,11 @@ class FindPatientByPatientIdFragment : Fragment() {
 
     private var selectedPatient: Patient? = null
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFindPatientByPatientIdBinding.inflate(layoutInflater, container, false)
         binding.searchButton.setOnClickListener{
             val patientId = IdUtils.PATIENT_ID_PREFIX + binding.patientId.text
@@ -53,6 +55,7 @@ class FindPatientByPatientIdFragment : Fragment() {
                 findNavController().navigate(action)
             }
         }
+        binding.noResultsImage.visibility = VISIBLE
 
         viewModel.searchStatus.observe(viewLifecycleOwner){
             val patientInfoLayout = binding.patientInfo
@@ -62,6 +65,7 @@ class FindPatientByPatientIdFragment : Fragment() {
                 if(patient == null){
                     patientInfoLayout.root.visibility = GONE
                     binding.resultText.text = StringUtils.getResultFoundText(0)
+                    binding.noResultsImage.visibility = VISIBLE
                     return@observe
                 }
                 patientInfoLayout.patientId.text = patient.patientId
@@ -71,10 +75,12 @@ class FindPatientByPatientIdFragment : Fragment() {
                 patientInfoLayout.patientAge.text = getAgeText(DateTimeUtils.getTimestamp(patient.dateOfBirth))
                 binding.resultText.text = StringUtils.getResultFoundText(1)
                 patientInfoLayout.root.visibility = VISIBLE
+                binding.noResultsImage.visibility = GONE
                 return@observe
             }
             else if(it == Status.FAILURE){
                 binding.resultText.text = StringUtils.getResultFoundText(0)
+                binding.noResultsImage.visibility = GONE
                 Toast.makeText(activity, "Something went wrong", Toast.LENGTH_SHORT).show()
             }
             patientInfoLayout.root.visibility = GONE
@@ -82,6 +88,7 @@ class FindPatientByPatientIdFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SimpleDateFormat")
     fun getAgeText(dob: Timestamp): String{
         val formattedDate = SimpleDateFormat("ddMMyyyy").format(dob.toDate())
         val localDate = LocalDate.of(formattedDate.substring(4).toInt(),

@@ -22,7 +22,7 @@ class PatientsTodayFragment : Fragment(), RecyclerOnItemViewClickListener{
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPatientsTodayBinding.inflate(layoutInflater, container, false)
         viewModel.updateData()
         viewModel.addListener()

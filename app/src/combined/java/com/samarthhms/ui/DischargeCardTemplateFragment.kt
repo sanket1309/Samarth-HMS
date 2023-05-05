@@ -26,7 +26,7 @@ class DischargeCardTemplateFragment : Fragment(), RecyclerOnItemViewEditClickLis
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View{
         binding = FragmentDischargeCardTemplateBinding.inflate(layoutInflater, container, false)
         val medicineTemplateAdapter = MedicineTemplateAdapter(requireContext(), this, listOf())
         binding.medicineTemplatesRecyclerView.adapter = medicineTemplateAdapter
@@ -56,12 +56,12 @@ class DischargeCardTemplateFragment : Fragment(), RecyclerOnItemViewEditClickLis
     }
 
     override fun onEditClicked(data: Any) {
-        if(data is MedicineTemplate){
-
-        }
-        else if(data is PatientHistoryTemplate){
-
-        }
+//        if(data is MedicineTemplate){
+////
+//        }
+//        else if(data is PatientHistoryTemplate){
+//
+//        }
     }
 
     override fun onSaveClicked(data: Any) {

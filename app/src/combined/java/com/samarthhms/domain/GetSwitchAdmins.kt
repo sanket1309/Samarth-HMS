@@ -10,7 +10,7 @@ import javax.inject.Inject
 class GetSwitchAdmins
 @Inject constructor(private val adminRepository: AdminRepositoryImpl, private val storedStateRepository: StoredStateRepositoryImpl) : UseCase<GetSwitchAdminsResponse, UseCase.None>(){
 
-    override suspend fun run(params: UseCase.None): GetSwitchAdminsResponse {
+    override suspend fun run(params: None): GetSwitchAdminsResponse {
         return try {
             val response = GetSwitchAdminsResponse()
             val admins = adminRepository.getAllAdmins().toMutableList()

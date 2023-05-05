@@ -1,5 +1,6 @@
 package com.samarthhms.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ class RecentBillAdapter internal constructor(var context: Context?, var recycler
             return (itemCount-position-1)%3
         }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentBillAdapter.BillHolder {
         val billInfoLayoutBinding = BillInfoLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val resources = context?.resources
@@ -34,6 +36,7 @@ class RecentBillAdapter internal constructor(var context: Context?, var recycler
     }
 
     inner class BillHolder internal constructor(private val billInfoLayoutBinding: BillInfoLayoutBinding) : RecyclerView.ViewHolder(billInfoLayoutBinding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(bill: Bill) {
             billInfoLayoutBinding.billNumber.text = StringUtils.formatYearWiseIdSpacePadded(bill.billNumber)
             billInfoLayoutBinding.patientName.text = bill.firstName + " " + bill.lastName

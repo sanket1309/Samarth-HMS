@@ -16,7 +16,7 @@ import javax.inject.Inject
 class PatientsTodayViewModel @Inject constructor(val getPatientsToday: GetPatientsToday) : ViewModel() {
 
     private val _getPatientsTodayStatus: MutableLiveData<Status> = MutableLiveData(Status.NONE)
-    val getPatientsTodayStatus : LiveData<Status> = _getPatientsTodayStatus
+//    val getPatientsTodayStatus : LiveData<Status> = _getPatientsTodayStatus
 
     private val _patientsTodayList: MutableLiveData<List<PatientVisitInfo>> = MutableLiveData(listOf())
     val patientsTodayList : LiveData<List<PatientVisitInfo>> = _patientsTodayList

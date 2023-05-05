@@ -233,6 +233,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
+    <ImageView
+        android:id="@+id/no_results_image"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:src="@drawable/empty_box"
+        app:layout_constraintTop_toTopOf="@id/patients_today_recycler_view"
+        app:layout_constraintBottom_toTopOf="@id/extended_fab"
+        app:layout_constraintStart_toStartOf="@id/patients_today_recycler_view"
+        app:layout_constraintEnd_toEndOf="@id/patients_today_recycler_view"/>
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/extended_fab"
         android:layout_width="@dimen/add_patient_floating_action_button_width"

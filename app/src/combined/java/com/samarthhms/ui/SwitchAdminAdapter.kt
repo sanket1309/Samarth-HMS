@@ -1,5 +1,6 @@
 package com.samarthhms.ui
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ class SwitchAdminAdapter internal constructor(var recyclerOnItemViewClickListene
     }
 
     inner class SwitchAdminHolder internal constructor(private val adminLayoutBinding: SwitchAdminLayoutBinding) : RecyclerView.ViewHolder(adminLayoutBinding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(switchAdmin: SwitchAdminData) {
             adminLayoutBinding.adminName.text = switchAdmin.admin?.firstName + " " + switchAdmin.admin?.lastName
             adminLayoutBinding.selfTitle.visibility = if(switchAdmin.isAccountOwner) View.VISIBLE else View.GONE

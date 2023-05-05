@@ -29,7 +29,7 @@ class AddVisitFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAddVisitBinding.inflate(layoutInflater, container, false)
         val patient = AddVisitFragmentArgs.fromBundle(requireArguments()).patient
 

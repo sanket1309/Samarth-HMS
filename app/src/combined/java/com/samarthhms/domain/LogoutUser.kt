@@ -14,16 +14,16 @@ class LogoutUser @Inject constructor(private var storedStateRepository: StoredSt
 
     private suspend fun logout() : LogoutResponse {
         val logoutResponse = LogoutResponse()
-        try {
+        return try {
             storedStateRepository.removeSwitchState()
             storedStateRepository.removeStoredState()
             Log.i("Logout_User","Successfully logged out user")
             logoutResponse.logoutResponseStatus = Status.SUCCESS
-            return logoutResponse
+            logoutResponse
         } catch (e : Exception){
             Log.e("Logout_User","Error while logging out : $e")
             logoutResponse.logoutResponseStatus = Status.FAILURE
-            return logoutResponse
+            logoutResponse
         }
     }
 }

@@ -41,11 +41,11 @@ class AddAdminFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAddAdminBinding.inflate(layoutInflater, container, false)
         binding.saveAdminButton.setOnClickListener {
-            var invalidColor = R.color.red
-            var validColor = R.color.blue_theme
+            val invalidColor = R.color.red
+            val validColor = R.color.blue_theme
 
             val firstName = binding.firstName.text.toString()
             if (!Validation.validateName(firstName)) {

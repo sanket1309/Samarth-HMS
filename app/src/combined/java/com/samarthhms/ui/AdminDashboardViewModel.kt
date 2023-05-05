@@ -19,7 +19,7 @@ import javax.inject.Inject
 class AdminDashboardViewModel @Inject constructor(val getPatientsToday: GetPatientsToday, val getUser: GetUser): ViewModel() {
 
     private val _getPatientsTodayStatus: MutableLiveData<Status> = MutableLiveData(Status.NONE)
-    val getPatientsTodayStatus : LiveData<Status> = _getPatientsTodayStatus
+//    val getPatientsTodayStatus : LiveData<Status> = _getPatientsTodayStatus
 
     private val _patientsTodayList: MutableLiveData<List<PatientVisitInfo>> = MutableLiveData(listOf())
     val patientsTodayList : LiveData<List<PatientVisitInfo>> = _patientsTodayList
@@ -53,7 +53,7 @@ class AdminDashboardViewModel @Inject constructor(val getPatientsToday: GetPatie
         }
     }
 
-    fun getGreeting(): String{
+    private fun getGreeting(): String{
         val hours = DateTimeUtils.getHours()
         return if(hours in 0 until 12) "Good Morning,"
         else if(hours in 12 until 18) "Good Afternoon,"

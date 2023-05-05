@@ -27,7 +27,7 @@ class FindPatientByContactNumberFragment : Fragment(), RecyclerOnItemViewClickLi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFindPatientByContactNumberBinding.inflate(layoutInflater, container, false)
         val adapter = PatientAdapter(context, this, listOf())
         binding.patientsRecyclerView.adapter = adapter
@@ -39,6 +39,7 @@ class FindPatientByContactNumberFragment : Fragment(), RecyclerOnItemViewClickLi
             }
             viewModel.getPatients(contactNumber)
         }
+        binding.noResultsImage.visibility = View.VISIBLE
         viewModel.patientsList.observe(viewLifecycleOwner){
             val patients = it
             val status = viewModel.getPatientsStatus.value
@@ -46,11 +47,18 @@ class FindPatientByContactNumberFragment : Fragment(), RecyclerOnItemViewClickLi
                 binding.resultText.text = StringUtils.getResultFoundText(patients!!.size)
                 (binding.patientsRecyclerView.adapter as PatientAdapter).patients = patients
                 (binding.patientsRecyclerView.adapter as PatientAdapter).notifyDataSetChanged()
+                if(patients.isEmpty()){
+                    binding.noResultsImage.visibility = View.VISIBLE
+                }
+                else{
+                    binding.noResultsImage.visibility = View.GONE
+                }
             }
             else if(status == Status.FAILURE){
                 binding.resultText.text = StringUtils.getResultFoundText(0)
                 (binding.patientsRecyclerView.adapter as PatientAdapter).patients = listOf()
                 (binding.patientsRecyclerView.adapter as PatientAdapter).notifyDataSetChanged()
+                binding.noResultsImage.visibility = View.VISIBLE
                 Toast.makeText(activity, "Something went wrong", Toast.LENGTH_SHORT).show()
             }
         }

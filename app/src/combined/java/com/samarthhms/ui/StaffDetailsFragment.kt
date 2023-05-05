@@ -48,7 +48,7 @@ class StaffDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentStaffDetailsBinding.inflate(layoutInflater, container, false)
         staffDetails = StaffDetailsFragmentArgs.fromBundle(requireArguments()).staffDetails
         staff = staffDetails.staff!!
@@ -71,8 +71,8 @@ class StaffDetailsFragment : Fragment() {
 
         binding.saveStaffButton.visibility = View.GONE
         binding.saveStaffButton.setOnClickListener {
-            var invalidColor = R.color.red
-            var validColor = R.color.blue_theme
+            val invalidColor = R.color.red
+            val validColor = R.color.blue_theme
 
             val firstName = binding.firstName.text.toString()
             if (!Validation.validateName(firstName)) {
@@ -226,7 +226,7 @@ class StaffDetailsFragment : Fragment() {
         return binding.root
     }
 
-    fun areEqual(a: StaffDetails, b: StaffDetails): Boolean{
+    private fun areEqual(a: StaffDetails, b: StaffDetails): Boolean{
         return a.staff!!.firstName == b.staff!!.firstName &&
                a.staff.middleName == b.staff.middleName &&
                a.staff.lastName == b.staff.lastName &&
@@ -244,14 +244,14 @@ class StaffDetailsFragment : Fragment() {
         changeEditField(true)
     }
 
-    fun onSave(){
+    private fun onSave(){
         binding.saveStaffButton.visibility = View.INVISIBLE
         binding.editStaffButton.visibility = View.VISIBLE
         isEdit = false
         changeEditField(false)
     }
 
-    fun changeEditField(isEdit: Boolean){
+    private fun changeEditField(isEdit: Boolean){
         val drawable = if(!isEdit) R.drawable.add_visit_edittext_background else R.drawable.login_edittext_background
         binding.firstName.setBackgroundResource(drawable)
         onEditable(isEdit, binding.firstName)
@@ -272,14 +272,14 @@ class StaffDetailsFragment : Fragment() {
         binding.showPasswordButton.visibility = if(!isEdit) View.GONE else View.VISIBLE
     }
 
-    fun onEditable(isEdit: Boolean, editText: EditText){
+    private fun onEditable(isEdit: Boolean, editText: EditText){
         editText.isClickable=isEdit
         editText.isCursorVisible=isEdit
         editText.isFocusable=isEdit
         editText.isFocusableInTouchMode=isEdit
     }
 
-    fun onShowPassword(){
+    private fun onShowPassword(){
         var state = binding.showPasswordButton.text.toString()
         if(state == "Show"){
             binding.password.transformationMethod = HideReturnsTransformationMethod.getInstance()

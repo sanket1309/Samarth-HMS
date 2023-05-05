@@ -1,5 +1,6 @@
 package com.samarthhms.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ class RecentDischargeCardAdapter internal constructor(var context: Context?, var
         return (itemCount-position-1)%3
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DischargeCardHolder {
         val dischargeCardInfoLayoutBinding = DischargeCardInfoLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val resources = context?.resources
@@ -34,6 +36,7 @@ class RecentDischargeCardAdapter internal constructor(var context: Context?, var
     }
 
     inner class DischargeCardHolder internal constructor(private val dischargeCardInfoLayoutBinding: DischargeCardInfoLayoutBinding) : RecyclerView.ViewHolder(dischargeCardInfoLayoutBinding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(dischargeCard: DischargeCard) {
             dischargeCardInfoLayoutBinding.ipdNumber.text = StringUtils.formatYearWiseIdSpacePadded(dischargeCard.ipdNumber)
             dischargeCardInfoLayoutBinding.patientName.text = dischargeCard.firstName + " " + dischargeCard.lastName

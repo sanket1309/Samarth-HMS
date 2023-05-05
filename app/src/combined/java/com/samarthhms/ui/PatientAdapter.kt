@@ -1,5 +1,6 @@
 package com.samarthhms.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ class PatientAdapter internal constructor(var context: Context?, var recyclerOnI
             return (itemCount-position-1)%3
         }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PatientAdapter.PatientHolder {
         val patientInfoLayoutBinding = PatientInfoLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val resources = context?.resources
@@ -38,6 +40,7 @@ class PatientAdapter internal constructor(var context: Context?, var recyclerOnI
     }
 
     inner class PatientHolder internal constructor(private val patientInfoLayoutBinding: PatientInfoLayoutBinding) : RecyclerView.ViewHolder(patientInfoLayoutBinding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(patient: Patient) {
             patientInfoLayoutBinding.patientId.text = patient.patientId
             patientInfoLayoutBinding.patientName.text = patient.firstName + " " + patient.lastName
@@ -49,7 +52,8 @@ class PatientAdapter internal constructor(var context: Context?, var recyclerOnI
             }
         }
 
-        fun getAgeText(dob: Timestamp): String{
+        @SuppressLint("SimpleDateFormat")
+        private fun getAgeText(dob: Timestamp): String{
             val formattedDate = SimpleDateFormat("ddMMyyyy").format(dob.toDate())
             val localDate = LocalDate.of(formattedDate.substring(4).toInt(),
                 formattedDate.substring(2,4).toInt(),

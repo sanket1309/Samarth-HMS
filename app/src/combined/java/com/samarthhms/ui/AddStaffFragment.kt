@@ -16,7 +16,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.samarthhms.R
 import com.samarthhms.constants.Gender
 import com.samarthhms.constants.Role
@@ -40,11 +39,11 @@ class AddStaffFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAddStaffBinding.inflate(layoutInflater, container, false)
         binding.saveStaffButton.setOnClickListener {
-            var invalidColor = R.color.red
-            var validColor = R.color.blue_theme
+            val invalidColor = R.color.red
+            val validColor = R.color.blue_theme
 
             val firstName = binding.firstName.text.toString()
             if (!Validation.validateName(firstName)) {
@@ -141,7 +140,7 @@ class AddStaffFragment : Fragment() {
         return binding.root
     }
 
-    fun onShowPassword(){
+    private fun onShowPassword(){
         var state = binding.showPasswordButton.text.toString()
         if(state == "Show"){
             binding.password.transformationMethod = HideReturnsTransformationMethod.getInstance()
@@ -156,11 +155,7 @@ class AddStaffFragment : Fragment() {
 
     private fun onSuccess() {
         Toast.makeText(activity, "Added Staff Successfully", Toast.LENGTH_SHORT).show()
-        val controller = findNavController()
-//        val action = AddNewPatientFragmentDirections.actionAddNewPatientFragmentToAddVisitFragment(
-//            patientData
-//        )
-//        controller.navigate(action)
+//        val controller = findNavController()
     }
 
     private fun onFailure() {

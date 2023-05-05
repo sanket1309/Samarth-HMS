@@ -14,7 +14,7 @@ import javax.inject.Inject
 class RecentDischargeCardsViewModel @Inject constructor(val getRecentDischargeCards: GetRecentDischargeCards) : ViewModel() {
 
     private val _getRecentBillsStatus: MutableLiveData<Status> = MutableLiveData(Status.NONE)
-    val getRecentBillsStatus : LiveData<Status> = _getRecentBillsStatus
+//    val getRecentBillsStatus : LiveData<Status> = _getRecentBillsStatus
 
     private val _recentDischargeCardsList: MutableLiveData<List<DischargeCard>> = MutableLiveData(listOf())
     val recentDischargeCardsList : LiveData<List<DischargeCard>> = _recentDischargeCardsList

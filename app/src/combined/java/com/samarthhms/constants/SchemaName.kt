@@ -19,7 +19,7 @@ object SchemaName {
 
     //Patient
     const val PATIENTS_COLLECTION = "Patients"
-    const val PATIENTS_DELETE_COLLECTION = "Patients_Delete"
+//    const val PATIENTS_DELETE_COLLECTION = "Patients_Delete"
     const val PATIENT_ID = "patientId"
     const val CONTACT_NUMBER = "contactNumber"
     const val FIRST_NAME = "firstName"
@@ -28,7 +28,7 @@ object SchemaName {
 
     //Visit
     const val VISITS_COLLECTION = "Visits"
-    const val VISITS_DELETE_COLLECTION = "Visits_Delete"
+//    const val VISITS_DELETE_COLLECTION = "Visits_Delete"
     const val VISIT_TIME = "visitTime"
     const val ADMIN_ID = "adminId"
     const val ATTENDANT_ID = "attendantId"

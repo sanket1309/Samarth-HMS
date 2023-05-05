@@ -1,11 +1,11 @@
 package com.samarthhms.ui
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.drawable.DrawableContainer
 import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.LayerDrawable
 import android.graphics.drawable.StateListDrawable
 import android.os.Bundle
 import android.text.Editable
@@ -15,13 +15,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.samarthhms.R
-import com.samarthhms.constants.Constants
 import com.samarthhms.constants.Gender
 import com.samarthhms.databinding.FragmentEditBillBinding
 import com.samarthhms.domain.Status
@@ -78,12 +78,8 @@ class EditBillFragment : Fragment(), OnUpdateBillSumListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentEditBillBinding.inflate(layoutInflater, container, false)
-
-        val treatmentCharges = Constants.BillConstants.DEFAULT_TREATMENT_CHARGES
-
-        val managementCharges = Constants.BillConstants.DEFAULT_MANAGEMENT_CHARGES
 
         val bill = EditBillFragmentArgs.fromBundle(requireArguments()).bill
         initializeData(bill)
@@ -187,6 +183,7 @@ class EditBillFragment : Fragment(), OnUpdateBillSumListener {
 
 //        val patientId = IdUtils.PATIENT_ID_PREFIX + binding.patientId.text
 //        if (!Validation.validatePatientId(patientId)) {
+//            Toast.makeText(activity, "Invalid Patient Id", Toast.LENGTH_SHORT).show()
 //            changeTextColorOfTextView(binding.patientIdTitle, invalidColor)
 //            changeBorderColorOfPrefix(binding.patientIdPrefix, invalidColor)
 //            changeBorderColorOfSuffix(binding.patientId, invalidColor)
@@ -199,160 +196,183 @@ class EditBillFragment : Fragment(), OnUpdateBillSumListener {
 
         val billNumber = binding.billNumber.text.toString()
         if (!Validation.validateIpdNumber(billNumber)) {
+            Toast.makeText(activity, "Invalid IPD Number", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.billNumberTitle, invalidColor)
             changeBorderColorOfEditText(binding.billNumber, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.billNumberTitle, validColor)
             changeBorderColorOfEditText(binding.billNumber, validColor)
         }
 
         val firstName = binding.firstName.text.toString()
         if (!Validation.validateName(firstName)) {
+            Toast.makeText(activity, "Invalid First Name", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.firstNameTitle, invalidColor)
             changeBorderColorOfEditText(binding.firstName, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.firstNameTitle, validColor)
             changeBorderColorOfEditText(binding.firstName, validColor)
         }
 
         val middleName = binding.middleName.text.toString().trim()
         if (!Validation.validateName(middleName)) {
+            Toast.makeText(activity, "Invalid Middle Name", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.middleNameTitle, invalidColor)
             changeBorderColorOfEditText(binding.middleName, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.middleNameTitle, validColor)
             changeBorderColorOfEditText(binding.middleName, validColor)
         }
 
         val lastName = binding.lastName.text.toString()
         if (!Validation.validateName(lastName)) {
+            Toast.makeText(activity, "Invalid Last Name", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.lastNameTitle, invalidColor)
             changeBorderColorOfEditText(binding.lastName, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.lastNameTitle, validColor)
             changeBorderColorOfEditText(binding.lastName, validColor)
         }
 
-        val gender = if(binding.genderMaleRadioGroupButton.isChecked) Gender.MALE else Gender.FEMALE
+        val gender =
+            if (binding.genderMaleRadioGroupButton.isChecked) Gender.MALE else Gender.FEMALE
 
         val age = binding.age.text.toString()
-        if (age.isEmpty()) {
+        if (age.isBlank()) {
+            Toast.makeText(activity, "Invalid Age", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.ageTitle, invalidColor)
             changeBorderColorOfEditText(binding.age, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.ageTitle, validColor)
             changeBorderColorOfEditText(binding.age, validColor)
         }
 
-        val contactNumber = binding.contactNumber.text.toString().replace(" ","")
+        val contactNumber = binding.contactNumber.text.toString().replace(" ", "")
         if (!Validation.validateContactNumber(contactNumber)) {
+            Toast.makeText(activity, "Invalid Contact Number", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.contactNumberTitle, invalidColor)
             changeBorderColorOfEditText(binding.contactNumber, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.contactNumberTitle, validColor)
             changeBorderColorOfEditText(binding.contactNumber, validColor)
         }
 
         val address = binding.address.text.toString()
-        if (address.isEmpty()) {
+        if (address.isBlank()) {
+            Toast.makeText(activity, "Invalid Address", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.addressTitle, invalidColor)
             changeBorderColorOfEditText(binding.address, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.addressTitle, validColor)
             changeBorderColorOfEditText(binding.address, validColor)
         }
 
         val doa = binding.dateOfAdmission.text.toString()
         if (!Validation.validateDate(doa)) {
+            Toast.makeText(activity, "Invalid Date of Admission", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.dateOfAdmissionTitle, invalidColor)
             changeBorderColorOfEditText(binding.dateOfAdmission, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.dateOfAdmissionTitle, validColor)
             changeBorderColorOfEditText(binding.dateOfAdmission, validColor)
         }
 
         val dod = binding.dateOfDischarge.text.toString()
         if (!Validation.validateDate(dod)) {
+            Toast.makeText(activity, "Invalid Date of Discharge", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.dateOfDischargeTitle, invalidColor)
             changeBorderColorOfEditText(binding.dateOfDischarge, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.dateOfDischargeTitle, validColor)
             changeBorderColorOfEditText(binding.dateOfDischarge, validColor)
         }
 
         val diagnosis = binding.diagnosis.text.toString()
-        if (diagnosis.isEmpty()) {
+        if (diagnosis.isBlank()) {
+            Toast.makeText(activity, "Invalid Diagnosis", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.diagnosisTitle, invalidColor)
             changeBorderColorOfEditText(binding.diagnosis, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.diagnosisTitle, validColor)
             changeBorderColorOfEditText(binding.diagnosis, validColor)
         }
 
         var billItemHolders = getBillItemHolders(binding.treatmentCharges)
         val treatmentChargesList = mutableListOf<BillItem>()
-        for(billItemHolder in billItemHolders){
+        for (billItemHolder in billItemHolders) {
             val itemBinding = billItemHolder.billItemLayoutBinding
             val itemName = itemBinding.itemName.text.toString()
-            if (itemName.isEmpty()) {
+            if (itemName.isBlank()) {
+                Toast.makeText(activity, "Invalid Item Name", Toast.LENGTH_SHORT).show()
                 changeTextColorOfTextView(itemBinding.itemNameTitle, invalidColor)
                 changeBorderColorOfEditText(itemBinding.itemName, invalidColor)
                 return null
-            }else{
+            } else {
                 changeTextColorOfTextView(itemBinding.itemNameTitle, validColor)
                 changeBorderColorOfEditText(itemBinding.itemName, validColor)
             }
-            val rate = if(itemBinding.rate.text.isBlank()) 0 else itemBinding.rate.text.toString().toInt()
-            val quantity = if(itemBinding.quantity.text.isBlank()) 0 else itemBinding.quantity.text.toString().toInt()
-            var billItem = BillItem(itemName, rate, quantity)
+            val rate =
+                if (itemBinding.rate.text.isBlank()) 0 else itemBinding.rate.text.toString().toInt()
+            val quantity =
+                if (itemBinding.quantity.text.isBlank()) 0 else itemBinding.quantity.text.toString()
+                    .toInt()
+            val billItem = BillItem(itemName, rate, quantity)
             treatmentChargesList.add(billItem)
         }
 
         billItemHolders = getBillItemHolders(binding.managementCharges)
         val managementChargesList = mutableListOf<BillItem>()
-        for(billItemHolder in billItemHolders){
+        for (billItemHolder in billItemHolders) {
             val itemBinding = billItemHolder.billItemLayoutBinding
             val itemName = itemBinding.itemName.text.toString()
-            if (itemName.isEmpty()) {
+            if (itemName.isBlank()) {
+                Toast.makeText(activity, "Invalid Item Name", Toast.LENGTH_SHORT).show()
                 changeTextColorOfTextView(itemBinding.itemNameTitle, invalidColor)
                 changeBorderColorOfEditText(itemBinding.itemName, invalidColor)
                 return null
-            }else{
+            } else {
                 changeTextColorOfTextView(itemBinding.itemNameTitle, validColor)
                 changeBorderColorOfEditText(itemBinding.itemName, validColor)
             }
-            val rate = if(itemBinding.rate.text.isBlank()) 0 else itemBinding.rate.text.toString().toInt()
-            val quantity = if(itemBinding.quantity.text.isBlank()) 0 else itemBinding.quantity.text.toString().toInt()
-            var billItem = BillItem(itemName, rate, quantity)
+            val rate =
+                if (itemBinding.rate.text.isBlank()) 0 else itemBinding.rate.text.toString().toInt()
+            val quantity =
+                if (itemBinding.quantity.text.isBlank()) 0 else itemBinding.quantity.text.toString()
+                    .toInt()
+            val billItem = BillItem(itemName, rate, quantity)
             managementChargesList.add(billItem)
         }
 
 
         val itemBinding = binding.otherCharges
         val itemName = itemBinding.itemName.text.toString()
-        if (itemName.isEmpty()) {
+        if (itemName.isBlank()) {
+            Toast.makeText(activity, "Invalid Item Name", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(itemBinding.itemNameTitle, invalidColor)
             changeBorderColorOfEditText(itemBinding.itemName, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(itemBinding.itemNameTitle, validColor)
             changeBorderColorOfEditText(itemBinding.itemName, validColor)
         }
-        val rate = if(itemBinding.rate.text.isBlank()) 0 else itemBinding.rate.text.toString().toInt()
-        val quantity = if(itemBinding.quantity.text.isBlank()) 0 else itemBinding.quantity.text.toString().toInt()
-        var otherCharges = BillItem(itemName, rate, quantity)
+        val rate =
+            if (itemBinding.rate.text.isBlank()) 0 else itemBinding.rate.text.toString().toInt()
+        val quantity =
+            if (itemBinding.quantity.text.isBlank()) 0 else itemBinding.quantity.text.toString()
+                .toInt()
+        val otherCharges = BillItem(itemName, rate, quantity)
 
-        val bill = Bill(
+        return Bill(
 //            patientId,
             "",
             "",
@@ -373,7 +393,6 @@ class EditBillFragment : Fragment(), OnUpdateBillSumListener {
             otherCharges,
             billTotal
         )
-        return bill
     }
 
     private fun getBillItemHolders(recyclerView: RecyclerView): List<BillAdapter.BillItemHolder>{
@@ -395,29 +414,30 @@ class EditBillFragment : Fragment(), OnUpdateBillSumListener {
         drawableItem.setStroke(pixels, colorValue)
     }
 
-    private fun changeBorderColorOfPrefix(textView: TextView, color: Int){
-        val colorValue = ContextCompat.getColor(activity as Context, color)
-        val fieldInputDrawable = textView.background as LayerDrawable
-        val layerDrawable = fieldInputDrawable.findDrawableByLayerId(R.id.item)
-        val drawableItem = layerDrawable as GradientDrawable
-        val pixels = R.dimen.login_edittext_background_stroke_width * resources.displayMetrics.density.toInt()
-        drawableItem.setStroke(pixels, colorValue)
-    }
+//    private fun changeBorderColorOfPrefix(textView: TextView, color: Int){
+//        val colorValue = ContextCompat.getColor(activity as Context, color)
+//        val fieldInputDrawable = textView.background as LayerDrawable
+//        val layerDrawable = fieldInputDrawable.findDrawableByLayerId(R.id.item)
+//        val drawableItem = layerDrawable as GradientDrawable
+//        val pixels = R.dimen.login_edittext_background_stroke_width * resources.displayMetrics.density.toInt()
+//        drawableItem.setStroke(pixels, colorValue)
+//    }
 
-    private fun changeBorderColorOfSuffix(editText: EditText, color: Int){
-        val colorValue = ContextCompat.getColor(activity as Context, color)
-        val fieldInputDrawable = editText.background as LayerDrawable
-        val layerDrawable = fieldInputDrawable.findDrawableByLayerId(R.id.item)
-        val drawableItem = layerDrawable as GradientDrawable
-        val pixels = R.dimen.login_edittext_background_stroke_width * resources.displayMetrics.density.toInt()
-        drawableItem.setStroke(pixels, colorValue)
-    }
+//    private fun changeBorderColorOfSuffix(editText: EditText, color: Int){
+//        val colorValue = ContextCompat.getColor(activity as Context, color)
+//        val fieldInputDrawable = editText.background as LayerDrawable
+//        val layerDrawable = fieldInputDrawable.findDrawableByLayerId(R.id.item)
+//        val drawableItem = layerDrawable as GradientDrawable
+//        val pixels = R.dimen.login_edittext_background_stroke_width * resources.displayMetrics.density.toInt()
+//        drawableItem.setStroke(pixels, colorValue)
+//    }
 
     private fun changeTextColorOfTextView(textView: TextView, color: Int){
         val colorValue = ContextCompat.getColor(activity as Context, color)
         textView.setTextColor(colorValue)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun update(sum: Int){
         billTotal+=sum
         binding.billTotal.text = "Rs. "+StringUtils.formatPrice(billTotal)
@@ -428,9 +448,9 @@ class EditBillFragment : Fragment(), OnUpdateBillSumListener {
         (activity as MainActivity).startProgressBar(isVisible)
     }
 
-    fun getTotal(billItems: List<BillItem>):Int{
-        var sum = 0
-        billItems.forEach{ sum+=(it.rate * it.quantity) }
-        return sum
-    }
+//    fun getTotal(billItems: List<BillItem>):Int{
+//        var sum = 0
+//        billItems.forEach{ sum+=(it.rate * it.quantity) }
+//        return sum
+//    }
 }

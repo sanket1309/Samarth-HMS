@@ -21,8 +21,8 @@ class GetAllAdmins
             val currentAdminId = if(storedStateRepository.isSwitchStatePresent()) storedStateRepository.getSwitchAdminState().adminId else adminId
             admins.map{
                 val credentials = loginRepository.getCredentials(it.adminId)!!
-                val isCurrentUser = it.adminId.equals(currentAdminId)
-                val isAccountOwner = it.adminId.equals(adminId)
+                val isCurrentUser = it.adminId == currentAdminId
+                val isAccountOwner = it.adminId == adminId
                 val switchAdminData = SwitchAdminData(it.adminId, null, isCurrentUser, isAccountOwner)
                 val adminDetail = AdminDetails(it.adminId, it, switchAdminData, credentials)
                 adminDetails.add(adminDetail)

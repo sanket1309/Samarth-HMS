@@ -24,15 +24,22 @@ class RecentBillsFragment : Fragment(), RecyclerOnItemViewClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRecentBillsBinding.inflate(layoutInflater, container, false)
         viewModel.updateData()
         val adapter = RecentBillAdapter(context, this, listOf())
         binding.recentBillsRecyclerView.adapter = adapter
+        binding.noResultsImage.visibility = View.GONE
         viewModel.recentBillsList.observe(viewLifecycleOwner){
             (binding.recentBillsRecyclerView.adapter as RecentBillAdapter).bills = it
             binding.recentBillsTitle.text = StringUtils.getShowingBillsText(it.size)
             (binding.recentBillsRecyclerView.adapter as RecentBillAdapter).notifyDataSetChanged()
+            if(it.isEmpty()){
+                binding.noResultsImage.visibility = View.VISIBLE
+            }
+            else{
+                binding.noResultsImage.visibility = View.GONE
+            }
         }
         return binding.root
     }

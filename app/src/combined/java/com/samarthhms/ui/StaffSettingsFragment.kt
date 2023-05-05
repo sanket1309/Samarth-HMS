@@ -26,7 +26,7 @@ class StaffSettingsFragment : Fragment(), RecyclerOnItemViewClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentStaffSettingsBinding.inflate(layoutInflater, container, false)
         startProgressBar(false)
         val adapter = StaffAdapter(this, listOf())
@@ -60,7 +60,7 @@ class StaffSettingsFragment : Fragment(), RecyclerOnItemViewClickListener {
     override fun onItemClicked(data: Any?, requester: String) {
         if(data is StaffDetails && requester == "LOCK"){
             val dialogClickListener = DialogInterface.OnClickListener{
-                    dialog, which ->
+                    _, which ->
                 when(which){
                     DialogInterface.BUTTON_POSITIVE -> {
                         startProgressBar(true)
@@ -78,7 +78,7 @@ class StaffSettingsFragment : Fragment(), RecyclerOnItemViewClickListener {
         }
         else if(data is StaffDetails && requester == "UNLOCK"){
             val dialogClickListener = DialogInterface.OnClickListener{
-                    dialog, which ->
+                    _, which ->
                 when(which){
                     DialogInterface.BUTTON_POSITIVE -> {
                         startProgressBar(true)

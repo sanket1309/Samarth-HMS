@@ -42,14 +42,15 @@ class AddNewPatientFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAddNewPatientBinding.inflate(layoutInflater, container, false)
         binding.savePatientButton.setOnClickListener{
-            var invalidColor = R.color.red
-            var validColor = R.color.blue_theme
+            val invalidColor = R.color.red
+            val validColor = R.color.blue_theme
 
             val firstName = binding.firstName.text.toString()
             if (!Validation.validateName(firstName)){
+                Toast.makeText(activity, "Invalid First Name",Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.firstNameTitle, binding.firstName, invalidColor)
                 return@setOnClickListener
             }
@@ -59,6 +60,7 @@ class AddNewPatientFragment : Fragment() {
 
             val middleName = binding.middleName.text.toString()
             if (!Validation.validateName(middleName)){
+                Toast.makeText(activity, "Invalid Middle Name",Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.middleNameTitle, binding.middleName, invalidColor)
                 return@setOnClickListener
             }
@@ -68,6 +70,7 @@ class AddNewPatientFragment : Fragment() {
 
             val lastName = binding.lastName.text.toString()
             if (!Validation.validateName(lastName)){
+                Toast.makeText(activity, "Invalid Last Name",Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.lastNameTitle, binding.lastName, invalidColor)
                 return@setOnClickListener
             }
@@ -79,6 +82,7 @@ class AddNewPatientFragment : Fragment() {
 
             val contactNumber = binding.contactNumber.text.toString().replace(" ","")
             if (!Validation.validateContactNumber(contactNumber)){
+                Toast.makeText(activity, "Invalid Contact Number",Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.contactNumberTitle, binding.contactNumber, invalidColor)
                 return@setOnClickListener
             }
@@ -88,6 +92,7 @@ class AddNewPatientFragment : Fragment() {
 
             val dateOfBirth = binding.dateOfBirth.text.toString()
             if (!Validation.validateDate(dateOfBirth)){
+                Toast.makeText(activity, "Invalid Date of Birth",Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.dateOfBirthTitle, binding.dateOfBirth, invalidColor)
                 return@setOnClickListener
             }
@@ -97,6 +102,7 @@ class AddNewPatientFragment : Fragment() {
 
             val town = binding.town.text.toString()
             if (!Validation.validateName(town)){
+                Toast.makeText(activity, "Invalid Town",Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.townTitle, binding.town, invalidColor)
                 return@setOnClickListener
             }
@@ -106,6 +112,7 @@ class AddNewPatientFragment : Fragment() {
 
             val taluka = binding.taluka.text.toString()
             if (!Validation.validateName(taluka)){
+                Toast.makeText(activity, "Invalid Taluka",Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.talukaTitle, binding.taluka, invalidColor)
                 return@setOnClickListener
             }
@@ -115,6 +122,7 @@ class AddNewPatientFragment : Fragment() {
 
             val district = binding.district.text.toString()
             if (!Validation.validateName(district)){
+                Toast.makeText(activity, "Invalid District",Toast.LENGTH_SHORT).show()
                 changeColorOfInputFields(binding.districtTitle, binding.district, invalidColor)
                 return@setOnClickListener
             }

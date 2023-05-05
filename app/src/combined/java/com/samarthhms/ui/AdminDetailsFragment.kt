@@ -48,7 +48,7 @@ class AdminDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAdminDetailsBinding.inflate(layoutInflater, container, false)
         adminDetails = AdminDetailsFragmentArgs.fromBundle(requireArguments()).adminDetails
         admin = adminDetails.admin
@@ -66,14 +66,14 @@ class AdminDetailsFragment : Fragment() {
         binding.dateOfBirth.setText(DateTimeUtils.getDate(admin.dateOfBirth!!))
         binding.contactNumber.setText(admin.contactNumber)
         binding.address.setText(admin.address)
-        binding.username.setText(adminDetails.adminCredentials!!.username)
-        binding.password.setText(adminDetails.adminCredentials!!.password)
+        binding.username.setText(adminDetails.adminCredentials.username)
+        binding.password.setText(adminDetails.adminCredentials.password)
         changeEditField(false)
 
         binding.saveAdminButton.visibility = View.GONE
         binding.saveAdminButton.setOnClickListener {
-            var invalidColor = R.color.red
-            var validColor = R.color.blue_theme
+            val invalidColor = R.color.red
+            val validColor = R.color.blue_theme
 
             val firstName = binding.firstName.text.toString()
             if (!Validation.validateName(firstName)) {
@@ -239,14 +239,14 @@ class AdminDetailsFragment : Fragment() {
     }
 
     fun areEqual(a: AdminDetails, b: AdminDetails): Boolean{
-        return a.admin!!.firstName == b.admin!!.firstName &&
+        return a.admin.firstName == b.admin.firstName &&
                 a.admin.middleName == b.admin.middleName &&
                 a.admin.lastName == b.admin.lastName &&
                 a.admin.gender == b.admin.gender &&
                 a.admin.contactNumber == b.admin.contactNumber &&
                 a.admin.address == b.admin.address &&
-                a.adminCredentials!!.username == b.adminCredentials!!.username &&
-                a.adminCredentials!!.password == b.adminCredentials!!.password
+                a.adminCredentials.username == b.adminCredentials.username &&
+                a.adminCredentials.password == b.adminCredentials.password
     }
 
     fun onEdit(){

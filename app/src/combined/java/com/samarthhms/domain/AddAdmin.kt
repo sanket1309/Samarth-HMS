@@ -4,20 +4,21 @@ import android.util.Log
 import com.samarthhms.models.AdminDetails
 import com.samarthhms.repository.AdminRepositoryImpl
 import com.samarthhms.repository.LoginRepositoryImpl
-import com.samarthhms.repository.StaffStatusRepositoryImpl
-import com.samarthhms.repository.StoredStateRepositoryImpl
 import com.samarthhms.usecase.UseCase
 import javax.inject.Inject
 
 class AddAdmin
-@Inject constructor(private val storedStateRepository: StoredStateRepositoryImpl, private val adminRepository: AdminRepositoryImpl, private val staffStatusRepository: StaffStatusRepositoryImpl, private val loginRepository: LoginRepositoryImpl) : UseCase<AddAdminResponse, AdminDetails>(){
+@Inject constructor(
+    private val adminRepository: AdminRepositoryImpl,
+    private val loginRepository: LoginRepositoryImpl
+) : UseCase<AddAdminResponse, AdminDetails>(){
 
-    override suspend fun run(adminDetails: AdminDetails): AddAdminResponse {
+    override suspend fun run(params: AdminDetails): AddAdminResponse {
         return try {
             val response = AddAdminResponse()
-            val adminId = adminRepository.addAdmin(adminDetails.admin)!!
-            adminDetails.adminCredentials.id = adminId
-            loginRepository.setCredentials(adminDetails.adminCredentials)
+            val adminId = adminRepository.addAdmin(params.admin)!!
+            params.adminCredentials.id = adminId
+            loginRepository.setCredentials(params.adminCredentials)
             response.status = Status.SUCCESS
             Log.i("Add_Staff","AddStaffResponse = $response")
             response

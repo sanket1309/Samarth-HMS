@@ -39,7 +39,7 @@ class BillRepositoryImpl @Inject constructor(): BillRepository {
         try {
             val snapshots = query.get().await()
             if(!snapshots.isEmpty){
-                val bills = snapshots.map { Converters.convertToBill(it.toObject(BillFirebase::class.java)!!) }
+                val bills = snapshots.map { Converters.convertToBill(it.toObject(BillFirebase::class.java)) }
                 Log.i("BillRepositoryImpl", "Fetched ${bills.size} recent bills")
                 return bills
             }

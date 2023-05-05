@@ -23,7 +23,7 @@ class AdminSettingsFragment : Fragment(), RecyclerOnItemViewClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAdminSettingsBinding.inflate(layoutInflater, container, false)
         startProgressBar(false)
         val adapter = AdminDetailsAdapter(this, listOf())

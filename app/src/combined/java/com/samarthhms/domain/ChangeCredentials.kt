@@ -3,12 +3,11 @@ package com.samarthhms.domain
 import android.util.Log
 import com.samarthhms.models.Credentials
 import com.samarthhms.repository.LoginRepositoryImpl
-import com.samarthhms.repository.StoredStateRepositoryImpl
 import com.samarthhms.usecase.UseCase
 import javax.inject.Inject
 
 class ChangeCredentials
-@Inject constructor(private val loginRepository: LoginRepositoryImpl, private val storedStateRepository: StoredStateRepositoryImpl) : UseCase<ChangeCredentialsResponse, Credentials>(){
+@Inject constructor(private val loginRepository: LoginRepositoryImpl) : UseCase<ChangeCredentialsResponse, Credentials>(){
 
     override suspend fun run(params: Credentials): ChangeCredentialsResponse {
         return try {

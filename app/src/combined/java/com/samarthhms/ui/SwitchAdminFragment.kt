@@ -27,7 +27,7 @@ class SwitchAdminFragment : Fragment(), RecyclerOnItemViewClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSwitchAdminBinding.inflate(layoutInflater, container, false)
         startProgressBar(false)
         val adapter = SwitchAdminAdapter(this, listOf())
@@ -58,7 +58,7 @@ class SwitchAdminFragment : Fragment(), RecyclerOnItemViewClickListener {
     override fun onItemClicked(data: Any?, requester: String) {
         if(data is SwitchAdminData){
             val dialogClickListener = DialogInterface.OnClickListener{
-                    dialog, which ->
+                    _, which ->
                 when(which){
                     DialogInterface.BUTTON_POSITIVE -> {
                         startProgressBar(true)

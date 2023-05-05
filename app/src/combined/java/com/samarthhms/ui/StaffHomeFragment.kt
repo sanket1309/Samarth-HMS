@@ -1,5 +1,6 @@
 package com.samarthhms.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,10 +29,11 @@ class StaffHomeFragment : Fragment() {
 
     private lateinit var binding: FragmentStaffHomeBinding
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentStaffHomeBinding.inflate(layoutInflater, container, false)
 
         viewModel.updateData()
@@ -85,6 +87,7 @@ class StaffHomeFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SimpleDateFormat")
     fun getDisplayTime(time : Timestamp) :String{
         val sfd = SimpleDateFormat("hh:mm aa")
         var timeStr = sfd.format(time.toDate()).toString()
@@ -93,7 +96,8 @@ class StaffHomeFragment : Fragment() {
         return timeStr
     }
 
-    fun getAgeText(dob: Timestamp): String{
+    @SuppressLint("SimpleDateFormat")
+    private fun getAgeText(dob: Timestamp): String{
         val formattedDate = SimpleDateFormat("ddMMyyyy").format(dob.toDate())
         val localDate = LocalDate.of(formattedDate.substring(4).toInt(),
             formattedDate.substring(2,4).toInt(),

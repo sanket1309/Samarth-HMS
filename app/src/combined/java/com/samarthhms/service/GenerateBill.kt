@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.content.res.AppCompatResources
 import com.itextpdf.text.*
 import com.itextpdf.text.pdf.PdfPCell
+import com.itextpdf.text.pdf.PdfPTable
 import com.itextpdf.text.pdf.PdfPageEventHelper
 import com.itextpdf.text.pdf.PdfWriter
 import com.samarthhms.R
@@ -26,7 +27,7 @@ class GenerateBill @Inject constructor(){
     private val bodyFont = Font(Font.FontFamily.TIMES_ROMAN, 12f, Font.BOLD)
     private val contentBodyFont = Font(Font.FontFamily.TIMES_ROMAN, 13f, Font.NORMAL)
     private val contentTitleFont = Font(Font.FontFamily.TIMES_ROMAN, 13f, Font.BOLD)
-    private val titleFont = Font(Font.FontFamily.TIMES_ROMAN, 15f, Font.NORMAL)
+//    private val titleFont = Font(Font.FontFamily.TIMES_ROMAN, 15f, Font.NORMAL)
 
     inner class HeaderPageEvent : PdfPageEventHelper(){
         override fun onStartPage(writer: PdfWriter?, document: Document?) {
@@ -43,7 +44,7 @@ class GenerateBill @Inject constructor(){
             cell.backgroundColor = BaseColor(130,92,158)
             table.addCell(cell)
 
-            cell = getCell("")
+//            cell = getCell("")
 //            table.addCell(cell)
             cell = getCell(getImage(R.drawable.pdf_address,CompressFormat.PNG, 10f) , padding = listOf(3f, 70f, 3f, 70f), colspan = 3)
             cell.horizontalAlignment = Element.ALIGN_CENTER
@@ -99,9 +100,8 @@ class GenerateBill @Inject constructor(){
 
         document.add(Paragraph("",bodyFont))
 
-        var tableInfo = pdfService.createTable(1, listOf(100f), 100f)
         var tableTop = pdfService.createTable(2, listOf(80f,20f))
-        var data: String? = null
+        var data: String?
 
         data = "Bill Number : " + bill.billNumber
         var cell = getCell(data)
@@ -178,7 +178,11 @@ class GenerateBill @Inject constructor(){
             cell = getCellBody(data, false, 35f)
             table.addCell(cell)
 
-            data = billItem.rate.toString()+" X "+billItem.quantity+" = "+(billItem.rate * billItem.quantity).toString()
+            data = if(billItem.rate * billItem.quantity == 0){
+                "-"
+            } else {
+                billItem.rate.toString() + " X " + billItem.quantity + " = " + (billItem.rate * billItem.quantity).toString()
+            }
             if(billItem.itemName == "Registration")
                 data = billItem.rate.toString()
             cell = getCellBody(data, false, 35f)
@@ -213,7 +217,7 @@ class GenerateBill @Inject constructor(){
         cell.horizontalAlignment = Element.ALIGN_CENTER
         table.addCell(cell)
 
-        tableInfo = pdfService.createTable(2, listOf(60f, 40f))
+        val tableInfo: PdfPTable = pdfService.createTable(2, listOf(60f, 40f))
         cell = getCellBody("In Words :- "+StringUtils.getAmountInWords(bill.sum)+" RUPEES ONLY", false, 70f)
         cell.border = Rectangle.NO_BORDER
         tableInfo.addCell(cell)
@@ -235,48 +239,47 @@ class GenerateBill @Inject constructor(){
         document.close()
     }
 
-    private fun getFilePath(): String{
-        return file!!.path
-    }
+//    private fun getFilePath(): String{
+//        return file!!.path
+//    }
 
     private fun getFileName(bill: Bill): String{
 //        return "Generated_Bill_"+bill.patientId+"_"+bill.lastName+".pdf"
         return "Generated_Bill_"+bill.firstName+"_"+bill.lastName+".pdf"
     }
 
-    private fun getCell(title: String,data: String, isTitleOnNewLine: Boolean, colspan: Int = 1): PdfPCell{
-        val pdfCell = PdfPCell()
-        val lines = data.split('\n')
-
-        val chunk = Chunk(title)
-        chunk.setUnderline(0.8f, -1f)
-        chunk.font = bodyFont
-        if(isTitleOnNewLine){
-            pdfCell.addElement(chunk)
-        }
-
-        var i=0
-        for(line in lines){
-            i++
-            var pg = Paragraph(15f, line, bodyFont)
-            if(i==1 && !isTitleOnNewLine){
-                val ph = Phrase(chunk)
-                pg = Paragraph(15f, chunk.toString()+" "+line, bodyFont)
-            }
-            pdfCell.addElement(pg)
-        }
-//        pdfCell.minimumHeight = 25f
-        pdfCell.setPadding(5f)
-        pdfCell.paddingTop = 1f
-        pdfCell.borderWidth = 1.7f
-        pdfCell.colspan = colspan
-        return pdfCell
-    }
+//    private fun getCell(title: String,data: String, isTitleOnNewLine: Boolean, colspan: Int = 1): PdfPCell{
+//        val pdfCell = PdfPCell()
+//        val lines = data.split('\n')
+//
+//        val chunk = Chunk(title)
+//        chunk.setUnderline(0.8f, -1f)
+//        chunk.font = bodyFont
+//        if(isTitleOnNewLine){
+//            pdfCell.addElement(chunk)
+//        }
+//
+//        var i=0
+//        for(line in lines){
+//            i++
+//            var pg = Paragraph(15f, line, bodyFont)
+//            if(i==1 && !isTitleOnNewLine){
+//                val ph = Phrase(chunk)
+//                pg = Paragraph(15f, chunk.toString()+" "+line, bodyFont)
+//            }
+//            pdfCell.addElement(pg)
+//        }
+////        pdfCell.minimumHeight = 25f
+//        pdfCell.setPadding(5f)
+//        pdfCell.paddingTop = 1f
+//        pdfCell.borderWidth = 1.7f
+//        pdfCell.colspan = colspan
+//        return pdfCell
+//    }
 
     private fun getCell(data: String, colspan: Int = 1): PdfPCell{
         val pdfCell = PdfPCell()
         val lines = data.split('\n')
-        var i=0
         for(line in lines){
             val pg = Paragraph(15f, line, bodyFont)
             pdfCell.addElement(pg)
@@ -307,46 +310,46 @@ class GenerateBill @Inject constructor(){
         return pdfCell
     }
 
-    private fun getCell(data: List<String>, colspan: Int = 1): PdfPCell{
-        val pdfCell = PdfPCell()
-        for(line in data){
-            val pg = Paragraph(15f, line, bodyFont)
-            pdfCell.addElement(pg)
-        }
-//        pdfCell.minimumHeight = 25f
-        pdfCell.setPadding(5f)
-        pdfCell.paddingTop = 1f
-        pdfCell.borderWidth = 1.7f
-        pdfCell.colspan = colspan
-        return pdfCell
-    }
+//    private fun getCell(data: List<String>, colspan: Int = 1): PdfPCell{
+//        val pdfCell = PdfPCell()
+//        for(line in data){
+//            val pg = Paragraph(15f, line, bodyFont)
+//            pdfCell.addElement(pg)
+//        }
+////        pdfCell.minimumHeight = 25f
+//        pdfCell.setPadding(5f)
+//        pdfCell.paddingTop = 1f
+//        pdfCell.borderWidth = 1.7f
+//        pdfCell.colspan = colspan
+//        return pdfCell
+//    }
 
-    private fun getCell(title: String, data: List<String>,isTitleOnNewLine: Boolean, colspan: Int = 1): PdfPCell{
-        val pdfCell = PdfPCell()
-
-        val chunk = Chunk(title)
-        chunk.setUnderline(0.8f, -1f)
-        chunk.font = bodyFont
-        var ph = Phrase(chunk)
-        if(isTitleOnNewLine){
-            pdfCell.addElement(ph)
-        }
-
-        var i=0
-        for(line in data){
-            i++
-            var pg = Paragraph(15f, i.toString()+") "+line, bodyFont)
-            if(i==1 && !isTitleOnNewLine){
-                ph = Phrase(chunk)
-                pg = Paragraph(15f, chunk.toString()+" "+line, bodyFont)
-            }
-            pdfCell.addElement(pg)
-        }
-//        pdfCell.minimumHeight = 25f
-        pdfCell.setPadding(5f)
-        pdfCell.paddingTop = 1f
-        pdfCell.borderWidth = 1.7f
-        pdfCell.colspan = colspan
-        return pdfCell
-    }
+//    private fun getCell(title: String, data: List<String>,isTitleOnNewLine: Boolean, colspan: Int = 1): PdfPCell{
+//        val pdfCell = PdfPCell()
+//
+//        val chunk = Chunk(title)
+//        chunk.setUnderline(0.8f, -1f)
+//        chunk.font = bodyFont
+//        var ph = Phrase(chunk)
+//        if(isTitleOnNewLine){
+//            pdfCell.addElement(ph)
+//        }
+//
+//        var i=0
+//        for(line in data){
+//            i++
+//            var pg = Paragraph(15f, i.toString()+") "+line, bodyFont)
+//            if(i==1 && !isTitleOnNewLine){
+//                ph = Phrase(chunk)
+//                pg = Paragraph(15f, chunk.toString()+" "+line, bodyFont)
+//            }
+//            pdfCell.addElement(pg)
+//        }
+////        pdfCell.minimumHeight = 25f
+//        pdfCell.setPadding(5f)
+//        pdfCell.paddingTop = 1f
+//        pdfCell.borderWidth = 1.7f
+//        pdfCell.colspan = colspan
+//        return pdfCell
+//    }
 }

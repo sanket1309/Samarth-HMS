@@ -1,5 +1,6 @@
 package com.samarthhms.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ class VisitInfoAdapter internal constructor(var context: Context?,var recyclerOn
             return (itemCount-position-1)%3
         }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VisitInfoAdapter.VisitInfoHolder {
         val visitInfoLayoutBinding = VisitInfoLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val resources = context?.resources
@@ -38,6 +40,7 @@ class VisitInfoAdapter internal constructor(var context: Context?,var recyclerOn
     }
 
     inner class VisitInfoHolder internal constructor(private val visitInfoLayoutBinding: VisitInfoLayoutBinding) : RecyclerView.ViewHolder(visitInfoLayoutBinding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(patientVisitInfo: PatientVisitInfo) {
             val patient = patientVisitInfo.patient
             visitInfoLayoutBinding.patientId.text = patient.patientId
@@ -51,7 +54,8 @@ class VisitInfoAdapter internal constructor(var context: Context?,var recyclerOn
             }
         }
 
-        fun getDisplayTime(time : Timestamp) :String{
+        @SuppressLint("SimpleDateFormat")
+        private fun getDisplayTime(time : Timestamp) :String{
             val sfd = SimpleDateFormat("hh:mm aa")
             var timeStr = sfd.format(time.toDate()).toString()
             timeStr = timeStr.subSequence(0,6).toString() + timeStr.subSequence(6,8).toString().uppercase()
@@ -59,7 +63,8 @@ class VisitInfoAdapter internal constructor(var context: Context?,var recyclerOn
             return timeStr
         }
 
-        fun getAgeText(dob: Timestamp): String{
+        @SuppressLint("SimpleDateFormat")
+        private fun getAgeText(dob: Timestamp): String{
             val formattedDate = SimpleDateFormat("ddMMyyyy").format(dob.toDate())
             val localDate = LocalDate.of(formattedDate.substring(4).toInt(),
                 formattedDate.substring(2,4).toInt(),

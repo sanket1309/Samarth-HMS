@@ -42,12 +42,12 @@ class StringUtils {
             return name.lowercase().replaceFirstChar { it.uppercase() }
         }
 
-        fun formatPhoneNumberForEditText(phoneNumber: String): String {
-            return phoneNumber.substring(0,3)+" "+phoneNumber.substring(3,6)+" "+phoneNumber.substring(6)
-        }
+//        fun formatPhoneNumberForEditText(phoneNumber: String): String {
+//            return phoneNumber.substring(0,3)+" "+phoneNumber.substring(3,6)+" "+phoneNumber.substring(6)
+//        }
 
         fun formatPrice(price: Int): String{
-            var p=price.toString()
+            val p=price.toString()
             var formattedPrice=price.toString()
             if(p.length>3){
                 formattedPrice = formattedPrice.substring(0,formattedPrice.length-3)+","+formattedPrice.substring(formattedPrice.length-3)
@@ -84,12 +84,12 @@ class StringUtils {
         }
 
         fun formatYearWiseIdForFirebase(id: String): String {
-            var result = id.split("/")
+            val result = id.split("/")
             return result[0]+"-"+result[1]
         }
 
         fun formatYearWiseIdFromFirebaseId(id: String): String {
-            var result = id.split("-")
+            val result = id.split("-")
             return result[0]+"/"+result[1]
         }
     }

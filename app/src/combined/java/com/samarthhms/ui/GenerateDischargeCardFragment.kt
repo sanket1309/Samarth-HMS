@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.drawable.DrawableContainer
 import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.LayerDrawable
 import android.graphics.drawable.StateListDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -47,18 +46,18 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
 
     private var bottomSheetDialog: BottomSheetDialog? = null
 
-    var dischargeCardTemplate: DischargeCardTemplate? = null
+    private var dischargeCardTemplate: DischargeCardTemplate? = null
 
-    var COURSE_MEDICINE_TEMPLATE_REQUESTER = "COURSE_MEDICINE_TEMPLATE_REQUESTER"
+    private var courseMedicineTemplateRequester = "courseMedicineTemplateRequester"
 
-    var MEDICATION_MEDICINE_TEMPLATE_REQUESTER = "MEDICATION_MEDICINE_TEMPLATE_REQUESTER"
+    private var medicationMedicineTemplateRequester = "medicationMedicineTemplateRequester"
 
     private var dischargeCard: DischargeCard? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentGenerateDischargeCardBinding.inflate(layoutInflater, container, false)
         binding.courseList.adapter = MedicineTemplateListAdapter(mutableListOf())
         binding.medicationList.adapter = MedicineTemplateListAdapter(mutableListOf())
@@ -87,14 +86,14 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
 
         binding.addCourseButton.setOnClickListener{
             if(dischargeCardTemplate!=null){
-                val adapter = MedicineTemplateSearchAdapter(this, dischargeCardTemplate!!.medicineTemplates, COURSE_MEDICINE_TEMPLATE_REQUESTER)
+                val adapter = MedicineTemplateSearchAdapter(this, dischargeCardTemplate!!.medicineTemplates, courseMedicineTemplateRequester)
                 popTemplateMenu(adapter)
             }
         }
 
         binding.addMedicationButton.setOnClickListener{
             if(dischargeCardTemplate!=null){
-                val adapter = MedicineTemplateSearchAdapter(this, dischargeCardTemplate!!.medicineTemplates, MEDICATION_MEDICINE_TEMPLATE_REQUESTER)
+                val adapter = MedicineTemplateSearchAdapter(this, dischargeCardTemplate!!.medicineTemplates, medicationMedicineTemplateRequester)
                 popTemplateMenu(adapter)
             }
         }
@@ -155,6 +154,7 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
 
 //        val patientId = IdUtils.PATIENT_ID_PREFIX + binding.patientId.text
 //        if (!Validation.validatePatientId(patientId)) {
+//            Toast.makeText(activity, "Invalid Patient Id",Toast.LENGTH_SHORT).show()
 //            changeTextColorOfTextView(binding.patientIdTitle, invalidColor)
 //            changeBorderColorOfPrefix(binding.patientIdPrefix, invalidColor)
 //            changeBorderColorOfSuffix(binding.patientId, invalidColor)
@@ -167,61 +167,67 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
 
         val ipdNumber = binding.ipdNumber.text.toString()
         if (!Validation.validateIpdNumber(ipdNumber)) {
+            Toast.makeText(activity, "Invalid IPD Number", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.ipdNumberTitle, invalidColor)
             changeBorderColorOfEditText(binding.ipdNumber, invalidColor)
-//            binding.ipdNumber.addTextChangedListener {  }
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.ipdNumberTitle, validColor)
             changeBorderColorOfEditText(binding.ipdNumber, validColor)
         }
 
         val firstName = binding.firstName.text.toString()
         if (!Validation.validateName(firstName)) {
+            Toast.makeText(activity, "Invalid First Name", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.firstNameTitle, invalidColor)
             changeBorderColorOfEditText(binding.firstName, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.firstNameTitle, validColor)
             changeBorderColorOfEditText(binding.firstName, validColor)
         }
 
         val middleName = binding.middleName.text.toString().trim()
         if (!Validation.validateName(middleName)) {
+            Toast.makeText(activity, "Invalid Middle Name", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.middleNameTitle, invalidColor)
             changeBorderColorOfEditText(binding.middleName, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.middleNameTitle, validColor)
             changeBorderColorOfEditText(binding.middleName, validColor)
         }
 
         val lastName = binding.lastName.text.toString()
         if (!Validation.validateName(lastName)) {
+            Toast.makeText(activity, "Invalid Last Name", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.lastNameTitle, invalidColor)
             changeBorderColorOfEditText(binding.lastName, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.lastNameTitle, validColor)
             changeBorderColorOfEditText(binding.lastName, validColor)
         }
 
-        val gender = if(binding.genderMaleRadioGroupButton.isChecked) Gender.MALE else Gender.FEMALE
+        val gender =
+            if (binding.genderMaleRadioGroupButton.isChecked) Gender.MALE else Gender.FEMALE
 
         val weightVal = binding.weight.text.toString()
-        val weight = if(weightVal.isEmpty()) 0f else weightVal.toFloat()
+        val weight = if (weightVal.isBlank()) 0f else weightVal.toFloat()
         if (weight <= 0f) {
+            Toast.makeText(activity, "Invalid Weight", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.weightTitle, invalidColor)
             changeBorderColorOfEditText(binding.weight, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.weightTitle, validColor)
             changeBorderColorOfEditText(binding.weight, validColor)
         }
 //
 //        val heightVal = binding.height.text.toString()
-//        val height = if(heightVal.isEmpty()) 0f else heightVal.toFloat()
+//        val height = if(heightVal.isBlank()) 0f else heightVal.toFloat()
 //        if (height <= 0f) {
+//            Toast.makeText(activity, "Invalid Height",Toast.LENGTH_SHORT).show()
 //            changeTextColorOfTextView(binding.heightTitle, invalidColor)
 //            changeBorderColorOfEditText(binding.height, invalidColor)
 //            return null
@@ -231,17 +237,19 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
 //        }
 
         val age = binding.age.text.toString()
-        if (age.isEmpty()) {
+        if (age.isBlank()) {
+            Toast.makeText(activity, "Invalid Age", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.ageTitle, invalidColor)
             changeBorderColorOfEditText(binding.age, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.ageTitle, validColor)
             changeBorderColorOfEditText(binding.age, validColor)
         }
 
 //        val dob = binding.dateOfBirth.text.toString()
 //        if (!Validation.validateDate(dob)) {
+//        Toast.makeText(activity, "Invalid Date of Birth",Toast.LENGTH_SHORT).show()
 //            changeTextColorOfTextView(binding.dateOfBirthTitle, invalidColor)
 //            changeBorderColorOfEditText(binding.dateOfBirth, invalidColor)
 //            return null
@@ -250,139 +258,152 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
 //            changeBorderColorOfEditText(binding.dateOfBirth, validColor)
 //        }
 
-        val contactNumber = binding.contactNumber.text.toString().replace(" ","")
+        val contactNumber = binding.contactNumber.text.toString().replace(" ", "")
         if (!Validation.validateContactNumber(contactNumber)) {
+            Toast.makeText(activity, "Invalid Contact Number", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.contactNumberTitle, invalidColor)
             changeBorderColorOfEditText(binding.contactNumber, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.contactNumberTitle, validColor)
             changeBorderColorOfEditText(binding.contactNumber, validColor)
         }
 
         val address = binding.address.text.toString()
-        if (address.isEmpty()) {
+        if (address.isBlank()) {
+            Toast.makeText(activity, "Invalid Address", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.addressTitle, invalidColor)
             changeBorderColorOfEditText(binding.address, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.addressTitle, validColor)
             changeBorderColorOfEditText(binding.address, validColor)
         }
 
         val doa = binding.dateOfAdmission.text.toString()
         if (!Validation.validateDate(doa)) {
+            Toast.makeText(activity, "Invalid Date of Admission", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.dateOfAdmissionTitle, invalidColor)
             changeBorderColorOfEditText(binding.dateOfAdmission, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.dateOfAdmissionTitle, validColor)
             changeBorderColorOfEditText(binding.dateOfAdmission, validColor)
         }
 
         val toa = binding.timeOfAdmission.text.toString()
         if (!Validation.validateTime(toa)) {
+            Toast.makeText(activity, "Invalid Time of Admission", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.timeOfAdmissionTitle, invalidColor)
             changeBorderColorOfEditText(binding.timeOfAdmission, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.timeOfAdmissionTitle, validColor)
             changeBorderColorOfEditText(binding.timeOfAdmission, validColor)
         }
 
         val dod = binding.dateOfDischarge.text.toString()
         if (!Validation.validateDate(dod)) {
+            Toast.makeText(activity, "Invalid Date of Discharge", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.dateOfDischargeTitle, invalidColor)
             changeBorderColorOfEditText(binding.dateOfDischarge, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.dateOfDischargeTitle, validColor)
             changeBorderColorOfEditText(binding.dateOfDischarge, validColor)
         }
 
         val tod = binding.timeOfDischarge.text.toString()
         if (!Validation.validateTime(toa)) {
+            Toast.makeText(activity, "Invalid Time of Discharge", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.timeOfDischargeTitle, invalidColor)
             changeBorderColorOfEditText(binding.timeOfDischarge, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.timeOfDischargeTitle, validColor)
             changeBorderColorOfEditText(binding.timeOfDischarge, validColor)
         }
 
         val diagnosis = binding.diagnosis.text.toString()
-        if (diagnosis.isEmpty()) {
+        if (diagnosis.isBlank()) {
+            Toast.makeText(activity, "Invalid Diagnosis", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.diagnosisTitle, invalidColor)
             changeBorderColorOfEditText(binding.diagnosis, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.diagnosisTitle, validColor)
             changeBorderColorOfEditText(binding.diagnosis, validColor)
         }
 
         val patientHistory = binding.patientHistory.text.toString()
-        if (patientHistory.isEmpty()) {
+        if (patientHistory.isBlank()) {
+            Toast.makeText(activity, "Invalid Patient History", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.patientHistoryTitle, invalidColor)
             changeBorderColorOfEditText(binding.patientHistory, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.patientHistoryTitle, validColor)
             changeBorderColorOfEditText(binding.patientHistory, validColor)
         }
 
         val pastHistory = binding.pastHistory.text.toString()
-        if (pastHistory.isEmpty()) {
+        if (pastHistory.isBlank()) {
+            Toast.makeText(activity, "Invalid Past H/O", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.pastHistoryTitle, invalidColor)
             changeBorderColorOfEditText(binding.pastHistory, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.pastHistoryTitle, validColor)
             changeBorderColorOfEditText(binding.pastHistory, validColor)
         }
 
         val familyHistory = binding.familyHistory.text.toString()
-        if (familyHistory.isEmpty()) {
+        if (familyHistory.isBlank()) {
+            Toast.makeText(activity, "Invalid Family History", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.familyHistoryTitle, invalidColor)
             changeBorderColorOfEditText(binding.familyHistory, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.familyHistoryTitle, validColor)
             changeBorderColorOfEditText(binding.familyHistory, validColor)
         }
 
         val courseViewHolders = getMedicineTemplateHolders(binding.courseList)
         val courseList = mutableListOf<String>()
-        for(medicineTemplateHolder in courseViewHolders){
+        for (medicineTemplateHolder in courseViewHolders) {
             val itemBinding = medicineTemplateHolder.listItemLayoutBinding
             val courseItem = itemBinding.template.text.toString()
-            if (courseItem.isEmpty()) {
+            if (courseItem.isBlank()) {
+                Toast.makeText(activity, "Invalid Item Name", Toast.LENGTH_SHORT).show()
                 changeBorderColorOfEditText(itemBinding.template, invalidColor)
                 return null
-            }else{
+            } else {
                 changeBorderColorOfEditText(itemBinding.template, validColor)
             }
             courseList.add(itemBinding.template.text.toString())
         }
 
         val investigations = binding.investigations.text.toString()
-        if (investigations.isEmpty()) {
+        if (investigations.isBlank()) {
+            Toast.makeText(activity, "Invalid Investigations", Toast.LENGTH_SHORT).show()
             changeTextColorOfTextView(binding.investigationsTitle, invalidColor)
             changeBorderColorOfEditText(binding.investigations, invalidColor)
             return null
-        }else{
+        } else {
             changeTextColorOfTextView(binding.investigationsTitle, validColor)
             changeBorderColorOfEditText(binding.investigations, validColor)
         }
 
         val medicationViewHolders = getMedicineTemplateHolders(binding.medicationList)
         val medicationList = mutableListOf<String>()
-        for(medicineTemplateHolder in medicationViewHolders){
+        for (medicineTemplateHolder in medicationViewHolders) {
             val itemBinding = medicineTemplateHolder.listItemLayoutBinding
             val courseItem = itemBinding.template.text.toString()
-            if (courseItem.isEmpty()) {
+            if (courseItem.isBlank()) {
+                Toast.makeText(activity, "Invalid Item Name", Toast.LENGTH_SHORT).show()
                 changeBorderColorOfEditText(itemBinding.template, invalidColor)
                 return null
-            }else{
+            } else {
                 changeBorderColorOfEditText(itemBinding.template, validColor)
             }
             medicationList.add(itemBinding.template.text.toString())
@@ -390,18 +411,19 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
 
         val adviceViewHolders = getMedicineTemplateHolders(binding.adviceList)
         val adviceList = mutableListOf<String>()
-        for(medicineTemplateHolder in adviceViewHolders){
+        for (medicineTemplateHolder in adviceViewHolders) {
             val itemBinding = medicineTemplateHolder.listItemLayoutBinding
             val courseItem = itemBinding.template.text.toString()
-            if (courseItem.isEmpty()) {
+            if (courseItem.isBlank()) {
+                Toast.makeText(activity, "Invalid Item Name", Toast.LENGTH_SHORT).show()
                 changeBorderColorOfEditText(itemBinding.template, invalidColor)
                 return null
-            }else{
+            } else {
                 changeBorderColorOfEditText(itemBinding.template, validColor)
             }
             adviceList.add(itemBinding.template.text.toString())
         }
-        val dischargeCard = DischargeCard(
+        return DischargeCard(
 //            patientId,
             "",
             StringUtils.formatYearWiseId(ipdNumber),
@@ -421,7 +443,6 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
             address, diagnosis, patientHistory, pastHistory, familyHistory,
             courseList, investigations, medicationList, adviceList
         )
-        return dischargeCard
     }
 
     private fun getMedicineTemplateHolders(recyclerView: RecyclerView): List<MedicineTemplateListAdapter.MedicineTemplateHolder>{
@@ -443,23 +464,23 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
         drawableItem.setStroke(pixels, colorValue)
     }
 
-    private fun changeBorderColorOfPrefix(textView: TextView, color: Int){
-        val colorValue = ContextCompat.getColor(activity as Context, color)
-        val fieldInputDrawable = textView.background as LayerDrawable
-        val layerDrawable = fieldInputDrawable.findDrawableByLayerId(R.id.item)
-        val drawableItem = layerDrawable as GradientDrawable
-        val pixels = R.dimen.login_edittext_background_stroke_width * resources.displayMetrics.density.toInt()
-        drawableItem.setStroke(pixels, colorValue)
-    }
-
-    private fun changeBorderColorOfSuffix(editText: EditText, color: Int){
-        val colorValue = ContextCompat.getColor(activity as Context, color)
-        val fieldInputDrawable = editText.background as LayerDrawable
-        val layerDrawable = fieldInputDrawable.findDrawableByLayerId(R.id.item)
-        val drawableItem = layerDrawable as GradientDrawable
-        val pixels = R.dimen.login_edittext_background_stroke_width * resources.displayMetrics.density.toInt()
-        drawableItem.setStroke(pixels, colorValue)
-    }
+//    private fun changeBorderColorOfPrefix(textView: TextView, color: Int){
+//        val colorValue = ContextCompat.getColor(activity as Context, color)
+//        val fieldInputDrawable = textView.background as LayerDrawable
+//        val layerDrawable = fieldInputDrawable.findDrawableByLayerId(R.id.item)
+//        val drawableItem = layerDrawable as GradientDrawable
+//        val pixels = R.dimen.login_edittext_background_stroke_width * resources.displayMetrics.density.toInt()
+//        drawableItem.setStroke(pixels, colorValue)
+//    }
+//
+//    private fun changeBorderColorOfSuffix(editText: EditText, color: Int){
+//        val colorValue = ContextCompat.getColor(activity as Context, color)
+//        val fieldInputDrawable = editText.background as LayerDrawable
+//        val layerDrawable = fieldInputDrawable.findDrawableByLayerId(R.id.item)
+//        val drawableItem = layerDrawable as GradientDrawable
+//        val pixels = R.dimen.login_edittext_background_stroke_width * resources.displayMetrics.density.toInt()
+//        drawableItem.setStroke(pixels, colorValue)
+//    }
 
     private fun changeTextColorOfTextView(textView: TextView, color: Int){
         val colorValue = ContextCompat.getColor(activity as Context, color)
@@ -480,13 +501,13 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
             binding.patientHistory.setText(data.templateData)
             bottomSheetDialog?.cancel()
         }
-        else if(data is MedicineTemplate && requester == COURSE_MEDICINE_TEMPLATE_REQUESTER){
+        else if(data is MedicineTemplate && requester == courseMedicineTemplateRequester){
             val templates = (binding.courseList.adapter as MedicineTemplateListAdapter).templates
             templates.add(data)
             (binding.courseList.adapter as MedicineTemplateListAdapter).notifyItemInserted(templates.size-1)
             bottomSheetDialog?.cancel()
         }
-        else if(data is MedicineTemplate && requester == MEDICATION_MEDICINE_TEMPLATE_REQUESTER){
+        else if(data is MedicineTemplate && requester == medicationMedicineTemplateRequester){
             val templates = (binding.medicationList.adapter as MedicineTemplateListAdapter).templates
             templates.add(data)
             (binding.medicationList.adapter as MedicineTemplateListAdapter).notifyItemInserted(templates.size-1)

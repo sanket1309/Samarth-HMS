@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
         }
 
         navController.addOnDestinationChangedListener{
-            controller, destination, arguments ->
+            _, destination, _ ->
             if(destination.id == R.id.adminDashboardFragment){
                 binding.bottomNavigation.visibility = View.VISIBLE
             }else{

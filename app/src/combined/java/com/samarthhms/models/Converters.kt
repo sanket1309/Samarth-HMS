@@ -114,8 +114,8 @@ class Converters {
             )
         }
 
-        fun convertToVisit(visitFirebase: VisitFirebase): Visit{
-            val visit = Visit(
+        fun convertToVisit(visitFirebase: VisitFirebase): Visit {
+            return Visit(
                 visitFirebase.visitId,
                 visitFirebase.patientId,
                 visitFirebase.adminId,
@@ -125,7 +125,6 @@ class Converters {
                 visitFirebase.isAttended,
                 visitFirebase.isAdmitted
             )
-            return visit
         }
 
         fun convertToVisitFirebase(visit: Visit): VisitFirebase {
@@ -141,8 +140,8 @@ class Converters {
             )
         }
 
-        fun convertToBill(billFirebase: BillFirebase): Bill{
-            val bill = Bill(
+        fun convertToBill(billFirebase: BillFirebase): Bill {
+            return Bill(
                 billFirebase.patientId,
                 billFirebase.visitId,
                 billFirebase.admitId,
@@ -162,11 +161,10 @@ class Converters {
                 billFirebase.otherCharges,
                 billFirebase.sum
             )
-            return bill
         }
 
-        fun convertToBillFirebase(bill: Bill): BillFirebase{
-            val billFirebase = BillFirebase(
+        fun convertToBillFirebase(bill: Bill): BillFirebase {
+            return BillFirebase(
                 bill.patientId,
                 bill.visitId,
                 bill.admitId,
@@ -186,11 +184,10 @@ class Converters {
                 bill.otherCharges,
                 bill.sum
             )
-            return billFirebase
         }
 
-        fun convertToDischargeCard(dischargeCardFirebase: DischargeCardFirebase): DischargeCard{
-            val dischargeCard = DischargeCard(
+        fun convertToDischargeCard(dischargeCardFirebase: DischargeCardFirebase): DischargeCard {
+            return DischargeCard(
                 dischargeCardFirebase.patientId,
                 StringUtils.formatYearWiseIdFromFirebaseId(dischargeCardFirebase.ipdNumber),
                 dischargeCardFirebase.firstName,
@@ -215,11 +212,10 @@ class Converters {
                 dischargeCardFirebase.medicationsOnDischarge,
                 dischargeCardFirebase.advice
             )
-            return dischargeCard
         }
 
-        fun convertToDischargeCardFirebase(dischargeCard: DischargeCard): DischargeCardFirebase{
-            val dischargeCardFirebase = DischargeCardFirebase(
+        fun convertToDischargeCardFirebase(dischargeCard: DischargeCard): DischargeCardFirebase {
+            return DischargeCardFirebase(
                 dischargeCard.patientId,
                 StringUtils.formatYearWiseIdForFirebase(dischargeCard.ipdNumber),
                 dischargeCard.firstName,
@@ -244,7 +240,6 @@ class Converters {
                 dischargeCard.medicationsOnDischarge,
                 dischargeCard.advice
             )
-            return dischargeCardFirebase
         }
 
 

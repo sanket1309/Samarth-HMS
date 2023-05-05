@@ -40,7 +40,7 @@ class GenerateDischargeCard @Inject constructor(){
             cell.backgroundColor = BaseColor(130,92,158)
             table.addCell(cell)
 
-            cell = getCell("")
+//            cell = getCell("")
 //            table.addCell(cell)
             cell = getCell(getImage(R.drawable.pdf_address,CompressFormat.PNG, 10f) , padding = listOf(3f, 70f, 3f, 70f), colspan = 3)
             cell.horizontalAlignment = Element.ALIGN_CENTER
@@ -95,7 +95,7 @@ class GenerateDischargeCard @Inject constructor(){
 
 
         var table = pdfService.createTable(1, listOf(100f), 50f)
-        var data: String? = null
+        var data: String?
 
         data = "DISCHARGE CARD"
         var cell = PdfPCell(Paragraph(data, titleFont))
@@ -181,9 +181,9 @@ class GenerateDischargeCard @Inject constructor(){
         document.close()
     }
 
-    private fun getFilePath(): String{
-        return file!!.path
-    }
+//    private fun getFilePath(): String{
+//        return file!!.path
+//    }
 
     private fun getFileName(dischargeCard: DischargeCard): String{
 //        return "Generated_Card_"+dischargeCard.patientId+"_"+dischargeCard.lastName+".pdf"
@@ -206,7 +206,7 @@ class GenerateDischargeCard @Inject constructor(){
             i++
             var pg = Paragraph(15f, line, bodyFont)
             if(i==1 && !isTitleOnNewLine){
-                val ph = Phrase(chunk)
+//                val ph = Phrase(chunk)
                 pg = Paragraph(15f, chunk.toString()+" "+line, bodyFont)
             }
             pdfCell.addElement(pg)
@@ -222,7 +222,6 @@ class GenerateDischargeCard @Inject constructor(){
     private fun getCell(data: String, colspan: Int = 1): PdfPCell{
         val pdfCell = PdfPCell()
         val lines = data.split('\n')
-        var i=0
         for(line in lines){
             val pg = Paragraph(15f, line, bodyFont)
             pdfCell.addElement(pg)
@@ -235,19 +234,19 @@ class GenerateDischargeCard @Inject constructor(){
         return pdfCell
     }
 
-    private fun getCell(data: List<String>, colspan: Int = 1): PdfPCell{
-        val pdfCell = PdfPCell()
-        for(line in data){
-            val pg = Paragraph(15f, line, bodyFont)
-            pdfCell.addElement(pg)
-        }
-//        pdfCell.minimumHeight = 25f
-        pdfCell.setPadding(5f)
-        pdfCell.paddingTop = 1f
-        pdfCell.borderWidth = 1.7f
-        pdfCell.colspan = colspan
-        return pdfCell
-    }
+//    private fun getCell(data: List<String>, colspan: Int = 1): PdfPCell{
+//        val pdfCell = PdfPCell()
+//        for(line in data){
+//            val pg = Paragraph(15f, line, bodyFont)
+//            pdfCell.addElement(pg)
+//        }
+////        pdfCell.minimumHeight = 25f
+//        pdfCell.setPadding(5f)
+//        pdfCell.paddingTop = 1f
+//        pdfCell.borderWidth = 1.7f
+//        pdfCell.colspan = colspan
+//        return pdfCell
+//    }
 
     private fun getCell(title: String, data: List<String>,isTitleOnNewLine: Boolean, colspan: Int = 1): PdfPCell{
         val pdfCell = PdfPCell()
@@ -255,7 +254,7 @@ class GenerateDischargeCard @Inject constructor(){
         val chunk = Chunk(title)
         chunk.setUnderline(0.8f, -1f)
         chunk.font = bodyFont
-        var ph = Phrase(chunk)
+        val ph = Phrase(chunk)
         if(isTitleOnNewLine){
             pdfCell.addElement(ph)
         }
@@ -263,10 +262,10 @@ class GenerateDischargeCard @Inject constructor(){
         var i=0
         for(line in data){
             i++
-            var pg = Paragraph(15f, i.toString()+") "+line, bodyFont)
+            var pg = Paragraph(15f, "$i) $line", bodyFont)
             if(i==1 && !isTitleOnNewLine){
-                ph = Phrase(chunk)
-                pg = Paragraph(15f, chunk.toString()+" "+line, bodyFont)
+//                ph = Phrase(chunk)
+                pg = Paragraph(15f, "$chunk $line", bodyFont)
             }
             pdfCell.addElement(pg)
         }

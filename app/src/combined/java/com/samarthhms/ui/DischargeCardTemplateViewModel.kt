@@ -17,7 +17,7 @@ val addPatientHistoryTemplate: AddPatientHistoryTemplate, val deleteMedicineTemp
 val deletePatientHistoryTemplate: DeletePatientHistoryTemplate) : ViewModel() {
 
     private val _getDischargeCardTemplateStatus: MutableLiveData<Status> = MutableLiveData(Status.NONE)
-    val getDischargeCardTemplateStatus : LiveData<Status> = _getDischargeCardTemplateStatus
+//    val getDischargeCardTemplateStatus : LiveData<Status> = _getDischargeCardTemplateStatus
 
     private val _dischargeCardTemplate: MutableLiveData<DischargeCardTemplate> = MutableLiveData(DischargeCardTemplate(listOf(), listOf()))
     val dischargeCardTemplate : LiveData<DischargeCardTemplate> = _dischargeCardTemplate

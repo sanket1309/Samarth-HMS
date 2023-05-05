@@ -11,7 +11,7 @@ class UpdateStaffStatus
     override suspend fun run(params: StaffStatus): UpdateStaffStatusResponse {
         return try {
             val response = UpdateStaffStatusResponse()
-            val staff = staffStatusRepository.addStaffStatus(params)
+            staffStatusRepository.addStaffStatus(params)
             response.status = Status.SUCCESS
             Log.i("Get_All_Staff","GetAllStaffResponse = $response")
             response

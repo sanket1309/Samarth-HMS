@@ -1,5 +1,6 @@
 package com.samarthhms.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.DrawableContainer
 import android.graphics.drawable.GradientDrawable
@@ -86,6 +87,7 @@ class PatientHistoryTemplateAdapter internal constructor(var context: Context, v
             patientHistoryTemplateLayoutBinding.template.isFocusableInTouchMode = isClickable
         }
 
+        @SuppressLint("UseCompatLoadingForDrawables")
         private fun onEditClicked(){
             patientHistoryTemplateLayoutBinding.editButton.visibility = View.GONE
             patientHistoryTemplateLayoutBinding.saveButton.visibility = View.VISIBLE
@@ -94,6 +96,7 @@ class PatientHistoryTemplateAdapter internal constructor(var context: Context, v
             patientHistoryTemplateLayoutBinding.template.setTextColor(context.resources.getColor(R.color.black, null))
         }
 
+        @SuppressLint("UseCompatLoadingForDrawables")
         private fun onSaveClicked(){
             patientHistoryTemplateLayoutBinding.saveButton.visibility = View.GONE
             patientHistoryTemplateLayoutBinding.editButton.visibility = View.VISIBLE

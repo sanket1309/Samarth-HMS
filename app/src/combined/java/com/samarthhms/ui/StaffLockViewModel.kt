@@ -12,10 +12,12 @@ import com.samarthhms.models.StaffStatus
 import com.samarthhms.repository.StoredStateRepositoryImpl
 import com.samarthhms.usecase.UseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@OptIn(DelicateCoroutinesApi::class)
 @HiltViewModel
 class StaffLockViewModel @Inject constructor(private val logoutUser: LogoutUser, private val storedStateRepository: StoredStateRepositoryImpl) : ViewModel(){
 
@@ -37,9 +39,8 @@ class StaffLockViewModel @Inject constructor(private val logoutUser: LogoutUser,
 
     init {
         val db = FirebaseFirestore.getInstance()
-        var id: String=""
         GlobalScope.launch {
-            id = storedStateRepository.getId()!!
+            val id = storedStateRepository.getId()!!
             val reference = db.collection(SchemaName.STAFF_STATUS_COLLECTION).whereEqualTo(
                 SchemaName.STAFF_ID, id)
             reference.addSnapshotListener{

@@ -147,4 +147,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
+    <ImageView
+        android:id="@+id/no_results_image"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:src="@drawable/empty_box"
+        app:layout_constraintTop_toTopOf="@id/patients_recycler_view"
+        app:layout_constraintBottom_toBottomOf="@id/patients_recycler_view"
+        app:layout_constraintStart_toStartOf="@id/patients_recycler_view"
+        app:layout_constraintEnd_toEndOf="@id/patients_recycler_view"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

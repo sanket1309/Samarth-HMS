@@ -24,15 +24,22 @@ class RecentDischargeCardsFragment : Fragment(), RecyclerOnItemViewClickListener
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRecentDischargeCardsBinding.inflate(layoutInflater, container, false)
         viewModel.updateData()
         val adapter = RecentDischargeCardAdapter(context, this, listOf())
         binding.recentDischargeCardsRecyclerView.adapter = adapter
+        binding.noResultsImage.visibility = View.GONE
         viewModel.recentDischargeCardsList.observe(viewLifecycleOwner){
             (binding.recentDischargeCardsRecyclerView.adapter as RecentDischargeCardAdapter).dischargeCards = it
             binding.recentDischargeCardsTitle.text = StringUtils.getShowingDischargeCardsText(it.size)
             (binding.recentDischargeCardsRecyclerView.adapter as RecentDischargeCardAdapter).notifyDataSetChanged()
+            if(it.isEmpty()){
+                binding.noResultsImage.visibility = View.VISIBLE
+            }
+            else{
+                binding.noResultsImage.visibility = View.GONE
+            }
         }
         return binding.root
     }

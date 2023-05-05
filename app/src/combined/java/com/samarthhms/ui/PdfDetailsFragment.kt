@@ -13,14 +13,14 @@ import com.samarthhms.databinding.FragmentPdfDetailsBinding
 
 class PdfDetailsFragment : Fragment() {
 
-    private val viewModel: PdfDetailsViewModel by viewModels()
+//    private val viewModel: PdfDetailsViewModel by viewModels()
 
     private lateinit var binding: FragmentPdfDetailsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPdfDetailsBinding.inflate(layoutInflater, container, false)
         val file = PdfDetailsFragmentArgs.fromBundle(requireArguments()).file
         binding.fileName.text = file.name

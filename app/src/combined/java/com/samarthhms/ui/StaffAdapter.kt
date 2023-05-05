@@ -1,5 +1,6 @@
 package com.samarthhms.ui
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ class StaffAdapter internal constructor(var recyclerOnItemViewClickListener: Rec
     }
 
     inner class StaffHolder internal constructor(private val staffLayoutBinding: StaffLayoutBinding) : RecyclerView.ViewHolder(staffLayoutBinding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(staffDetails: StaffDetails) {
             staffLayoutBinding.adminName.text = staffDetails.staff?.firstName + " " + staffDetails.staff?.lastName
             staffLayoutBinding.lockImage.visibility = if(staffDetails.staffStatus!!.isLocked) View.VISIBLE else View.GONE
