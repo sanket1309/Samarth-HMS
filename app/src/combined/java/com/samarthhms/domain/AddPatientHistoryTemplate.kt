@@ -1,11 +1,9 @@
 package com.samarthhms.domain
 
 import android.util.Log
-import com.samarthhms.models.*
-import com.samarthhms.repository.*
+import com.samarthhms.models.PatientHistoryTemplate
+import com.samarthhms.repository.PatientHistoryTemplateRepositoryImpl
 import com.samarthhms.usecase.UseCase
-import com.samarthhms.utils.IdUtils
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 class AddPatientHistoryTemplate

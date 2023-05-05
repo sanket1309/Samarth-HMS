@@ -4,11 +4,11 @@ import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.samarthhms.constants.SchemaName
-import com.samarthhms.models.*
-import com.samarthhms.utils.DateTimeUtils
+import com.samarthhms.models.Converters
+import com.samarthhms.models.DischargeCard
+import com.samarthhms.models.DischargeCardFirebase
 import com.samarthhms.utils.StringUtils
 import kotlinx.coroutines.tasks.await
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 class DischargeCardRepositoryImpl @Inject constructor(): DischargeCardRepository {

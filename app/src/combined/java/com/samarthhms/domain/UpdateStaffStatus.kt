@@ -1,13 +1,9 @@
 package com.samarthhms.domain
 
 import android.util.Log
-import com.samarthhms.models.Patient
-import com.samarthhms.models.PatientVisitInfo
-import com.samarthhms.models.Staff
 import com.samarthhms.models.StaffStatus
-import com.samarthhms.repository.*
+import com.samarthhms.repository.StaffStatusRepositoryImpl
 import com.samarthhms.usecase.UseCase
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 class UpdateStaffStatus

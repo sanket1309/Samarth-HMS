@@ -7,7 +7,6 @@ import com.samarthhms.domain.GetRecentDischargeCards
 import com.samarthhms.domain.Status
 import com.samarthhms.models.DischargeCard
 import com.samarthhms.usecase.UseCase
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

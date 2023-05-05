@@ -1,6 +1,6 @@
 package com.samarthhms.domain
 
-import com.samarthhms.models.*
+import com.samarthhms.models.DischargeCard
 
 data class GetRecentDischargeCardsResponse (
     var dischargeCards: List<DischargeCard> = listOf(),

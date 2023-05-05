@@ -1,13 +1,10 @@
 package com.samarthhms.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
-import com.samarthhms.constants.Role
 import com.samarthhms.databinding.ActivityLaunchBinding
-import com.samarthhms.databinding.ActivityLoginBinding
 import com.samarthhms.navigator.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

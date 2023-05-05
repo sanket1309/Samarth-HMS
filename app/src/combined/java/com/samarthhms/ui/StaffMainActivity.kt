@@ -1,13 +1,13 @@
 package com.samarthhms.ui
 
 import android.content.DialogInterface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -17,9 +17,7 @@ import com.google.android.material.navigation.NavigationView
 import com.samarthhms.R
 import com.samarthhms.constants.LoggedState
 import com.samarthhms.constants.Role
-import com.samarthhms.databinding.ActivityMainBinding
 import com.samarthhms.databinding.ActivityStaffMainBinding
-import com.samarthhms.databinding.StaffLayoutBinding
 import com.samarthhms.domain.LoginStatusResponse
 import com.samarthhms.domain.Status
 import com.samarthhms.navigator.Navigator

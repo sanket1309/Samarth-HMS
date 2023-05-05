@@ -1,8 +1,6 @@
 package com.samarthhms.utils
 
-import android.util.Log
 import com.google.firebase.Timestamp
-import com.google.type.DateTime
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDateTime

@@ -1,29 +1,19 @@
 package com.samarthhms.ui
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.text.Editable
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.room.util.StringUtil
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.kotlinModule
 import com.samarthhms.R
-import com.samarthhms.databinding.FragmentAddNewPatientBinding
-import com.samarthhms.databinding.FragmentAddPatientBinding
 import com.samarthhms.databinding.FragmentAddVisitBinding
 import com.samarthhms.domain.Status
-import com.samarthhms.models.Patient
 import com.samarthhms.navigator.Navigator
 import com.samarthhms.utils.DateTimeUtils
-import com.samarthhms.utils.StringUtils
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint

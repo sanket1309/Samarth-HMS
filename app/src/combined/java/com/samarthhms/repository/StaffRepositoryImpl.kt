@@ -3,11 +3,12 @@ package com.samarthhms.repository
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.samarthhms.constants.SchemaName
-import com.samarthhms.models.*
+import com.samarthhms.models.Converters
+import com.samarthhms.models.Staff
+import com.samarthhms.models.StaffFirebase
 import kotlinx.coroutines.tasks.await
 import java.util.*
 import javax.inject.Inject
-import javax.xml.validation.Schema
 
 class StaffRepositoryImpl @Inject constructor(): StaffRepository {
 

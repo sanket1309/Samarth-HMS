@@ -2,32 +2,27 @@ package com.samarthhms.ui
 
 import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.firestore.FirebaseFirestore
 import com.samarthhms.R
-import com.samarthhms.databinding.ActivityStaffLockBinding
 import com.samarthhms.constants.LoggedState
 import com.samarthhms.constants.Role
-import com.samarthhms.constants.SchemaName
+import com.samarthhms.databinding.ActivityStaffLockBinding
 import com.samarthhms.domain.LoginStatusResponse
 import com.samarthhms.domain.Status
-import com.samarthhms.models.StaffStatus
 import com.samarthhms.navigator.Navigator
 import com.samarthhms.repository.StoredStateRepositoryImpl
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint

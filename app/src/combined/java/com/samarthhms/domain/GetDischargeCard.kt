@@ -1,12 +1,9 @@
 package com.samarthhms.domain
 
 import android.util.Log
-import com.samarthhms.models.*
-import com.samarthhms.repository.*
+import com.samarthhms.models.DischargeCard
 import com.samarthhms.service.GenerateDischargeCard
 import com.samarthhms.usecase.UseCase
-import com.samarthhms.utils.IdUtils
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 class GetDischargeCard

@@ -1,6 +1,6 @@
 package com.samarthhms.domain
 
-import com.samarthhms.models.*
+import com.samarthhms.models.DischargeCard
 
 data class SaveDischargeCardRequest (
     var previousIpdNumber: String = "",

@@ -3,11 +3,11 @@ package com.samarthhms.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.samarthhms.domain.*
-import com.samarthhms.models.Staff
+import com.samarthhms.domain.AddStaff
+import com.samarthhms.domain.AddStaffRequest
+import com.samarthhms.domain.RemoveStaff
+import com.samarthhms.domain.Status
 import com.samarthhms.models.StaffDetails
-import com.samarthhms.models.StaffStatus
-import com.samarthhms.usecase.UseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

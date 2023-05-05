@@ -3,7 +3,7 @@ package com.samarthhms.repository
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.samarthhms.constants.SchemaName
-import com.samarthhms.models.*
+import com.samarthhms.models.PatientHistoryTemplate
 import kotlinx.coroutines.tasks.await
 import java.util.*
 import javax.inject.Inject

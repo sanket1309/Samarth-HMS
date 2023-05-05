@@ -3,8 +3,9 @@ package com.samarthhms.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.samarthhms.domain.*
-import com.samarthhms.models.Credentials
+import com.samarthhms.domain.LogoutResponse
+import com.samarthhms.domain.LogoutUser
+import com.samarthhms.domain.Status
 import com.samarthhms.usecase.UseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

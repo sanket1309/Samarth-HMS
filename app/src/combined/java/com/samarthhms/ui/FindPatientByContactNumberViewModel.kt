@@ -4,14 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.firestore.FirebaseFirestore
-import com.samarthhms.constants.SchemaName
 import com.samarthhms.domain.FindPatientByContactNumber
-import com.samarthhms.domain.GetPatientsToday
 import com.samarthhms.domain.Status
 import com.samarthhms.models.Patient
-import com.samarthhms.models.PatientVisitInfo
-import com.samarthhms.usecase.UseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

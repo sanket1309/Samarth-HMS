@@ -1,10 +1,9 @@
 package com.samarthhms.domain
 
 import android.util.Log
-import com.samarthhms.models.Staff
-import com.samarthhms.models.StaffDetails
-import com.samarthhms.models.StaffStatus
-import com.samarthhms.repository.*
+import com.samarthhms.repository.LoginRepositoryImpl
+import com.samarthhms.repository.StaffRepositoryImpl
+import com.samarthhms.repository.StaffStatusRepositoryImpl
 import com.samarthhms.usecase.UseCase
 import javax.inject.Inject
 

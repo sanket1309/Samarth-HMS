@@ -4,12 +4,11 @@ import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.samarthhms.constants.SchemaName
-import com.samarthhms.models.*
-import com.samarthhms.utils.DateTimeUtils
+import com.samarthhms.models.Bill
+import com.samarthhms.models.BillFirebase
+import com.samarthhms.models.Converters
 import com.samarthhms.utils.StringUtils
 import kotlinx.coroutines.tasks.await
-import java.time.LocalDateTime
-import java.util.Objects
 import javax.inject.Inject
 
 class BillRepositoryImpl @Inject constructor(): BillRepository {

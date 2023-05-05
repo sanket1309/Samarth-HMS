@@ -4,8 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.samarthhms.constants.Gender
-import com.samarthhms.constants.LoggedState
-import com.samarthhms.constants.Role
 import com.samarthhms.constants.SchemaName
 
 @Entity(tableName = SchemaName.STAFF_STATE_TABLE)

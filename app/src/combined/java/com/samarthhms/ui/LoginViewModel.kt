@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.samarthhms.domain.LoginResponse
-import com.samarthhms.domain.LoginStatus
 import com.samarthhms.domain.LoginUser
 import com.samarthhms.models.Credentials
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.samarthhms.domain.*
+import com.samarthhms.domain.FindPatientByName
+import com.samarthhms.domain.FindPatientByNameRequest
+import com.samarthhms.domain.Status
 import com.samarthhms.models.Patient
 import com.samarthhms.utils.StringUtils
 import dagger.hilt.android.lifecycle.HiltViewModel

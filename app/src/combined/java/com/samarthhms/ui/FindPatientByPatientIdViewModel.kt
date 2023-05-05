@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.samarthhms.domain.FindPatientByPatientId
 import com.samarthhms.domain.Status
 import com.samarthhms.models.Patient
-import com.samarthhms.models.PatientVisitInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

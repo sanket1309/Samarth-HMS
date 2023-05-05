@@ -1,23 +1,17 @@
 package com.samarthhms.ui
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
-import com.samarthhms.R
-import com.samarthhms.databinding.FragmentAdminDashboardBinding
 import com.samarthhms.databinding.FragmentFindPatientByContactNumberBinding
 import com.samarthhms.domain.Status
 import com.samarthhms.models.Patient
-import com.samarthhms.utils.DateTimeUtils
-import com.samarthhms.utils.IdUtils
 import com.samarthhms.utils.StringUtils
 import com.samarthhms.utils.Validation
 import dagger.hilt.android.AndroidEntryPoint

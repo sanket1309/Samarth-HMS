@@ -2,12 +2,8 @@ package com.samarthhms.domain
 
 import android.util.Log
 import com.samarthhms.constants.Role
-import com.samarthhms.models.Converters
-import com.samarthhms.models.Patient
-import com.samarthhms.models.PatientVisitInfo
-import com.samarthhms.repository.*
+import com.samarthhms.repository.StoredStateRepositoryImpl
 import com.samarthhms.usecase.UseCase
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 class GetUser

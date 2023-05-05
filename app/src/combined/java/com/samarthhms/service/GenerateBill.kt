@@ -1,34 +1,20 @@
 package com.samarthhms.service
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.room.util.StringUtil
-import com.itextpdf.text.BaseColor
-import com.itextpdf.text.Chunk
-import com.itextpdf.text.Document
-import com.itextpdf.text.Element
-import com.itextpdf.text.Font
-import com.itextpdf.text.Image
-import com.itextpdf.text.Paragraph
-import com.itextpdf.text.Phrase
-import com.itextpdf.text.Rectangle
+import com.itextpdf.text.*
 import com.itextpdf.text.pdf.PdfPCell
 import com.itextpdf.text.pdf.PdfPageEventHelper
 import com.itextpdf.text.pdf.PdfWriter
 import com.samarthhms.R
 import com.samarthhms.models.Bill
-import com.samarthhms.models.DischargeCard
 import com.samarthhms.utils.DateTimeUtils
 import com.samarthhms.utils.StringUtils
-import dagger.hilt.android.qualifiers.ApplicationContext
-import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.File
 import javax.inject.Inject
-import kotlin.math.min
 
 class GenerateBill @Inject constructor(){
 

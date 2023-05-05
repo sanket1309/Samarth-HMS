@@ -4,15 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.samarthhms.constants.Role
 import com.samarthhms.constants.SchemaName
 import com.samarthhms.domain.GetPatientsToday
 import com.samarthhms.domain.GetUser
-import com.samarthhms.domain.GetUserResponse
 import com.samarthhms.domain.Status
-import com.samarthhms.models.*
-import com.samarthhms.models.PatientFirebase
+import com.samarthhms.models.PatientVisitInfo
 import com.samarthhms.usecase.UseCase
 import com.samarthhms.utils.DateTimeUtils
 import dagger.hilt.android.lifecycle.HiltViewModel

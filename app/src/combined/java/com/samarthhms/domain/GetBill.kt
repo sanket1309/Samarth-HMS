@@ -1,13 +1,9 @@
 package com.samarthhms.domain
 
 import android.util.Log
-import com.samarthhms.models.*
-import com.samarthhms.repository.*
+import com.samarthhms.models.Bill
 import com.samarthhms.service.GenerateBill
-import com.samarthhms.service.GenerateDischargeCard
 import com.samarthhms.usecase.UseCase
-import com.samarthhms.utils.IdUtils
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 class GetBill

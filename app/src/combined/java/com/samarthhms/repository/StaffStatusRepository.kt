@@ -1,6 +1,5 @@
 package com.samarthhms.repository
 
-import com.samarthhms.models.Staff
 import com.samarthhms.models.StaffStatus
 
 interface StaffStatusRepository {

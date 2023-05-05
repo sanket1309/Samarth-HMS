@@ -1,6 +1,5 @@
 package com.samarthhms.domain
 
-import com.samarthhms.models.Admin
 import com.samarthhms.models.SwitchAdminData
 
 class GetSwitchAdminsResponse {

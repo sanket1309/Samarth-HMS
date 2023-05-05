@@ -1,25 +1,11 @@
 package com.samarthhms.ui
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.Timestamp
-import com.samarthhms.R
-import com.samarthhms.databinding.PatientInfoLayoutBinding
 import com.samarthhms.databinding.SwitchAdminLayoutBinding
-import com.samarthhms.databinding.VisitInfoLayoutBinding
-import com.samarthhms.domain.SwitchAdmin
-import com.samarthhms.models.Patient
-import com.samarthhms.models.PatientVisitInfo
 import com.samarthhms.models.SwitchAdminData
-import com.samarthhms.utils.DateTimeUtils
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.Period
 
 class SwitchAdminAdapter internal constructor(var recyclerOnItemViewClickListener: RecyclerOnItemViewClickListener, var admins: List<SwitchAdminData>) : RecyclerView.Adapter<SwitchAdminAdapter.SwitchAdminHolder>() {
     override fun onBindViewHolder(adminHolder: SwitchAdminAdapter.SwitchAdminHolder, position: Int) {

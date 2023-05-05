@@ -4,11 +4,9 @@ import android.content.Context
 import android.graphics.drawable.DrawableContainer
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +14,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.samarthhms.R
@@ -24,9 +23,7 @@ import com.samarthhms.constants.Role
 import com.samarthhms.databinding.FragmentAddStaffBinding
 import com.samarthhms.domain.Status
 import com.samarthhms.models.Credentials
-import com.samarthhms.models.Patient
 import com.samarthhms.models.Staff
-import com.samarthhms.utils.DateTimeUtils
 import com.samarthhms.utils.StringUtils
 import com.samarthhms.utils.Validation
 import dagger.hilt.android.AndroidEntryPoint

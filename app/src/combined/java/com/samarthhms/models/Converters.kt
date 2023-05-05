@@ -1,6 +1,5 @@
 package com.samarthhms.models
 
-import android.util.Log
 import com.google.firebase.Timestamp
 import com.samarthhms.constants.SchemaName
 import com.samarthhms.utils.DateTimeUtils

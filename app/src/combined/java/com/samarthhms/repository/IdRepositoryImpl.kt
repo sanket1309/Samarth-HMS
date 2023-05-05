@@ -3,7 +3,6 @@ package com.samarthhms.repository
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.samarthhms.constants.SchemaName
-import com.samarthhms.repository.IdRepository
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 

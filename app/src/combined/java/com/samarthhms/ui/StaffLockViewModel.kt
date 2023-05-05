@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.samarthhms.constants.SchemaName
-import com.samarthhms.domain.*
+import com.samarthhms.domain.LogoutResponse
+import com.samarthhms.domain.LogoutUser
+import com.samarthhms.domain.Status
 import com.samarthhms.models.StaffStatus
 import com.samarthhms.repository.StoredStateRepositoryImpl
 import com.samarthhms.usecase.UseCase

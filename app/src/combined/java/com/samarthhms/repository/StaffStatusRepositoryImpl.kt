@@ -3,9 +3,6 @@ package com.samarthhms.repository
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.samarthhms.constants.SchemaName
-import com.samarthhms.models.Converters
-import com.samarthhms.models.Staff
-import com.samarthhms.models.StaffFirebase
 import com.samarthhms.models.StaffStatus
 import kotlinx.coroutines.tasks.await
 import java.util.*

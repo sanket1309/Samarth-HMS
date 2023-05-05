@@ -3,22 +3,11 @@ package com.samarthhms.ui
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.Timestamp
 import com.samarthhms.R
 import com.samarthhms.databinding.BillInfoLayoutBinding
-import com.samarthhms.databinding.PatientInfoLayoutBinding
-import com.samarthhms.databinding.VisitInfoLayoutBinding
 import com.samarthhms.models.Bill
-import com.samarthhms.models.Patient
-import com.samarthhms.models.PatientVisitInfo
-import com.samarthhms.utils.DateTimeUtils
 import com.samarthhms.utils.StringUtils
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.Period
 
 class RecentBillAdapter internal constructor(var context: Context?, var recyclerOnItemViewClickListener: RecyclerOnItemViewClickListener, var bills: List<Bill>) : RecyclerView.Adapter<RecentBillAdapter.BillHolder>() {
     override fun onBindViewHolder(patientHolder: RecentBillAdapter.BillHolder, position: Int) {

@@ -1,14 +1,13 @@
 package com.samarthhms.ui
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.samarthhms.domain.*
-import com.samarthhms.models.DischargeCard
+import com.samarthhms.domain.GetBill
+import com.samarthhms.domain.SaveBill
+import com.samarthhms.domain.SaveBillRequest
+import com.samarthhms.domain.Status
 import com.samarthhms.models.Bill
-import com.samarthhms.models.DischargeCardTemplate
-import com.samarthhms.usecase.UseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.File
 import javax.inject.Inject

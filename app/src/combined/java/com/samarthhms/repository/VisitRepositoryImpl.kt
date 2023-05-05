@@ -5,10 +5,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.samarthhms.constants.SchemaName
 import com.samarthhms.models.Converters
-import com.samarthhms.models.PatientFirebase
 import com.samarthhms.models.Visit
 import com.samarthhms.models.VisitFirebase
-import com.samarthhms.repository.VisitRepository
 import com.samarthhms.utils.DateTimeUtils
 import kotlinx.coroutines.tasks.await
 import java.time.LocalDateTime
