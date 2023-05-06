@@ -11,6 +11,7 @@ import com.itextpdf.text.pdf.PdfWriter
 import com.samarthhms.R
 import com.samarthhms.models.DischargeCard
 import com.samarthhms.utils.DateTimeUtils
+import com.samarthhms.utils.StringUtils
 import java.io.ByteArrayOutputStream
 import java.io.File
 import javax.inject.Inject
@@ -145,7 +146,7 @@ class GenerateDischargeCard @Inject constructor(){
         data = "Date Of Discharge : " + DateTimeUtils.getDateTime(dischargeCard.dateOfDischarge)
         table.addCell(getCell(data))
 
-        data = "IPD Number : " + dischargeCard.ipdNumber
+        data = "IPD Number : " + StringUtils.formatYearWiseIdGeneral(dischargeCard.ipdNumber)
         table.addCell(getCell(data, 2))
 
         data = "Diagnosis : " + dischargeCard.diagnosis

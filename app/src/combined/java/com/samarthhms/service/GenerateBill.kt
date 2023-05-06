@@ -103,7 +103,7 @@ class GenerateBill @Inject constructor(){
         var tableTop = pdfService.createTable(2, listOf(80f,20f))
         var data: String?
 
-        data = "Bill Number : " + bill.billNumber
+        data = "Bill Number : " + StringUtils.formatYearWiseIdGeneral(bill.billNumber)
         var cell = getCell(data)
         cell.paddingLeft = 25f
         cell.border = Rectangle.NO_BORDER
@@ -194,7 +194,12 @@ class GenerateBill @Inject constructor(){
         var charges = " \n"
         for(billItem in bill.managementCharges){
             names += " - "+billItem.itemName+"..........\n"
-            charges += billItem.rate.toString().padStart(5,' ')+" X "+billItem.quantity.toString().padStart(2,' ')+" = "+(billItem.rate * billItem.quantity).toString().padStart(5,' ')+"\n"
+            data = if(billItem.rate * billItem.quantity == 0){
+                "-\n"
+            } else {
+                billItem.rate.toString().padStart(5,' ')+" X "+billItem.quantity.toString().padStart(2,' ')+" = "+(billItem.rate * billItem.quantity).toString().padStart(5,' ')+"\n"
+            }
+            charges += data
         }
         cell = getCellBody(names, false, 35f)
         table.addCell(cell)
