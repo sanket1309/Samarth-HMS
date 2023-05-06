@@ -250,6 +250,7 @@ class AdminDetailsFragment : Fragment() {
                 a.admin.middleName == b.admin.middleName &&
                 a.admin.lastName == b.admin.lastName &&
                 a.admin.gender == b.admin.gender &&
+                a.admin.dateOfBirth == b.admin.dateOfBirth &&
                 a.admin.contactNumber == b.admin.contactNumber &&
                 a.admin.address == b.admin.address &&
                 a.adminCredentials.username == b.adminCredentials.username &&
@@ -316,11 +317,8 @@ class AdminDetailsFragment : Fragment() {
     }
 
     private fun onHidePassword(){
-        var state = binding.showPasswordButton.text.toString()
-        if(state == "Show"){
-            binding.password.transformationMethod = HideReturnsTransformationMethod.getInstance()
-            state = "Hide"
-        }
+        binding.password.transformationMethod = PasswordTransformationMethod.getInstance()
+        val state = "Show"
         binding.showPasswordButton.text = state
     }
 

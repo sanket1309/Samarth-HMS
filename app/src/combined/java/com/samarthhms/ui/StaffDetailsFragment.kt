@@ -303,11 +303,8 @@ class StaffDetailsFragment : Fragment() {
     }
 
     private fun onHidePassword(){
-        var state = binding.showPasswordButton.text.toString()
-        if(state == "Show"){
-            binding.password.transformationMethod = HideReturnsTransformationMethod.getInstance()
-            state = "Hide"
-        }
+        binding.password.transformationMethod = PasswordTransformationMethod.getInstance()
+        val state = "Show"
         binding.showPasswordButton.text = state
     }
 
