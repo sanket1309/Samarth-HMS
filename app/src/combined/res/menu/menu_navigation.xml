@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/features"
+        android:title="Features">
+        <menu>
+            <item
+                android:id="@+id/adminDashboardFragment"
+                android:icon="@drawable/navigation_icon_dashboard"
+                android:title="Dashboard"/>
+
+            <item
+                android:id="@+id/REPLACE_1"
+                android:icon="@drawable/navigation_icon_search"
+                android:title="Search Patient"/>
+
+            <item
+                android:id="@+id/REPLACE_2"
+                android:icon="@drawable/navigation_icon_search"
+                android:title="Search Visits"/>
+
+            <item
+                android:id="@+id/patientsTodayFragment"
+                android:icon="@drawable/navigation_icon_users"
+                android:title="Patients Today"/>
+
+            <item
+                android:id="@+id/REPLACE_4"
+                android:icon="@drawable/icon_admit_patients_count"
+                android:title="Admit Patients"/>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/admin_options"
+        android:title="Admin Options">
+        <menu>
+            <item
+                android:id="@+id/switchAdminFragment"
+                android:icon="@drawable/navigation_icon_switch_admin"
+                android:title="Switch Admin"/>
+
+            <item
+                android:id="@+id/adminSettingsFragment"
+                android:icon="@drawable/navigation_icon_setting"
+                android:title="Admin Settings"/>
+
+            <item
+                android:id="@+id/staffSettingsFragment"
+                android:icon="@drawable/navigation_icon_setting"
+                android:title="Staff Settings"/>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/reports"
+        android:title="Reports">
+        <menu>
+
+            <item
+                android:id="@+id/recentDischargeCardsFragment"
+                android:icon="@drawable/navigation_icon_report"
+                android:title="Recent Discharge Cards"/>
+
+            <item
+                android:id="@+id/recentBillsFragment"
+                android:icon="@drawable/navigation_icon_bill"
+                android:title="Recent Bills"/>
+
+            <item
+                android:id="@+id/generateDischargeCardFragment"
+                android:icon="@drawable/navigation_icon_report"
+                android:title="Generate Discharge Card"/>
+
+            <item
+                android:id="@+id/generateBillFragment"
+                android:icon="@drawable/navigation_icon_bill"
+                android:title="Generate Bill"/>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/statistics"
+        android:title="Statistics">
+        <menu>
+            <item
+                android:id="@+id/REPLACE_12"
+                android:icon="@drawable/navigation_icon_statistics"
+                android:title="Visit Statistics"/>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/config"
+        android:title="Configuration">
+        <menu>
+            <item
+                android:id="@+id/REPLACE_13"
+                android:icon="@drawable/navigation_icon_settings"
+                android:title="Bill Number/ IPD Number"/>
+
+            <item
+                android:id="@+id/dischargeCardTemplateFragment"
+                android:icon="@drawable/navigation_icon_template"
+                android:title="Discharge Card Templates"/>
+
+            <item
+                android:id="@+id/REPLACE_15"
+                android:icon="@drawable/navigation_icon_bill_rates"
+                android:title="Bill Rates"/>
+
+            <item
+                android:id="@+id/REPLACE_18"
+                android:icon="@drawable/navigation_icon_template"
+                android:title="SMS Templates"/>
+
+            <item
+                android:id="@+id/REPLACE_19"
+                android:icon="@drawable/navigation_icon_sms_config"
+                android:title="SMS Config"/>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/update"
+        android:title="Updates">
+        <menu>
+            <item
+                android:id="@+id/REPLACE_16"
+                android:icon="@drawable/navigation_icon_update"
+                android:title="Check Updates"/>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/logout"
+        android:title="Logout">
+        <menu>
+            <item
+                android:id="@+id/logout_option"
+                android:icon="@drawable/navigation_icon_logout"
+                android:title="Logout"/>
+        </menu>
+    </item>
+</menu>

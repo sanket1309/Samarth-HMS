@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation_graph"
+    app:startDestination="@id/adminDashboardFragment">
+
+    <fragment
+        android:id="@+id/adminDashboardFragment"
+        android:name="com.samarthhms.ui.AdminDashboardFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_admin_dashboard" >
+        <action
+            android:id="@+id/action_adminDashboardFragment_to_addPatientFragment"
+            app:destination="@id/addPatientFragment" />
+        <action
+            android:id="@+id/action_adminDashboardFragment_to_addVisitFragment"
+            app:destination="@id/addVisitFragment" />
+        <action
+            android:id="@+id/action_adminDashboardFragment_to_patientsTodayFragment"
+            app:destination="@id/patientsTodayFragment" />
+        <action
+            android:id="@+id/action_adminDashboardFragment_to_dischargeCardTemplateFragment"
+            app:destination="@id/dischargeCardTemplateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPatientFragment"
+        android:name="com.samarthhms.ui.AddPatientFragment"
+        android:label="Add Patient"
+        tools:layout="@layout/fragment_add_patient" >
+        <action
+            android:id="@+id/action_addPatientFragment_to_addNewPatientFragment"
+            app:destination="@id/addNewPatientFragment" />
+        <action
+            android:id="@+id/action_addPatientFragment_to_findPatientByPatientIdFragment"
+            app:destination="@id/findPatientByPatientIdFragment" />
+        <action
+            android:id="@+id/action_addPatientFragment_to_findPatientByContactNumberFragment"
+            app:destination="@id/findPatientByContactNumberFragment" />
+        <action
+            android:id="@+id/action_addPatientFragment_to_findPatientByNameFragment"
+            app:destination="@id/findPatientByNameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewPatientFragment"
+        android:name="com.samarthhms.ui.AddNewPatientFragment"
+        android:label="New Patient"
+        tools:layout="@layout/fragment_add_new_patient" >
+        <action
+            android:id="@+id/action_addNewPatientFragment_to_adminDashboardFragment"
+            app:destination="@id/adminDashboardFragment" />
+        <action
+            android:id="@+id/action_addNewPatientFragment_to_addVisitFragment"
+            app:destination="@id/addVisitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addVisitFragment"
+        android:name="com.samarthhms.ui.AddVisitFragment"
+        android:label="Add Visit"
+        tools:layout="@layout/fragment_add_visit">
+        <argument
+            android:name="patient"
+            app:argType="com.samarthhms.models.Patient" />
+        <action
+            android:id="@+id/action_addVisitFragment_to_adminDashboardFragment"
+            app:destination="@id/adminDashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/findPatientByPatientIdFragment"
+        android:name="com.samarthhms.ui.FindPatientByPatientIdFragment"
+        android:label="Search Patient"
+        tools:layout="@layout/fragment_find_patient_by_patient_id" >
+        <action
+            android:id="@+id/action_findPatientByPatientIdFragment_to_addVisitFragment"
+            app:destination="@id/addVisitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/findPatientByNameFragment"
+        android:name="com.samarthhms.ui.FindPatientByNameFragment"
+        android:label="Search Patient"
+        tools:layout="@layout/fragment_find_patient_by_name">
+        <action
+            android:id="@+id/action_findPatientByNameFragment_to_addVisitFragment"
+            app:destination="@id/addVisitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/findPatientByContactNumberFragment"
+        android:name="com.samarthhms.ui.FindPatientByContactNumberFragment"
+        android:label="Search Patient"
+        tools:layout="@layout/fragment_find_patient_by_contact_number">
+        <action
+            android:id="@+id/action_findPatientByContactNumberFragment_to_addVisitFragment"
+            app:destination="@id/addVisitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/patientsTodayFragment"
+        android:name="com.samarthhms.ui.PatientsTodayFragment"
+        tools:layout="@layout/fragment_patients_today"
+        android:label="Patients Today" />
+    <fragment
+        android:id="@+id/dischargeCardTemplateFragment"
+        android:name="com.samarthhms.ui.DischargeCardTemplateFragment"
+        tools:layout="@layout/fragment_discharge_card_template"
+        android:label="Templates" />
+    <fragment
+        android:id="@+id/generateDischargeCardFragment"
+        android:name="com.samarthhms.ui.GenerateDischargeCardFragment"
+        android:label="Discharge Card"
+        tools:layout="@layout/fragment_generate_discharge_card" >
+        <action
+            android:id="@+id/action_generateDischargeCardFragment_to_pdfDetailsFragment"
+            app:destination="@id/pdfDetailsFragment"
+            app:popUpTo="@id/adminDashboardFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/comingSoonFragment"
+        android:name="com.samarthhms.ui.ComingSoonFragment"
+        android:label="Feature"
+        tools:layout="@layout/fragment_coming_soon" />
+    <fragment
+        android:id="@+id/switchAdminFragment"
+        android:name="com.samarthhms.ui.SwitchAdminFragment"
+        android:label="Switch Admin"
+        tools:layout="@layout/fragment_switch_admin" />
+    <fragment
+        android:id="@+id/generateBillFragment"
+        android:name="com.samarthhms.ui.GenerateBillFragment"
+        android:label="Bill"
+        tools:layout="@layout/fragment_generate_bill" >
+        <action
+            android:id="@+id/action_generateBillFragment_to_pdfDetailsFragment"
+            app:destination="@id/pdfDetailsFragment"
+            app:popUpTo="@id/adminDashboardFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/pdfDetailsFragment"
+        android:name="com.samarthhms.ui.PdfDetailsFragment"
+        android:label="File Options"
+        tools:layout="@layout/fragment_pdf_details">
+        <argument
+            android:name="file"
+            app:argType="java.io.File" />
+    </fragment>
+    <fragment
+        android:id="@+id/staffSettingsFragment"
+        android:name="com.samarthhms.ui.StaffSettingsFragment"
+        android:label="Staff Settings"
+        tools:layout="@layout/fragment_staff_settings" >
+        <action
+            android:id="@+id/action_staffSettingsFragment_to_addStaffFragment"
+            app:destination="@id/addStaffFragment" />
+        <action
+            android:id="@+id/action_staffSettingsFragment_to_staffDetailsFragment"
+            app:destination="@id/staffDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addStaffFragment"
+        android:name="com.samarthhms.ui.AddStaffFragment"
+        android:label="Add Staff"
+        tools:layout="@layout/fragment_add_staff" />
+    <fragment
+        android:id="@+id/staffDetailsFragment"
+        android:name="com.samarthhms.ui.StaffDetailsFragment"
+        android:label="Staff Details"
+        tools:layout="@layout/fragment_staff_details" >
+        <argument
+            android:name="staffDetails"
+            app:argType="com.samarthhms.models.StaffDetails" />
+        <action
+            android:id="@+id/action_staffDetailsFragment_to_staffSettingsFragment"
+            app:destination="@id/staffSettingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminSettingsFragment"
+        android:name="com.samarthhms.ui.AdminSettingsFragment"
+        android:label="Admin Settings"
+        tools:layout="@layout/fragment_admin_settings" >
+        <action
+            android:id="@+id/action_adminSettingsFragment_to_adminDetailsFragment"
+            app:destination="@id/adminDetailsFragment" />
+        <action
+            android:id="@+id/action_adminSettingsFragment_to_addAdminFragment"
+            app:destination="@id/addAdminFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminDetailsFragment"
+        android:name="com.samarthhms.ui.AdminDetailsFragment"
+        android:label="Admin Details"
+        tools:layout="@layout/fragment_admin_details" >
+        <argument
+            android:name="adminDetails"
+            app:argType="com.samarthhms.models.AdminDetails" />
+        <action
+            android:id="@+id/action_adminDetailsFragment_to_adminSettingsFragment"
+            app:destination="@id/adminSettingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addAdminFragment"
+        android:name="com.samarthhms.ui.AddAdminFragment"
+        android:label="Add Admin"
+        tools:layout="@layout/fragment_add_admin" />
+    <fragment
+        android:id="@+id/editBillFragment"
+        android:name="com.samarthhms.ui.EditBillFragment"
+        android:label="Bill"
+        tools:layout="@layout/fragment_edit_bill" >
+        <argument
+            android:name="bill"
+            app:argType="com.samarthhms.models.Bill" />
+        <action
+            android:id="@+id/action_editBillFragment_to_pdfDetailsFragment"
+            app:destination="@id/pdfDetailsFragment"
+            app:popUpTo="@id/adminDashboardFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/editDischargeCardFragment"
+        android:name="com.samarthhms.ui.EditDischargeCardFragment"
+        android:label="Discharge Card"
+        tools:layout="@layout/fragment_edit_discharge_card" >
+        <argument
+            android:name="dischargeCard"
+            app:argType="com.samarthhms.models.DischargeCard" />
+        <action
+            android:id="@+id/action_editDischargeCardFragment_to_pdfDetailsFragment"
+            app:destination="@id/pdfDetailsFragment"
+            app:popUpTo="@id/adminDashboardFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/recentBillsFragment"
+        android:name="com.samarthhms.ui.RecentBillsFragment"
+        android:label="Recent Bills"
+        tools:layout="@layout/fragment_recent_bills" >
+        <action
+            android:id="@+id/action_recentBillsFragment_to_editBillFragment"
+            app:destination="@id/editBillFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recentDischargeCardsFragment"
+        android:name="com.samarthhms.ui.RecentDischargeCardsFragment"
+        android:label="Recent Discharge Cards" >
+        <action
+            android:id="@+id/action_recentDischargeCardsFragment_to_editDischargeCardFragment"
+            app:destination="@id/editDischargeCardFragment" />
+    </fragment>
+</navigation>

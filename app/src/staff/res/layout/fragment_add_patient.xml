@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".staff.ui.AddPatientFragment">
+
+    <View
+        android:id="@+id/add_patient_background"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/add_patient_background_height"
+        android:background="@drawable/add_patient_background"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/is_registered_patient_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/add_patient_background_horizontal_margin"
+        android:layout_marginEnd="@dimen/add_patient_background_horizontal_margin"
+        android:layout_marginTop="@dimen/is_registered_patient_question_vertical_margin"
+        android:gravity="center"
+        android:text="@string/is_registered_patient_question_text"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="@dimen/is_registered_patient_question_text_size"
+        app:layout_constraintTop_toBottomOf="@id/add_patient_background"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/find_by_patient_id_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/add_patient_button_height"
+        android:layout_marginStart="@dimen/add_patient_background_horizontal_margin"
+        android:layout_marginEnd="@dimen/add_patient_background_horizontal_margin"
+        android:layout_marginTop="@dimen/add_patient_button_vertical_margin"
+        android:layout_marginBottom="@dimen/add_patient_button_vertical_margin"
+        android:background="@drawable/add_patient_button_background"
+        app:layout_constraintTop_toBottomOf="@id/is_registered_patient_question"
+        android:text="@string/find_by_patient_id_button_text"
+        android:textAllCaps="false"
+        android:textColor="@drawable/add_patient_button_text_color"
+        android:textSize="@dimen/add_patient_button_text_size"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/find_by_name_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/add_patient_button_height"
+        android:layout_marginStart="@dimen/add_patient_background_horizontal_margin"
+        android:layout_marginEnd="@dimen/add_patient_background_horizontal_margin"
+        android:layout_marginTop="@dimen/add_patient_button_vertical_margin"
+        android:layout_marginBottom="@dimen/add_patient_button_vertical_margin"
+        android:background="@drawable/add_patient_button_background"
+        app:layout_constraintTop_toBottomOf="@id/find_by_patient_id_button"
+        android:text="@string/find_by_name_button_text"
+        android:textAllCaps="false"
+        android:textColor="@drawable/add_patient_button_text_color"
+        android:textSize="@dimen/add_patient_button_text_size"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/find_by_contact_number_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/add_patient_button_height"
+        android:layout_marginStart="@dimen/add_patient_background_horizontal_margin"
+        android:layout_marginEnd="@dimen/add_patient_background_horizontal_margin"
+        android:layout_marginTop="@dimen/add_patient_button_vertical_margin"
+        android:layout_marginBottom="@dimen/add_patient_button_vertical_margin"
+        android:background="@drawable/add_patient_button_background"
+        app:layout_constraintTop_toBottomOf="@id/find_by_name_button"
+        android:text="@string/find_by_contact_number_button_text"
+        android:textAllCaps="false"
+        android:textColor="@drawable/add_patient_button_text_color"
+        android:textSize="@dimen/add_patient_button_text_size"/>
+
+    <TextView
+        android:id="@+id/or_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/add_patient_background_horizontal_margin"
+        android:layout_marginEnd="@dimen/add_patient_background_horizontal_margin"
+        android:layout_marginTop="@dimen/or_title_vertical_margin"
+        android:gravity="center"
+        android:text="@string/or_title_text"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="@dimen/or_title_patient_question_text_size"
+        app:layout_constraintTop_toBottomOf="@id/find_by_contact_number_button"/>
+
+    <TextView
+        android:id="@+id/new_patient_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/add_patient_background_horizontal_margin"
+        android:layout_marginEnd="@dimen/add_patient_background_horizontal_margin"
+        android:layout_marginTop="@dimen/new_patient_question_vertical_margin"
+        android:gravity="center"
+        android:text="@string/new_patient_question_text"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="@dimen/new_patient_question_text_size"
+        app:layout_constraintTop_toBottomOf="@id/or_title"/>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add_new_patient_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/add_patient_button_height"
+        android:layout_marginStart="@dimen/add_patient_background_horizontal_margin"
+        android:layout_marginEnd="@dimen/add_patient_background_horizontal_margin"
+        android:layout_marginTop="@dimen/add_patient_button_vertical_margin"
+        android:layout_marginBottom="@dimen/add_patient_button_vertical_margin"
+        android:background="@drawable/add_patient_button_background"
+        app:layout_constraintTop_toBottomOf="@id/new_patient_question"
+        android:text="@string/add_new_patient_button_text"
+        android:textAllCaps="false"
+        android:textColor="@drawable/add_patient_button_text_color"
+        android:textSize="@dimen/add_patient_button_text_size"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

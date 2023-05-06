@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.AdminDashboardFragment">
+
+    <View
+        android:id="@+id/dashboard_background"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:background="@drawable/admin_dashboard_background"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/greeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/greeting_margin_start"
+        android:layout_marginTop="@dimen/greeting_margin_top"
+        android:text="@string/greeting_text"
+        android:textColor="@color/white"
+        android:textSize="@dimen/greeting_text_size"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/admin_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/admin_name_margin_start"
+        android:text="Sanket"
+        android:textColor="@color/white"
+        android:textSize="@dimen/admin_name_text_size"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/greeting" />
+
+    <TextView
+        android:id="@+id/day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/greeting_margin_start"
+        android:layout_marginTop="@dimen/greeting_margin_top"
+        android:text="Monday"
+        android:textColor="@color/white"
+        android:textSize="@dimen/greeting_text_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/admin_name_margin_start"
+        android:text="Mar 14"
+        android:textColor="@color/white"
+        android:textSize="@dimen/admin_name_text_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/greeting" />
+
+    <TextView
+        android:id="@+id/recently_added"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="Recent Visit"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="65dp"
+        android:padding="17dp"
+        android:src="@drawable/logo_colored"
+        android:background="@drawable/staff_home_logo_background"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <include android:id="@+id/recent_visit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/visit_info_layout"
+        app:layout_constraintTop_toBottomOf="@id/recently_added"
+        android:layout_marginTop="5dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/call_doctor_button"
+        android:layout_width="300dp"
+        android:layout_height="@dimen/add_patient_floating_action_button_height"
+        android:layout_marginStart="@dimen/add_patient_floating_action_button_margin"
+        android:layout_marginEnd="@dimen/add_patient_floating_action_button_margin"
+        android:layout_marginBottom="40dp"
+        android:contentDescription="@string/add_patient_floating_action_button_description"
+        android:text="Call Doctor"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:background="@drawable/login_button_background"
+        app:layout_constraintBottom_toTopOf="@id/add_patient_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add_patient_button"
+        android:layout_width="300dp"
+        android:layout_height="@dimen/add_patient_floating_action_button_height"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/add_patient_floating_action_button_margin"
+        android:layout_marginEnd="@dimen/add_patient_floating_action_button_margin"
+        android:layout_marginBottom="60dp"
+        android:contentDescription="@string/add_patient_floating_action_button_description"
+        android:text="@string/add_patient_floating_action_button_text"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:background="@drawable/login_button_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

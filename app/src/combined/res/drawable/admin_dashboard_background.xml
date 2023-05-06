@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/blue_theme"/>
+            <corners android:bottomLeftRadius="@dimen/admin_dashboard_background_bottom_radius"
+                android:bottomRightRadius="@dimen/admin_dashboard_background_bottom_radius"/>
+        </shape>
+    </item>
+</selector>

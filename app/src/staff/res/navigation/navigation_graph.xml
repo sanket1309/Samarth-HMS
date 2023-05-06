@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation_graph"
+    app:startDestination="@id/findPatientByPatientIdFragment">
+
+    <fragment
+        android:id="@+id/findPatientByPatientIdFragment"
+        android:name="com.samarthhms.staff.ui.FindPatientByPatientIdFragment"
+        android:label="Samarth HMS"
+        tools:layout="@layout/fragment_find_patient_by_patient_id" >
+    </fragment>
+
+</navigation>
