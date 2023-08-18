@@ -11,7 +11,9 @@ import androidx.navigation.fragment.findNavController
 import com.samarthhms.databinding.FragmentAdminSettingsBinding
 import com.samarthhms.domain.Status
 import com.samarthhms.models.AdminDetails
+import com.samarthhms.navigator.Navigator
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AdminSettingsFragment : Fragment(), RecyclerOnItemViewClickListener {
@@ -19,6 +21,9 @@ class AdminSettingsFragment : Fragment(), RecyclerOnItemViewClickListener {
     private val viewModel: AdminSettingsViewModel by viewModels()
 
     private lateinit var binding: FragmentAdminSettingsBinding
+
+    @Inject
+    private lateinit var navigator: Navigator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,8 +61,7 @@ class AdminSettingsFragment : Fragment(), RecyclerOnItemViewClickListener {
 
     override fun onItemClicked(data: Any?, requester: String) {
         if (data is AdminDetails) {
-            val action = AdminSettingsFragmentDirections.actionAdminSettingsFragmentToAdminDetailsFragment(data)
-            findNavController().navigate(action)
+            navigator.navigateToFragment(this,AdminSettingsFragmentDirections.actionAdminSettingsFragmentToAdminDetailsFragment(data))
         }
     }
 

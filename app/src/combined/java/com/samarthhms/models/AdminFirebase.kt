@@ -7,12 +7,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class AdminFirebase(
-    var adminId: String = "",
-    val firstName: String = "",
-    val middleName: String = "",
-    val lastName: String = "",
-    val gender: Gender = Gender.MALE,
-    val contactNumber: String = "",
-    val dateOfBirth: Timestamp? = Timestamp.now(),
-    val address: String = ""
-): Parcelable
+    var adminId: String = ""
+): IndividualInfo(),Parcelable

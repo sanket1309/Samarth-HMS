@@ -11,9 +11,14 @@ class SaveDischargeCard
     override suspend fun run(params: SaveDischargeCardRequest): SaveDischargeCardResponse {
         return try {
             val response = SaveDischargeCardResponse()
-            val previousIpdNumber = params.previousIpdNumber
-            if(previousIpdNumber != params.dischargeCard.ipdNumber) {
-                dischargeCardRepository.deleteDischargeCard(previousIpdNumber)
+//            val previousIpdNumber = params.previousIpdNumber
+            if(params.isNewCard) {
+                val doesIpdNumberExists = dischargeCardRepository.checkIpdNumberExists(params.dischargeCard.ipdNumber)
+                if(doesIpdNumberExists){
+                    Log.i("Save_Discharge_Card","Ipd Number ${params.dischargeCard.ipdNumber} already exists")
+                    response.status = Status.IPD_NUMBER_ALREADY_EXISTS
+                    return response
+                }
             }
             dischargeCardRepository.saveDischargeCard(params.dischargeCard)
             response.status = Status.SUCCESS

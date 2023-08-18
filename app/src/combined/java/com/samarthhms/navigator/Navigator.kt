@@ -3,6 +3,9 @@ package com.samarthhms.navigator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import com.samarthhms.constants.LoggedState
 import com.samarthhms.constants.Role
 import com.samarthhms.domain.LoginStatusResponse
@@ -43,6 +46,16 @@ class Navigator @Inject constructor(){
             LoggedState.LOGGED_OUT -> showLogin(context)
             LoggedState.LOGGED_IN -> showDashboard(context, loginStatusResponse.role, loginStatusResponse.isLocked)
         }
+    }
+
+    fun navigateToFragment(sourceFragment: Fragment, actionId: Int){
+        val navigationController = sourceFragment.findNavController()
+        navigationController.navigate(actionId)
+    }
+
+    fun navigateToFragment(sourceFragment: Fragment, action: NavDirections){
+        val navigationController = sourceFragment.findNavController()
+        navigationController.navigate(action)
     }
 
     private fun finishActivity(context: Context){

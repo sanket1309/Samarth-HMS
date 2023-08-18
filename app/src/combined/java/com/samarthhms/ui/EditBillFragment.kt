@@ -205,107 +205,113 @@ class EditBillFragment : Fragment(), OnUpdateBillSumListener {
             changeBorderColorOfEditText(binding.billNumber, validColor)
         }
 
+
         val firstName = binding.firstName.text.toString()
-        if (!Validation.validateName(firstName)) {
-            Toast.makeText(activity, "Invalid First Name", Toast.LENGTH_SHORT).show()
-            changeTextColorOfTextView(binding.firstNameTitle, invalidColor)
-            changeBorderColorOfEditText(binding.firstName, invalidColor)
-            return null
-        } else {
-            changeTextColorOfTextView(binding.firstNameTitle, validColor)
-            changeBorderColorOfEditText(binding.firstName, validColor)
-        }
+//        if (!Validation.validateName(firstName)) {
+//            Toast.makeText(activity, "Invalid First Name", Toast.LENGTH_SHORT).show()
+//            changeTextColorOfTextView(binding.firstNameTitle, invalidColor)
+//            changeBorderColorOfEditText(binding.firstName, invalidColor)
+//            return null
+//        } else {
+//            changeTextColorOfTextView(binding.firstNameTitle, validColor)
+//            changeBorderColorOfEditText(binding.firstName, validColor)
+//        }
 
         val middleName = binding.middleName.text.toString().trim()
-        if (!Validation.validateName(middleName)) {
-            Toast.makeText(activity, "Invalid Middle Name", Toast.LENGTH_SHORT).show()
-            changeTextColorOfTextView(binding.middleNameTitle, invalidColor)
-            changeBorderColorOfEditText(binding.middleName, invalidColor)
-            return null
-        } else {
-            changeTextColorOfTextView(binding.middleNameTitle, validColor)
-            changeBorderColorOfEditText(binding.middleName, validColor)
-        }
+//        if (!Validation.validateName(middleName)) {
+//            Toast.makeText(activity, "Invalid Middle Name", Toast.LENGTH_SHORT).show()
+//            changeTextColorOfTextView(binding.middleNameTitle, invalidColor)
+//            changeBorderColorOfEditText(binding.middleName, invalidColor)
+//            return null
+//        } else {
+//            changeTextColorOfTextView(binding.middleNameTitle, validColor)
+//            changeBorderColorOfEditText(binding.middleName, validColor)
+//        }
 
         val lastName = binding.lastName.text.toString()
-        if (!Validation.validateName(lastName)) {
-            Toast.makeText(activity, "Invalid Last Name", Toast.LENGTH_SHORT).show()
-            changeTextColorOfTextView(binding.lastNameTitle, invalidColor)
-            changeBorderColorOfEditText(binding.lastName, invalidColor)
-            return null
-        } else {
-            changeTextColorOfTextView(binding.lastNameTitle, validColor)
-            changeBorderColorOfEditText(binding.lastName, validColor)
-        }
+//        if (!Validation.validateName(lastName)) {
+//            Toast.makeText(activity, "Invalid Last Name", Toast.LENGTH_SHORT).show()
+//            changeTextColorOfTextView(binding.lastNameTitle, invalidColor)
+//            changeBorderColorOfEditText(binding.lastName, invalidColor)
+//            return null
+//        } else {
+//            changeTextColorOfTextView(binding.lastNameTitle, validColor)
+//            changeBorderColorOfEditText(binding.lastName, validColor)
+//        }
 
         val gender =
             if (binding.genderMaleRadioGroupButton.isChecked) Gender.MALE else Gender.FEMALE
 
         val age = binding.age.text.toString()
-        if (age.isBlank()) {
-            Toast.makeText(activity, "Invalid Age", Toast.LENGTH_SHORT).show()
-            changeTextColorOfTextView(binding.ageTitle, invalidColor)
-            changeBorderColorOfEditText(binding.age, invalidColor)
-            return null
-        } else {
-            changeTextColorOfTextView(binding.ageTitle, validColor)
-            changeBorderColorOfEditText(binding.age, validColor)
-        }
+//        if (age.isBlank()) {
+//            Toast.makeText(activity, "Invalid Age", Toast.LENGTH_SHORT).show()
+//            changeTextColorOfTextView(binding.ageTitle, invalidColor)
+//            changeBorderColorOfEditText(binding.age, invalidColor)
+//            return null
+//        } else {
+//            changeTextColorOfTextView(binding.ageTitle, validColor)
+//            changeBorderColorOfEditText(binding.age, validColor)
+//        }
 
         val contactNumber = binding.contactNumber.text.toString().replace(" ", "")
-        if (!Validation.validateContactNumber(contactNumber)) {
-            Toast.makeText(activity, "Invalid Contact Number", Toast.LENGTH_SHORT).show()
-            changeTextColorOfTextView(binding.contactNumberTitle, invalidColor)
-            changeBorderColorOfEditText(binding.contactNumber, invalidColor)
-            return null
-        } else {
-            changeTextColorOfTextView(binding.contactNumberTitle, validColor)
-            changeBorderColorOfEditText(binding.contactNumber, validColor)
-        }
+//        if (!Validation.validateContactNumber(contactNumber)) {
+//            Toast.makeText(activity, "Invalid Contact Number", Toast.LENGTH_SHORT).show()
+//            changeTextColorOfTextView(binding.contactNumberTitle, invalidColor)
+//            changeBorderColorOfEditText(binding.contactNumber, invalidColor)
+//            return null
+//        } else {
+//            changeTextColorOfTextView(binding.contactNumberTitle, validColor)
+//            changeBorderColorOfEditText(binding.contactNumber, validColor)
+//        }
 
         val address = binding.address.text.toString()
-        if (address.isBlank()) {
-            Toast.makeText(activity, "Invalid Address", Toast.LENGTH_SHORT).show()
-            changeTextColorOfTextView(binding.addressTitle, invalidColor)
-            changeBorderColorOfEditText(binding.address, invalidColor)
-            return null
-        } else {
-            changeTextColorOfTextView(binding.addressTitle, validColor)
-            changeBorderColorOfEditText(binding.address, validColor)
-        }
+//        if (address.isBlank()) {
+//            Toast.makeText(activity, "Invalid Address", Toast.LENGTH_SHORT).show()
+//            changeTextColorOfTextView(binding.addressTitle, invalidColor)
+//            changeBorderColorOfEditText(binding.address, invalidColor)
+//            return null
+//        } else {
+//            changeTextColorOfTextView(binding.addressTitle, validColor)
+//            changeBorderColorOfEditText(binding.address, validColor)
+//        }
 
-        val doa = binding.dateOfAdmission.text.toString()
+        val def_date = "02/08/1950"
+        val def_time = "02:08 pm"
+        var doa = binding.dateOfAdmission.text.toString()
         if (!Validation.validateDate(doa)) {
-            Toast.makeText(activity, "Invalid Date of Admission", Toast.LENGTH_SHORT).show()
-            changeTextColorOfTextView(binding.dateOfAdmissionTitle, invalidColor)
-            changeBorderColorOfEditText(binding.dateOfAdmission, invalidColor)
-            return null
+//            Toast.makeText(activity, "Invalid Date of Admission", Toast.LENGTH_SHORT).show()
+//            changeTextColorOfTextView(binding.dateOfAdmissionTitle, invalidColor)
+//            changeBorderColorOfEditText(binding.dateOfAdmission, invalidColor)
+//            return null
+            doa = def_date
         } else {
-            changeTextColorOfTextView(binding.dateOfAdmissionTitle, validColor)
-            changeBorderColorOfEditText(binding.dateOfAdmission, validColor)
+//            changeTextColorOfTextView(binding.dateOfAdmissionTitle, validColor)
+//            changeBorderColorOfEditText(binding.dateOfAdmission, validColor)
         }
 
-        val dod = binding.dateOfDischarge.text.toString()
+        var dod = binding.dateOfDischarge.text.toString()
         if (!Validation.validateDate(dod)) {
-            Toast.makeText(activity, "Invalid Date of Discharge", Toast.LENGTH_SHORT).show()
-            changeTextColorOfTextView(binding.dateOfDischargeTitle, invalidColor)
-            changeBorderColorOfEditText(binding.dateOfDischarge, invalidColor)
-            return null
+//            Toast.makeText(activity, "Invalid Date of Discharge", Toast.LENGTH_SHORT).show()
+//            changeTextColorOfTextView(binding.dateOfDischargeTitle, invalidColor)
+//            changeBorderColorOfEditText(binding.dateOfDischarge, invalidColor)
+//            return null
+            dod = def_date
         } else {
-            changeTextColorOfTextView(binding.dateOfDischargeTitle, validColor)
-            changeBorderColorOfEditText(binding.dateOfDischarge, validColor)
+//            changeTextColorOfTextView(binding.dateOfDischargeTitle, validColor)
+//            changeBorderColorOfEditText(binding.dateOfDischarge, validColor)
         }
 
         val diagnosis = binding.diagnosis.text.toString()
-        if (diagnosis.isBlank()) {
-            Toast.makeText(activity, "Invalid Diagnosis", Toast.LENGTH_SHORT).show()
-            changeTextColorOfTextView(binding.diagnosisTitle, invalidColor)
-            changeBorderColorOfEditText(binding.diagnosis, invalidColor)
-            return null
-        } else {
-            changeTextColorOfTextView(binding.diagnosisTitle, validColor)
-            changeBorderColorOfEditText(binding.diagnosis, validColor)
-        }
+//        if (diagnosis.isBlank()) {
+//            Toast.makeText(activity, "Invalid Diagnosis", Toast.LENGTH_SHORT).show()
+//            changeTextColorOfTextView(binding.diagnosisTitle, invalidColor)
+//            changeBorderColorOfEditText(binding.diagnosis, invalidColor)
+//            return null
+//        } else {
+//            changeTextColorOfTextView(binding.diagnosisTitle, validColor)
+//            changeBorderColorOfEditText(binding.diagnosis, validColor)
+//        }
+
 
         var billItemHolders = getBillItemHolders(binding.treatmentCharges)
         val treatmentChargesList = mutableListOf<BillItem>()

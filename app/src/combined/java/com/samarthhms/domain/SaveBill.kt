@@ -11,9 +11,14 @@ class SaveBill
     override suspend fun run(params: SaveBillRequest): SaveBillResponse {
         return try {
             val response = SaveBillResponse()
-            val previousBillNumber = params.previousBillNumber
-            if(previousBillNumber != params.bill.billNumber){
-                billRepository.deleteBill(previousBillNumber)
+//            val previousBillNumber = params.previousBillNumber
+            if(params.isNewBill){
+                val doesBillNumberExists = billRepository.checkBillNumberExists(params.bill.billNumber)
+                if(doesBillNumberExists){
+                    Log.i("Save_Bill","Bill Number ${params.bill.billNumber} already exists")
+                    response.status = Status.BILL_NUMBER_ALREADY_EXISTS
+                    return response
+                }
             }
             billRepository.saveBill(params.bill)
             response.status = Status.SUCCESS

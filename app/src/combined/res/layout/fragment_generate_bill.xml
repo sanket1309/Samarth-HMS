@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/add_patient_background"
-        app:layout_constraintBottom_toTopOf="@id/generate_bill_button"
+        app:layout_constraintBottom_toTopOf="@id/bill_total_title"
         android:scrollbars="none">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -645,7 +645,7 @@
         android:layout_marginBottom="@dimen/save_new_patient_button_vertical_margin"
         app:layout_constraintTop_toBottomOf="@id/bill_total_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/generate_bill_button"
         android:gravity="center_vertical"
         android:textColor="@color/black"
         android:text="Rs. 10,000"
@@ -654,7 +654,7 @@
         android:textAllCaps="false"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/generate_bill_button"
+        android:id="@+id/save_bill_button"
         android:layout_width="150dp"
         android:layout_height="@dimen/save_new_patient_button_height"
         android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"
@@ -664,6 +664,21 @@
         android:background="@drawable/login_button_background"
         app:layout_constraintTop_toBottomOf="@id/scrollView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/generate_bill_button"
+        android:textColor="@color/white"
+        android:text="Save"
+        android:textAllCaps="false"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/generate_bill_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/save_new_patient_button_height"
+        android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"
+        android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"
+        android:layout_marginTop="@dimen/save_new_patient_button_vertical_margin"
+        android:layout_marginBottom="@dimen/save_new_patient_button_vertical_margin"
+        android:background="@drawable/login_button_background"
+        app:layout_constraintTop_toBottomOf="@id/bill_total"
         app:layout_constraintBottom_toBottomOf="parent"
         android:textColor="@color/white"
         android:text="Generate Bill"

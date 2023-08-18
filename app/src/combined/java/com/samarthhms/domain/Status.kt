@@ -3,5 +3,7 @@ package com.samarthhms.domain
 enum class Status {
     SUCCESS,
     FAILURE,
-    NONE;
+    NONE,
+    IPD_NUMBER_ALREADY_EXISTS,
+    BILL_NUMBER_ALREADY_EXISTS;
 }

@@ -1,18 +1,11 @@
 package com.samarthhms.models
 
 import android.os.Parcelable
-import com.samarthhms.constants.Gender
+import com.samarthhms.constants.Constants
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
 @Parcelize
-data class Admin(
-    var adminId: String = "",
-    val firstName: String = "",
-    val middleName: String = "",
-    val lastName: String = "",
-    val gender: Gender = Gender.MALE,
-    val contactNumber: String = "",
-    val dateOfBirth: LocalDateTime? = LocalDateTime.now(),
-    val address: String = ""
-): Parcelable
+open class Admin(
+    var adminId: String = Constants.DefaultValues.ID
+): IndividualInfoWithAddress(),Parcelable

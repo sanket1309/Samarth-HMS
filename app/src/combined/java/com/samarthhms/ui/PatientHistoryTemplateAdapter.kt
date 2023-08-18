@@ -12,97 +12,74 @@ import android.widget.EditText
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.samarthhms.R
+import com.samarthhms.constants.Colors
+import com.samarthhms.constants.Constants
 import com.samarthhms.databinding.PatientHistoryTemplateLayoutBinding
 import com.samarthhms.models.PatientHistoryTemplate
+import com.samarthhms.models.RecyclerViewAdapter
+import com.samarthhms.utils.EditableUtils
+import com.samarthhms.utils.InputFieldColorUtils
+import com.samarthhms.utils.UiDataDisplayUtils
 
-class PatientHistoryTemplateAdapter internal constructor(var context: Context, var recyclerOnItemViewEditClickListener: RecyclerOnItemViewEditClickListener, var templates: List<PatientHistoryTemplate>) : RecyclerView.Adapter<PatientHistoryTemplateAdapter.PatientHistoryTemplateHolder>() {
-    override fun onBindViewHolder(patientHistoryTemplateHolder: PatientHistoryTemplateHolder, position: Int) {
-        patientHistoryTemplateHolder.bind(templates[position])
-    }
+class PatientHistoryTemplateAdapter internal constructor(var context: Context, var recyclerOnItemViewEditClickListener: RecyclerOnItemViewEditClickListener, var templates: List<PatientHistoryTemplate> = listOf())
+    : RecyclerViewAdapter<PatientHistoryTemplateAdapter.PatientHistoryTemplateHolder,PatientHistoryTemplate>(templates.toMutableList()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PatientHistoryTemplateAdapter.PatientHistoryTemplateHolder {
         val patientHistoryTemplateLayoutBinding = PatientHistoryTemplateLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PatientHistoryTemplateHolder(patientHistoryTemplateLayoutBinding)
     }
 
-    override fun getItemCount(): Int {
-        return templates.size
-    }
+    inner class PatientHistoryTemplateHolder internal constructor(private val patientHistoryTemplateLayoutBinding: PatientHistoryTemplateLayoutBinding)
+        : RecyclerViewAdapter<PatientHistoryTemplateAdapter.PatientHistoryTemplateHolder,PatientHistoryTemplate>.ViewHolder(patientHistoryTemplateLayoutBinding.root) {
 
-    inner class PatientHistoryTemplateHolder internal constructor(private val patientHistoryTemplateLayoutBinding: PatientHistoryTemplateLayoutBinding) : RecyclerView.ViewHolder(patientHistoryTemplateLayoutBinding.root) {
-        fun bind(patientHistoryTemplate: PatientHistoryTemplate) {
+        override fun bind(patientHistoryTemplate: PatientHistoryTemplate) {
             onChangeClickable(false)
-            patientHistoryTemplateLayoutBinding.template.setText(patientHistoryTemplate.templateData)
-            patientHistoryTemplateLayoutBinding.templateName.setText(patientHistoryTemplate.templateName)
-            patientHistoryTemplateLayoutBinding.template.setTextColor(context.resources.getColor(R.color.add_visit_edittext_text_color, null))
-            if(patientHistoryTemplate.templateData == "ADD_NEW_TEMPLATE_DEFAULT"){
-                onEditClicked()
-                patientHistoryTemplateLayoutBinding.template.setText("")
+            UiDataDisplayUtils.displayPatientHistoryTemplate(patientHistoryTemplateLayoutBinding.root, patientHistoryTemplate)
+            EditableUtils.setTextColor(patientHistoryTemplateLayoutBinding.template, Colors.TextColor.UNEDITABLE_TEXT,context)
+            if(patientHistoryTemplate.templateData == Constants.DefaultValues.TEMPLATE_DATA){
+                updateEditability(true)
+                patientHistoryTemplateLayoutBinding.template.setText(Constants.EMPTY)
             }
-            patientHistoryTemplateLayoutBinding.editButton.setOnClickListener{
-                onEditClicked()
-                recyclerOnItemViewEditClickListener.onEditClicked(patientHistoryTemplate)
-            }
-            patientHistoryTemplateLayoutBinding.saveButton.setOnClickListener{
-                val templateName = patientHistoryTemplateLayoutBinding.templateName.text.toString()
-                if(templateName.isBlank()){
-                    recyclerOnItemViewEditClickListener.onInvalidData("Empty Template Name")
-                    return@setOnClickListener
-                }
-
-                val templateData = patientHistoryTemplateLayoutBinding.template.text.toString()
-                if(templateData.isBlank()){
-                    changeColorOfInputFields(patientHistoryTemplateLayoutBinding.template, R.color.red)
-                    recyclerOnItemViewEditClickListener.onInvalidData("Empty Template")
-                    return@setOnClickListener
-                }
-
-                changeColorOfInputFields(patientHistoryTemplateLayoutBinding.template, R.color.blue_theme)
-                onSaveClicked()
-                recyclerOnItemViewEditClickListener.onSaveClicked(PatientHistoryTemplate(patientHistoryTemplate.templateId, templateName, templateData))
-            }
-            patientHistoryTemplateLayoutBinding.deleteButton.setOnClickListener{
-                recyclerOnItemViewEditClickListener.onDeleteClicked(patientHistoryTemplate)
-            }
+            patientHistoryTemplateLayoutBinding.editButton.setOnClickListener{ onEdit(patientHistoryTemplate) }
+            patientHistoryTemplateLayoutBinding.saveButton.setOnClickListener{ onSave(patientHistoryTemplate) }
+            patientHistoryTemplateLayoutBinding.deleteButton.setOnClickListener{ onDelete(patientHistoryTemplate) }
         }
 
-        private fun changeColorOfInputFields(fieldInput: EditText, color: Int){
-            val colorValue = ContextCompat.getColor(context, color)
-            val fieldInputDrawable = fieldInput.background as StateListDrawable
-            val dcs = fieldInputDrawable.constantState as DrawableContainer.DrawableContainerState
-            val drawableItem = dcs.children[0] as GradientDrawable
-            val pixels = R.dimen.login_edittext_background_stroke_width * context.resources.displayMetrics.density.toInt()
-            drawableItem.setStroke(pixels, colorValue)
+        private fun onSave(patientHistoryTemplate: PatientHistoryTemplate){
+            val templateName = patientHistoryTemplateLayoutBinding.templateName.text.toString()
+            if(templateName.isBlank()){
+                recyclerOnItemViewEditClickListener.onInvalidData(Constants.Messages.INVALID_TEMPLATE_NAME)
+                return
+            }
+
+            val templateData = patientHistoryTemplateLayoutBinding.template.text.toString()
+            if(templateData.isBlank()){
+                InputFieldColorUtils.changeColorOfInputFields(patientHistoryTemplateLayoutBinding.template, Colors.Validation.INVALID,context)
+                recyclerOnItemViewEditClickListener.onInvalidData(Constants.Messages.INVALID_TEMPLATE)
+                return
+            }
+
+            InputFieldColorUtils.changeColorOfInputFields(patientHistoryTemplateLayoutBinding.template, Colors.Validation.VALID,context)
+            updateEditability(false)
+            recyclerOnItemViewEditClickListener.onSaveClicked(PatientHistoryTemplate(patientHistoryTemplate.templateId, templateName, templateData))
+        }
+
+        private fun onEdit(patientHistoryTemplate: PatientHistoryTemplate){
+            updateEditability(true)
+            recyclerOnItemViewEditClickListener.onEditClicked(patientHistoryTemplate)
+        }
+
+        private fun onDelete(patientHistoryTemplate: PatientHistoryTemplate){
+            recyclerOnItemViewEditClickListener.onDeleteClicked(patientHistoryTemplate)
         }
 
         private fun onChangeClickable(isClickable: Boolean){
-            patientHistoryTemplateLayoutBinding.templateName.isClickable = isClickable
-            patientHistoryTemplateLayoutBinding.templateName.isCursorVisible = isClickable
-            patientHistoryTemplateLayoutBinding.templateName.isFocusable = isClickable
-            patientHistoryTemplateLayoutBinding.templateName.isFocusableInTouchMode = isClickable
-
-            patientHistoryTemplateLayoutBinding.template.isClickable = isClickable
-            patientHistoryTemplateLayoutBinding.template.isCursorVisible = isClickable
-            patientHistoryTemplateLayoutBinding.template.isFocusable = isClickable
-            patientHistoryTemplateLayoutBinding.template.isFocusableInTouchMode = isClickable
+            EditableUtils.updateEditability(isClickable, patientHistoryTemplateLayoutBinding.templateName)
+            EditableUtils.updateEditability(isClickable, patientHistoryTemplateLayoutBinding.template)
         }
 
-        @SuppressLint("UseCompatLoadingForDrawables")
-        private fun onEditClicked(){
-            patientHistoryTemplateLayoutBinding.editButton.visibility = View.GONE
-            patientHistoryTemplateLayoutBinding.saveButton.visibility = View.VISIBLE
-            onChangeClickable(true)
-            patientHistoryTemplateLayoutBinding.template.background = context.resources.getDrawable(R.drawable.login_edittext_background, null)
-            patientHistoryTemplateLayoutBinding.template.setTextColor(context.resources.getColor(R.color.black, null))
-        }
-
-        @SuppressLint("UseCompatLoadingForDrawables")
-        private fun onSaveClicked(){
-            patientHistoryTemplateLayoutBinding.saveButton.visibility = View.GONE
-            patientHistoryTemplateLayoutBinding.editButton.visibility = View.VISIBLE
-            onChangeClickable(false)
-            patientHistoryTemplateLayoutBinding.template.background = context.resources.getDrawable(R.drawable.add_visit_edittext_background, null)
-            patientHistoryTemplateLayoutBinding.template.setTextColor(context.resources.getColor(R.color.add_visit_edittext_text_color, null))
+        private fun updateEditability(isEditable: Boolean){
+            EditableUtils.updateEditabilityForTemplate(isEditable,patientHistoryTemplateLayoutBinding.root, context)
         }
     }
 }

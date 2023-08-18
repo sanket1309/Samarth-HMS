@@ -24,7 +24,7 @@ class DischargeCardRepositoryImpl @Inject constructor(): DischargeCardRepository
                 Log.i("DischargeCardRepositoryImpl", "discharge card found for ipd number $ipdNumber")
                 return dischargeCard
             }
-            Log.i("DischargeCardRepositoryImpl", "No discharge card found for bill number $ipdNumber")
+            Log.i("DischargeCardRepositoryImpl", "No discharge card found for ipd number $ipdNumber")
             return null
         }catch (e: Exception){
             Log.e("DischargeCardRepositoryImpl", "Error while fetching discharge card : $e")
@@ -71,6 +71,22 @@ class DischargeCardRepositoryImpl @Inject constructor(): DischargeCardRepository
             Log.i("DischargeCardRepositoryImpl", "Successfully added discharge card : $dischargeCard")
         }catch (e: Exception){
             Log.e("DischargeCardRepositoryImpl", "Error while adding discharge card : $e")
+            throw e
+        }
+    }
+
+    override suspend fun checkIpdNumberExists(ipdNumber: String): Boolean {
+        val reference = db.collection(SchemaName.DISCHARGE_CARD_COLLECTION)
+        try {
+            val snapshot = reference.document(StringUtils.formatYearWiseIdForFirebase(ipdNumber)).get().await()
+            if(snapshot.exists()){
+                Log.i("DischargeCardRepositoryImpl", "discharge card found for ipd number $ipdNumber")
+                return true
+            }
+            Log.i("DischargeCardRepositoryImpl", "No discharge card found for ipd number $ipdNumber")
+            return false
+        }catch (e: Exception){
+            Log.e("DischargeCardRepositoryImpl", "Error while deleting discharge card : $e")
             throw e
         }
     }

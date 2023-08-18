@@ -1,20 +1,14 @@
 package com.samarthhms.models
 
 import android.os.Parcelable
+import com.samarthhms.constants.Constants
 import com.samarthhms.constants.Gender
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
 @Parcelize
-data class Patient(
-    var patientId: String = "",
-    val firstName: String = "",
-    val middleName: String = "",
-    val lastName: String = "",
-    val gender: Gender = Gender.MALE,
-    val contactNumber: String = "",
-    val dateOfBirth: LocalDateTime = LocalDateTime.now(),
-    val town: String = "",
-    val taluka: String = "",
-    val district: String = ""
-): Parcelable
+open class Patient(
+    var patientId: String = Constants.DefaultValues.ID,
+    var ageInText: String = Constants.DefaultValues.AGE_TEXT,
+    var address: String = Constants.DefaultValues.ADDRESS
+): IndividualInfoWithLocation(), Parcelable

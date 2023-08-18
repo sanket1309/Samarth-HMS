@@ -7,4 +7,5 @@ interface DischargeCardRepository {
     suspend fun getAllDischargeCards(limit: Int): List<DischargeCard>
     suspend fun deleteDischargeCard(previousIpdNumber: String)
     suspend fun saveDischargeCard(dischargeCard: DischargeCard)
+    suspend fun checkIpdNumberExists(ipdNumber: String): Boolean
 }

@@ -7,4 +7,5 @@ interface BillRepository {
     suspend fun getAllBills(limit: Int): List<Bill>
     suspend fun deleteBill(previousBillNumber: String)
     suspend fun saveBill(bill: Bill)
+    suspend fun checkBillNumberExists(billNumber: String): Boolean
 }

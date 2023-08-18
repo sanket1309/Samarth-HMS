@@ -10,9 +10,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.samarthhms.constants.Constants
 import com.samarthhms.databinding.FragmentDischargeCardTemplateBinding
 import com.samarthhms.models.MedicineTemplate
 import com.samarthhms.models.PatientHistoryTemplate
+import com.samarthhms.models.RecyclerViewAdapter
+import com.samarthhms.utils.DialogUtils
+import com.samarthhms.utils.RecyclerViewAdapterUtils
+import com.samarthhms.utils.ToastUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,24 +38,20 @@ class DischargeCardTemplateFragment : Fragment(), RecyclerOnItemViewEditClickLis
         val patientHistoryTemplateAdapter = PatientHistoryTemplateAdapter(requireContext(), this, listOf())
         binding.patientHistoryTemplatesRecyclerView.adapter = patientHistoryTemplateAdapter
         viewModel.dischargeCardTemplate.observe(viewLifecycleOwner){
-            (binding.medicineTemplatesRecyclerView.adapter as MedicineTemplateAdapter).templates = viewModel.dischargeCardTemplate.value!!.medicineTemplates
-            (binding.medicineTemplatesRecyclerView.adapter as MedicineTemplateAdapter).notifyDataSetChanged()
-            (binding.patientHistoryTemplatesRecyclerView.adapter as PatientHistoryTemplateAdapter).templates = viewModel.dischargeCardTemplate.value!!.patientHistoryTemplates
-            (binding.patientHistoryTemplatesRecyclerView.adapter as PatientHistoryTemplateAdapter).notifyDataSetChanged()
+            RecyclerViewAdapterUtils.updateData<MedicineTemplateListAdapter.MedicineTemplateHolder,MedicineTemplate>(binding.medicineTemplatesRecyclerView.adapter, viewModel.dischargeCardTemplate.value!!.medicineTemplates)
+            RecyclerViewAdapterUtils.updateData<PatientHistoryTemplateAdapter.PatientHistoryTemplateHolder,PatientHistoryTemplate>(binding.patientHistoryTemplatesRecyclerView.adapter, viewModel.dischargeCardTemplate.value!!.patientHistoryTemplates)
         }
         viewModel.getData()
         binding.addMedicineTemplateButton.setOnClickListener{
             val medicineTemplates = (binding.medicineTemplatesRecyclerView.adapter as MedicineTemplateAdapter).templates.toMutableList()
-            medicineTemplates.add(MedicineTemplate("","ADD_NEW_TEMPLATE_DEFAULT"))
-            (binding.medicineTemplatesRecyclerView.adapter as MedicineTemplateAdapter).templates = medicineTemplates
-            (binding.medicineTemplatesRecyclerView.adapter as MedicineTemplateAdapter).notifyDataSetChanged()
+            medicineTemplates.add(MedicineTemplate())
+            RecyclerViewAdapterUtils.updateData<MedicineTemplateListAdapter.MedicineTemplateHolder,MedicineTemplate>(binding.medicineTemplatesRecyclerView.adapter, medicineTemplates)
         }
 
         binding.addPatientHistoryTemplateButton.setOnClickListener{
             val patientHistoryTemplates = (binding.patientHistoryTemplatesRecyclerView.adapter as PatientHistoryTemplateAdapter).templates.toMutableList()
-            patientHistoryTemplates.add(PatientHistoryTemplate("","","ADD_NEW_TEMPLATE_DEFAULT"))
-            (binding.patientHistoryTemplatesRecyclerView.adapter as PatientHistoryTemplateAdapter).templates = patientHistoryTemplates
-            (binding.patientHistoryTemplatesRecyclerView.adapter as PatientHistoryTemplateAdapter).notifyDataSetChanged()
+            patientHistoryTemplates.add(PatientHistoryTemplate())
+            RecyclerViewAdapterUtils.updateData<PatientHistoryTemplateAdapter.PatientHistoryTemplateHolder,PatientHistoryTemplate>(binding.patientHistoryTemplatesRecyclerView.adapter, patientHistoryTemplates)
         }
         return binding.root
     }
@@ -74,31 +75,20 @@ class DischargeCardTemplateFragment : Fragment(), RecyclerOnItemViewEditClickLis
     }
 
     override fun onInvalidData(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        ToastUtils.showToast(requireContext(), message)
     }
 
     override fun onDeleteClicked(data: Any) {
-        val dialogClickListener = DialogInterface.OnClickListener{
-                dialog, which ->
-            when(which){
-                DialogInterface.BUTTON_POSITIVE -> {
-                    if(data is MedicineTemplate){
-                        viewModel.deleteMedicineTemplate(data.templateId)
-                    }
-                    else if(data is PatientHistoryTemplate){
-                        viewModel.deletePatientHistoryTemplate(data.templateId)
-                    }
-                }
-                DialogInterface.BUTTON_NEGATIVE -> {
-                    dialog.dismiss()
-                }
-            }
+        DialogUtils.popDialog(requireContext(), {onDelete(data)}, null, Constants.DialogMessages.DELETE_ADMIN, Constants.DialogMessages.YES, Constants.DialogMessages.NO)
+    }
+
+    private fun onDelete(data: Any){
+        if(data is MedicineTemplate){
+            viewModel.deleteMedicineTemplate(data.templateId)
         }
-        val alertDialogBuilder = AlertDialog.Builder(requireContext())
-        alertDialogBuilder.setMessage("Are you sure, you want to delete template?")
-            .setPositiveButton("Yes", dialogClickListener)
-            .setNegativeButton("No", dialogClickListener)
-            .show()
+        else if(data is PatientHistoryTemplate){
+            viewModel.deletePatientHistoryTemplate(data.templateId)
+        }
     }
 
 }

@@ -12,84 +12,64 @@ import android.widget.EditText
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.samarthhms.R
+import com.samarthhms.constants.Colors
+import com.samarthhms.constants.Constants
 import com.samarthhms.databinding.MedicineTemplateLayoutBinding
 import com.samarthhms.models.MedicineTemplate
+import com.samarthhms.models.RecyclerViewAdapter
+import com.samarthhms.utils.EditableUtils
+import com.samarthhms.utils.InputFieldColorUtils
+import com.samarthhms.utils.MedicineTemplateDataExtractorUtils
 
-class MedicineTemplateAdapter internal constructor(var context: Context, var recyclerOnItemViewEditClickListener: RecyclerOnItemViewEditClickListener, var templates: List<MedicineTemplate>) : RecyclerView.Adapter<MedicineTemplateAdapter.MedicineTemplateHolder>() {
-    override fun onBindViewHolder(medicineTemplateHolder: MedicineTemplateAdapter.MedicineTemplateHolder, position: Int) {
-        medicineTemplateHolder.bind(templates[position])
-    }
+
+class MedicineTemplateAdapter internal constructor(var context: Context, var recyclerOnItemViewEditClickListener: RecyclerOnItemViewEditClickListener, var templates: List<MedicineTemplate> = listOf())
+    : RecyclerViewAdapter<MedicineTemplateAdapter.MedicineTemplateHolder,MedicineTemplate>(templates.toMutableList()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedicineTemplateAdapter.MedicineTemplateHolder {
         val medicineTemplateLayoutBinding = MedicineTemplateLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MedicineTemplateHolder(medicineTemplateLayoutBinding)
     }
 
-    override fun getItemCount(): Int {
-        return templates.size
-    }
+    inner class MedicineTemplateHolder internal constructor(private val medicineTemplateLayoutBinding: MedicineTemplateLayoutBinding)
+        : RecyclerViewAdapter<MedicineTemplateAdapter.MedicineTemplateHolder,MedicineTemplate>.ViewHolder(medicineTemplateLayoutBinding.root) {
 
-    inner class MedicineTemplateHolder internal constructor(private val medicineTemplateLayoutBinding: MedicineTemplateLayoutBinding) : RecyclerView.ViewHolder(medicineTemplateLayoutBinding.root) {
-        fun bind(medicineTemplate: MedicineTemplate) {
-            onChangeClickable(false)
+        override fun bind(medicineTemplate: MedicineTemplate) {
+            EditableUtils.updateEditability(false,medicineTemplateLayoutBinding.template)
             medicineTemplateLayoutBinding.template.setText(medicineTemplate.templateData)
             medicineTemplateLayoutBinding.template.setTextColor(context.resources.getColor(R.color.add_visit_edittext_text_color, null))
-            if(medicineTemplate.templateData == "ADD_NEW_TEMPLATE_DEFAULT"){
-                onEditClicked()
-                medicineTemplateLayoutBinding.template.setText("")
+            if(medicineTemplate.templateData == Constants.DefaultValues.TEMPLATE_DATA){
+                updateEditability(true)
+                medicineTemplateLayoutBinding.template.setText(Constants.EMPTY)
             }
-            medicineTemplateLayoutBinding.editButton.setOnClickListener{
-                onEditClicked()
-                recyclerOnItemViewEditClickListener.onEditClicked(medicineTemplate)
-            }
-            medicineTemplateLayoutBinding.saveButton.setOnClickListener{
-                val templateData = medicineTemplateLayoutBinding.template.text.toString()
-                if(templateData.isBlank()){
-                    changeColorOfInputFields(medicineTemplateLayoutBinding.template, R.color.red)
-                    recyclerOnItemViewEditClickListener.onInvalidData("Empty Template")
-                    return@setOnClickListener
-                }
-                changeColorOfInputFields(medicineTemplateLayoutBinding.template, R.color.blue_theme)
-                onSaveClicked()
-                recyclerOnItemViewEditClickListener.onSaveClicked(MedicineTemplate(medicineTemplate.templateId, templateData))
-            }
-            medicineTemplateLayoutBinding.deleteButton.setOnClickListener{
-                recyclerOnItemViewEditClickListener.onDeleteClicked(medicineTemplate)
-            }
+            medicineTemplateLayoutBinding.editButton.setOnClickListener{ onEdit(medicineTemplate) }
+            medicineTemplateLayoutBinding.saveButton.setOnClickListener{ onSave(medicineTemplate) }
+            medicineTemplateLayoutBinding.deleteButton.setOnClickListener{ onDelete(medicineTemplate) }
         }
 
-        private fun changeColorOfInputFields(fieldInput: EditText, color: Int){
-            val colorValue = ContextCompat.getColor(context, color)
-            val fieldInputDrawable = fieldInput.background as StateListDrawable
-            val dcs = fieldInputDrawable.constantState as DrawableContainer.DrawableContainerState
-            val drawableItem = dcs.children[0] as GradientDrawable
-            val pixels = R.dimen.login_edittext_background_stroke_width * context.resources.displayMetrics.density.toInt()
-            drawableItem.setStroke(pixels, colorValue)
+        private fun onSave(medicineTemplate: MedicineTemplate){
+            val templateData = MedicineTemplateDataExtractorUtils.extractData(medicineTemplateLayoutBinding)
+            if(templateData.isBlank()){
+                InputFieldColorUtils.changeColorOfInputFields(medicineTemplateLayoutBinding.template, Colors.Validation.INVALID, context)
+                recyclerOnItemViewEditClickListener.onInvalidData("Empty Template")
+                return
+            }
+            InputFieldColorUtils.changeColorOfInputFields(medicineTemplateLayoutBinding.template, Colors.Validation.VALID,context)
+            updateEditability(true)
+            recyclerOnItemViewEditClickListener.onSaveClicked(MedicineTemplate(medicineTemplate.templateId, templateData))
         }
 
-        private fun onChangeClickable(isClickable: Boolean){
-            medicineTemplateLayoutBinding.template.isClickable = isClickable
-            medicineTemplateLayoutBinding.template.isCursorVisible = isClickable
-            medicineTemplateLayoutBinding.template.isFocusable = isClickable
-            medicineTemplateLayoutBinding.template.isFocusableInTouchMode = isClickable
+        private fun onEdit(medicineTemplate: MedicineTemplate){
+            updateEditability(false)
+            recyclerOnItemViewEditClickListener.onEditClicked(medicineTemplate)
+        }
+
+        private fun onDelete(medicineTemplate: MedicineTemplate){
+            recyclerOnItemViewEditClickListener.onDeleteClicked(medicineTemplate)
         }
 
         @SuppressLint("UseCompatLoadingForDrawables")
-        private fun onEditClicked(){
-            medicineTemplateLayoutBinding.editButton.visibility = View.GONE
-            medicineTemplateLayoutBinding.saveButton.visibility = View.VISIBLE
-            onChangeClickable(true)
-            medicineTemplateLayoutBinding.template.background = context.resources.getDrawable(R.drawable.login_edittext_background, null)
-            medicineTemplateLayoutBinding.template.setTextColor(context.resources.getColor(R.color.black, null))
-        }
-
-        @SuppressLint("UseCompatLoadingForDrawables")
-        private fun onSaveClicked(){
-            medicineTemplateLayoutBinding.saveButton.visibility = View.GONE
-            medicineTemplateLayoutBinding.editButton.visibility = View.VISIBLE
-            onChangeClickable(false)
-            medicineTemplateLayoutBinding.template.background = context.resources.getDrawable(R.drawable.add_visit_edittext_background, null)
-            medicineTemplateLayoutBinding.template.setTextColor(context.resources.getColor(R.color.add_visit_edittext_text_color, null))
+        private fun updateEditability(isEditable: Boolean){
+            EditableUtils.updateEditabilityForMedicineTemplate(isEditable,medicineTemplateLayoutBinding, context)
         }
     }
 }

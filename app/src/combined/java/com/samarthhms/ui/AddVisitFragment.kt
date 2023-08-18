@@ -13,6 +13,7 @@ import com.samarthhms.databinding.FragmentAddVisitBinding
 import com.samarthhms.domain.Status
 import com.samarthhms.navigator.Navigator
 import com.samarthhms.utils.DateTimeUtils
+import com.samarthhms.utils.UiDataDisplayUtils
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -32,17 +33,8 @@ class AddVisitFragment : Fragment() {
     ): View {
         binding = FragmentAddVisitBinding.inflate(layoutInflater, container, false)
         val patient = AddVisitFragmentArgs.fromBundle(requireArguments()).patient
-
-        binding.patientId.setText(patient.patientId)
-        binding.firstName.setText(patient.firstName)
-        binding.middleName.setText(patient.middleName)
-        binding.lastName.setText(patient.lastName)
-        binding.gender.setText(patient.gender.value)
-        binding.dateOfBirth.setText(DateTimeUtils.getDate(patient.dateOfBirth))
-        binding.contactNumber.setText(patient.contactNumber)
-        binding.town.setText(patient.town)
-        binding.taluka.setText(patient.taluka)
-        binding.district.setText(patient.district)
+        UiDataDisplayUtils.displayPatient(binding.root, patient)
+        //TODO ADD TO DISPLAY CHARGES HERE - WILL HAVE TO GET VISIT OBJECT IN ARGUMENTS
 
         binding.addVisitButton.setOnClickListener{
             addVisitViewModel.addVisit(patient)

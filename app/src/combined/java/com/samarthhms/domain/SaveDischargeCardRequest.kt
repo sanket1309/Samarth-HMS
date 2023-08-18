@@ -4,5 +4,6 @@ import com.samarthhms.models.DischargeCard
 
 data class SaveDischargeCardRequest (
     var previousIpdNumber: String = "",
-    var dischargeCard: DischargeCard = DischargeCard()
+    var dischargeCard: DischargeCard = DischargeCard(),
+    var isNewCard: Boolean = true
 )

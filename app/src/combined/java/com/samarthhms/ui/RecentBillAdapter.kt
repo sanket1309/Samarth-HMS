@@ -6,46 +6,33 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.samarthhms.R
+import com.samarthhms.constants.Constants
 import com.samarthhms.databinding.BillInfoLayoutBinding
 import com.samarthhms.models.Bill
+import com.samarthhms.models.RecyclerViewAdapter
 import com.samarthhms.utils.StringUtils
+import com.samarthhms.utils.UiDataDisplayUtils
 
-class RecentBillAdapter internal constructor(var context: Context?, var recyclerOnItemViewClickListener: RecyclerOnItemViewClickListener, var bills: List<Bill>) : RecyclerView.Adapter<RecentBillAdapter.BillHolder>() {
-    override fun onBindViewHolder(patientHolder: RecentBillAdapter.BillHolder, position: Int) {
-        patientHolder.bind(bills[position])
+class RecentBillAdapter internal constructor(var context: Context?, var recyclerOnItemViewClickListener: RecyclerOnItemViewClickListener, var bills: List<Bill> = listOf())
+    : RecyclerViewAdapter<RecentBillAdapter.BillHolder, Bill>(bills.toMutableList()) {
+
+    override fun getItemViewType(position: Int): Int {
+        return (itemCount-position-1) % Constants.Drawables.LIST_ITEM_BACKGROUNDS.size
     }
-
-        override fun getItemViewType(position: Int): Int {
-            return (itemCount-position-1)%3
-        }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentBillAdapter.BillHolder {
         val billInfoLayoutBinding = BillInfoLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val resources = context?.resources
-        when(viewType){
-            0 -> billInfoLayoutBinding.infoBlock.background = resources?.getDrawable(R.drawable.patient_info_background_red,null)
-            1 -> billInfoLayoutBinding.infoBlock.background = resources?.getDrawable(R.drawable.patient_info_background_green,null)
-            2 -> billInfoLayoutBinding.infoBlock.background = resources?.getDrawable(R.drawable.patient_info_background_blue,null)
-        }
+        billInfoLayoutBinding.infoBlock.background = context?.resources?.getDrawable(Constants.Drawables.LIST_ITEM_BACKGROUNDS[viewType],null)
         return BillHolder(billInfoLayoutBinding)
     }
 
-    override fun getItemCount(): Int {
-        return bills.size
-    }
+    inner class BillHolder internal constructor(private val billInfoLayoutBinding: BillInfoLayoutBinding)
+        : RecyclerViewAdapter<RecentBillAdapter.BillHolder, Bill>.ViewHolder(billInfoLayoutBinding.root) {
 
-    inner class BillHolder internal constructor(private val billInfoLayoutBinding: BillInfoLayoutBinding) : RecyclerView.ViewHolder(billInfoLayoutBinding.root) {
-        @SuppressLint("SetTextI18n")
-        fun bind(bill: Bill) {
-            billInfoLayoutBinding.billNumber.text = StringUtils.formatYearWiseIdSpacePadded(bill.billNumber)
-            billInfoLayoutBinding.patientName.text = bill.firstName + " " + bill.lastName
-            billInfoLayoutBinding.patientGender.text = bill.gender.value + ", "
-            billInfoLayoutBinding.patientAge.text = bill.age
-            billInfoLayoutBinding.diagnosis.text = bill.diagnosis
-            billInfoLayoutBinding.infoBlock.setOnClickListener{
-                recyclerOnItemViewClickListener.onItemClicked(bill)
-            }
+        override fun bind(bill: Bill) {
+            UiDataDisplayUtils.displayBillListItem(billInfoLayoutBinding.root, bill)
+            billInfoLayoutBinding.infoBlock.setOnClickListener{ recyclerOnItemViewClickListener.onItemClicked(bill) }
         }
     }
 }

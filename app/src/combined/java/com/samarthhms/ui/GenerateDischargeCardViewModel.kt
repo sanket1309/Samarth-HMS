@@ -48,9 +48,9 @@ class GenerateDischargeCardViewModel @Inject constructor(val getDischargeCardTem
         }
     }
 
-    fun saveDischargeCard(previousIpdNumber: String, dischargeCard: DischargeCard){
+    fun saveDischargeCard(previousIpdNumber: String, dischargeCard: DischargeCard, isNewCard: Boolean = true){
         _saveDischargeCardStatus.value = Status.NONE
-        val request = SaveDischargeCardRequest(previousIpdNumber, dischargeCard)
+        val request = SaveDischargeCardRequest(previousIpdNumber, dischargeCard, isNewCard)
         saveDischargeCard(request){
             _saveDischargeCardStatus.value = it.status
         }

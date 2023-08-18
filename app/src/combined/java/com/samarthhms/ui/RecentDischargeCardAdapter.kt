@@ -6,46 +6,32 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.samarthhms.R
+import com.samarthhms.constants.Constants
 import com.samarthhms.databinding.DischargeCardInfoLayoutBinding
 import com.samarthhms.models.DischargeCard
+import com.samarthhms.models.RecyclerViewAdapter
 import com.samarthhms.utils.StringUtils
+import com.samarthhms.utils.UiDataDisplayUtils
 
-class RecentDischargeCardAdapter internal constructor(var context: Context?, var recyclerOnItemViewClickListener: RecyclerOnItemViewClickListener, var dischargeCards: List<DischargeCard>) : RecyclerView.Adapter<RecentDischargeCardAdapter.DischargeCardHolder>() {
-    override fun onBindViewHolder(patientHolder: DischargeCardHolder, position: Int) {
-        patientHolder.bind(dischargeCards[position])
-    }
+class RecentDischargeCardAdapter internal constructor(var context: Context?, var recyclerOnItemViewClickListener: RecyclerOnItemViewClickListener, var dischargeCards: List<DischargeCard> = listOf())
+    : RecyclerViewAdapter<RecentDischargeCardAdapter.DischargeCardHolder, DischargeCard>(dischargeCards.toMutableList()) {
 
     override fun getItemViewType(position: Int): Int {
-        return (itemCount-position-1)%3
+        return (itemCount-position-1) % Constants.Drawables.LIST_ITEM_BACKGROUNDS.size
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DischargeCardHolder {
         val dischargeCardInfoLayoutBinding = DischargeCardInfoLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val resources = context?.resources
-        when(viewType){
-            0 -> dischargeCardInfoLayoutBinding.infoBlock.background = resources?.getDrawable(R.drawable.patient_info_background_red,null)
-            1 -> dischargeCardInfoLayoutBinding.infoBlock.background = resources?.getDrawable(R.drawable.patient_info_background_green,null)
-            2 -> dischargeCardInfoLayoutBinding.infoBlock.background = resources?.getDrawable(R.drawable.patient_info_background_blue,null)
-        }
+        dischargeCardInfoLayoutBinding.infoBlock.background = context?.resources?.getDrawable(Constants.Drawables.LIST_ITEM_BACKGROUNDS[viewType],null)
         return DischargeCardHolder(dischargeCardInfoLayoutBinding)
     }
 
-    override fun getItemCount(): Int {
-        return dischargeCards.size
-    }
-
-    inner class DischargeCardHolder internal constructor(private val dischargeCardInfoLayoutBinding: DischargeCardInfoLayoutBinding) : RecyclerView.ViewHolder(dischargeCardInfoLayoutBinding.root) {
-        @SuppressLint("SetTextI18n")
-        fun bind(dischargeCard: DischargeCard) {
-            dischargeCardInfoLayoutBinding.ipdNumber.text = StringUtils.formatYearWiseIdSpacePadded(dischargeCard.ipdNumber)
-            dischargeCardInfoLayoutBinding.patientName.text = dischargeCard.firstName + " " + dischargeCard.lastName
-            dischargeCardInfoLayoutBinding.patientGender.text = dischargeCard.gender.value + ", "
-            dischargeCardInfoLayoutBinding.patientAge.text = dischargeCard.ageFormat
-            dischargeCardInfoLayoutBinding.diagnosis.text = dischargeCard.diagnosis
-            dischargeCardInfoLayoutBinding.infoBlock.setOnClickListener{
-                recyclerOnItemViewClickListener.onItemClicked(dischargeCard)
-            }
+    inner class DischargeCardHolder internal constructor(private val dischargeCardInfoLayoutBinding: DischargeCardInfoLayoutBinding)
+        : RecyclerViewAdapter<RecentDischargeCardAdapter.DischargeCardHolder, DischargeCard>.ViewHolder(dischargeCardInfoLayoutBinding.root) {
+        override fun bind(dischargeCard: DischargeCard) {
+            UiDataDisplayUtils.displayDischargeCardListItem(dischargeCardInfoLayoutBinding.root, dischargeCard)
+            dischargeCardInfoLayoutBinding.infoBlock.setOnClickListener{ recyclerOnItemViewClickListener.onItemClicked(dischargeCard) }
         }
     }
 }

@@ -74,4 +74,20 @@ class BillRepositoryImpl @Inject constructor(): BillRepository {
             throw e
         }
     }
+
+    override suspend fun checkBillNumberExists(billNumber: String): Boolean {
+        val reference = db.collection(SchemaName.BILL_COLLECTION)
+        try {
+            val snapshot = reference.document(StringUtils.formatYearWiseIdForFirebase(billNumber)).get().await()
+            if(snapshot.exists()){
+                Log.i("BillRepositoryImpl", "bill found for bill number $billNumber")
+                return true
+            }
+            Log.i("BillRepositoryImpl", "No bill found for bill number $billNumber")
+            return false
+        }catch (e: Exception){
+            Log.e("BillRepositoryImpl", "Error while deleting bill : $e")
+            throw e
+        }
+    }
 }

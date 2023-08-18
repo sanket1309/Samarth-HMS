@@ -42,10 +42,6 @@ class StringUtils {
             return name.lowercase().replaceFirstChar { it.uppercase() }
         }
 
-//        fun formatPhoneNumberForEditText(phoneNumber: String): String {
-//            return phoneNumber.substring(0,3)+" "+phoneNumber.substring(3,6)+" "+phoneNumber.substring(6)
-//        }
-
         fun formatPrice(price: Int): String{
             val p=price.toString()
             var formattedPrice=price.toString()
@@ -91,6 +87,11 @@ class StringUtils {
         fun formatYearWiseIdFromFirebaseId(id: String): String {
             val result = id.split("-")
             return result[0]+"/"+result[1]
+        }
+
+        fun hasTrailingSpaces(string: String?): Boolean{
+            if(string.isNullOrBlank()) return false
+            return false
         }
     }
 }

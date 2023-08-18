@@ -8,11 +8,16 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.samarthhms.R
 import com.samarthhms.databinding.FragmentAddPatientBinding
+import com.samarthhms.navigator.Navigator
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddPatientFragment : Fragment() {
     private lateinit var binding: FragmentAddPatientBinding
+
+    @Inject
+    private lateinit var navigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,20 +29,16 @@ class AddPatientFragment : Fragment() {
     ): View {
         binding = FragmentAddPatientBinding.inflate(layoutInflater, container, false)
         binding.findByPatientIdButton.setOnClickListener{
-            val controller = findNavController()
-            controller.navigate(R.id.action_addPatientFragment_to_findPatientByPatientIdFragment)
+            navigator.navigateToFragment(this, R.id.action_addPatientFragment_to_findPatientByPatientIdFragment)
         }
         binding.findByNameButton.setOnClickListener{
-            val controller = findNavController()
-            controller.navigate(R.id.action_addPatientFragment_to_findPatientByNameFragment)
+            navigator.navigateToFragment(this, R.id.action_addPatientFragment_to_findPatientByNameFragment)
         }
         binding.findByContactNumberButton.setOnClickListener{
-            val controller = findNavController()
-            controller.navigate(R.id.action_addPatientFragment_to_findPatientByContactNumberFragment)
+            navigator.navigateToFragment(this, R.id.action_addPatientFragment_to_findPatientByContactNumberFragment)
         }
         binding.addNewPatientButton.setOnClickListener{
-            val controller = findNavController()
-            controller.navigate(R.id.action_addPatientFragment_to_addNewPatientFragment)
+            navigator.navigateToFragment(this, R.id.action_addPatientFragment_to_addNewPatientFragment)
         }
         return binding.root
     }

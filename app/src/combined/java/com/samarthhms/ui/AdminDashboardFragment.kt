@@ -93,7 +93,7 @@ class AdminDashboardFragment : Fragment(),RecyclerOnItemViewClickListener {
         }
 
         binding.patientsTodayCountTitle.setOnClickListener{
-            findNavController().navigate(R.id.action_adminDashboardFragment_to_patientsTodayFragment)
+            navigator.navigateToFragment(this, R.id.action_adminDashboardFragment_to_patientsTodayFragment)
         }
 
         return binding.root
