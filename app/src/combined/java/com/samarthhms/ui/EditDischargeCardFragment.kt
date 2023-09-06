@@ -1,40 +1,22 @@
 package com.samarthhms.ui
 
-import android.Manifest
-import android.content.Context
-import android.content.pm.PackageManager
-import android.graphics.drawable.DrawableContainer
-import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.StateListDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.Filterable
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.SearchView
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.samarthhms.R
 import com.samarthhms.constants.Constants
-import com.samarthhms.constants.Gender
 import com.samarthhms.databinding.FragmentEditDischargeCardBinding
 import com.samarthhms.domain.Status
 import com.samarthhms.models.*
 import com.samarthhms.navigator.Navigator
 import com.samarthhms.utils.*
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDateTime
 import java.util.*
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -44,7 +26,8 @@ class EditDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListener {
 
     private lateinit var binding: FragmentEditDischargeCardBinding
 
-    private lateinit var navigator: Navigator
+    @Inject
+    lateinit var navigator: Navigator
 
     private var bottomSheetDialog: BottomSheetDialog? = null
 
@@ -159,7 +142,7 @@ class EditDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListener {
 
     private fun getDischargeCard(): DischargeCard {
         try{
-            ValidateIndividualFormUtils.validateDischargeCard(binding.root, requireContext(), resources)
+            ValidationUtils.validateDischargeCard(binding.root, requireContext(), resources)
             return UiDataExtractorUtils.getDischargeCard(binding.root)
         }catch (e: Exception){
             ToastUtils.showToast(requireContext(),Constants.Messages.SOMETHING_WENT_WRONG)

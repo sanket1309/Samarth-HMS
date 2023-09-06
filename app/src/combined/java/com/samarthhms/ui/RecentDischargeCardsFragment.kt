@@ -10,6 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.samarthhms.databinding.FragmentRecentDischargeCardsBinding
 import com.samarthhms.models.DischargeCard
+import com.samarthhms.models.RecyclerViewAdapter
+import com.samarthhms.utils.RecyclerViewAdapterUtils
 import com.samarthhms.utils.StringUtils
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,9 +33,8 @@ class RecentDischargeCardsFragment : Fragment(), RecyclerOnItemViewClickListener
         binding.recentDischargeCardsRecyclerView.adapter = adapter
         binding.noResultsImage.visibility = View.GONE
         viewModel.recentDischargeCardsList.observe(viewLifecycleOwner){
-            (binding.recentDischargeCardsRecyclerView.adapter as RecentDischargeCardAdapter).dischargeCards = it
+            RecyclerViewAdapterUtils.updateData<RecentDischargeCardAdapter.DischargeCardHolder,DischargeCard>(binding.recentDischargeCardsRecyclerView.adapter,it)
             binding.recentDischargeCardsTitle.text = StringUtils.getShowingDischargeCardsText(it.size)
-            (binding.recentDischargeCardsRecyclerView.adapter as RecentDischargeCardAdapter).notifyDataSetChanged()
             if(it.isEmpty()){
                 binding.noResultsImage.visibility = View.VISIBLE
             }

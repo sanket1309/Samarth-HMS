@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.samarthhms.databinding.FragmentFindPatientByNameBinding
 import com.samarthhms.domain.Status
 import com.samarthhms.models.Patient
+import com.samarthhms.models.PatientVisitDetails
 import com.samarthhms.utils.StringUtils
 import com.samarthhms.utils.Validation
 import dagger.hilt.android.AndroidEntryPoint
@@ -77,7 +78,7 @@ class FindPatientByNameFragment : Fragment(), RecyclerOnItemViewClickListener {
     }
 
     override fun onItemClicked(data: Any?, requester: String) {
-        if(data is Patient){
+        if(data is PatientVisitDetails){
             val action = FindPatientByNameFragmentDirections.actionFindPatientByNameFragmentToAddVisitFragment(data)
             findNavController().navigate(action)
         }

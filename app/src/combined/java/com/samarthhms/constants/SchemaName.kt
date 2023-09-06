@@ -22,6 +22,7 @@ object SchemaName {
 //    const val PATIENTS_DELETE_COLLECTION = "Patients_Delete"
     const val PATIENT_ID = "patientId"
     const val CONTACT_NUMBER = "contactNumber"
+    const val TOWN = "town"
     const val FIRST_NAME = "firstName"
     const val MIDDLE_NAME = "middleName"
     const val LAST_NAME = "lastName"

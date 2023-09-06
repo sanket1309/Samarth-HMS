@@ -3,6 +3,7 @@ package com.samarthhms.navigator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
@@ -23,6 +24,7 @@ class Navigator @Inject constructor(){
     }
 
     fun showDashboard(context: Context, role: Role, isLocked: Boolean){
+        Log.i("NVIGATOR","SHOW DASHBOARD ROLE=${role.name}")
         when(role){
             Role.ADMIN -> context.startActivity(Intent(context,MainActivity::class.java))
             Role.STAFF -> {
@@ -46,6 +48,11 @@ class Navigator @Inject constructor(){
             LoggedState.LOGGED_OUT -> showLogin(context)
             LoggedState.LOGGED_IN -> showDashboard(context, loginStatusResponse.role, loginStatusResponse.isLocked)
         }
+    }
+
+    fun popBackStack(sourceFragment: Fragment, destinationId: Int, inclusive: Boolean){
+        val navigationController = sourceFragment.findNavController()
+        navigationController.popBackStack(destinationId, inclusive)
     }
 
     fun navigateToFragment(sourceFragment: Fragment, actionId: Int){

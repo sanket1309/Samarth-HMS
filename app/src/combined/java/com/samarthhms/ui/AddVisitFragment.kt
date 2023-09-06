@@ -4,15 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.samarthhms.R
+import com.samarthhms.constants.Constants
 import com.samarthhms.databinding.FragmentAddVisitBinding
 import com.samarthhms.domain.Status
+import com.samarthhms.models.PatientVisitDetails
 import com.samarthhms.navigator.Navigator
-import com.samarthhms.utils.DateTimeUtils
+import com.samarthhms.utils.DialogUtils
+import com.samarthhms.utils.ToastUtils
 import com.samarthhms.utils.UiDataDisplayUtils
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -32,32 +33,36 @@ class AddVisitFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddVisitBinding.inflate(layoutInflater, container, false)
-        val patient = AddVisitFragmentArgs.fromBundle(requireArguments()).patient
-        UiDataDisplayUtils.displayPatient(binding.root, patient)
-        //TODO ADD TO DISPLAY CHARGES HERE - WILL HAVE TO GET VISIT OBJECT IN ARGUMENTS
-
-        binding.addVisitButton.setOnClickListener{
-            addVisitViewModel.addVisit(patient)
-        }
-
-        addVisitViewModel.addVisitStatus.observe(viewLifecycleOwner){
-            when(it){
-                Status.SUCCESS -> onSuccess()
-                Status.FAILURE -> onFailure()
-                else -> {}
-            }
-        }
-
+        val patientVisitDetails = AddVisitFragmentArgs.fromBundle(requireArguments()).patientVisitDetails
+        UiDataDisplayUtils.displayVisitDetails(binding.root, patientVisitDetails)
+        binding.addVisitButton.setOnClickListener{ onAddVisit(patientVisitDetails) }
+        addVisitViewModel.addVisitStatus.observe(viewLifecycleOwner){ onAddVisitStatus(it) }
         return binding.root
     }
 
+    private fun onAddVisit(patientVisitDetails: PatientVisitDetails){
+        DialogUtils.popDialog(requireContext(),
+        onPositive = { addVisitViewModel.addVisit(patientVisitDetails) },
+        message = Constants.DialogMessages.ADD_VISIT,
+        positiveMessage = Constants.DialogMessages.YES,
+        negativeMessage = Constants.DialogMessages.NO)
+    }
+
+    private fun onAddVisitStatus(status: Status){
+        when(status){
+            Status.SUCCESS -> onSuccess()
+            Status.FAILURE -> onFailure()
+            else -> {}
+        }
+    }
+
     private fun onSuccess(){
-        Toast.makeText(activity, "Added Visit Successfully", Toast.LENGTH_SHORT).show()
-        findNavController().popBackStack(R.id.addPatientFragment, true)
+        ToastUtils.showToast(requireContext(), Constants.Messages.ADDED_VISIT_SUCCESSFULLY)
+        navigator.popBackStack(this, R.id.addPatientFragment, true)
     }
 
     private fun onFailure(){
-        Toast.makeText(activity, "Something Went Wrong", Toast.LENGTH_SHORT).show()
+        ToastUtils.showToast(requireContext(), Constants.Messages.SOMETHING_WENT_WRONG)
     }
 
 }

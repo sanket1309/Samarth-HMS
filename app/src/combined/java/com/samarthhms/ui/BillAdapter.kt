@@ -9,7 +9,7 @@ import com.samarthhms.utils.TextChangeListenerUtils
 import com.samarthhms.utils.UiDataDisplayUtils
 import com.samarthhms.utils.UiDataExtractorUtils
 
-class BillAdapter internal constructor(var generateBillFragment: OnUpdateBillSumListener,var billItems: MutableList<BillItem> = mutableListOf<>()) : RecyclerViewAdapter<BillAdapter.BillItemHolder, BillItem>(billItems) {
+class BillAdapter internal constructor(var generateBillFragment: OnUpdateBillSumListener,var billItems: MutableList<BillItem> = mutableListOf()) : RecyclerViewAdapter<BillAdapter.BillItemHolder, BillItem>(billItems) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BillAdapter.BillItemHolder {
         val billItemLayoutBinding = BillItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BillItemHolder(billItemLayoutBinding)
@@ -24,7 +24,7 @@ class BillAdapter internal constructor(var generateBillFragment: OnUpdateBillSum
             val isNewlyAdded = false
             billItemLayoutBinding.deleteButton.setOnClickListener{
                 deleteItem(absoluteAdapterPosition)
-                val currentBillItem = UiDataExtractorUtils.extractData(billItemLayoutBinding)
+                val currentBillItem = UiDataExtractorUtils.getBillItemWithoutItemName(billItemLayoutBinding)
                 generateBillFragment.update(-currentBillItem.rate*currentBillItem.quantity)
             }
             billItemLayoutBinding.rate.addTextChangedListener(TextChangeListenerUtils.getTextWatcher(onAfterTC = {updateSum(isNewlyAdded)}))

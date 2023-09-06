@@ -1,36 +1,28 @@
 package com.samarthhms.ui
 
-import android.graphics.drawable.DrawableContainer
-import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.StateListDrawable
 import android.os.Bundle
-import android.text.method.HideReturnsTransformationMethod
-import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.samarthhms.R
 import com.samarthhms.constants.Constants
-import com.samarthhms.constants.Gender
 import com.samarthhms.constants.Role
 import com.samarthhms.databinding.FragmentAddAdminBinding
 import com.samarthhms.domain.Status
 import com.samarthhms.models.Admin
 import com.samarthhms.models.AdminDetails
-import com.samarthhms.models.Credentials
+import com.samarthhms.navigator.Navigator
 import com.samarthhms.utils.*
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDateTime
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddAdminFragment : Fragment() {
+
+    @Inject
+    lateinit var navigator : Navigator
 
     private val viewModel: AddAdminViewModel by viewModels()
 
@@ -43,52 +35,43 @@ class AddAdminFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddAdminBinding.inflate(layoutInflater, container, false)
-        binding.saveAdminButton.setOnClickListener {
-            try {
-                ValidateIndividualFormUtils.validateIndividualFormWithAddress(binding.root, requireContext(), resources)
-                val individualFormData =UiDataExtractorUtils.extractData(binding.root, Admin::class.java)
-                individualFormData.credentials!!.role = Role.ADMIN
-                adminDetails = AdminDetails(admin = individualFormData.data!!, adminCredentials = individualFormData.credentials!!)
-                viewModel.addAdmin(adminDetails)
-            }catch (e: Exception){
-                Log.e("AddAdminFragment", "Exception while saving admin details")
-            }
-        }
-
-        viewModel.addAdminStatus.observe(viewLifecycleOwner) {
-            when (it) {
-                Status.SUCCESS -> onSuccess()
-                Status.FAILURE -> onFailure()
-                else -> {}
-            }
-        }
-
-        binding.showPasswordButton.setOnClickListener {
-            onShowPassword()
-        }
-
+        binding.saveAdminButton.setOnClickListener { onSaveAdmin() }
+        viewModel.addAdminStatus.observe(viewLifecycleOwner) { onAddAdmin(it) }
+        binding.showPasswordButton.setOnClickListener { ShowPasswordUtils.onPasswordVisibilityToggle(binding.showPasswordButton, binding.password) }
         return binding.root
     }
 
-    fun onShowPassword(){
-        var state = binding.showPasswordButton.text.toString()
-        if(state == "Show"){
-            binding.password.transformationMethod = HideReturnsTransformationMethod.getInstance()
-            state = "Hide"
+    private fun onSaveAdmin(){
+        try {
+            ValidationUtils.validateAdminDetails(binding.root, requireContext(), resources)
+            DialogUtils.popDialog(requireContext(),
+                onPositive = {
+                    adminDetails =UiDataExtractorUtils.getAdminDetails(binding.root)
+                    viewModel.addAdmin(adminDetails)
+                },
+                message = Constants.DialogMessages.SAVE_ADMIN,
+                positiveMessage = Constants.DialogMessages.YES,
+                negativeMessage = Constants.DialogMessages.NO)
+        }catch (e: Exception){
+            Log.e("AddAdminFragment", "Exception while saving admin details")
         }
-        else{
-            binding.password.transformationMethod = PasswordTransformationMethod.getInstance()
-            state = "Show"
+    }
+
+    private fun onAddAdmin(status: Status){
+        when (status) {
+            Status.SUCCESS -> onSuccess()
+            Status.FAILURE -> onFailure()
+            else -> {}
         }
-        binding.showPasswordButton.text = state
     }
 
     private fun onSuccess() {
-        Toast.makeText(activity, "Added Admin Successfully", Toast.LENGTH_SHORT).show()
+        ToastUtils.showToast(requireContext(), Constants.Messages.ADDED_ADMIN_SUCCESSFULLY)
+        navigator.navigateToFragment(this, AddAdminFragmentDirections.actionAddAdminFragmentToAdminSettingsFragment())
     }
 
     private fun onFailure() {
-        Toast.makeText(activity, "Something Went Wrong", Toast.LENGTH_SHORT).show()
+        ToastUtils.showToast(requireContext(), Constants.Messages.SOMETHING_WENT_WRONG)
     }
 }
 

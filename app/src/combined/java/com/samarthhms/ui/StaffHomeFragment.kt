@@ -76,7 +76,7 @@ class StaffHomeFragment : Fragment() {
                 view.patientName.text = it.patient.firstName+" "+it.patient.lastName
                 view.patientAddress.text = it.patient.town+", Tal. "+it.patient.taluka
                 view.patientGender.text = it.patient.gender.value+", "
-                view.patientAge.text = getAgeText(DateTimeUtils.getTimestamp(it.patient.dateOfBirth))
+                view.patientAge.text = getAgeText(DateTimeUtils.getTimestamp(it.patient.dateOfBirth!!))
                 view.visitTime.text = getDisplayTime(DateTimeUtils.getTimestamp(it.visitTime))
                 view.root.visibility = View.VISIBLE
             }else{

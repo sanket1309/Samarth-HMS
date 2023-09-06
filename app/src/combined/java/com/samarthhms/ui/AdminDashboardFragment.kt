@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
 import com.samarthhms.R
 import com.samarthhms.databinding.FragmentAdminDashboardBinding
@@ -17,12 +16,15 @@ import com.samarthhms.repository.AdminRepositoryImpl
 import com.samarthhms.repository.StoredStateRepositoryImpl
 import com.samarthhms.service.GenerateBill
 import com.samarthhms.service.GenerateDischargeCard
+import com.samarthhms.utils.EditableUtils
+import com.samarthhms.utils.RecyclerViewAdapterUtils
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class AdminDashboardFragment : Fragment(),RecyclerOnItemViewClickListener {
+
     private lateinit var binding: FragmentAdminDashboardBinding
 
     private val viewModel: AdminDashboardViewModel by viewModels()
@@ -51,59 +53,63 @@ class AdminDashboardFragment : Fragment(),RecyclerOnItemViewClickListener {
         binding = FragmentAdminDashboardBinding.inflate(layoutInflater, container, false)
         startProgressBar(true)
         viewModel.updateGreetings()
-        binding.extendedFab.setOnClickListener{
-            val controller = findNavController()
-            controller.navigate(R.id.action_adminDashboardFragment_to_addPatientFragment)
-        }
         viewModel.updateData()
         viewModel.addListener()
-        binding.noResultsImage.visibility = View.GONE
 
-        val adapter = VisitInfoAdapter(context, this, listOf())
-        binding.patientsTodayRecyclerView.adapter = adapter
-        viewModel.patientsTodayList.observe(viewLifecycleOwner){
-            (binding.patientsTodayRecyclerView.adapter as VisitInfoAdapter).patientsToday = it
-            (binding.patientsTodayRecyclerView.adapter as VisitInfoAdapter).notifyDataSetChanged()
-            if(it.isEmpty()){
-                binding.noResultsImage.visibility = View.VISIBLE
-            }
-            else{
-                binding.noResultsImage.visibility = View.GONE
-            }
-        }
-        viewModel.patientsTodayCount.observe(viewLifecycleOwner){
-            binding.patientsTodayCountNumber.text = it.toString()
-        }
-        viewModel.unattendedPatientsCount.observe(viewLifecycleOwner){
-            binding.unattendedPatientsCountNumber.text = it.toString()
-        }
-        viewModel.admitPatientsCount.observe(viewLifecycleOwner){
-            binding.admitPatientsCountNumber.text = it.toString()
-        }
-
-        viewModel.greeting.observe(viewLifecycleOwner){
-            binding.greeting.text = it.toString()
-        }
-
-        viewModel.userName.observe(viewLifecycleOwner){
-            if(it.isNotBlank()){
-                startProgressBar(false)
-            }
-            binding.adminName.text = it.toString()
-        }
-
-        binding.patientsTodayCountTitle.setOnClickListener{
-            navigator.navigateToFragment(this, R.id.action_adminDashboardFragment_to_patientsTodayFragment)
-        }
+        EditableUtils.updateVisibility(isVisible = false,binding.noResultsImage)
+        binding.extendedFab.setOnClickListener{ onFabPressed() }
+        binding.patientsTodayRecyclerView.adapter =  VisitInfoAdapter(context, this, listOf())
+        viewModel.patientsTodayList.observe(viewLifecycleOwner){ onPatientsTodayListFetched(it) }
+        viewModel.patientsTodayCount.observe(viewLifecycleOwner){ onPatientsTodayCountFetched(it) }
+        viewModel.unattendedPatientsCount.observe(viewLifecycleOwner){ onUnattendedPatientsCountFetched(it) }
+        viewModel.admitPatientsCount.observe(viewLifecycleOwner){ onAdmitPatientsCountFetched(it) }
+        viewModel.greeting.observe(viewLifecycleOwner){ onGreetingFetched(it) }
+        viewModel.userName.observe(viewLifecycleOwner){ onUserNameFetched(it) }
+        binding.patientsTodayCountTitle.setOnClickListener{ onPatientsTodayCountPressed() }
 
         return binding.root
+    }
+
+    private fun onPatientsTodayCountPressed(){
+        navigator.navigateToFragment(this, R.id.action_adminDashboardFragment_to_patientsTodayFragment)
+    }
+
+    private fun onFabPressed(){
+        navigator.navigateToFragment(this, R.id.action_adminDashboardFragment_to_addPatientFragment)
+    }
+
+    private fun onPatientsTodayListFetched(visitsToday: List<PatientVisitInfo>){
+        RecyclerViewAdapterUtils.updateData<VisitInfoAdapter.VisitInfoHolder, PatientVisitInfo>(binding.patientsTodayRecyclerView.adapter, visitsToday)
+        EditableUtils.updateVisibility(isVisible = visitsToday.isEmpty(), binding.noResultsImage)
+    }
+
+    private fun onPatientsTodayCountFetched(count: Int){
+        binding.patientsTodayCountNumber.text = count.toString()
+    }
+
+    private fun onUnattendedPatientsCountFetched(count: Int){
+        binding.unattendedPatientsCountNumber.text = count.toString()
+    }
+
+    private fun onAdmitPatientsCountFetched(count: Int){
+        binding.admitPatientsCountNumber.text = count.toString()
+    }
+
+    private fun onGreetingFetched(greeting: String){
+        binding.greeting.text = greeting
+    }
+
+    private fun onUserNameFetched(name: String){
+        if(name.isNotBlank()){
+            startProgressBar(false)
+        }
+        binding.adminName.text = name
     }
 
     override fun onItemClicked(data: Any?, requester: String) {
     }
 
     fun startProgressBar(isVisible: Boolean){
-        binding.root.isClickable = !isVisible
         (activity as MainActivity).startProgressBar(isVisible)
     }
 

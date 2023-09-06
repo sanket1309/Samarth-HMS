@@ -244,6 +244,38 @@
                 android:textColor="@color/add_visit_edittext_text_color"/>
 
             <TextView
+                android:id="@+id/age_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"
+                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"
+                android:layout_marginTop="@dimen/add_new_patient_title_margin_top"
+                android:textSize="@dimen/add_new_patient_title_text_size"
+                android:paddingStart="@dimen/add_new_patient_field_padding_start"
+                android:paddingEnd="@dimen/add_new_patient_field_padding_start"
+                android:text="@string/age_title_text"
+                android:textColor="@color/blue_theme"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/date_of_birth"/>
+
+            <EditText
+                android:id="@+id/age"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/add_new_patient_edittext_height"
+                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"
+                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"
+                android:layout_marginTop="@dimen/add_new_patient_edittext_margin_top"
+                android:paddingStart="@dimen/add_new_patient_field_padding_start"
+                android:paddingEnd="@dimen/add_new_patient_field_padding_start"
+                android:background="@drawable/login_edittext_background"
+                android:textSize="@dimen/add_new_patient_title_text_size"
+                android:inputType="none"
+                android:hint="@string/age_hint_text"
+                app:layout_constraintTop_toBottomOf="@id/age_title"
+                android:autofillHints="name"
+                android:textColor="@color/add_visit_edittext_text_color"/>
+
+            <TextView
                 android:id="@+id/contact_number_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -256,7 +288,7 @@
                 android:text="@string/contact_number_title_text"
                 android:textColor="@color/blue_theme"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/date_of_birth"/>
+                app:layout_constraintTop_toBottomOf="@id/age"/>
 
             <com.arefbhrn.maskededittext.MaskedEditText
                 android:id="@+id/contact_number"
@@ -381,6 +413,42 @@
                 android:inputType="none"
                 android:hint="@string/district_hint_text"
                 app:layout_constraintTop_toBottomOf="@id/district_title"
+                android:autofillHints="name"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:textColor="@color/add_visit_edittext_text_color"/>
+
+            <TextView
+                android:id="@+id/charges_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"
+                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"
+                android:layout_marginTop="@dimen/add_new_patient_title_margin_top"
+                android:textSize="@dimen/add_new_patient_title_text_size"
+                android:paddingStart="@dimen/add_new_patient_field_padding_start"
+                android:paddingEnd="@dimen/add_new_patient_field_padding_start"
+                android:text="@string/charges_title_text"
+                android:textColor="@color/blue_theme"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/district"/>
+
+            <EditText
+                android:id="@+id/charges"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/add_new_patient_edittext_height"
+                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"
+                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"
+                android:layout_marginTop="@dimen/add_new_patient_edittext_margin_top"
+                android:paddingStart="@dimen/add_new_patient_field_padding_start"
+                android:paddingEnd="@dimen/add_new_patient_field_padding_start"
+                android:background="@drawable/add_visit_edittext_background"
+                android:textSize="@dimen/add_new_patient_title_text_size"
+                android:inputType="none"
+                android:hint="@string/charges_hint_text"
+                app:layout_constraintTop_toBottomOf="@id/charges_title"
                 android:autofillHints="name"
                 android:clickable="false"
                 android:cursorVisible="false"

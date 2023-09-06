@@ -69,16 +69,71 @@
     <string name="gender_hint_text">Enter Gender</string>
     <string name="date_of_birth_title_text">Date Of Birth</string>
     <string name="date_of_birth_hint_text">DDMMYYYY</string>
+    <string name="age_title_text">Age (Mandatory if no DOB)</string>
+    <string name="age_hint_text">11Y 5M</string>
     <string name="contact_number_title_text">Contact Number</string>
     <string name="contact_number_hint_text">9876543210</string>
     <string name="town_title_text">Town</string>
     <string name="town_hint_text">Enter Town</string>
+    <string name="town_default_text">Dindori</string>
     <string name="taluka_title_text">Taluka</string>
     <string name="taluka_hint_text">Enter Taluka</string>
+    <string name="taluka_default_text">Dindori</string>
     <string name="district_title_text">District</string>
     <string name="district_hint_text">Enter District</string>
+    <string name="district_default_text">Nashik</string>
+    <string name="charges_title_text">Charges</string>
+    <string name="charges_hint_text">350</string>
+    <string name="charges_default_text">0</string>
     <string name="save_patient_button_text">Save Patient</string>
     <string name="add_visit_button_text">Add Visit</string>
+
+    <!--    GENERATE DISCHARGE CARD, EDIT DISCHARGE CARD-->
+    <string name="address_title_text">Address</string>
+    <string name="address_hint_text">Enter Address</string>
+    <string name="address_default_text">Dindori, Tal. Dindori, Dist. Nashik</string>
+    <string name="ipd_number_title_text">IPD Number</string>
+    <string name="ipd_number_hint_text">53/23</string>
+    <string name="weight_title_text">Weight (in kgs)</string>
+    <string name="weight_hint_text">Enter Weight</string>
+    <string name="height_title_text">Height (in cms)</string>
+    <string name="date_of_admission_title_text">Date of Admission</string>
+    <string name="time_of_admission_title_text">Time of Admission</string>
+    <string name="time_of_admission_text">@string/time_of_admission_hint_text</string>
+    <string name="time_of_admission_hint_text">09:12 am</string>
+    <string name="date_of_discharge_title_text">Date of Discharge</string>
+    <string name="time_of_discharge_title_text">Time of Discharge</string>
+    <string name="time_of_discharge_text">@string/time_of_discharge_hint_text</string>
+    <string name="time_of_discharge_hint_text">@string/time_of_admission_hint_text</string>
+    <string name="diagnosis_title_text">Diagnosis</string>
+    <string name="diagnosis_hint_text">Enter Diagnosis</string>
+    <string name="patient_history_title_text">History Of Present Illness</string>
+    <string name="patient_history_hint_text">Enter Patient History</string>
+    <string name="patient_history_default_text"> </string>
+    <string name="past_history_title_text">Past H/O</string>
+    <string name="past_history_hint_text">Enter Past History</string>
+    <string name="past_history_default_text">No H/O of hospitalization . No major illness in past.</string>
+    <string name="family_history_title_text">Family H/O</string>
+    <string name="family_history_hint_text">Enter Family History</string>
+    <string name="family_history_default_text">Not significant. No family H/o of asthma.</string>
+    <string name="investigations_title_text">Investigations</string>
+    <string name="investigations_hint_text">Enter Investigations</string>
+    <string name="investigations_default_text">22/3/23—hb-10.2, WBC –8000 Platelet count-327000, CRP- 7.0, Stool and
+microscopic reports attached with discharge card</string>
+    <string name="course_title_text">Course</string>
+    <string name="medications_title_text">Medications on Discharge</string>
+    <string name="advice_title_text">Advice</string>
+    <string name="generate_card_button_text">Generate Card</string>
+
+    <!--    GENERATE BILL, EDIT BILL-->
+    <string name="bill_number_title_text">Bill Number</string>
+    <string name="bill_number_hint_text">@string/ipd_number_hint_text</string>
+    <string name="treatment_charges_title_text">Treatment Charges</string>
+    <string name="management_charges_title_text">Management Charges</string>
+    <string name="other_charges_title_text">Other Charges</string>
+    <string name="bill_total_title_text">Total</string>
+    <string name="bill_total_default_text">Rs. 10,000</string>
+    <string name="generate_bill_button_text">Generate Bill</string>
 
     <!--    FIND PATIENT BY-->
     <string name="find_patient_by_patient_id_title_text">@string/patient_id_title_text</string>
@@ -98,11 +153,15 @@
     <!--    PATIENTS TODAY-->
     <string name="patients_today_result_count_title_text">8 Patients</string>
 
-    <!--    DISCHARGE CARD-->
-    <string name="discharge_card_past_history">No H/o of hospitalization . No major illness in past.</string>
-    <string name="discharge_card_family_history">Not significant. No family H/o of asthma.</string>
-    <string name="discharge_card_investigations">22/3/23—hb-10.2, WBC –8000 Platelet count-327000, CRP- 7.0, Stool and
-microscopic reports attached with discharge card</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--    BUTTONS-->
+    <string name="save_button_text">Save</string>
+    <string name="generate_button_text">Generate</string>
+    <string name="edit_button_text">Edit</string>
+    <string name="delete_button_text">Delete</string>
+    <string name="add_button_text">Add</string>
+
 </resources>

@@ -22,7 +22,7 @@ class GetPatientsToday
             val mapOfPatientIdToPatient = HashMap<String, Patient>()
             patientsToday.forEach { mapOfPatientIdToPatient[it.patientId] = it }
             val patientVisitInfoList = ArrayList<PatientVisitInfo>()
-            visitsToday.forEach {patientVisitInfoList.add(PatientVisitInfo(mapOfPatientIdToPatient[it.patientId]!!,it.visitTime))}
+            visitsToday.forEach {patientVisitInfoList.add(PatientVisitInfo(mapOfPatientIdToPatient[it.patientId]!!,it.visitTime!!))}
             patientVisitInfoList.sortByDescending { it.visitTime }
             response.status = Status.SUCCESS
             response.data = patientVisitInfoList

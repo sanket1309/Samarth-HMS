@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/add_patient_background"
-        app:layout_constraintBottom_toTopOf="@id/cancel_button"
+        app:layout_constraintBottom_toTopOf="@id/save_discharge_card_button"
         android:scrollbars="none">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,54 +26,54 @@
             android:layout_height="wrap_content"
             tools:context=".ui.AddNewPatientFragment">
 
-<!--            <TextView-->
-<!--                android:id="@+id/patient_id_title"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"-->
-<!--                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"-->
-<!--                android:layout_marginTop="@dimen/add_new_patient_title_margin_top"-->
-<!--                android:textSize="@dimen/add_new_patient_title_text_size"-->
-<!--                android:paddingStart="@dimen/add_new_patient_field_padding_start"-->
-<!--                android:paddingEnd="@dimen/add_new_patient_field_padding_start"-->
-<!--                android:text="Patient Id"-->
-<!--                android:textColor="@color/blue_theme"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintTop_toTopOf="parent"/>-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/patient_id_title"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"-->
+            <!--                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"-->
+            <!--                android:layout_marginTop="@dimen/add_new_patient_title_margin_top"-->
+            <!--                android:textSize="@dimen/add_new_patient_title_text_size"-->
+            <!--                android:paddingStart="@dimen/add_new_patient_field_padding_start"-->
+            <!--                android:paddingEnd="@dimen/add_new_patient_field_padding_start"-->
+            <!--                android:text="Patient Id"-->
+            <!--                android:textColor="@color/blue_theme"-->
+            <!--                android:textStyle="bold"-->
+            <!--                app:layout_constraintTop_toTopOf="parent"/>-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/patient_id_prefix"-->
-<!--                android:layout_width="70dp"-->
-<!--                android:layout_height="@dimen/add_new_patient_edittext_height"-->
-<!--                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"-->
-<!--                android:layout_marginTop="@dimen/add_new_patient_edittext_margin_top"-->
-<!--                android:textSize="@dimen/add_new_patient_title_text_size"-->
-<!--                android:paddingStart="@dimen/add_new_patient_field_padding_start"-->
-<!--                android:paddingEnd="@dimen/add_new_patient_field_padding_start"-->
-<!--                android:background="@drawable/patient_id_prefix_background_with_border"-->
-<!--                android:text="SBP"-->
-<!--                android:textColor="@color/add_visit_edittext_text_color"-->
-<!--                android:textStyle="bold"-->
-<!--                android:gravity="center"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/patient_id_title"-->
-<!--                app:layout_constraintStart_toStartOf="parent"/>-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/patient_id_prefix"-->
+            <!--                android:layout_width="70dp"-->
+            <!--                android:layout_height="@dimen/add_new_patient_edittext_height"-->
+            <!--                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"-->
+            <!--                android:layout_marginTop="@dimen/add_new_patient_edittext_margin_top"-->
+            <!--                android:textSize="@dimen/add_new_patient_title_text_size"-->
+            <!--                android:paddingStart="@dimen/add_new_patient_field_padding_start"-->
+            <!--                android:paddingEnd="@dimen/add_new_patient_field_padding_start"-->
+            <!--                android:background="@drawable/patient_id_prefix_background_with_border"-->
+            <!--                android:text="SBP"-->
+            <!--                android:textColor="@color/add_visit_edittext_text_color"-->
+            <!--                android:textStyle="bold"-->
+            <!--                android:gravity="center"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/patient_id_title"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"/>-->
 
-<!--            <EditText-->
-<!--                android:id="@+id/patient_id"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="@dimen/add_new_patient_edittext_height"-->
-<!--                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"-->
-<!--                android:layout_marginTop="@dimen/add_new_patient_edittext_margin_top"-->
-<!--                android:paddingStart="@dimen/add_new_patient_field_padding_start"-->
-<!--                android:paddingEnd="@dimen/add_new_patient_field_padding_start"-->
-<!--                android:background="@drawable/patient_id_suffix_edittext_background_with_border"-->
-<!--                android:textSize="20sp"-->
-<!--                android:text="00000"-->
-<!--                android:inputType="number"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/patient_id_title"-->
-<!--                app:layout_constraintStart_toEndOf="@id/patient_id_prefix"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                android:autofillHints="creditCardNumber"/>-->
+            <!--            <EditText-->
+            <!--                android:id="@+id/patient_id"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="@dimen/add_new_patient_edittext_height"-->
+            <!--                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"-->
+            <!--                android:layout_marginTop="@dimen/add_new_patient_edittext_margin_top"-->
+            <!--                android:paddingStart="@dimen/add_new_patient_field_padding_start"-->
+            <!--                android:paddingEnd="@dimen/add_new_patient_field_padding_start"-->
+            <!--                android:background="@drawable/patient_id_suffix_edittext_background_with_border"-->
+            <!--                android:textSize="20sp"-->
+            <!--                android:text="00000"-->
+            <!--                android:inputType="number"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/patient_id_title"-->
+            <!--                app:layout_constraintStart_toEndOf="@id/patient_id_prefix"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                android:autofillHints="creditCardNumber"/>-->
 
             <TextView
                 android:id="@+id/ipd_number_title"
@@ -85,7 +85,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="IPD Number"
+                android:text="@string/ipd_number_title_text"
                 android:textColor="@color/blue_theme"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -99,12 +99,17 @@
                 android:layout_marginTop="@dimen/add_new_patient_edittext_margin_top"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:background="@drawable/login_edittext_background"
+                android:background="@drawable/add_visit_edittext_background"
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:inputType="text"
-                android:hint="01/23"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="@string/ipd_number_hint_text"
                 app:layout_constraintTop_toBottomOf="@id/ipd_number_title"
-                android:autofillHints="name"/>
+                android:autofillHints="name"
+                tools:ignore="TextFields" />
 
             <TextView
                 android:id="@+id/first_name_title"
@@ -257,7 +262,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="Weight (kg)"
+                android:text="@string/weight_title_text"
                 android:textColor="@color/blue_theme"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/gender_radio_group"/>
@@ -274,40 +279,72 @@
                 android:background="@drawable/login_edittext_background"
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:inputType="numberDecimal"
-                android:hint="Enter Weight"
+                android:hint="@string/weight_hint_text"
                 app:layout_constraintTop_toBottomOf="@id/weight_title"
                 android:autofillHints="name"/>
 
-<!--            <TextView-->
-<!--                android:id="@+id/height_title"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"-->
-<!--                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"-->
-<!--                android:layout_marginTop="@dimen/add_new_patient_title_margin_top"-->
-<!--                android:textSize="@dimen/add_new_patient_title_text_size"-->
-<!--                android:paddingStart="@dimen/add_new_patient_field_padding_start"-->
-<!--                android:paddingEnd="@dimen/add_new_patient_field_padding_start"-->
-<!--                android:text="Height (cm)"-->
-<!--                android:textColor="@color/blue_theme"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/weight"/>-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/height_title"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"-->
+            <!--                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"-->
+            <!--                android:layout_marginTop="@dimen/add_new_patient_title_margin_top"-->
+            <!--                android:textSize="@dimen/add_new_patient_title_text_size"-->
+            <!--                android:paddingStart="@dimen/add_new_patient_field_padding_start"-->
+            <!--                android:paddingEnd="@dimen/add_new_patient_field_padding_start"-->
+            <!--                android:text="Height (cm)"-->
+            <!--                android:textColor="@color/blue_theme"-->
+            <!--                android:textStyle="bold"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/weight"/>-->
 
-<!--            <EditText-->
-<!--                android:id="@+id/height"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="@dimen/add_new_patient_edittext_height"-->
-<!--                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"-->
-<!--                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"-->
-<!--                android:layout_marginTop="@dimen/add_new_patient_edittext_margin_top"-->
-<!--                android:paddingStart="@dimen/add_new_patient_field_padding_start"-->
-<!--                android:paddingEnd="@dimen/add_new_patient_field_padding_start"-->
-<!--                android:background="@drawable/login_edittext_background"-->
-<!--                android:textSize="@dimen/add_new_patient_title_text_size"-->
-<!--                android:inputType="numberDecimal"-->
-<!--                android:hint="Enter Height"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/height_title"-->
-<!--                android:autofillHints="name"/>-->
+            <!--            <EditText-->
+            <!--                android:id="@+id/height"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="@dimen/add_new_patient_edittext_height"-->
+            <!--                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"-->
+            <!--                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"-->
+            <!--                android:layout_marginTop="@dimen/add_new_patient_edittext_margin_top"-->
+            <!--                android:paddingStart="@dimen/add_new_patient_field_padding_start"-->
+            <!--                android:paddingEnd="@dimen/add_new_patient_field_padding_start"-->
+            <!--                android:background="@drawable/login_edittext_background"-->
+            <!--                android:textSize="@dimen/add_new_patient_title_text_size"-->
+            <!--                android:inputType="numberDecimal"-->
+            <!--                android:hint="Enter Height"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/height_title"-->
+            <!--                android:autofillHints="name"/>-->
+
+            <TextView
+                android:id="@+id/date_of_birth_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"
+                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"
+                android:layout_marginTop="@dimen/add_new_patient_title_margin_top"
+                android:textSize="@dimen/add_new_patient_title_text_size"
+                android:paddingStart="@dimen/add_new_patient_field_padding_start"
+                android:paddingEnd="@dimen/add_new_patient_field_padding_start"
+                android:text="@string/date_of_birth_title_text"
+                android:textColor="@color/blue_theme"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/weight"/>
+
+            <com.arefbhrn.maskededittext.MaskedEditText
+                android:id="@+id/date_of_birth"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/add_new_patient_edittext_height"
+                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"
+                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"
+                android:layout_marginTop="@dimen/add_new_patient_edittext_margin_top"
+                android:paddingStart="@dimen/add_new_patient_field_padding_start"
+                android:paddingEnd="@dimen/add_new_patient_field_padding_start"
+                android:background="@drawable/login_edittext_background"
+                android:textSize="@dimen/add_new_patient_title_text_size"
+                android:hint="@string/date_of_birth_hint_text"
+                app:layout_constraintTop_toBottomOf="@id/date_of_birth_title"
+                android:inputType="date"
+                app:mask="##/##/####"
+                android:autofillHints="creditCardExpirationDate"/>
 
             <TextView
                 android:id="@+id/age_title"
@@ -319,10 +356,10 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="Age"
+                android:text="@string/age_title_text"
                 android:textColor="@color/blue_theme"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/weight"/>
+                app:layout_constraintTop_toBottomOf="@id/date_of_birth"/>
 
             <EditText
                 android:id="@+id/age"
@@ -336,41 +373,41 @@
                 android:background="@drawable/login_edittext_background"
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:inputType="text"
-                android:hint="15m / 2y 5m / 20d"
+                android:hint="@string/age_hint_text"
                 app:layout_constraintTop_toBottomOf="@id/age_title"
                 android:autofillHints="name"/>
 
-<!--            <TextView-->
-<!--                android:id="@+id/date_of_birth_title"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"-->
-<!--                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"-->
-<!--                android:layout_marginTop="@dimen/add_new_patient_title_margin_top"-->
-<!--                android:textSize="@dimen/add_new_patient_title_text_size"-->
-<!--                android:paddingStart="@dimen/add_new_patient_field_padding_start"-->
-<!--                android:paddingEnd="@dimen/add_new_patient_field_padding_start"-->
-<!--                android:text="@string/date_of_birth_title_text"-->
-<!--                android:textColor="@color/blue_theme"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/age"/>-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/date_of_birth_title"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"-->
+            <!--                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"-->
+            <!--                android:layout_marginTop="@dimen/add_new_patient_title_margin_top"-->
+            <!--                android:textSize="@dimen/add_new_patient_title_text_size"-->
+            <!--                android:paddingStart="@dimen/add_new_patient_field_padding_start"-->
+            <!--                android:paddingEnd="@dimen/add_new_patient_field_padding_start"-->
+            <!--                android:text="@string/date_of_birth_title_text"-->
+            <!--                android:textColor="@color/blue_theme"-->
+            <!--                android:textStyle="bold"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/age"/>-->
 
-<!--            <com.arefbhrn.maskededittext.MaskedEditText-->
-<!--                android:id="@+id/date_of_birth"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="@dimen/add_new_patient_edittext_height"-->
-<!--                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"-->
-<!--                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"-->
-<!--                android:layout_marginTop="@dimen/add_new_patient_edittext_margin_top"-->
-<!--                android:paddingStart="@dimen/add_new_patient_field_padding_start"-->
-<!--                android:paddingEnd="@dimen/add_new_patient_field_padding_start"-->
-<!--                android:background="@drawable/login_edittext_background"-->
-<!--                android:textSize="@dimen/add_new_patient_title_text_size"-->
-<!--                android:hint="@string/date_of_birth_hint_text"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/date_of_birth_title"-->
-<!--                android:inputType="date"-->
-<!--                app:mask="##/##/####"-->
-<!--                android:autofillHints="creditCardExpirationDate"/>-->
+            <!--            <com.arefbhrn.maskededittext.MaskedEditText-->
+            <!--                android:id="@+id/date_of_birth"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="@dimen/add_new_patient_edittext_height"-->
+            <!--                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"-->
+            <!--                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"-->
+            <!--                android:layout_marginTop="@dimen/add_new_patient_edittext_margin_top"-->
+            <!--                android:paddingStart="@dimen/add_new_patient_field_padding_start"-->
+            <!--                android:paddingEnd="@dimen/add_new_patient_field_padding_start"-->
+            <!--                android:background="@drawable/login_edittext_background"-->
+            <!--                android:textSize="@dimen/add_new_patient_title_text_size"-->
+            <!--                android:hint="@string/date_of_birth_hint_text"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/date_of_birth_title"-->
+            <!--                android:inputType="date"-->
+            <!--                app:mask="##/##/####"-->
+            <!--                android:autofillHints="creditCardExpirationDate"/>-->
 
             <TextView
                 android:id="@+id/contact_number_title"
@@ -414,7 +451,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="Address"
+                android:text="@string/address_title_text"
                 android:textColor="@color/blue_theme"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/contact_number"/>
@@ -431,7 +468,8 @@
                 android:background="@drawable/login_edittext_background"
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:inputType="text"
-                android:hint="Enter Address"
+                android:hint="@string/address_hint_text"
+                android:text="@string/address_default_text"
                 app:layout_constraintTop_toBottomOf="@id/address_title"
                 android:autofillHints="name"/>
 
@@ -445,7 +483,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="Date Of Admission"
+                android:text="@string/date_of_admission_title_text"
                 android:textColor="@color/blue_theme"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/address"/>
@@ -477,7 +515,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="Time Of Admission"
+                android:text="@string/time_of_admission_title_text"
                 android:textColor="@color/blue_theme"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/date_of_admission"/>
@@ -494,7 +532,7 @@
                 android:background="@drawable/login_edittext_background"
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:inputType="text"
-                android:hint="04:23 PM"
+                android:text="@string/time_of_admission_text"
                 app:layout_constraintTop_toBottomOf="@id/time_of_admission_title"
                 android:autofillHints="name"/>
 
@@ -508,7 +546,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="Date Of Discharge"
+                android:text="@string/date_of_discharge_title_text"
                 android:textColor="@color/blue_theme"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/time_of_admission"/>
@@ -540,7 +578,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="Time Of Discharge"
+                android:text="@string/time_of_discharge_title_text"
                 android:textColor="@color/blue_theme"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/date_of_discharge"/>
@@ -557,7 +595,7 @@
                 android:background="@drawable/login_edittext_background"
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:inputType="text"
-                android:hint="04:23 PM"
+                android:text="@string/time_of_discharge_hint_text"
                 app:layout_constraintTop_toBottomOf="@id/time_of_discharge_title"
                 android:autofillHints="name"/>
 
@@ -571,7 +609,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="Diagnosis"
+                android:text="@string/diagnosis_title_text"
                 android:textColor="@color/blue_theme"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/time_of_discharge"/>
@@ -588,7 +626,7 @@
                 android:background="@drawable/login_edittext_background"
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:inputType="text"
-                android:hint="Enter Diagnosis"
+                android:hint="@string/diagnosis_hint_text"
                 app:layout_constraintTop_toBottomOf="@id/diagnosis_title"
                 android:autofillHints="name"/>
 
@@ -601,7 +639,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="History Of Present Illness"
+                android:text="@string/patient_history_title_text"
                 android:textColor="@color/blue_theme"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/diagnosis"
@@ -616,7 +654,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="Add"
+                android:text="@string/add_button_text"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/diagnosis"
@@ -636,7 +674,7 @@
                 android:background="@drawable/login_edittext_background"
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:inputType="textMultiLine"
-                android:hint="Enter Patient History"
+                android:hint="@string/patient_history_hint_text"
                 app:layout_constraintTop_toBottomOf="@id/patient_history_title"
                 android:autofillHints="name"/>
 
@@ -649,7 +687,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="Past H/O"
+                android:text="@string/past_history_title_text"
                 android:textColor="@color/blue_theme"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/patient_history"
@@ -667,10 +705,10 @@
                 android:minLines="3"
                 android:gravity="top"
                 android:background="@drawable/login_edittext_background"
-                android:text="@string/discharge_card_past_history"
+                android:text="@string/past_history_default_text"
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:inputType="textMultiLine"
-                android:hint="Enter Past History"
+                android:hint="@string/past_history_hint_text"
                 app:layout_constraintTop_toBottomOf="@id/past_history_title"
                 android:autofillHints="name"/>
 
@@ -683,7 +721,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="Family H/O"
+                android:text="@string/family_history_title_text"
                 android:textColor="@color/blue_theme"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/past_history"
@@ -701,10 +739,10 @@
                 android:minLines="3"
                 android:gravity="top"
                 android:background="@drawable/login_edittext_background"
-                android:text="@string/discharge_card_family_history"
+                android:text="@string/family_history_default_text"
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:inputType="textMultiLine"
-                android:hint="Enter Family History"
+                android:hint="@string/family_history_hint_text"
                 app:layout_constraintTop_toBottomOf="@id/family_history_title"
                 android:autofillHints="name"/>
 
@@ -717,7 +755,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="Course"
+                android:text="@string/course_title_text"
                 android:textColor="@color/blue_theme"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/family_history"
@@ -732,7 +770,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="Add"
+                android:text="@string/add_button_text"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/family_history"
@@ -759,7 +797,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="Investigations"
+                android:text="@string/investigations_title_text"
                 android:textColor="@color/blue_theme"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/course_list"
@@ -777,10 +815,10 @@
                 android:minLines="3"
                 android:gravity="top"
                 android:background="@drawable/login_edittext_background"
-                android:text="@string/discharge_card_investigations"
+                android:text="@string/investigations_default_text"
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:inputType="textMultiLine"
-                android:hint="Add Investigations"
+                android:hint="@string/investigations_hint_text"
                 app:layout_constraintTop_toBottomOf="@id/investigations_title"
                 android:autofillHints="name"/>
 
@@ -793,7 +831,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="Medications on Discharge"
+                android:text="@string/medications_title_text"
                 android:textColor="@color/blue_theme"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/investigations"
@@ -808,7 +846,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="Add"
+                android:text="@string/add_button_text"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/investigations"
@@ -835,7 +873,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="Advice"
+                android:text="@string/advice_title_text"
                 android:textColor="@color/blue_theme"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/medication_list"
@@ -850,7 +888,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:paddingStart="@dimen/add_new_patient_field_padding_start"
                 android:paddingEnd="@dimen/add_new_patient_field_padding_start"
-                android:text="Add"
+                android:text="@string/add_button_text"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/medication_list"
@@ -872,25 +910,42 @@
 
     </ScrollView>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/cancel_button"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/save_new_patient_button_height"
-        android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="@dimen/save_new_patient_button_vertical_margin"
-        android:layout_marginBottom="@dimen/save_new_patient_button_vertical_margin"
-        android:background="@drawable/edit_button_background"
-        app:layout_constraintTop_toBottomOf="@id/scrollView"
-        app:layout_constraintBottom_toTopOf="@id/generate_discharge_card_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/save_discharge_card_button"
-        android:textColor="@color/blue_theme"
-        android:text="Cancel"
-        android:textAllCaps="false"/>
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/cancel_button"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="@dimen/save_new_patient_button_height"-->
+<!--        android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        android:layout_marginTop="@dimen/save_new_patient_button_vertical_margin"-->
+<!--        android:layout_marginBottom="@dimen/save_new_patient_button_vertical_margin"-->
+<!--        android:background="@drawable/login_button_background"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/scrollView"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/generate_discharge_card_button"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/save_discharge_card_button"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:backgroundTint="@color/red"-->
+<!--        android:text="@string/delete_button_text"-->
+<!--        android:textAllCaps="false"/>-->
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/save_discharge_card_button"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/save_new_patient_button_height"
+        android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"
+        android:layout_marginTop="@dimen/save_new_patient_button_vertical_margin"
+        android:layout_marginBottom="@dimen/save_new_patient_button_vertical_margin"
+        android:background="@drawable/login_button_background"
+        app:layout_constraintTop_toBottomOf="@id/scrollView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/generate_discharge_card_button"
+        android:textColor="@color/white"
+        android:text="@string/save_button_text"
+        android:textAllCaps="false"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/generate_discharge_card_button"
         android:layout_width="0dp"
         android:layout_height="@dimen/save_new_patient_button_height"
         android:layout_marginStart="10dp"
@@ -899,25 +954,11 @@
         android:layout_marginBottom="@dimen/save_new_patient_button_vertical_margin"
         android:background="@drawable/login_button_background"
         app:layout_constraintTop_toBottomOf="@id/scrollView"
-        app:layout_constraintBottom_toTopOf="@id/generate_discharge_card_button"
-        app:layout_constraintStart_toEndOf="@id/cancel_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/save_discharge_card_button"
         app:layout_constraintEnd_toEndOf="parent"
         android:textColor="@color/white"
-        android:text="Save"
-        android:textAllCaps="false"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/generate_discharge_card_button"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/save_new_patient_button_height"
-        android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"
-        android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"
-        android:layout_marginBottom="@dimen/save_new_patient_button_vertical_margin"
-        android:background="@drawable/login_button_background"
-        app:layout_constraintTop_toBottomOf="@id/cancel_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:textColor="@color/white"
-        android:text="Generate Card"
+        android:text="@string/generate_card_button_text"
         android:textAllCaps="false"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

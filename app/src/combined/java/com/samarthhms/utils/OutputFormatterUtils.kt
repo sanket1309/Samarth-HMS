@@ -58,7 +58,7 @@ class OutputFormatterUtils {
                 return Constants.DefaultValues.AGE_TEXT
             }
             if(Objects.isNull(patient!!.dateOfBirth)){
-                return patient.ageInText
+                return patient.ageInText!!
             }
             return formatAgeFromDateOfBirth(patient.dateOfBirth)
         }
@@ -90,6 +90,13 @@ class OutputFormatterUtils {
             return DateTimeUtils.getDateFormat(localDateTime!!)
         }
 
+        fun formatDate(localDateTime: LocalDateTime?): String {
+            if (Objects.isNull(localDateTime)) {
+                return Constants.EMPTY
+            }
+            return DateTimeUtils.getDateWithMonthInWords(localDateTime!!)
+        }
+
         fun formatTime(localDateTime: LocalDateTime?): String {
             if (Objects.isNull(localDateTime)) {
                 return Constants.EMPTY
@@ -104,11 +111,18 @@ class OutputFormatterUtils {
             return string.trim()
         }
 
-        fun formatNumber(number: String?): String {
-            if (number.isNullOrBlank()) {
-                return BigInteger.ZERO.toString()
-            }
-            return number.trim()
+        fun formatNumber(number: Float?): String {
+//            if (number()) {
+//                return BigInteger.ZERO.toString()
+//            }
+            return number.toString()
+        }
+
+        fun formatNumber(number: Int?): String {
+//            if (number()) {
+//                return BigInteger.ZERO.toString()
+//            }
+            return number.toString()
         }
     }
 }

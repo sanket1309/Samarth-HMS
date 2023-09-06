@@ -16,6 +16,7 @@ import com.google.firebase.Timestamp
 import com.samarthhms.databinding.FragmentFindPatientByPatientIdBinding
 import com.samarthhms.domain.Status
 import com.samarthhms.models.Patient
+import com.samarthhms.models.PatientVisitDetails
 import com.samarthhms.utils.DateTimeUtils
 import com.samarthhms.utils.IdUtils
 import com.samarthhms.utils.StringUtils
@@ -32,7 +33,7 @@ class FindPatientByPatientIdFragment : Fragment() {
 
     private val viewModel: FindPatientByPatientIdViewModel by viewModels()
 
-    private var selectedPatient: Patient? = null
+    private var selectedPatient: PatientVisitDetails? = null
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -61,7 +62,7 @@ class FindPatientByPatientIdFragment : Fragment() {
             val patientInfoLayout = binding.patientInfo
             if(it == Status.SUCCESS){
                 val patient = viewModel.patient.value
-                selectedPatient = patient
+                selectedPatient = PatientVisitDetails(patient)
                 if(patient == null){
                     patientInfoLayout.root.visibility = GONE
                     binding.resultText.text = StringUtils.getResultFoundText(0)
@@ -69,10 +70,10 @@ class FindPatientByPatientIdFragment : Fragment() {
                     return@observe
                 }
                 patientInfoLayout.patientId.text = patient.patientId
-                patientInfoLayout.patientName.text = patient.firstName + " " + patient.lastName
-                patientInfoLayout.patientAddress.text = patient.town +" Tal."+ patient.taluka
-                patientInfoLayout.patientGender.text = patient.gender.value+", "
-                patientInfoLayout.patientAge.text = getAgeText(DateTimeUtils.getTimestamp(patient.dateOfBirth))
+                patientInfoLayout.name.text = patient.firstName + " " + patient.lastName
+                patientInfoLayout.address.text = patient.town +" Tal."+ patient.taluka
+                patientInfoLayout.gender.text = patient.gender.value+", "
+                patientInfoLayout.age.text = getAgeText(DateTimeUtils.getTimestamp(patient.dateOfBirth!!))
                 binding.resultText.text = StringUtils.getResultFoundText(1)
                 patientInfoLayout.root.visibility = VISIBLE
                 binding.noResultsImage.visibility = GONE

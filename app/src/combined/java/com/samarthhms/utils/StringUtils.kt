@@ -1,5 +1,8 @@
 package com.samarthhms.utils
 
+import com.samarthhms.constants.Constants
+import com.samarthhms.constants.Role
+import com.samarthhms.models.Name
 import pl.allegro.finance.tradukisto.ValueConverters
 
 class StringUtils {
@@ -35,6 +38,23 @@ class StringUtils {
                 1 -> " 1 Patient"
                 else -> " $resultCount Results"
             }
+        }
+
+        fun getGreetingUserName(name: Name?, role: Role): String {
+            if(role == Role.ADMIN){
+                return "Dr. "+name?.firstName?:""
+            } else if(role == Role.STAFF){
+                return name?.firstName?:""
+            } else{
+                return Constants.EMPTY
+            }
+        }
+
+        fun getGreeting(): String{
+            val hours = DateTimeUtils.getHours()
+            return if(hours in 0 until 12) "Good Morning,"
+            else if(hours in 12 until 18) "Good Afternoon,"
+            else "Good Evening,"
         }
 
         fun formatName(name: String): String {

@@ -128,18 +128,14 @@ dependencies {
 
     implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0'
 
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.5'
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.8.5'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.8.5'
-
     implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
     implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
     implementation "androidx.navigation:navigation-dynamic-features-fragment:2.5.3"
     implementation 'com.firebaseui:firebase-ui-firestore:8.0.2'
     implementation 'com.github.arefbhrn:MaskedEditText:1.0.0'
 
-    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.12.1'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.4'
+
+    implementation 'com.google.code.gson:gson:2.8.9'
 
     implementation "com.itextpdf:itextpdf:5.5.13.1"
 
@@ -151,4 +147,10 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.5'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.12.5'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.12.5'
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.5")
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.5'
 }

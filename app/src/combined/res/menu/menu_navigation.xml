@@ -16,7 +16,7 @@
                 android:title="Search Patient"/>
 
             <item
-                android:id="@+id/REPLACE_2"
+                android:id="@+id/searchPatientFragment"
                 android:icon="@drawable/navigation_icon_search"
                 android:title="Search Visits"/>
 

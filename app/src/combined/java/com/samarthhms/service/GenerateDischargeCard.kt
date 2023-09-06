@@ -116,7 +116,7 @@ class GenerateDischargeCard @Inject constructor(){
         cell = getCell(" ")
         cell.border = Rectangle.NO_BORDER
         table.addCell(cell)
-        cell = getCell("Date : "+DateTimeUtils.getDateFormat(dischargeCard.dateOfDischarge))
+        cell = getCell("Date : "+DateTimeUtils.getDateFormat(dischargeCard.dateOfDischarge!!))
         cell.border = Rectangle.NO_BORDER
         table.addCell(cell)
         document.add(table)
@@ -132,18 +132,18 @@ class GenerateDischargeCard @Inject constructor(){
         data = "Patient Name : " + dischargeCard.firstName + " " + dischargeCard.middleName + " " + dischargeCard.lastName
         table.addCell(getCell(data, 2))
 
-        data = "Age / Sex : " + dischargeCard.ageFormat + " / " + dischargeCard.gender.value + "\n" +
-               "Weight    : " + dischargeCard.weight + "Kg"
+        data = "Age / Sex : " + dischargeCard.ageInText + " / " + dischargeCard.gender.value + "\n" +
+               "Weight    : " + dischargeCard.weightInKg + "Kg"
         table.addCell(getCell(data))
 
         data = "Address : " + dischargeCard.address + "\n" +
                "Mobile Number    : " + dischargeCard.contactNumber
         table.addCell(getCell(data))
 
-        data = "Date Of Admission : " + DateTimeUtils.getDateTime(dischargeCard.dateOfAdmission)
+        data = "Date Of Admission : " + DateTimeUtils.getDateTime(dischargeCard.dateOfAdmission!!)
         table.addCell(getCell(data))
 
-        data = "Date Of Discharge : " + DateTimeUtils.getDateTime(dischargeCard.dateOfDischarge)
+        data = "Date Of Discharge : " + DateTimeUtils.getDateTime(dischargeCard.dateOfDischarge!!)
         table.addCell(getCell(data))
 
         data = "IPD Number : " + StringUtils.formatYearWiseIdGeneral(dischargeCard.ipdNumber)
@@ -154,22 +154,22 @@ class GenerateDischargeCard @Inject constructor(){
 
         var title = "History Of Present Illness :- "
         data = dischargeCard.patientHistory
-        table.addCell(getCell(title,data,true, 2))
+        table.addCell(getCell(title,data!!,true, 2))
 
         title = "Past H/o :- "
         data = dischargeCard.pastHistory
-        table.addCell(getCell(title,data, false,2))
+        table.addCell(getCell(title,data!!, false,2))
 
         title = "Family H/o :- "
         data = dischargeCard.familyHistory
-        table.addCell(getCell(title,data, false,2))
+        table.addCell(getCell(title,data!!, false,2))
 
         title = "Course in Hospital (Treatments) :- "
         table.addCell(getCell(title, dischargeCard.course,true, 2))
 
         title = "Investigations :- "
         data = dischargeCard.investigations
-        table.addCell(getCell(title, data,false, 2))
+        table.addCell(getCell(title, data!!,false, 2))
 
         title = "Medications on Discharge :- "
         table.addCell(getCell(title, dischargeCard.medicationsOnDischarge,true, 2))

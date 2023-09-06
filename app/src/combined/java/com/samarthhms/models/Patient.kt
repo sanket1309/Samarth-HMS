@@ -9,6 +9,6 @@ import java.time.LocalDateTime
 @Parcelize
 open class Patient(
     var patientId: String = Constants.DefaultValues.ID,
-    var ageInText: String = Constants.DefaultValues.AGE_TEXT,
+    var ageInText: String? = null,
     var address: String = Constants.DefaultValues.ADDRESS
 ): IndividualInfoWithLocation(), Parcelable

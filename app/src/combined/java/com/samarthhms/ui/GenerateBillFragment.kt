@@ -107,8 +107,8 @@ class GenerateBillFragment : Fragment(), OnUpdateBillSumListener {
     }
 
     private fun getBill(): Bill {
-        ValidateIndividualFormUtils.validateBill(binding.root, requireContext(), resources)
-        returnUiDataExtractorUtils.getBill(binding.root)
+        ValidationUtils.validateBill(binding.root, requireContext(), resources)
+        return UiDataExtractorUtils.getBill(binding.root)
     }
 
     override fun update(sum: Int){
@@ -117,7 +117,6 @@ class GenerateBillFragment : Fragment(), OnUpdateBillSumListener {
     }
 
     fun startProgressBar(isVisible: Boolean){
-        binding.root.isClickable = !isVisible
         (activity as MainActivity).startProgressBar(isVisible)
     }
 }

@@ -1,9 +1,9 @@
 package com.samarthhms.models
 
 import android.os.Parcelable
+import com.google.gson.annotations.JsonAdapter
 import com.samarthhms.constants.Constants
-import com.samarthhms.constants.Gender
-import com.samarthhms.utils.FirestoreLocalDateTime
+import com.samarthhms.utils.LocalDateTimeSerializer
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
@@ -13,9 +13,9 @@ open class AdmitPatientInfo(
     var admitId: String = Constants.DefaultValues.ID,
     var weightInKg: Float = 0f,
     var heightInCm: Float = 0f,
-    @FirestoreLocalDateTime
+    @JsonAdapter(LocalDateTimeSerializer::class)
     var dateOfAdmission: LocalDateTime? = null,
-    @FirestoreLocalDateTime
+    @JsonAdapter(LocalDateTimeSerializer::class)
     var dateOfDischarge: LocalDateTime? = null,
     var diagnosis: String = Constants.DefaultValues.NAME,
 ): Patient(), Parcelable

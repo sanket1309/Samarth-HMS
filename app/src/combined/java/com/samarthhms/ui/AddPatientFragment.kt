@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.samarthhms.R
 import com.samarthhms.databinding.FragmentAddPatientBinding
 import com.samarthhms.navigator.Navigator
@@ -17,29 +16,17 @@ class AddPatientFragment : Fragment() {
     private lateinit var binding: FragmentAddPatientBinding
 
     @Inject
-    private lateinit var navigator: Navigator
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    lateinit var navigator: Navigator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddPatientBinding.inflate(layoutInflater, container, false)
-        binding.findByPatientIdButton.setOnClickListener{
-            navigator.navigateToFragment(this, R.id.action_addPatientFragment_to_findPatientByPatientIdFragment)
-        }
-        binding.findByNameButton.setOnClickListener{
-            navigator.navigateToFragment(this, R.id.action_addPatientFragment_to_findPatientByNameFragment)
-        }
-        binding.findByContactNumberButton.setOnClickListener{
-            navigator.navigateToFragment(this, R.id.action_addPatientFragment_to_findPatientByContactNumberFragment)
-        }
-        binding.addNewPatientButton.setOnClickListener{
-            navigator.navigateToFragment(this, R.id.action_addPatientFragment_to_addNewPatientFragment)
-        }
+        binding.findByPatientIdButton.setOnClickListener{ navigator.navigateToFragment(this, R.id.action_addPatientFragment_to_findPatientByPatientIdFragment) }
+        binding.findByNameButton.setOnClickListener{ navigator.navigateToFragment(this, R.id.action_addPatientFragment_to_findPatientByNameFragment) }
+        binding.findByContactNumberButton.setOnClickListener{ navigator.navigateToFragment(this, R.id.action_addPatientFragment_to_findPatientByContactNumberFragment) }
+        binding.addNewPatientButton.setOnClickListener{ navigator.navigateToFragment(this, R.id.action_addPatientFragment_to_addNewPatientFragment) }
         return binding.root
     }
 }

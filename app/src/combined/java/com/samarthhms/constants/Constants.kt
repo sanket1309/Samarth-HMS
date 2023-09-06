@@ -47,6 +47,9 @@ object Constants {
     const val UNLOCK = "UNLOCK"
 
     object Messages{
+        const val SUCCESSFULLY_LOGGED_IN = "SUCCESSFULLY LOGGED IN !!"
+        const val VALIDATION_FAILED = "USERNAME OR PASSWORD HAS INVALID FORMAT"
+        const val FAILED_TO_LOG_IN = "FAILED TO LOG IN !!"
         const val ADMIN_DETAILS_UPDATED = "Updated admin details"
         const val ADMIN_DELETED = "Admin has been removed"
         const val NOTHING_UPDATED = "Nothing has been updated"
@@ -56,6 +59,12 @@ object Constants {
         const val PERMISSION_DENIED_GENERATE_BILL = "Permission denied, cannot generate bill"
         const val PERMISSION_DENIED_GENERATE_DISCHARGE_CARD = "Permission denied, cannot generate discharge card"
         const val IPD_NUMBER_ALREADY_EXISTS = "IPD Number already exists"
+        const val ADDED_ADMIN_SUCCESSFULLY = "Added admin successfully"
+        const val ADDED_STAFF_SUCCESSFULLY = "Added staff successfully"
+        const val ADDED_VISIT_SUCCESSFULLY = "Added visit successfully"
+        const val ADDED_RECORD_SUCCESSFULLY = "Added record successfully"
+        const val DELETED_RECORD_SUCCESSFULLY = "Deleted record successfully"
+        const val SAVED_RECORD_SUCCESSFULLY = "Saved record successfully"
     }
 
     object Permissons{
@@ -78,6 +87,12 @@ object Constants {
     object DialogMessages{
         const val UPDATE_ADMIN = "Are you sure, you want to update admin?"
         const val DELETE_ADMIN = "Are you sure, you want to delete admin?"
+        const val SAVE_ADMIN = "Are you sure, you want to save admin?"
+        const val SAVE_STAFF = "Are you sure, you want to save staff?"
+        const val SAVE_PATIENT = "Are you sure, you want to save patient?"
+        const val SAVE_BILL = "Are you sure, you want to save bill?"
+        const val SAVE_CARD = "Are you sure, you want to save card?"
+        const val ADD_VISIT = "Are you sure, you want to add visit?"
         const val YES = "Yes"
         const val NO = "No"
     }

@@ -2,6 +2,8 @@ package com.samarthhms.utils
 
 import android.annotation.SuppressLint
 import com.google.firebase.Timestamp
+import com.samarthhms.constants.DateRangeValue
+import com.samarthhms.models.DateRange
 import java.sql.Time
 import java.text.SimpleDateFormat
 import java.time.Duration
@@ -12,6 +14,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.*
+import kotlin.reflect.jvm.internal.impl.descriptors.Visibilities.Local
 
 class DateTimeUtils {
     companion object{
@@ -47,6 +50,10 @@ class DateTimeUtils {
 
         fun getDateFormat(localDateTime: LocalDateTime): String {
             return DateTimeFormatter.ofPattern("dd/MM/yyyy").format(localDateTime)
+        }
+
+        fun getDateWithMonthInWords(localDateTime: LocalDateTime): String{
+            return DateTimeFormatter.ofPattern("dd MMM yyyy").format(localDateTime)
         }
 
         fun getTime(localDateTime: LocalDateTime): String {
@@ -115,6 +122,32 @@ class DateTimeUtils {
             val date = SimpleDateFormat("dd/MM/yyyy").parse(dateVal)
             val currentDate = Date()
             return date <= currentDate
+        }
+
+        fun getStartOfWeek(localDateTime: LocalDateTime): LocalDateTime{
+            return localDateTime.minusDays(localDateTime.dayOfWeek.value.toLong()-1)
+        }
+
+        fun getStartOfMonth(localDateTime: LocalDateTime): LocalDateTime{
+            return localDateTime.minusDays(localDateTime.dayOfMonth.toLong()-1)
+        }
+
+        fun getDateRange(dateRangeValue: DateRangeValue): DateRange{
+            val dateRange = DateRange()
+            if(dateRangeValue == DateRangeValue.TODAY){
+                dateRange.startDate = getStartOfDate(LocalDateTime.now())
+                dateRange.endDate = getEndOfDate(LocalDateTime.now())
+            }else if(dateRangeValue == DateRangeValue.YESTERDAY){
+                dateRange.startDate = getStartOfDate(LocalDateTime.now().minusDays(1))
+                dateRange.endDate = getEndOfDate(dateRange.startDate!!)
+            }else if(dateRangeValue == DateRangeValue.THIS_WEEK){
+                dateRange.startDate = getStartOfWeek(LocalDateTime.now())
+                dateRange.endDate = getEndOfDate(LocalDateTime.now())
+            }else if(dateRangeValue == DateRangeValue.THIS_MONTH){
+                dateRange.startDate = getStartOfMonth(LocalDateTime.now())
+                dateRange.endDate = getEndOfDate(LocalDateTime.now())
+            }
+            return dateRange
         }
     }
 }

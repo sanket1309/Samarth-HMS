@@ -1,34 +1,18 @@
 package com.samarthhms.ui
 
-import android.content.Context
-import android.content.DialogInterface
-import android.graphics.drawable.DrawableContainer
-import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.StateListDrawable
 import android.os.Bundle
-import android.text.method.HideReturnsTransformationMethod
-import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.samarthhms.R
 import com.samarthhms.constants.Constants
-import com.samarthhms.constants.Gender
 import com.samarthhms.constants.Role
 import com.samarthhms.databinding.FragmentAdminDetailsBinding
 import com.samarthhms.domain.Status
 import com.samarthhms.models.Admin
 import com.samarthhms.models.AdminDetails
-import com.samarthhms.models.Credentials
-import com.samarthhms.models.IndividualFormData
 import com.samarthhms.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -53,8 +37,7 @@ class AdminDetailsFragment : Fragment() {
         adminDetails = AdminDetailsFragmentArgs.fromBundle(requireArguments()).adminDetails
         admin = adminDetails.admin
         updateEditability(false)
-        UiDataDisplayUtils.displayIndividualFormWithAddress(binding.root, admin)
-        UiDataDisplayUtils.displayCredentialDetails(binding.root, adminDetails.adminCredentials)
+        UiDataDisplayUtils.displayAdminDetails(binding.root, adminDetails)
 
         binding.saveAdminButton.visibility = View.GONE
         binding.saveAdminButton.setOnClickListener { onSaveAdmin() }
@@ -105,13 +88,10 @@ class AdminDetailsFragment : Fragment() {
     }
 
     private fun onSaveAdmin(){
-        ValidateIndividualFormUtils.validateIndividualFormWithAddress(binding.root, requireContext(), resources)
-        val individualFormData =UiDataExtractorUtils.extractData(binding.root, Admin::class.java)
-        val newAdmin = individualFormData.data!!
-        val credentials = individualFormData.credentials!!
-        credentials.id = admin.adminId
-        credentials.role = Role.ADMIN
-        val newAdminDetails = AdminDetails(admin.adminId, newAdmin, null, credentials)
+        ValidationUtils.validateAdminDetails(binding.root, requireContext(), resources)
+        val newAdminDetails =UiDataExtractorUtils.getAdminDetails(binding.root)
+        newAdminDetails.adminCredentials.id = admin.adminId
+        newAdminDetails.admin.adminId = admin.adminId
 
         if(areEqual(adminDetails, newAdminDetails)){
             ToastUtils.showToast(requireContext(), Constants.Messages.NOTHING_UPDATED)

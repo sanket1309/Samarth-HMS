@@ -7,5 +7,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Staff(
-    var adminId: String = Constants.DefaultValues.ID
+    var adminId: String = Constants.DefaultValues.ID,
+    var staffId: String = Constants.DefaultValues.ID
 ): IndividualInfoWithAddress(),Parcelable

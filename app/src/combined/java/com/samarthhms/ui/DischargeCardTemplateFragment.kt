@@ -38,14 +38,12 @@ class DischargeCardTemplateFragment : Fragment(), RecyclerOnItemViewEditClickLis
         val patientHistoryTemplateAdapter = PatientHistoryTemplateAdapter(requireContext(), this, listOf())
         binding.patientHistoryTemplatesRecyclerView.adapter = patientHistoryTemplateAdapter
         viewModel.dischargeCardTemplate.observe(viewLifecycleOwner){
-            RecyclerViewAdapterUtils.updateData<MedicineTemplateListAdapter.MedicineTemplateHolder,MedicineTemplate>(binding.medicineTemplatesRecyclerView.adapter, viewModel.dischargeCardTemplate.value!!.medicineTemplates)
+            RecyclerViewAdapterUtils.updateData<MedicineTemplateAdapter.MedicineTemplateHolder,MedicineTemplate>(binding.medicineTemplatesRecyclerView.adapter, viewModel.dischargeCardTemplate.value!!.medicineTemplates)
             RecyclerViewAdapterUtils.updateData<PatientHistoryTemplateAdapter.PatientHistoryTemplateHolder,PatientHistoryTemplate>(binding.patientHistoryTemplatesRecyclerView.adapter, viewModel.dischargeCardTemplate.value!!.patientHistoryTemplates)
         }
         viewModel.getData()
         binding.addMedicineTemplateButton.setOnClickListener{
-            val medicineTemplates = (binding.medicineTemplatesRecyclerView.adapter as MedicineTemplateAdapter).templates.toMutableList()
-            medicineTemplates.add(MedicineTemplate())
-            RecyclerViewAdapterUtils.updateData<MedicineTemplateListAdapter.MedicineTemplateHolder,MedicineTemplate>(binding.medicineTemplatesRecyclerView.adapter, medicineTemplates)
+            RecyclerViewAdapterUtils.appendData<MedicineTemplateAdapter.MedicineTemplateHolder,MedicineTemplate>(binding.medicineTemplatesRecyclerView.adapter, MedicineTemplate())
         }
 
         binding.addPatientHistoryTemplateButton.setOnClickListener{

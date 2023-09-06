@@ -7,7 +7,7 @@ class MedicineTemplateDataExtractorUtils {
     companion object{
         fun extractData(medicineTemplateLayoutBinding: MedicineTemplateLayoutBinding): String {
             try {
-                return UiDataExtractorUtils.getText(medicineTemplateLayoutBinding.template)
+                return UiDataExtractorUtils.getMedicineTemplate(medicineTemplateLayoutBinding.root).templateData
             } catch (e: Exception) {
                 Log.e("MedicineTemplateDataExtractorUtils", "Failed to extract medicine template", e)
                 throw e

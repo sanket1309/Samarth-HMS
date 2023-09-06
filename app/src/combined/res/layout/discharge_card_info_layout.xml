@@ -42,7 +42,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/patient_name"
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/patient_info_patient_name_text"
@@ -52,31 +52,31 @@
             app:layout_constraintTop_toBottomOf="@id/ipd_number_title"/>
 
         <TextView
-            android:id="@+id/patient_gender"
+            android:id="@+id/gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/patient_info_patient_gender_text"
             android:textSize="@dimen/patient_info_layout_patient_gender_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/patient_name"/>
+            app:layout_constraintTop_toBottomOf="@id/name"/>
 
         <TextView
-            android:id="@+id/patient_age"
+            android:id="@+id/age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/patient_info_patient_age_text"
             android:textSize="@dimen/patient_info_layout_patient_age_text_size"
-            app:layout_constraintStart_toEndOf="@id/patient_gender"
-            app:layout_constraintTop_toBottomOf="@id/patient_name"/>
+            app:layout_constraintStart_toEndOf="@id/gender"
+            app:layout_constraintTop_toBottomOf="@id/name"/>
 
         <TextView
-            android:id="@+id/patient_diagnosis"
+            android:id="@+id/diagnosis_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Diagnosis: "
             android:textSize="@dimen/patient_info_layout_patient_address_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/patient_age"/>
+            app:layout_constraintTop_toBottomOf="@id/age"/>
 
         <TextView
             android:id="@+id/diagnosis"
@@ -84,8 +84,8 @@
             android:layout_height="wrap_content"
             android:text="Acute Gastro Enteritis"
             android:textSize="@dimen/patient_info_layout_patient_address_text_size"
-            app:layout_constraintStart_toEndOf="@id/patient_diagnosis"
-            app:layout_constraintTop_toBottomOf="@id/patient_age"/>
+            app:layout_constraintStart_toEndOf="@id/diagnosis_title"
+            app:layout_constraintTop_toBottomOf="@id/age"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

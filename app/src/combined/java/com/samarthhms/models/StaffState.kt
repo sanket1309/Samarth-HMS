@@ -18,14 +18,14 @@ data class StaffState(
     var adminId: String? = null,
 
     @ColumnInfo(name = "first_name")
-    var firstName: String? = null,
+    override var firstName: String,
 
     @ColumnInfo(name = "middle_name")
-    var middleName: String? = null,
+    override var middleName: String? = null,
 
     @ColumnInfo(name = "last_name")
-    var lastName: String? = null,
+    override var lastName: String,
 
     @ColumnInfo(name = "gender")
     var gender: Gender = Gender.MALE
-)
+): Name()

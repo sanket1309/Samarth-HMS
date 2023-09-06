@@ -109,7 +109,7 @@ class GenerateBill @Inject constructor(){
         cell.border = Rectangle.NO_BORDER
         tableTop.addCell(cell)
 
-        data = "Date : " + DateTimeUtils.getDateFormat(bill.dateOfDischarge)
+        data = "Date : " + DateTimeUtils.getDateFormat(bill.dateOfDischarge!!)
         cell = getCell(data)
         cell.border = Rectangle.NO_BORDER
         tableTop.addCell(cell)
@@ -129,7 +129,7 @@ class GenerateBill @Inject constructor(){
         cell.border = Rectangle.NO_BORDER
         table.addCell(cell)
 
-        data = "Age / Sex : " + bill.age + " / " + bill.gender.value
+        data = "Age / Sex : " + bill.ageInText + " / " + bill.gender.value
         cell = getCell(data,)
         cell.border = Rectangle.NO_BORDER
         table.addCell(cell)
@@ -139,12 +139,12 @@ class GenerateBill @Inject constructor(){
         cell.border = Rectangle.NO_BORDER
         table.addCell(cell)
 
-        data = "Date Of Admission : " + DateTimeUtils.getDateFormat(bill.dateOfAdmission)
+        data = "Date Of Admission : " + DateTimeUtils.getDateFormat(bill.dateOfAdmission!!)
         cell = getCell(data)
         cell.border = Rectangle.NO_BORDER
         table.addCell(cell)
 
-        data = "Date Of Discharge : " + DateTimeUtils.getDateFormat(bill.dateOfDischarge)
+        data = "Date Of Discharge : " + DateTimeUtils.getDateFormat(bill.dateOfDischarge!!)
         cell = getCell(data)
         cell.border = Rectangle.NO_BORDER
         table.addCell(cell)
@@ -173,7 +173,7 @@ class GenerateBill @Inject constructor(){
         cell.horizontalAlignment = Element.ALIGN_CENTER
         table.addCell(cell)
 
-        for(billItem in bill.treatmentCharges){
+        for(billItem in bill.treatmentCharges!!){
             data = billItem.itemName
             cell = getCellBody(data, false, 35f)
             table.addCell(cell)
@@ -192,7 +192,7 @@ class GenerateBill @Inject constructor(){
 
         var names = "Management of\n"
         var charges = " \n"
-        for(billItem in bill.managementCharges){
+        for(billItem in bill.managementCharges!!){
             names += " - "+billItem.itemName+"..........\n"
             data = if(billItem.rate * billItem.quantity == 0){
                 "-\n"
@@ -207,10 +207,10 @@ class GenerateBill @Inject constructor(){
         cell.horizontalAlignment = Element.ALIGN_CENTER
         table.addCell(cell)
 
-        cell = getCellBody(bill.otherCharges.itemName, false, 35f)
+        cell = getCellBody(bill.otherCharges!!.itemName, false, 35f)
         table.addCell(cell)
-        data = bill.otherCharges.rate.toString()+" X "+bill.otherCharges.quantity+" = "+(bill.otherCharges.rate * bill.otherCharges.quantity).toString()
-        if(bill.otherCharges.rate * bill.otherCharges.quantity == 0) data = "-"
+        data = bill.otherCharges!!.rate.toString()+" X "+bill.otherCharges!!.quantity+" = "+(bill.otherCharges!!.rate * bill.otherCharges!!.quantity).toString()
+        if(bill.otherCharges!!.rate * bill.otherCharges!!.quantity == 0) data = "-"
         cell = getCellBody(data, false, 35f)
         cell.horizontalAlignment = Element.ALIGN_CENTER
         table.addCell(cell)

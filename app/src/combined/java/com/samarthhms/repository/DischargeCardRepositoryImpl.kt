@@ -7,6 +7,7 @@ import com.samarthhms.constants.SchemaName
 import com.samarthhms.models.Converters
 import com.samarthhms.models.DischargeCard
 import com.samarthhms.models.DischargeCardFirebase
+import com.samarthhms.utils.FirestoreUtils
 import com.samarthhms.utils.StringUtils
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -20,7 +21,7 @@ class DischargeCardRepositoryImpl @Inject constructor(): DischargeCardRepository
         try {
             val snapshot = reference.document(StringUtils.formatYearWiseIdForFirebase(ipdNumber)).get().await()
             if(snapshot.exists()){
-                val dischargeCard = Converters.convertToDischargeCard(snapshot.toObject(DischargeCardFirebase::class.java)!!)
+                val dischargeCard = FirestoreUtils.toObjectFromSnapshot(snapshot,DischargeCard::class.java)
                 Log.i("DischargeCardRepositoryImpl", "discharge card found for ipd number $ipdNumber")
                 return dischargeCard
             }
@@ -39,7 +40,7 @@ class DischargeCardRepositoryImpl @Inject constructor(): DischargeCardRepository
         try {
             val snapshots = query.get().await()
             if(!snapshots.isEmpty){
-                val dischargeCards = snapshots.map { Converters.convertToDischargeCard(it.toObject(DischargeCardFirebase::class.java)) }
+                val dischargeCards = snapshots.map { FirestoreUtils.toObjectFromSnapshot(it, DischargeCard::class.java) }
                 Log.i("DischargeCardRepositoryImpl", "Fetched ${dischargeCards.size} recent bills")
                 return dischargeCards
             }
@@ -67,7 +68,7 @@ class DischargeCardRepositoryImpl @Inject constructor(): DischargeCardRepository
         try {
             val reference = db.collection(SchemaName.DISCHARGE_CARD_COLLECTION)
             val document = reference.document(StringUtils.formatYearWiseIdForFirebase(dischargeCard.ipdNumber))
-            document.set(Converters.convertToDischargeCardFirebase(dischargeCard))
+            document.set(FirestoreUtils.toJson(dischargeCard))
             Log.i("DischargeCardRepositoryImpl", "Successfully added discharge card : $dischargeCard")
         }catch (e: Exception){
             Log.e("DischargeCardRepositoryImpl", "Error while adding discharge card : $e")

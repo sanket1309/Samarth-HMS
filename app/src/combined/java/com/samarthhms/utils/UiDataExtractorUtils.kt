@@ -9,46 +9,77 @@ import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 import com.samarthhms.R
-import com.samarthhms.constants.Colors
-import com.samarthhms.constants.Gender
+import com.samarthhms.constants.*
 import com.samarthhms.databinding.BillItemLayoutBinding
-import com.samarthhms.databinding.FragmentDischargeCardTemplateBinding
+import com.samarthhms.databinding.DischargeCardInfoLayoutBinding
 import com.samarthhms.databinding.FragmentEditDischargeCardBinding
 import com.samarthhms.databinding.FragmentGenerateBillBinding
 import com.samarthhms.databinding.MedicineTemplateLayoutBinding
+import com.samarthhms.domain.SearchPatientByNameRequest
 import com.samarthhms.models.*
 import com.samarthhms.ui.BillAdapter
 import com.samarthhms.ui.MedicineTemplateListAdapter
-import java.lang.reflect.ParameterizedType
+import java.math.BigInteger
 import java.time.LocalDateTime
 import java.util.*
 
 class UiDataExtractorUtils {
     companion object{
-        fun extractData(billItemLayoutBinding: BillItemLayoutBinding): BillItem {
+
+        fun getSearchPatient(rootView: View): SearchPatientByNameRequest{
+
+            val request = SearchPatientByNameRequest(Name())
+            request.name!!.firstName = getText(rootView,R.id.first_name, InputFormatterUtils::formatName, Validation::validateName, Constants.EMPTY)!!
+            request.name!!.middleName = getText(rootView,R.id.middle_name, InputFormatterUtils::formatName, Validation::validateName, Constants.EMPTY)!!
+            request.name!!.lastName = getText(rootView,R.id.last_name, InputFormatterUtils::formatName, Validation::validateName, Constants.EMPTY)!!
+            request.contactNumber = getText(rootView,R.id.contact_number, InputFormatterUtils::formatString, Validation::validateContactNumber)
+            request.town = getText(rootView,R.id.town, InputFormatterUtils::formatString, Validation::validatePlaceName)
+
+            val fromDateValue = getTextFromTextView(rootView,R.id.from_date, InputFormatterUtils::formatString, Validation::validateString)!!
+            val fromDateRangeValue = DateRangeValue.getByValue(fromDateValue)
+            if(Objects.nonNull(fromDateRangeValue) && fromDateRangeValue != DateRangeValue.CUSTOM){
+                request.dateRange = DateTimeUtils.getDateRange(fromDateRangeValue!!)
+            }else{
+                val dateRange = DateRange()
+                dateRange.startDate = getDate(rootView,R.id.from_date, InputFormatterUtils::formatString, Validation::validateDate)
+                dateRange.endDate = getDate(rootView,R.id.to_date, InputFormatterUtils::formatString, Validation::validateDate)
+                request.dateRange = dateRange
+            }
+            return request
+        }
+        fun getBillItemWithoutItemName(billItemLayoutBinding: BillItemLayoutBinding): BillItem {
             try{
                 val billItem = BillItem()
-                billItem.rate = getInteger(billItemLayoutBinding.rate)
-                billItem.quantity = getInteger(billItemLayoutBinding.quantity)
-                billItem.sum = getInteger(billItemLayoutBinding.sum)
+                billItem.rate = getInteger(billItemLayoutBinding.rate, Validation::validateInteger, BigInteger.ZERO.toString())!!
+                billItem.quantity = getInteger(billItemLayoutBinding.quantity, Validation::validateInteger, BigInteger.ZERO.toString())!!
+                billItem.sum = getInteger(billItemLayoutBinding.sum, Validation::validateInteger, BigInteger.ZERO.toString())!!
                 return billItem
             }catch (e: Exception){
-                Log.e("BillDataExtractorUtils","Failed to extract bill item",e)
+                Log.e("BillDataExtractorUtils","Failed to get bill item without item name",e)
                 throw e
             }
         }
 
-        fun extractData(billBinding: FragmentGenerateBillBinding): Bill {
+        fun getBill(rootView: View): Bill {
             try{
-                val bill =getBill(billBinding.root)
-                bill.managementCharges = getBillItems(billBinding.managementCharges)
-                bill.treatmentCharges = getBillItems(billBinding.treatmentCharges)
-                bill.otherCharges =getBillItem(billBinding.otherCharges.root)
+                val bill= Bill()
+                bill.firstName = getText(rootView,R.id.first_name, InputFormatterUtils::formatName, Validation::validateName, Constants.EMPTY)!!
+                bill.middleName = getText(rootView,R.id.middle_name, InputFormatterUtils::formatName, Validation::validateName, Constants.EMPTY)!!
+                bill.lastName = getText(rootView,R.id.last_name, InputFormatterUtils::formatName, Validation::validateName, Constants.EMPTY)!!
+                bill.gender = getGender(rootView,R.id.gender_male_radio_group_button)
+                bill.contactNumber = getText(rootView,R.id.contact_number, InputFormatterUtils::formatContactNumberFromEdittext, Validation::validateDate)
+                bill.dateOfBirth = getDate(rootView,R.id.date_of_birth, InputFormatterUtils::formatString, Validation::validateDate)
+                bill.address = getText(rootView,R.id.address, InputFormatterUtils::formatString, Validation::validateString)!!
+                bill.dateOfAdmission = getDate(rootView,R.id.date_of_admission, InputFormatterUtils::formatString, Validation::validateDate)
+                bill.dateOfDischarge = getDate(rootView,R.id.date_of_discharge, InputFormatterUtils::formatString, Validation::validateDate)
+                bill.diagnosis = getText(rootView,R.id.diagnosis, InputFormatterUtils::formatString, Validation::validateString)!!
+                bill.managementCharges = getBillItems(getView(R.id.management_charges, rootView))
+                bill.treatmentCharges = getBillItems(getView(R.id.treatment_charges, rootView))
+                bill.otherCharges =getBillItem(getView(R.id.other_charges, rootView))
                 return bill
             }catch (e: Exception){
-                Log.e("BillDataExtractorUtils","Failed to extract bill item",e)
+                Log.e("BillDataExtractorUtils","Failed to extract bill",e)
                 throw e
             }
         }
@@ -56,28 +87,15 @@ class UiDataExtractorUtils {
         fun getMedicineTemplate(medicineTemplateLayoutBinding: MedicineTemplateLayoutBinding): MedicineTemplate {
             try{
                 val medicineTemplate = MedicineTemplate()
-                medicineTemplate.templateData = getText(medicineTemplateLayoutBinding.template, InputFormatterUtils::formatString)
+                medicineTemplate.templateData = getText(medicineTemplateLayoutBinding.template, InputFormatterUtils::formatString, Validation::validateString, Constants.EMPTY)!!
                 return medicineTemplate
             }catch (e: Exception){
-                Log.e("BillDataExtractorUtils","Failed to extract bill item",e)
+                Log.e("BillDataExtractorUtils","Failed to get medicine template",e)
                 throw e
             }
         }
 
-        fun getDischargeCard(dischargeCardBinding: FragmentEditDischargeCardBinding): DischargeCard {
-            try{
-                val dischargeCard = getDischargeCard(dischargeCardBinding.root)
-                dischargeCard.course = getMedicineTemplates(dischargeCardBinding.courseList).map { it.templateData }
-                dischargeCard.medicationsOnDischarge = getMedicineTemplates(dischargeCardBinding.medicationList).map { it.templateData }
-                dischargeCard.advice = getMedicineTemplates(dischargeCardBinding.adviceList).map { it.templateData }
-                return dischargeCard
-            }catch (e: Exception){
-                Log.e("BillDataExtractorUtils","Failed to extract bill item",e)
-                throw e
-            }
-        }
-
-        fun getMedicineTemplates(recyclerView: RecyclerView): List<MedicineTemplate>{
+        private fun getMedicineTemplates(recyclerView: RecyclerView): List<MedicineTemplate>{
             val medicineTemplateHolders = getMedicineTemplateHolders(recyclerView)
             val medicineTemplates = mutableListOf<MedicineTemplate>()
             for (medicineTemplateHolder in medicineTemplateHolders) {
@@ -98,7 +116,7 @@ class UiDataExtractorUtils {
             return list
         }
 
-        fun getBillItems(recyclerView: RecyclerView): List<BillItem>{
+        private fun getBillItems(recyclerView: RecyclerView): List<BillItem>{
             val billItemHolders = getBillItemHolders(recyclerView)
             val billItems = mutableListOf<BillItem>()
             for (billItemHolder in billItemHolders) {
@@ -119,84 +137,105 @@ class UiDataExtractorUtils {
             return list
         }
 
-        fun getName(rootView: View, name: Name) {
+        private fun getName(rootView: View, name: Name) {
             try{
-                name.firstName = getText(rootView,R.id.first_name, InputFormatterUtils::formatName)
-                name.middleName = getText(rootView,R.id.middle_name, InputFormatterUtils::formatName)
-                name.lastName = getText(rootView,R.id.last_name, InputFormatterUtils::formatName)
+                name.firstName = getText(rootView,R.id.first_name, InputFormatterUtils::formatName, Validation::validateName, Constants.EMPTY)!!
+                name.middleName = getText(rootView,R.id.middle_name, InputFormatterUtils::formatName, Validation::validateName, Constants.EMPTY)!!
+                name.lastName = getText(rootView,R.id.last_name, InputFormatterUtils::formatName, Validation::validateName, Constants.EMPTY)!!
             }catch (e: Exception){
                 Log.e("IndividualFormUtils","Validation failed for name",e)
                 throw e
             }
         }
 
-        fun getLocation(rootView: View, location: Location) {
+        private fun getLocation(rootView: View, location: Location) {
             try{
-                location.town = getText(rootView,R.id.town, InputFormatterUtils::formatString)
-                location.taluka = getText(rootView,R.id.taluka, InputFormatterUtils::formatString)
-                location.district = getText(rootView,R.id.district, InputFormatterUtils::formatString)
+                location.town = getText(rootView,R.id.town, InputFormatterUtils::formatString, Validation::validatePlaceName)!!
+                location.taluka = getText(rootView,R.id.taluka, InputFormatterUtils::formatString, Validation::validatePlaceName)!!
+                location.district = getText(rootView,R.id.district, InputFormatterUtils::formatString, Validation::validatePlaceName)!!
             }catch (e: Exception){
                 Log.e("IndividualFormUtils","Validation failed for name",e)
                 throw e
             }
         }
 
-        fun getIndividualInfo(rootView: View, individualInfo: IndividualInfo) {
+        fun getAgeText(rootView: View): String {
             try{
-                getName(rootView, individualInfo)
-                individualInfo.gender = getGender(rootView,R.id.gender_male_radio_group_button)
-                individualInfo.contactNumber = getText(rootView,R.id.contact_number, InputFormatterUtils::formatContactNumberFromEdittext)
-                individualInfo.dateOfBirth = getDate(rootView,R.id.date_of_birth, InputFormatterUtils::formatString)
+                return getText(rootView,R.id.age, InputFormatterUtils::formatString, Validation::validateAge)!!
             }catch (e: Exception){
-                Log.e("IndividualFormUtils","Validation failed",e)
+                Log.e("IndividualFormUtils","Validation failed for name",e)
                 throw e
             }
         }
 
-        fun <T:IndividualInfoWithAddress> extractData(rootView: View, clazz: Class<T>): IndividualFormData<T> {
+        //DONE
+        fun getPatient(rootView: View) : Patient {
             try{
-                val individualInfoWithAddress = clazz.newInstance()
-                getIndividualInfo(rootView, individualInfoWithAddress)
-                individualInfoWithAddress.address = getText(rootView,R.id.address, InputFormatterUtils::formatString)
+                val patient = Patient()
+                patient.firstName = getText(rootView,R.id.first_name, InputFormatterUtils::formatName, Validation::validateName, Constants.EMPTY)!!
+                patient.middleName = getText(rootView,R.id.middle_name, InputFormatterUtils::formatName, Validation::validateName)
+                patient.lastName = getText(rootView,R.id.last_name, InputFormatterUtils::formatName, Validation::validateName, Constants.EMPTY)!!
+                patient.gender = getGender(rootView,R.id.gender_male_radio_group_button)
+                patient.contactNumber = getText(rootView,R.id.contact_number, InputFormatterUtils::formatContactNumberFromEdittext, Validation::validateContactNumber)
+                patient.dateOfBirth = getDate(rootView,R.id.date_of_birth, InputFormatterUtils::formatString, Validation::validateDate)
+                patient.ageInText = getText(rootView,R.id.age, InputFormatterUtils::formatString, Validation::validateAge)
+                patient.town = getText(rootView,R.id.town, InputFormatterUtils::formatString, Validation::validatePlaceName, Constants.DefaultValues.TOWN)
+                patient.taluka = getText(rootView,R.id.taluka, InputFormatterUtils::formatString, Validation::validatePlaceName, Constants.DefaultValues.TALUKA)
+                patient.district = getText(rootView,R.id.district, InputFormatterUtils::formatString, Validation::validatePlaceName, Constants.DefaultValues.DISTRICT)
+                return patient
+            }catch (e: Exception){
+                Log.e("IndividualFormUtils","Validation failed for patient",e)
+                throw e
+            }
+        }
+
+        //DONE
+        fun getAdminDetails(rootView: View) : AdminDetails {
+            try{
+                val admin = Admin()
+                admin.firstName = getText(rootView,R.id.first_name, InputFormatterUtils::formatName, Validation::validateName, Constants.EMPTY)!!
+                admin.middleName = getText(rootView,R.id.middle_name, InputFormatterUtils::formatName, Validation::validateName)
+                admin.lastName = getText(rootView,R.id.last_name, InputFormatterUtils::formatName, Validation::validateName, Constants.EMPTY)!!
+                admin.gender = getGender(rootView,R.id.gender_male_radio_group_button)
+                admin.contactNumber = getText(rootView,R.id.contact_number, InputFormatterUtils::formatContactNumberFromEdittext, Validation::validateContactNumber)
+                admin.dateOfBirth = getDate(rootView,R.id.date_of_birth, InputFormatterUtils::formatString, Validation::validateDate)
+                admin.address = getText(rootView,R.id.address, InputFormatterUtils::formatString, Validation::validateString)
                 val credentials = getCredentials(rootView)
-
-                val individualFormData = IndividualFormData<T>()
-                individualFormData.data = individualInfoWithAddress
-                individualFormData.credentials = credentials
-
-                return individualFormData
+                credentials.role = Role.ADMIN
+                return AdminDetails(admin = admin, adminCredentials = credentials)
             }catch (e: Exception){
                 Log.e("IndividualFormUtils","Validation failed",e)
                 throw e
             }
         }
 
+        //DONE
+        fun getStaffDetails(rootView: View) : StaffDetails {
+            try{
+                val staff = Staff()
+                staff.firstName = getText(rootView,R.id.first_name, InputFormatterUtils::formatName, Validation::validateName, Constants.EMPTY)!!
+                staff.middleName = getText(rootView,R.id.middle_name, InputFormatterUtils::formatName, Validation::validateName)
+                staff.lastName = getText(rootView,R.id.last_name, InputFormatterUtils::formatName, Validation::validateName, Constants.EMPTY)!!
+                staff.gender = getGender(rootView,R.id.gender_male_radio_group_button)
+                staff.contactNumber = getText(rootView,R.id.contact_number, InputFormatterUtils::formatContactNumberFromEdittext, Validation::validateContactNumber)
+                staff.dateOfBirth = getDate(rootView,R.id.date_of_birth, InputFormatterUtils::formatString, Validation::validateDate)
+                staff.address = getText(rootView,R.id.address, InputFormatterUtils::formatString, Validation::validateString)
+                val credentials = getCredentials(rootView)
+                credentials.role = Role.STAFF
+                return StaffDetails(staff = staff, staffCredentials = credentials, staffStatus = StaffStatus())
+            }catch (e: Exception){
+                Log.e("IndividualFormUtils","Validation failed",e)
+                throw e
+            }
+        }
+
+        //DONE
         fun getCredentials(rootView: View): Credentials {
             try{
                 val credentials = Credentials()
-                credentials.username = getText(rootView,R.id.username, InputFormatterUtils::formatString)
-                credentials.password = getText(rootView,R.id.password, InputFormatterUtils::formatString)
+                credentials.username = getText(rootView,R.id.username, InputFormatterUtils::formatString, Validation::validateString, Constants.EMPTY)!!
+                credentials.password = getText(rootView,R.id.password, InputFormatterUtils::formatString, Validation::validateString, Constants.EMPTY)!!
                 return credentials
-            }catch (e: Exception){
-                Log.e("IndividualFormUtils","Validation failed",e)
-                throw e
-            }
-        }
-
-        fun getIndividualInfoWithAddress(rootView: View, individualInfoWithAddress: IndividualInfoWithAddress) {
-            try{
-                getIndividualInfo(rootView, individualInfoWithAddress)
-                individualInfoWithAddress.address = getText(rootView,R.id.address, InputFormatterUtils::formatString)
-            }catch (e: Exception){
-                Log.e("IndividualFormUtils","Validation failed",e)
-                throw e
-            }
-        }
-
-        fun getAdmitPatientInfo(rootView: View, admitPatientInfo: AdmitPatientInfo) {
-            try{
-                getIndividualInfoWithLocation(rootView, admitPatientInfo)
-                admitPatientInfo.address = getText(rootView,R.id.address, InputFormatterUtils::formatString)
             }catch (e: Exception){
                 Log.e("IndividualFormUtils","Validation failed",e)
                 throw e
@@ -206,12 +245,21 @@ class UiDataExtractorUtils {
         fun getDischargeCard(rootView: View):DischargeCard {
             try{
                 val dischargeCard = DischargeCard()
-                getIndividualInfo(rootView, dischargeCard)
-                dischargeCard.address = getText(rootView,R.id.address, InputFormatterUtils::formatString)
-                dischargeCard.dateOfAdmission = getDate(rootView,R.id.date_of_admission, InputFormatterUtils::formatString)
-                dischargeCard.dateOfDischarge = getDate(rootView,R.id.date_of_discharge, InputFormatterUtils::formatString)
-                dischargeCard.diagnosis = getText(rootView,R.id.diagnosis, InputFormatterUtils::formatString)
-                dischargeCard.patientHistory = getText(rootView,R.id.patient_history, InputFormatterUtils::formatString)
+                dischargeCard.firstName = getText(rootView,R.id.first_name, InputFormatterUtils::formatName, Validation::validateName, Constants.EMPTY)!!
+                dischargeCard.middleName = getText(rootView,R.id.middle_name, InputFormatterUtils::formatName, Validation::validateName, Constants.EMPTY)!!
+                dischargeCard.lastName = getText(rootView,R.id.last_name, InputFormatterUtils::formatName, Validation::validateName, Constants.EMPTY)!!
+                dischargeCard.gender = getGender(rootView,R.id.gender_male_radio_group_button)
+                dischargeCard.contactNumber = getText(rootView,R.id.contact_number, InputFormatterUtils::formatContactNumberFromEdittext, Validation::validateName, Constants.EMPTY)!!
+                dischargeCard.dateOfBirth = getDate(rootView,R.id.date_of_birth, InputFormatterUtils::formatString, Validation::validateName)!!
+                dischargeCard.address = getText(rootView,R.id.address, InputFormatterUtils::formatString, Validation::validateName, Constants.EMPTY)!!
+                dischargeCard.ageInText = getText(rootView,R.id.age, InputFormatterUtils::formatString, Validation::validateName, Constants.EMPTY)!!
+                dischargeCard.dateOfAdmission = getDate(rootView,R.id.date_of_admission, InputFormatterUtils::formatString, Validation::validateName)!!
+                dischargeCard.dateOfDischarge = getDate(rootView,R.id.date_of_discharge, InputFormatterUtils::formatString, Validation::validateName)!!
+                dischargeCard.diagnosis = getText(rootView,R.id.diagnosis, InputFormatterUtils::formatString, Validation::validateString, Constants.EMPTY)!!
+                dischargeCard.patientHistory = getText(rootView,R.id.patient_history, InputFormatterUtils::formatString, Validation::validateName, Constants.EMPTY)!!
+                dischargeCard.course = getMedicineTemplates(getView(R.id.course_list, rootView)).map { it.templateData }
+                dischargeCard.medicationsOnDischarge = getMedicineTemplates(getView(R.id.medication_list, rootView)).map { it.templateData }
+                dischargeCard.advice = getMedicineTemplates(getView(R.id.advice_list, rootView)).map { it.templateData }
                 return dischargeCard
             }catch (e: Exception){
                 Log.e("IndividualFormUtils","Validation failed",e)
@@ -222,7 +270,7 @@ class UiDataExtractorUtils {
         fun getMedicineTemplate(rootView: View):MedicineTemplate {
             try{
                 val medicineTemplate = MedicineTemplate()
-                medicineTemplate.templateData = getText(rootView,R.id.item_value, InputFormatterUtils::formatString)
+                medicineTemplate.templateData = getText(rootView,R.id.item_value, InputFormatterUtils::formatString, Validation::validateString, Constants.EMPTY)!!
                 return medicineTemplate
             }catch (e: Exception){
                 Log.e("IndividualFormUtils","Validation failed",e)
@@ -230,27 +278,12 @@ class UiDataExtractorUtils {
             }
         }
 
-        fun getBill(rootView: View):Bill {
-            try{
-                val bill= Bill()
-                getIndividualInfo(rootView, bill)
-                bill.address = getText(rootView,R.id.address, InputFormatterUtils::formatString)
-                bill.dateOfAdmission = getDate(rootView,R.id.date_of_admission, InputFormatterUtils::formatString)
-                bill.dateOfDischarge = getDate(rootView,R.id.date_of_discharge, InputFormatterUtils::formatString)
-                bill.diagnosis = getText(rootView,R.id.diagnosis, InputFormatterUtils::formatString)
-                return bill
-            }catch (e: Exception){
-                Log.e("IndividualFormUtils","Validation failed",e)
-                throw e
-            }
-        }
-
-        fun getBillItem(rootView: View):BillItem {
+        private fun getBillItem(rootView: View):BillItem {
             try{
                 val billItem= BillItem()
-                billItem.itemName = getText(rootView,R.id.item_name, InputFormatterUtils::formatString)
-                billItem.rate = getInteger(rootView,R.id.rate, InputFormatterUtils::formatNumber)
-                billItem.quantity = getInteger(rootView,R.id.quantity, InputFormatterUtils::formatNumber)
+                billItem.itemName = getText(rootView,R.id.item_name, InputFormatterUtils::formatString, Validation::validateString, BigInteger.ZERO.toString())!!
+                billItem.rate = getInteger(rootView,R.id.rate, InputFormatterUtils::formatNumber, Validation::validateString, BigInteger.ZERO.toString())!!
+                billItem.quantity = getInteger(rootView,R.id.quantity, InputFormatterUtils::formatNumber, Validation::validateName, BigInteger.ZERO.toString())!!
                 return billItem
             }catch (e: Exception){
                 Log.e("IndividualFormUtils","Validation failed",e)
@@ -258,96 +291,85 @@ class UiDataExtractorUtils {
             }
         }
 
-        fun getIndividualInfoWithLocation(rootView: View, individualInfoWithLocation: IndividualInfoWithLocation) {
-            try{
-                getIndividualInfo(rootView, individualInfoWithLocation)
-                getLocation(rootView, individualInfoWithLocation)
-            }catch (e: Exception){
-                Log.e("IndividualFormUtils","Validation failed",e)
-                throw e
-            }
+        private fun getInteger(view: View, validator: ((field: String?)->Boolean), defaultValue: String? = null): Int?{
+            val textField = getText(view, InputFormatterUtils::formatNumber,validator, defaultValue)
+            return textField?.toInt()
         }
 
-        public fun getInteger(view: View): Int{
-            val textField = getText(view, InputFormatterUtils::formatNumber)
-            return textField.toInt()
+        private fun getInteger(rootView: View, inputId: Int, validator: ((field: String?)->Boolean), defaultValue: String? = null): Int?{
+            val textField = getText(rootView, inputId, InputFormatterUtils::formatString, validator, defaultValue)
+            return textField?.toInt()
         }
 
-        public fun getInteger(rootView: View, inputId: Int): Int{
-            val textField = getText(rootView, inputId, InputFormatterUtils::formatString)
-            return textField.toInt()
+        private fun getFloat(rootView: View, inputId: Int, validator: ((field: String?)->Boolean), defaultValue: String? = null): Float?{
+            val textField = getText(rootView, inputId, InputFormatterUtils::formatString, validator, defaultValue)
+            return textField?.toFloat()
         }
 
-        public fun getFloat(rootView: View, inputId: Int): Float{
-            val textField = getText(rootView, inputId, InputFormatterUtils::formatString)
-            return textField.toFloat()
-        }
-
-        public fun getText(view: View, inputFormatter: ((field: String?)->String)? = null): String{
-            val inputEditText = view as EditText
+        private fun getText(view: View, inputFormatter: ((field: String?)->String)? = null, validator: ((field: String?)->Boolean), defaultValue: String? = null): String?{
+            val inputEditText = view as TextView
             var textField = inputEditText.text.toString()
             if(Objects.nonNull(inputFormatter)){
                 textField = inputFormatter!!(textField)
             }
-            return textField
+
+            return getValidatedText(textField, validator,defaultValue)
         }
 
-        public fun getInteger(rootView: View, inputId: Int, inputFormatter: ((field: String?)->String)? = null): Int{
+        private fun getValidatedText(field: String?, validator: ((field: String?)->Boolean), defaultValue: String? = null): String?{
+            return if(validator(field)) field else defaultValue
+        }
+
+        private fun getInteger(rootView: View, inputId: Int, inputFormatter: ((field: String?)->String)? = null, validator: ((field: String?)->Boolean), defaultValue: String? = null): Int?{
             val inputEditText = rootView.findViewById<EditText>(inputId)
-            return getText(inputEditText, inputFormatter).toInt()
+            return getText(inputEditText, inputFormatter,validator, defaultValue)?.toInt()
         }
 
 
-        public fun getText(rootView: View, inputId: Int, inputFormatter: ((field: String?)->String)? = null): String{
+        private fun getText(rootView: View, inputId: Int, inputFormatter: ((field: String?)->String)? = null, validator: ((field: String?)->Boolean), defaultValue: String? = null): String?{
             val inputEditText = rootView.findViewById<EditText>(inputId)
-            return getText(inputEditText, inputFormatter)
+            return getText(inputEditText, inputFormatter,validator, defaultValue)
         }
 
-        public fun <T> getDate(rootView: View, inputId: Int, inputFormatter: ((field: String?)->String)? = null, clazz: Class<T>): T?{
+        private fun getTextFromTextView(rootView: View, inputId: Int, inputFormatter: ((field: String?)->String)? = null, validator: ((field: String?)->Boolean), defaultValue: String? = null): String?{
+            val inputEditText = rootView.findViewById<TextView>(inputId)
+            return getText(inputEditText, inputFormatter,validator, defaultValue)
+        }
+
+        private fun <T> getDate(rootView: View, inputId: Int, inputFormatter: ((field: String?)->String)? = null, clazz: Class<T>,validator: ((field: String?)->Boolean), defaultValue: T? = null): T?{
             val inputEditText = rootView.findViewById<EditText>(inputId)
             var dateValue = inputEditText.text.toString()
             if(Objects.nonNull(inputFormatter)){
                 dateValue = inputFormatter!!(dateValue)
             }
-            return DateTimeUtils.getTimestampFromDate(dateValue, clazz)
+            return if(validator(dateValue)) DateTimeUtils.getTimestampFromDate(dateValue, clazz) else defaultValue
         }
 
-        public fun getDate(rootView: View, inputId: Int, inputFormatter: ((field: String?)->String)? = null): LocalDateTime?{
-            val inputEditText = rootView.findViewById<EditText>(inputId)
+        private fun getDate(rootView: View, inputId: Int, inputFormatter: ((field: String?)->String)? = null, validator: ((field: String?)->Boolean), defaultValue: LocalDateTime? = null): LocalDateTime?{
+            val inputEditText = rootView.findViewById<TextView>(inputId)
             var dateValue = inputEditText.text.toString()
             if(Objects.nonNull(inputFormatter)){
                 dateValue = inputFormatter!!(dateValue)
             }
-            return DateTimeUtils.getLocalDateTimeFromDate(dateValue)
+            return if(validator(dateValue)) DateTimeUtils.getLocalDateTimeFromDate(dateValue) else defaultValue
         }
 
-        public fun getGender(rootView: View, inputId: Int): Gender{
+        private fun getGender(rootView: View, inputId: Int): Gender{
             val isInputChecked = rootView.findViewById<RadioButton>(inputId).isChecked
             return if(isInputChecked) Gender.MALE else Gender.FEMALE
         }
 
-        public fun getTime(rootView: View, inputId: Int, inputFormatter: ((field: String?)->String)? = null): String{
+        private fun getTime(rootView: View, inputId: Int, inputFormatter: ((field: String?)->String)? = null,validator: ((field: String?)->Boolean), defaultValue: String? = null): String?{
             val inputEditText = rootView.findViewById<EditText>(inputId)
             var textField = inputEditText.text.toString()
             if(Objects.nonNull(inputFormatter)){
                 textField = inputFormatter!!(textField)
             }
-            return textField
+            return if(validator(textField)) textField else defaultValue
         }
 
         fun<T:View> getView(viewId: Int, rootView: View):T{
             return rootView.findViewById(viewId)
-        }
-
-
-        public fun validateTextField(textField: String, validationFunction: (field: String)->Boolean, fieldTitle: TextView, field: EditText, context: Context, resources: Resources){
-            if(!validationFunction(textField)){
-                InputFieldColorUtils.changeColorOfInputFields(fieldTitle, field, Colors.Validation.INVALID, context, resources)
-                Toast.makeText(context, "Invalid "+fieldTitle.text.toString(),Toast.LENGTH_SHORT).show()
-                throw Exception("Text validation failed")
-            }else{
-                InputFieldColorUtils.changeColorOfInputFields(fieldTitle, field, Colors.Validation.INVALID, context, resources)
-            }
         }
     }
 }

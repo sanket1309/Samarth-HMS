@@ -6,6 +6,7 @@ import com.samarthhms.constants.SchemaName
 import com.samarthhms.models.Admin
 import com.samarthhms.models.AdminFirebase
 import com.samarthhms.models.Converters
+import com.samarthhms.utils.FirestoreUtils
 import kotlinx.coroutines.tasks.await
 import java.util.*
 import javax.inject.Inject
@@ -23,8 +24,7 @@ class AdminRepositoryImpl @Inject constructor(): AdminRepository {
                 Log.i("Admin_Repository_Impl", "No admin found for adminId $adminId")
                 return null
             }
-            val adminFirebase = snapshot!!.toObject(AdminFirebase::class.java)!!
-            val admin = Converters.convertToAdmin(adminFirebase)
+            val admin = FirestoreUtils.toObjectFromSnapshot(snapshot, Admin::class.java)
             Log.i("Admin_Repository_Impl", "Fetched admin for adminId $adminId = [$admin]")
             return admin
         }catch (e: Exception){
@@ -41,7 +41,7 @@ class AdminRepositoryImpl @Inject constructor(): AdminRepository {
                 Log.i("Admin_Repository_Impl", "No admin found")
                 return listOf()
             }
-            val admins = snapshots.map { Converters.convertToAdmin(it.toObject(AdminFirebase::class.java)) }
+            val admins = snapshots.map { FirestoreUtils.toObjectFromSnapshot(it,Admin::class.java) }
             Log.i("Admin_Repository_Impl", "Fetched ${admins.size} admins")
             return admins
         }catch (e: Exception){
@@ -55,7 +55,7 @@ class AdminRepositoryImpl @Inject constructor(): AdminRepository {
             val reference = db.collection(SchemaName.ADMINS_COLLECTION)
             val document = if(admin.adminId.isNotBlank()) reference.document(admin.adminId) else reference.document()
             admin.adminId = document.id
-            document.set(Converters.convertToAdminFirebase(admin))
+            document.set(FirestoreUtils.toJson(admin))
             Log.i("Admin_Repository_Impl", "Added admin successfully")
             return admin.adminId
         }catch (e: Exception){

@@ -7,6 +7,7 @@ import com.samarthhms.domain.AddPatientVisit
 import com.samarthhms.domain.AddPatientVisitResponse
 import com.samarthhms.domain.Status
 import com.samarthhms.models.Patient
+import com.samarthhms.models.PatientVisitDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -15,13 +16,9 @@ class AddVisitViewModel @Inject constructor(private val addPatientVisit: AddPati
     private val _addVisitStatus = MutableLiveData(Status.NONE)
     val addVisitStatus : LiveData<Status> = _addVisitStatus
 
-    fun addVisit(patient: Patient){
-        addPatientVisit(patient){
-            onResponse(it)
+    fun addVisit(patientVisitDetails: PatientVisitDetails){
+        addPatientVisit(patientVisitDetails){
+            _addVisitStatus.value = it.status
         }
-    }
-
-    private fun onResponse(addPatientVisitResponse: AddPatientVisitResponse){
-        _addVisitStatus.value = addPatientVisitResponse.status
     }
 }

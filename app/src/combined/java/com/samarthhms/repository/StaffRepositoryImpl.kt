@@ -3,9 +3,9 @@ package com.samarthhms.repository
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.samarthhms.constants.SchemaName
-import com.samarthhms.models.Converters
 import com.samarthhms.models.Staff
 import com.samarthhms.models.StaffFirebase
+import com.samarthhms.utils.FirestoreUtils
 import kotlinx.coroutines.tasks.await
 import java.util.*
 import javax.inject.Inject
@@ -23,8 +23,7 @@ class StaffRepositoryImpl @Inject constructor(): StaffRepository {
                 Log.i("Staff_Repository_Impl", "No staff found for staff id $staffId")
                 return null
             }
-            val staffFirebase = snapshot!!.toObject(StaffFirebase::class.java)!!
-            val staff = Converters.convertToStaff(staffFirebase)
+            val staff = FirestoreUtils.toObjectFromSnapshot(snapshot, Staff::class.java)
             Log.i("Staff_Repository_Impl", "Fetched staff for staff id $staffId : [$staff]")
             return staff
         }catch (e: Exception){
@@ -41,7 +40,7 @@ class StaffRepositoryImpl @Inject constructor(): StaffRepository {
                 Log.i("Staff_Repository_Impl", "No staff found")
                 return listOf()
             }
-            val staff = snapshots.map { Converters.convertToStaff(it.toObject(StaffFirebase::class.java)) }
+            val staff = snapshots.map { FirestoreUtils.toObjectFromSnapshot(it,Staff::class.java) }
             Log.i("Staff_Repository_Impl", "Fetched ${staff.size} staff records")
             return staff
         }catch (e: Exception){
@@ -55,7 +54,7 @@ class StaffRepositoryImpl @Inject constructor(): StaffRepository {
         val document = if(staff.staffId.isBlank()) reference.document() else reference.document(staff.staffId)
         staff.staffId = document.id
         return try {
-            document.set(Converters.convertToStaffFirebase(staff))
+            document.set(FirestoreUtils.toJson(staff))
             Log.i("Staff_Repository_Impl", "Successfully added staff : [$staff]")
             return staff.staffId
         }catch (e: Exception){
@@ -70,7 +69,7 @@ class StaffRepositoryImpl @Inject constructor(): StaffRepository {
         val document = reference.document(staffId)
         val documentDelete = referenceDelete.document(staffId)
         try {
-            val staff = document.get().await().toObject(StaffFirebase::class.java)!!
+            val staff = FirestoreUtils.toObjectFromSnapshot(document.get().await(),Staff::class.java)
             document.delete()
             documentDelete.set(staff)
             Log.i("Staff_Repository_Impl", "Successfully removed staff : [$staff]")

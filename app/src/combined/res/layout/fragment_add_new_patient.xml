@@ -200,6 +200,37 @@
                 android:autofillHints="creditCardExpirationDate"/>
 
             <TextView
+                android:id="@+id/age_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"
+                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"
+                android:layout_marginTop="@dimen/add_new_patient_title_margin_top"
+                android:textSize="@dimen/add_new_patient_title_text_size"
+                android:paddingStart="@dimen/add_new_patient_field_padding_start"
+                android:paddingEnd="@dimen/add_new_patient_field_padding_start"
+                android:text="@string/age_title_text"
+                android:textColor="@color/blue_theme"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/date_of_birth"/>
+
+            <EditText
+                android:id="@+id/age"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/add_new_patient_edittext_height"
+                android:layout_marginStart="@dimen/add_new_patient_horizontal_margin"
+                android:layout_marginEnd="@dimen/add_new_patient_horizontal_margin"
+                android:layout_marginTop="@dimen/add_new_patient_edittext_margin_top"
+                android:paddingStart="@dimen/add_new_patient_field_padding_start"
+                android:paddingEnd="@dimen/add_new_patient_field_padding_start"
+                android:background="@drawable/login_edittext_background"
+                android:textSize="@dimen/add_new_patient_title_text_size"
+                android:inputType="text"
+                android:hint="@string/age_hint_text"
+                app:layout_constraintTop_toBottomOf="@id/age_title"
+                android:autofillHints="name"/>
+
+            <TextView
                 android:id="@+id/contact_number_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -212,7 +243,7 @@
                 android:text="@string/contact_number_title_text"
                 android:textColor="@color/blue_theme"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/date_of_birth"/>
+                app:layout_constraintTop_toBottomOf="@id/age"/>
 
             <com.arefbhrn.maskededittext.MaskedEditText
                 android:id="@+id/contact_number"
@@ -259,6 +290,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:inputType="text"
                 android:hint="@string/town_hint_text"
+                android:text="@string/town_default_text"
                 app:layout_constraintTop_toBottomOf="@id/town_title"
                 android:autofillHints="name"/>
 
@@ -290,6 +322,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:inputType="text"
                 android:hint="@string/taluka_hint_text"
+                android:text="@string/taluka_default_text"
                 app:layout_constraintTop_toBottomOf="@id/taluka_title"
                 android:autofillHints="name"/>
 
@@ -321,6 +354,7 @@
                 android:textSize="@dimen/add_new_patient_title_text_size"
                 android:inputType="text"
                 android:hint="@string/district_hint_text"
+                android:text="@string/district_default_text"
                 app:layout_constraintTop_toBottomOf="@id/district_title"
                 android:autofillHints="name"/>
 

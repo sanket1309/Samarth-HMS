@@ -15,17 +15,17 @@ data class AdminState(
     var adminId: String? = null,
 
     @ColumnInfo(name = "first_name")
-    var firstName: String? = null,
+    override var firstName: String,
 
     @ColumnInfo(name = "middle_name")
-    var middleName: String? = null,
+    override var middleName: String? = null,
 
     @ColumnInfo(name = "last_name")
-    var lastName: String? = null,
+    override var lastName: String,
 
     @ColumnInfo(name = "gender")
     var gender: Gender = Gender.MALE,
 
     @ColumnInfo(name = "date_of_birth")
     var dateOfBirth: String? = null
-)
+): Name()

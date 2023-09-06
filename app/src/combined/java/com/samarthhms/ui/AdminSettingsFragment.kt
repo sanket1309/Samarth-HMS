@@ -4,14 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import com.samarthhms.constants.Constants
 import com.samarthhms.databinding.FragmentAdminSettingsBinding
 import com.samarthhms.domain.Status
 import com.samarthhms.models.AdminDetails
 import com.samarthhms.navigator.Navigator
+import com.samarthhms.utils.RecyclerViewAdapterUtils
+import com.samarthhms.utils.ToastUtils
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -23,7 +24,7 @@ class AdminSettingsFragment : Fragment(), RecyclerOnItemViewClickListener {
     private lateinit var binding: FragmentAdminSettingsBinding
 
     @Inject
-    private lateinit var navigator: Navigator
+    lateinit var navigator: Navigator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,32 +32,30 @@ class AdminSettingsFragment : Fragment(), RecyclerOnItemViewClickListener {
     ): View {
         binding = FragmentAdminSettingsBinding.inflate(layoutInflater, container, false)
         startProgressBar(false)
-        val adapter = AdminDetailsAdapter(this, listOf())
-        binding.recyclerView.adapter = adapter
-
-        viewModel.admin.observe(viewLifecycleOwner) {
-            if (it.isNotEmpty()) {
-                startProgressBar(false)
-            }
-            (binding.recyclerView.adapter as AdminDetailsAdapter).admins = it
-            (binding.recyclerView.adapter as AdminDetailsAdapter).notifyItemRangeChanged(0, it.size)
-        }
-
-        viewModel.getAdminStatus.observe(viewLifecycleOwner) {
-            if (it == Status.SUCCESS) {
-                startProgressBar(false)
-            } else if (it == Status.FAILURE) {
-                Toast.makeText(activity, "Something Went Wrong", Toast.LENGTH_SHORT).show()
-                startProgressBar(false)
-            }
-        }
-        binding.addAdminButton.setOnClickListener {
-            val action =
-                AdminSettingsFragmentDirections.actionAdminSettingsFragmentToAddAdminFragment()
-            findNavController().navigate(action)
-        }
+        binding.recyclerView.adapter = AdminDetailsAdapter(this, listOf())
+        viewModel.admin.observe(viewLifecycleOwner) { onAdminsFetched(it) }
+        viewModel.getAdminStatus.observe(viewLifecycleOwner) { onGetAdminStatus(it) }
+        binding.addAdminButton.setOnClickListener { onAdminSelected() }
         viewModel.getAllAdmins()
         return binding.root
+    }
+
+    private fun onAdminSelected(){
+        navigator.navigateToFragment(this,AdminSettingsFragmentDirections.actionAdminSettingsFragmentToAddAdminFragment())
+    }
+
+    private fun onAdminsFetched(adminsDetails: List<AdminDetails>){
+        if (adminsDetails.isNotEmpty()) { startProgressBar(false) }
+        RecyclerViewAdapterUtils.updateData<AdminDetailsAdapter.AdminHolder, AdminDetails>(binding.recyclerView.adapter, adminsDetails)
+    }
+
+    private fun onGetAdminStatus(status: Status){
+        if (status == Status.SUCCESS) {
+            startProgressBar(false)
+        } else if (status == Status.FAILURE) {
+            ToastUtils.showToast(requireContext(), Constants.Messages.SOMETHING_WENT_WRONG)
+            startProgressBar(false)
+        }
     }
 
     override fun onItemClicked(data: Any?, requester: String) {
@@ -66,7 +65,6 @@ class AdminSettingsFragment : Fragment(), RecyclerOnItemViewClickListener {
     }
 
     fun startProgressBar(isVisible: Boolean) {
-        binding.root.isClickable = !isVisible
         (activity as MainActivity).startProgressBar(isVisible)
     }
 }

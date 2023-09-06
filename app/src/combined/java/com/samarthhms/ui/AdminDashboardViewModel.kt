@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
+import com.samarthhms.constants.Constants
 import com.samarthhms.constants.Role
 import com.samarthhms.constants.SchemaName
 import com.samarthhms.domain.GetPatientsToday
@@ -12,6 +13,7 @@ import com.samarthhms.domain.Status
 import com.samarthhms.models.PatientVisitInfo
 import com.samarthhms.usecase.UseCase
 import com.samarthhms.utils.DateTimeUtils
+import com.samarthhms.utils.StringUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -19,7 +21,6 @@ import javax.inject.Inject
 class AdminDashboardViewModel @Inject constructor(val getPatientsToday: GetPatientsToday, val getUser: GetUser): ViewModel() {
 
     private val _getPatientsTodayStatus: MutableLiveData<Status> = MutableLiveData(Status.NONE)
-//    val getPatientsTodayStatus : LiveData<Status> = _getPatientsTodayStatus
 
     private val _patientsTodayList: MutableLiveData<List<PatientVisitInfo>> = MutableLiveData(listOf())
     val patientsTodayList : LiveData<List<PatientVisitInfo>> = _patientsTodayList
@@ -33,31 +34,18 @@ class AdminDashboardViewModel @Inject constructor(val getPatientsToday: GetPatie
     private val _admitPatientsCount = MutableLiveData(0)
     val admitPatientsCount : LiveData<Int> = _admitPatientsCount
 
-    private val _greeting = MutableLiveData("")
+    private val _greeting = MutableLiveData(Constants.EMPTY)
     val greeting : LiveData<String> = _greeting
 
-    private val _userName = MutableLiveData("")
+    private val _userName = MutableLiveData(Constants.EMPTY)
     val userName : LiveData<String> = _userName
 
     fun updateGreetings(){
-        _greeting.value = getGreeting()
+        _greeting.value = StringUtils.getGreeting()
         getUser(UseCase.None()){
-            val firstName = if(it.userRole == Role.ADMIN){
-                it.admin?.firstName?:""
-            } else if(it.userRole == Role.STAFF){
-                it.staff?.firstName?:""
-            } else{
-                ""
-            }
-            _userName.value = if(firstName!="") "Dr. "+firstName else ""
+            val name = if(it.userRole == Role.ADMIN) it.admin else it.staff
+            _userName.value = StringUtils.getGreetingUserName(name, it.userRole)
         }
-    }
-
-    private fun getGreeting(): String{
-        val hours = DateTimeUtils.getHours()
-        return if(hours in 0 until 12) "Good Morning,"
-        else if(hours in 12 until 18) "Good Afternoon,"
-        else "Good Evening,"
     }
 
     fun updateData(){

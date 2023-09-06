@@ -59,8 +59,8 @@
         android:label="Add Visit"
         tools:layout="@layout/fragment_add_visit">
         <argument
-            android:name="patient"
-            app:argType="com.samarthhms.models.Patient" />
+            android:name="patientVisitDetails"
+            app:argType="com.samarthhms.models.PatientVisitDetails" />
         <action
             android:id="@+id/action_addVisitFragment_to_adminDashboardFragment"
             app:destination="@id/adminDashboardFragment" />
@@ -157,7 +157,11 @@
         android:id="@+id/addStaffFragment"
         android:name="com.samarthhms.ui.AddStaffFragment"
         android:label="Add Staff"
-        tools:layout="@layout/fragment_add_staff" />
+        tools:layout="@layout/fragment_add_staff" >
+        <action
+            android:id="@+id/action_addStaffFragment_to_staffSettingsFragment"
+            app:destination="@id/staffSettingsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/staffDetailsFragment"
         android:name="com.samarthhms.ui.StaffDetailsFragment"
@@ -198,7 +202,11 @@
         android:id="@+id/addAdminFragment"
         android:name="com.samarthhms.ui.AddAdminFragment"
         android:label="Add Admin"
-        tools:layout="@layout/fragment_add_admin" />
+        tools:layout="@layout/fragment_add_admin">
+        <action
+            android:id="@+id/action_addAdminFragment_to_adminSettingsFragment"
+            app:destination="@id/adminSettingsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/editBillFragment"
         android:name="com.samarthhms.ui.EditBillFragment"
@@ -242,4 +250,9 @@
             android:id="@+id/action_recentDischargeCardsFragment_to_editDischargeCardFragment"
             app:destination="@id/editDischargeCardFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/searchPatientFragment"
+        android:name="com.samarthhms.ui.SearchPatientFragment"
+        android:label="Search Patient"
+        tools:layout="@layout/fragment_search_patient"/>
 </navigation>

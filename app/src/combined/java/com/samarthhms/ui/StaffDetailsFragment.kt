@@ -150,14 +150,14 @@ class StaffDetailsFragment : Fragment() {
 
             val newStaffDetails = StaffDetails(staff.staffId,
                 Staff(
-                staff.adminId,
-                staff.staffId,
-                StringUtils.formatName(firstName),
-                StringUtils.formatName(middleName),
-                StringUtils.formatName(lastName),
-                gender,
-                contactNumber,
-                address
+//                staff.adminId,
+//                staff.staffId,
+//                StringUtils.formatName(firstName),
+//                StringUtils.formatName(middleName),
+//                StringUtils.formatName(lastName),
+//                gender,
+//                contactNumber,
+//                address
             ),
             StaffStatus(staff.staffId),
             Credentials(staff.staffId, Role.STAFF, username, password))

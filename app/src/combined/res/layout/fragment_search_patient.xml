@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.SearchPatientFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/add_patient_background"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="-194dp">
+
+        <TextView
+            android:id="@+id/first_name_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/find_patient_by_title_horizontal_margin"
+            android:layout_marginTop="@dimen/find_patient_by_title_margin_top"
+            android:layout_marginEnd="@dimen/find_patient_by_title_horizontal_margin"
+            android:paddingStart="@dimen/find_patient_by_title_padding_start"
+            android:paddingEnd="@dimen/find_patient_by_title_padding_end"
+            android:text="@string/find_patient_by_first_name_title_text"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/first_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/find_patient_by_field_height"
+            android:layout_marginStart="@dimen/find_patient_by_title_horizontal_margin"
+            android:layout_marginTop="@dimen/find_patient_by_field_margin_top"
+            android:layout_marginEnd="@dimen/find_patient_by_title_horizontal_margin"
+            android:autofillHints="name"
+            android:background="@drawable/find_by_edittext_background"
+            android:hint="@string/find_patient_by_first_name_hint_text"
+            android:inputType="text"
+            android:paddingStart="@dimen/find_patient_by_field_horizontal_padding"
+            android:paddingEnd="@dimen/find_patient_by_field_horizontal_padding"
+            android:textSize="@dimen/find_patient_by_field_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/first_name_title" />
+
+        <TextView
+            android:id="@+id/middle_name_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/find_patient_by_title_horizontal_margin"
+            android:layout_marginTop="@dimen/find_patient_by_title_margin_top"
+            android:layout_marginEnd="@dimen/find_patient_by_title_horizontal_margin"
+            android:paddingStart="@dimen/find_patient_by_title_padding_start"
+            android:paddingEnd="@dimen/find_patient_by_title_padding_end"
+            android:text="@string/find_patient_by_middle_name_title_text"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/first_name" />
+
+        <EditText
+            android:id="@+id/middle_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/find_patient_by_field_height"
+            android:layout_marginStart="@dimen/find_patient_by_title_horizontal_margin"
+            android:layout_marginTop="@dimen/find_patient_by_field_margin_top"
+            android:layout_marginEnd="@dimen/find_patient_by_title_horizontal_margin"
+            android:autofillHints="name"
+            android:background="@drawable/find_by_edittext_background"
+            android:hint="@string/find_patient_by_middle_name_hint_text"
+            android:inputType="text"
+            android:paddingStart="@dimen/find_patient_by_field_horizontal_padding"
+            android:paddingEnd="@dimen/find_patient_by_field_horizontal_padding"
+            android:textSize="@dimen/find_patient_by_field_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/middle_name_title" />
+
+        <TextView
+            android:id="@+id/last_name_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/find_patient_by_title_horizontal_margin"
+            android:layout_marginTop="@dimen/find_patient_by_title_margin_top"
+            android:layout_marginEnd="@dimen/find_patient_by_title_horizontal_margin"
+            android:paddingStart="@dimen/find_patient_by_title_padding_start"
+            android:paddingEnd="@dimen/find_patient_by_title_padding_end"
+            android:text="@string/find_patient_by_last_name_title_text"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/middle_name" />
+
+        <EditText
+            android:id="@+id/last_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/find_patient_by_field_height"
+            android:layout_marginStart="@dimen/find_patient_by_title_horizontal_margin"
+            android:layout_marginTop="@dimen/find_patient_by_field_margin_top"
+            android:layout_marginEnd="@dimen/find_patient_by_title_horizontal_margin"
+            android:autofillHints="name"
+            android:background="@drawable/find_by_edittext_background"
+            android:hint="@string/find_patient_by_last_name_hint_text"
+            android:inputType="text"
+            android:paddingStart="@dimen/find_patient_by_field_horizontal_padding"
+            android:paddingEnd="@dimen/find_patient_by_field_horizontal_padding"
+            android:textSize="@dimen/find_patient_by_field_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/last_name_title" />
+
+        <TextView
+            android:id="@+id/town_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/find_patient_by_title_horizontal_margin"
+            android:layout_marginTop="@dimen/find_patient_by_title_margin_top"
+            android:layout_marginEnd="@dimen/find_patient_by_title_horizontal_margin"
+            android:paddingStart="@dimen/find_patient_by_title_padding_start"
+            android:paddingEnd="@dimen/find_patient_by_title_padding_end"
+            android:text="@string/town_title_text"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/last_name" />
+
+        <EditText
+            android:id="@+id/town"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/find_patient_by_field_height"
+            android:layout_marginStart="@dimen/find_patient_by_title_horizontal_margin"
+            android:layout_marginTop="@dimen/find_patient_by_field_margin_top"
+            android:layout_marginEnd="@dimen/find_patient_by_title_horizontal_margin"
+            android:autofillHints="name"
+            android:background="@drawable/find_by_edittext_background"
+            android:hint="@string/town_hint_text"
+            android:inputType="text"
+            android:paddingStart="@dimen/find_patient_by_field_horizontal_padding"
+            android:paddingEnd="@dimen/find_patient_by_field_horizontal_padding"
+            android:textSize="@dimen/find_patient_by_field_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/town_title" />
+
+        <TextView
+            android:id="@+id/contact_number_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/find_patient_by_title_horizontal_margin"
+            android:layout_marginTop="@dimen/find_patient_by_title_margin_top"
+            android:layout_marginEnd="@dimen/find_patient_by_title_horizontal_margin"
+            android:paddingStart="@dimen/find_patient_by_title_padding_start"
+            android:paddingEnd="@dimen/find_patient_by_title_padding_end"
+            android:text="@string/contact_number_title_text"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/town" />
+
+        <EditText
+            android:id="@+id/contact_number"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/find_patient_by_field_height"
+            android:layout_marginStart="@dimen/find_patient_by_title_horizontal_margin"
+            android:layout_marginTop="@dimen/find_patient_by_field_margin_top"
+            android:layout_marginEnd="@dimen/find_patient_by_title_horizontal_margin"
+            android:autofillHints="name"
+            android:background="@drawable/find_by_edittext_background"
+            android:hint="@string/contact_number_hint_text"
+            android:inputType="number"
+            android:paddingStart="@dimen/find_patient_by_field_horizontal_padding"
+            android:paddingEnd="@dimen/find_patient_by_field_horizontal_padding"
+            android:textSize="@dimen/find_patient_by_field_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/contact_number_title" />
+
+        <TextView
+            android:id="@+id/from_date_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/find_patient_by_title_horizontal_margin"
+            android:layout_marginTop="@dimen/find_patient_by_title_margin_top"
+            android:layout_marginEnd="@dimen/find_patient_by_title_horizontal_margin"
+            android:paddingStart="@dimen/find_patient_by_title_padding_start"
+            android:paddingEnd="@dimen/find_patient_by_title_padding_end"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/to_date_title"
+            android:text="From"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/contact_number" />
+
+        <TextView
+            android:id="@+id/from_date"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/find_patient_by_field_height"
+            android:layout_marginStart="@dimen/find_patient_by_title_horizontal_margin"
+            android:layout_marginTop="@dimen/find_patient_by_field_margin_top"
+            android:layout_marginEnd="@dimen/find_patient_by_title_horizontal_margin"
+            android:autofillHints="name"
+            android:background="@drawable/find_by_edittext_background"
+            android:paddingStart="@dimen/find_patient_by_field_horizontal_padding"
+            android:paddingEnd="@dimen/find_patient_by_field_horizontal_padding"
+            android:textSize="@dimen/find_patient_by_field_text_size"
+            android:text="Today"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/to_date"
+            app:layout_constraintTop_toBottomOf="@id/from_date_title" />
+
+        <TextView
+            android:id="@+id/to_date_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/find_patient_by_title_horizontal_margin"
+            android:layout_marginTop="@dimen/find_patient_by_title_margin_top"
+            android:layout_marginEnd="@dimen/find_patient_by_title_horizontal_margin"
+            android:paddingStart="@dimen/find_patient_by_title_padding_start"
+            android:paddingEnd="@dimen/find_patient_by_title_padding_end"
+            app:layout_constraintStart_toEndOf="@id/from_date_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="To"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/contact_number" />
+
+        <TextView
+            android:id="@+id/to_date"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/find_patient_by_field_height"
+            android:layout_marginStart="@dimen/find_patient_by_title_horizontal_margin"
+            android:layout_marginTop="@dimen/find_patient_by_field_margin_top"
+            android:layout_marginEnd="@dimen/find_patient_by_title_horizontal_margin"
+            android:autofillHints="name"
+            android:background="@drawable/find_by_edittext_background"
+            android:text="Today"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/find_patient_by_field_horizontal_padding"
+            android:paddingEnd="@dimen/find_patient_by_field_horizontal_padding"
+            android:textSize="@dimen/find_patient_by_field_text_size"
+            app:layout_constraintStart_toEndOf="@id/from_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/to_date_title" />
+
+        <TextView
+            android:id="@+id/advanced_filter"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/find_patient_by_field_height"
+            android:layout_marginTop="@dimen/find_patient_by_search_button_vertical_margin"
+            android:layout_marginBottom="@dimen/find_patient_by_search_button_vertical_margin"
+            android:layout_marginStart="@dimen/find_patient_by_title_horizontal_margin"
+            android:autofillHints="name"
+            android:textColor="@color/white"
+            android:text="Hide Filters"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/find_patient_by_field_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/from_date" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/search_button"
+            android:layout_width="180dp"
+            android:layout_height="@dimen/find_patient_by_search_button_height"
+            android:layout_marginTop="@dimen/find_patient_by_search_button_vertical_margin"
+            android:layout_marginBottom="@dimen/find_patient_by_search_button_vertical_margin"
+            android:layout_marginEnd="@dimen/find_patient_by_title_horizontal_margin"
+            android:background="@drawable/search_patient_button_background"
+            android:text="@string/find_patient_by_search_button_text"
+            android:textAllCaps="false"
+            android:textColor="@drawable/add_patient_button_text_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/to_date" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/result_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/search_view"
+        android:layout_marginTop="@dimen/find_patient_by_result_text_margin_top"
+        android:layout_marginStart="@dimen/find_patient_by_result_text_margin_start"
+        android:layout_marginEnd="@dimen/find_patient_by_result_text_margin_end"
+        android:gravity="center"
+        android:text="@string/find_patient_by_result_found_text"
+        android:textStyle="bold"
+        android:textSize="@dimen/find_patient_by_result_text_size"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/patients_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/find_patient_by_result_margin_top"
+        android:layout_marginBottom="@dimen/find_patient_by_result_margin_top"
+        app:layout_constraintTop_toBottomOf="@id/result_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    <ImageView
+        android:id="@+id/no_results_image"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:src="@drawable/empty_box"
+        app:layout_constraintTop_toTopOf="@id/patients_recycler_view"
+        app:layout_constraintBottom_toBottomOf="@id/patients_recycler_view"
+        app:layout_constraintStart_toStartOf="@id/patients_recycler_view"
+        app:layout_constraintEnd_toEndOf="@id/patients_recycler_view"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -48,7 +48,7 @@
             android:text="@string/patient_info_patient_gender_text"
             android:textSize="@dimen/patient_info_layout_patient_gender_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/patient_name"/>
+            app:layout_constraintTop_toBottomOf="@id/name"/>
 
         <TextView
             android:id="@+id/age"
@@ -56,8 +56,8 @@
             android:layout_height="wrap_content"
             android:text="@string/patient_info_patient_age_text"
             android:textSize="@dimen/patient_info_layout_patient_age_text_size"
-            app:layout_constraintStart_toEndOf="@id/patient_gender"
-            app:layout_constraintTop_toBottomOf="@id/patient_name"/>
+            app:layout_constraintStart_toEndOf="@id/gender"
+            app:layout_constraintTop_toBottomOf="@id/name"/>
 
         <TextView
             android:id="@+id/address"
@@ -66,7 +66,7 @@
             android:text="@string/patient_info_patient_address_text"
             android:textSize="@dimen/patient_info_layout_patient_address_text_size"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/patient_name"/>
+            app:layout_constraintTop_toBottomOf="@id/name"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

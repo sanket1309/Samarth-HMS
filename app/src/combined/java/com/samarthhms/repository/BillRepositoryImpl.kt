@@ -7,6 +7,7 @@ import com.samarthhms.constants.SchemaName
 import com.samarthhms.models.Bill
 import com.samarthhms.models.BillFirebase
 import com.samarthhms.models.Converters
+import com.samarthhms.utils.FirestoreUtils
 import com.samarthhms.utils.StringUtils
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -20,7 +21,7 @@ class BillRepositoryImpl @Inject constructor(): BillRepository {
         try {
             val snapshot = reference.document(StringUtils.formatYearWiseIdForFirebase(billNumber)).get().await()
             if(snapshot.exists()){
-                val bill = Converters.convertToBill(snapshot.toObject(BillFirebase::class.java)!!)
+                val bill = FirestoreUtils.toObjectFromSnapshot(snapshot,Bill::class.java)
                 Log.i("BillRepositoryImpl", "Bill found for bill number $billNumber")
                 return bill
             }
@@ -39,7 +40,7 @@ class BillRepositoryImpl @Inject constructor(): BillRepository {
         try {
             val snapshots = query.get().await()
             if(!snapshots.isEmpty){
-                val bills = snapshots.map { Converters.convertToBill(it.toObject(BillFirebase::class.java)) }
+                val bills = snapshots.map { FirestoreUtils.toObjectFromSnapshot(it,Bill::class.java) }
                 Log.i("BillRepositoryImpl", "Fetched ${bills.size} recent bills")
                 return bills
             }
@@ -67,7 +68,7 @@ class BillRepositoryImpl @Inject constructor(): BillRepository {
         try {
             val reference = db.collection(SchemaName.BILL_COLLECTION)
             val document = reference.document(StringUtils.formatYearWiseIdForFirebase(bill.billNumber))
-            document.set(Converters.convertToBillFirebase(bill))
+            document.set(FirestoreUtils.toJson(bill))
             Log.i("BillRepositoryImpl", "Successfully added bill : $bill")
         }catch (e: Exception){
             Log.e("BillRepositoryImpl", "Error while adding bill : $e")

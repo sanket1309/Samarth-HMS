@@ -7,7 +7,7 @@ class Validation {
             if(patientId.isNullOrBlank()){
                 return false
             }
-            return patientId.substring(3).matches(Regex("^"+IdUtils.PATIENT_ID_PREFIX+"\\d{5}*$"))
+            return patientId.matches(Regex("^"+IdUtils.PATIENT_ID_PREFIX+"[0-9]{5}$"))
         }
 
         fun validateIpdNumber(ipdNumber: String?):Boolean{
@@ -47,6 +47,9 @@ class Validation {
         }
 
         fun validateString(string: String?):Boolean = !string.isNullOrBlank()
+
+        //TODO
+        fun validateInteger(string: String?):Boolean = !string.isNullOrBlank()
 
         fun validateName(name: String?):Boolean{
             if(name.isNullOrBlank()){

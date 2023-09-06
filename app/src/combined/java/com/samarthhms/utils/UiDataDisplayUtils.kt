@@ -85,7 +85,16 @@ class UiDataDisplayUtils {
 
         fun displayStaffDetails(rootView: View, staffDetails: StaffDetails){
             try {
-                setTextView(staffDetails.staff, R.id.full_name, rootView, OutputFormatterUtils::formatFullName)
+                val admin = staffDetails.staff!!
+                setTextView(admin.firstName, R.id.first_name, rootView, OutputFormatterUtils::formatString)
+                setTextView(admin.middleName, R.id.middle_name, rootView, OutputFormatterUtils::formatString)
+                setTextView(admin.lastName, R.id.last_name, rootView, OutputFormatterUtils::formatString)
+                displayGender(rootView, admin.gender == Gender.MALE, true)
+                setTextView(admin.dateOfBirth, R.id.date_of_birth, rootView, OutputFormatterUtils::formatDateForEdittext)
+                setTextView(admin.contactNumber, R.id.contact_number, rootView, OutputFormatterUtils::formatContactNumberForEditText)
+                setTextView(admin.address, R.id.address, rootView, OutputFormatterUtils::formatString)
+                setTextView(staffDetails.staffCredentials?.username, R.id.username, rootView, OutputFormatterUtils::formatString)
+                setTextView(staffDetails.staffCredentials?.password, R.id.password, rootView, OutputFormatterUtils::formatString)
                 EditableUtils.updateVisibility(staffDetails.staffStatus?.isLocked?:false, UiDataExtractorUtils.getView(R.id.self_title, rootView), true)
                 EditableUtils.updateVisibility(!(staffDetails.staffStatus?.isLocked?:false), UiDataExtractorUtils.getView(R.id.switch_status, rootView), true)
             }catch (e: Exception){
@@ -105,9 +114,19 @@ class UiDataDisplayUtils {
             }
         }
 
+        //DONE
         fun displayAdminDetails(rootView: View, adminDetails: AdminDetails){
             try {
-                setTextView(adminDetails.admin, R.id.full_name, rootView, OutputFormatterUtils::formatFullName)
+                val admin = adminDetails.admin
+                setTextView(admin.firstName, R.id.first_name, rootView, OutputFormatterUtils::formatString)
+                setTextView(admin.middleName, R.id.middle_name, rootView, OutputFormatterUtils::formatString)
+                setTextView(admin.lastName, R.id.last_name, rootView, OutputFormatterUtils::formatString)
+                displayGender(rootView, admin.gender == Gender.MALE, true)
+                setTextView(admin.dateOfBirth, R.id.date_of_birth, rootView, OutputFormatterUtils::formatDateForEdittext)
+                setTextView(admin.contactNumber, R.id.contact_number, rootView, OutputFormatterUtils::formatContactNumberForEditText)
+                setTextView(admin.address, R.id.address, rootView, OutputFormatterUtils::formatString)
+                setTextView(adminDetails.adminCredentials.username, R.id.username, rootView, OutputFormatterUtils::formatString)
+                setTextView(adminDetails.adminCredentials.password, R.id.password, rootView, OutputFormatterUtils::formatString)
                 EditableUtils.updateVisibility(adminDetails.switchAdminData?.isAccountOwner?:false, UiDataExtractorUtils.getView(R.id.self_title, rootView))
                 EditableUtils.updateVisibility(adminDetails.switchAdminData?.isCurrentUser?:false, UiDataExtractorUtils.getView(R.id.switch_status, rootView))
             }catch (e: Exception){
@@ -126,12 +145,42 @@ class UiDataDisplayUtils {
             }
         }
 
-        fun displayAdmitPatientInfoItem(rootView: View, admitPatientInfo: AdmitPatientInfo){
+        //DONE
+        fun displayVisitDetails(rootView: View, patientVisitDetails: PatientVisitDetails){
+            try {
+                val patient = patientVisitDetails.patient!!
+                setTextView(patient.patientId, R.id.patient_id, rootView, OutputFormatterUtils::formatYearWiseId)
+                setTextView(patient.firstName, R.id.first_name, rootView, OutputFormatterUtils::formatString)
+                setTextView(patient.middleName, R.id.middle_name, rootView, OutputFormatterUtils::formatString)
+                setTextView(patient.lastName, R.id.last_name, rootView, OutputFormatterUtils::formatString)
+                displayGender(rootView, patient.gender == Gender.MALE, false)
+                setTextView(patient.dateOfBirth, R.id.date_of_birth, rootView, OutputFormatterUtils::formatDateForEdittext)
+                setTextView(patient.ageInText, R.id.age, rootView, OutputFormatterUtils::formatString)
+                setTextView(patient.contactNumber, R.id.contact_number, rootView, OutputFormatterUtils::formatContactNumberForEditText)
+                setTextView(patient.town, R.id.town, rootView, OutputFormatterUtils::formatString)
+                setTextView(patient.taluka, R.id.taluka, rootView, OutputFormatterUtils::formatString)
+                setTextView(patient.district, R.id.district, rootView, OutputFormatterUtils::formatString)
+                setTextView(patientVisitDetails.charges, R.id.charges, rootView, OutputFormatterUtils::formatNumber)
+            }catch (e: Exception){
+                Log.e("UiDataDisplayUtils","Exception while displaying patient")
+                throw e
+            }
+        }
+
+        fun displayCharges(rootView: View, charges: Int){
+            try {
+                setTextView(charges, R.id.charges, rootView, OutputFormatterUtils::formatNumber)
+            }catch (e: Exception){
+                Log.e("UiDataDisplayUtils","Exception while displaying patient")
+                throw e
+            }
+        }
+
+        private fun displayAdmitPatientInfoItem(rootView: View, admitPatientInfo: AdmitPatientInfo){
             try {
                 displayFullName(rootView, admitPatientInfo)
                 displayGender(rootView, admitPatientInfo.gender == Gender.MALE,false, OutputFormatterUtils::formatGenderForPatientItem)
                 setTextView(admitPatientInfo, R.id.age, rootView, OutputFormatterUtils::formatPatientAgeForListItem)
-                setTextView(admitPatientInfo, R.id.address, rootView, OutputFormatterUtils::formatLocationForListItem)
                 setTextView(admitPatientInfo.diagnosis, R.id.diagnosis, rootView, OutputFormatterUtils::formatString)
             }catch (e: Exception){
                 Log.e("UiDataDisplayUtils","Exception while displaying admit patient info item")
@@ -147,6 +196,38 @@ class UiDataDisplayUtils {
                 Log.e("UiDataDisplayUtils","Exception while displaying bill list item")
                 throw e
             }
+        }
+
+        //DONE
+        fun displayBill(rootView: View, bill: Bill){
+            try {
+                setTextView(bill.billNumber, R.id.bill_number, rootView, OutputFormatterUtils::formatYearWiseId)
+                setTextView(bill.firstName, R.id.first_name, rootView, OutputFormatterUtils::formatString)
+                setTextView(bill.middleName, R.id.middle_name, rootView, OutputFormatterUtils::formatString)
+                setTextView(bill.lastName, R.id.last_name, rootView, OutputFormatterUtils::formatString)
+                displayGender(rootView, bill.gender == Gender.MALE, true)
+                setTextView(bill.dateOfBirth, R.id.date_of_birth, rootView, OutputFormatterUtils::formatDateForEdittext)
+                setTextView(bill.ageInText, R.id.age, rootView, OutputFormatterUtils::formatString)
+                setTextView(bill.contactNumber, R.id.contact_number, rootView, OutputFormatterUtils::formatContactNumberForEditText)
+                setTextView(bill.address, R.id.address, rootView, OutputFormatterUtils::formatString)
+                setTextView(bill.dateOfAdmission, R.id.date_of_admission, rootView, OutputFormatterUtils::formatDateForEdittext)
+                setTextView(bill.dateOfAdmission, R.id.time_of_admission, rootView, OutputFormatterUtils::formatTime)
+                setTextView(bill.dateOfDischarge, R.id.date_of_discharge, rootView, OutputFormatterUtils::formatDateForEdittext)
+                setTextView(bill.dateOfDischarge, R.id.time_of_discharge, rootView, OutputFormatterUtils::formatTime)
+                displayBillItem(UiDataExtractorUtils.getView(R.id.other_charges,rootView), bill.otherCharges!!, true)
+                setAdapter(R.id.treatment_charges, rootView, bill.treatmentCharges, BillAdapter::class.java)
+                setAdapter(R.id.management_charges, rootView, bill.managementCharges, BillAdapter::class.java)
+            }catch (e: Exception){
+                Log.e("UiDataDisplayUtils","Exception while displaying discharge card list item")
+                throw e
+            }
+        }
+
+        private fun displayBillItem(rootView: View, billItem: BillItem, displayItemName: Boolean = false){
+            if(displayItemName) setTextView(billItem.itemName, R.id.item_name, rootView, OutputFormatterUtils::formatString)
+            setTextView(billItem.rate, R.id.rate, rootView, OutputFormatterUtils::formatNumber)
+            setTextView(billItem.quantity, R.id.quantity, rootView, OutputFormatterUtils::formatNumber)
+            setTextView(billItem.rate * billItem.quantity, R.id.sum, rootView, OutputFormatterUtils::formatNumber)
         }
 
         fun displayDischargeCard(rootView: View, dischargeCard: DischargeCard){
@@ -211,7 +292,20 @@ class UiDataDisplayUtils {
             }
         }
 
-        fun displayPatientVisitInfo(rootView: View, patientVisitInfo: PatientVisitInfo){
+        fun displayPatientVisitInfo(rootView: View, patientVisitInfo: PatientVisitInfo, displayDate: Boolean = false){
+            try {
+                displayPatient(rootView, patientVisitInfo.patient)
+                setTextView(patientVisitInfo.visitTime, R.id.visit_time, rootView, OutputFormatterUtils::formatTime)
+                if(displayDate){
+                    setTextView(patientVisitInfo.visitTime, R.id.date, rootView, OutputFormatterUtils::formatDate)
+                }
+            }catch (e: Exception){
+                Log.e("UiDataDisplayUtils","Exception while displaying discharge card list item")
+                throw e
+            }
+        }
+
+        fun displayPatientVisitInfoDate(rootView: View, patientVisitInfo: PatientVisitInfo){
             try {
                 displayPatient(rootView, patientVisitInfo.patient)
                 setTextView(patientVisitInfo.visitTime, R.id.visit_time, rootView, OutputFormatterUtils::formatTime)
@@ -264,22 +358,12 @@ class UiDataDisplayUtils {
 
         fun updateBillItemSum(billItemLayoutBinding: BillItemLayoutBinding,onUpdateBillSumListener: OnUpdateBillSumListener, isNewlyAdded: Boolean){
             try {
-                val billItem = UiDataExtractorUtils.extractData(billItemLayoutBinding)
+                val billItem = UiDataExtractorUtils.getBillItemWithoutItemName(billItemLayoutBinding)
                 var previousSum = billItem.sum
                 val sum = billItem.rate * billItem.quantity
                 billItemLayoutBinding.sum.setText(sum.toString())
                 if(isNewlyAdded) previousSum = 0
                 onUpdateBillSumListener.update(sum-previousSum)
-            }catch (e: Exception){
-                Log.e("UiDataDisplayUtils","Exception while displaying patient")
-                throw e
-            }
-        }
-
-        fun displayCharges(rootView: View, charges: Int){
-            try {
-//                TODO CHANGE THIS ID
-                setTextView(charges.toString(), R.id.other_charges, rootView, OutputFormatterUtils::formatString)
             }catch (e: Exception){
                 Log.e("UiDataDisplayUtils","Exception while displaying patient")
                 throw e
@@ -296,7 +380,7 @@ class UiDataDisplayUtils {
             }
         }
 
-        fun displayGender(rootView: View, isMale: Boolean, isRadioButton: Boolean, outputFormatter: ((output: String?)->String)? = null){
+        private fun displayGender(rootView: View, isMale: Boolean, isRadioButton: Boolean, outputFormatter: ((output: String?)->String)? = null){
             try {
                 if(isRadioButton){
                     checkRadioButton(rootView, R.id.gender_male_radio_group_button, isMale)
