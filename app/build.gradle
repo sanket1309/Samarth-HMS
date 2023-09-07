@@ -45,7 +45,7 @@ android {
         combined {
             dimension "role"
             versionCode 1
-            versionName "1.0.0"
+            versionName "1.0.1"
         }
     }
 
@@ -115,6 +115,7 @@ dependencies {
 
 //    For viewModel provider in activity
     implementation 'androidx.activity:activity-ktx:1.6.1'
+    implementation 'androidx.fragment:fragment-ktx:1.6.1'
 
 //    Room Database
     implementation "androidx.room:room-runtime:$room_version"

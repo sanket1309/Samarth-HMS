@@ -1,10 +1,13 @@
 package com.samarthhms.ui
 
+import android.Manifest
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -41,6 +44,20 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initializeView()
+
+        val requestPermissionLauncher: ActivityResultLauncher<Array<String>> =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { isGranted ->
+                if (isGranted[Manifest.permission.READ_EXTERNAL_STORAGE] == true &&
+                    isGranted[Manifest.permission.WRITE_EXTERNAL_STORAGE] == true) {
+                    // Permissions were granted.
+                    // You can now proceed with file operations.
+                } else {
+                    // Permissions were denied. Handle this case.
+                }
+            }
+
+        requestPermissionLauncher.launch(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE))
+
     }
 
     private fun initializeView() {

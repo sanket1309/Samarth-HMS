@@ -2,11 +2,14 @@ package com.samarthhms.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.samarthhms.databinding.SearchItemLayoutBinding
+import com.samarthhms.models.MedicineTemplate
 import com.samarthhms.models.PatientHistoryTemplate
 
-class PatientHistoryTemplateSearchAdapter internal constructor(var recyclerOnItemViewClickListener: RecyclerOnItemViewClickListener, var templates: List<PatientHistoryTemplate>) : RecyclerView.Adapter<PatientHistoryTemplateSearchAdapter.PatientHistoryTemplateHolder>() {
+class PatientHistoryTemplateSearchAdapter internal constructor(var recyclerOnItemViewClickListener: RecyclerOnItemViewClickListener, var templates: List<PatientHistoryTemplate>, var templatesActual: List<PatientHistoryTemplate> = ArrayList(templates)) : RecyclerView.Adapter<PatientHistoryTemplateSearchAdapter.PatientHistoryTemplateHolder>(),Filterable {
     override fun onBindViewHolder(patientHistoryTemplateHolder: PatientHistoryTemplateHolder, position: Int) {
         patientHistoryTemplateHolder.bind(templates[position])
     }
@@ -26,6 +29,33 @@ class PatientHistoryTemplateSearchAdapter internal constructor(var recyclerOnIte
             searchItemLayoutBinding.searchItem.setOnClickListener{
                 recyclerOnItemViewClickListener.onItemClicked(patientHistoryTemplate)
             }
+        }
+    }
+
+    override fun getFilter(): Filter {
+        return object: Filter(){
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val filteredList = ArrayList<PatientHistoryTemplate>()
+                if(constraint == null || constraint.isEmpty()){
+                    filteredList.addAll(templatesActual)
+                } else{
+                    val filterKey = constraint.toString().lowercase().trim()
+                    templatesActual.forEach{
+                        if(it.templateData.lowercase().trim().contains(filterKey)){
+                            filteredList.add(it)
+                        }
+                    }
+                }
+                val filteredResults = FilterResults()
+                filteredResults.values = filteredList
+                return filteredResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                templates = results?.values as List<PatientHistoryTemplate>
+                notifyDataSetChanged()
+            }
+
         }
     }
 }

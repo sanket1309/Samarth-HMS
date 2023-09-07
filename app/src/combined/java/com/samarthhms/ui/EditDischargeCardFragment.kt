@@ -11,8 +11,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Filterable
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -127,21 +129,21 @@ class EditDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListener {
         binding.addPatientHistoryButton.setOnClickListener{
             if(dischargeCardTemplate!=null){
                 val adapter = PatientHistoryTemplateSearchAdapter(this, dischargeCardTemplate!!.patientHistoryTemplates)
-                popTemplateMenu(adapter)
+                popTemplateMenu(adapter,adapter)
             }
         }
 
         binding.addCourseButton.setOnClickListener{
             if(dischargeCardTemplate!=null){
                 val adapter = MedicineTemplateSearchAdapter(this, dischargeCardTemplate!!.medicineTemplates, courseMedicineTemplateRequester)
-                popTemplateMenu(adapter)
+                popTemplateMenu(adapter,adapter)
             }
         }
 
         binding.addMedicationButton.setOnClickListener{
             if(dischargeCardTemplate!=null){
                 val adapter = MedicineTemplateSearchAdapter(this, dischargeCardTemplate!!.medicineTemplates, medicationMedicineTemplateRequester)
-                popTemplateMenu(adapter)
+                popTemplateMenu(adapter,adapter)
             }
         }
 
@@ -535,11 +537,27 @@ class EditDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListener {
     }
 
 
-    private fun popTemplateMenu(adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>){
+    private fun popTemplateMenu(adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>, filterable: Filterable){
         bottomSheetDialog = context?.let { it -> BottomSheetDialog(it) }
         bottomSheetDialog?.setContentView(R.layout.bottom_sheet_layout)
         val recyclerView = bottomSheetDialog?.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView?.adapter = adapter
+        val searchView = bottomSheetDialog?.findViewById<SearchView>(R.id.search_view)
+        searchView?.setOnQueryTextListener(
+            object: SearchView.OnQueryTextListener {
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    filterable.filter.filter(newText)
+                    return false
+                }
+
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
+            }
+        )
+        searchView?.isFocusable = true
+        searchView?.isIconified = false
+        searchView?.requestFocusFromTouch()
         bottomSheetDialog?.show()
     }
 
