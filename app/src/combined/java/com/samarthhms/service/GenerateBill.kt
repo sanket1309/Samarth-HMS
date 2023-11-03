@@ -94,7 +94,7 @@ class GenerateBill @Inject constructor(){
     fun generatePdf(bill: Bill){
         val pdfService = PdfService()
         val document = pdfService.createDocument()
-        file = pdfService.createFile(getFileName(bill))
+        file = pdfService.createFile(getFileName(bill),context)
         pdfService.setupPdfWriter(document, file!!, HeaderPageEvent())
 
 

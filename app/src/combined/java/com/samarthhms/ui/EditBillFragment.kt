@@ -3,11 +3,14 @@ package com.samarthhms.ui
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.DrawableContainer
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
 import android.os.Bundle
+import android.os.Environment
+import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -152,10 +155,10 @@ class EditBillFragment : Fragment(), OnUpdateBillSumListener {
                 startProgressBar(false)
                 return@observe
             }
-            if(PackageManager.PERMISSION_GRANTED != context?.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ||
-                PackageManager.PERMISSION_GRANTED != context?.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)){
-                return@observe
-            }
+//            if(PackageManager.PERMISSION_GRANTED != context?.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ||
+//                PackageManager.PERMISSION_GRANTED != context?.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+//                return@observe
+//            }
             if(it == Status.SUCCESS && viewModel.billFile.value != null){
                 startProgressBar(false)
                 val action = EditBillFragmentDirections.actionEditBillFragmentToPdfDetailsFragment(viewModel.billFile.value!!)
@@ -169,8 +172,18 @@ class EditBillFragment : Fragment(), OnUpdateBillSumListener {
                 return@observe
             }
             if(it == Status.SUCCESS){
+                Toast.makeText(context, "Saved Successfully",Toast.LENGTH_SHORT)
                 startProgressBar(false)
-                viewModel.makeBill(this.bill!!)
+                try{
+                    if(Environment.isExternalStorageManager()){
+                        viewModel.makeBill(this.bill!!)
+                    }else{
+                        startActivityForResult(Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION),0)
+                    }
+
+                }catch (e: Exception){
+                    Toast.makeText(context, "Something Went Wrong",Toast.LENGTH_SHORT)
+                }
             }
         }
 

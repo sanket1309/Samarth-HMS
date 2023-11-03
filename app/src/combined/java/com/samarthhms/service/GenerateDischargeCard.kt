@@ -91,7 +91,7 @@ class GenerateDischargeCard @Inject constructor(){
     fun generatePdf(dischargeCard: DischargeCard){
         val pdfService = PdfService()
         val document = pdfService.createDocument()
-        file = pdfService.createFile(getFileName(dischargeCard))
+        file = pdfService.createFile(getFileName(dischargeCard), context)
         pdfService.setupPdfWriter(document, file!!, HeaderPageEvent())
 
 

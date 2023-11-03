@@ -35,7 +35,13 @@ class DateTimeUtils {
 
         fun getLocalDateTime(date: String?, time: String?): LocalDateTime? {
             if(date == null || time == null) return null
-            return LocalDateTime.parse(date+" "+time.lowercase(), DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a"))
+            var timeResult: LocalDateTime?
+            try{
+                timeResult = LocalDateTime.parse(date+" "+time.lowercase(), DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a"))
+            }catch (e: Exception){
+                timeResult = LocalDateTime.parse(date+" "+time.uppercase(), DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a"))
+            }
+            return timeResult
         }
 
         fun getDate(localDateTime: LocalDateTime): String {
