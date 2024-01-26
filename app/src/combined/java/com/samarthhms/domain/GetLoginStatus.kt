@@ -15,7 +15,7 @@ class GetLoginStatus
 
     private val staffLoggedInLimitInHours = 24
 
-    private val adminLoggedInLimitInHours = 24
+    private val adminLoggedInLimitInHours = 24*7
 
     override suspend fun run(params: None): LoginStatusResponse {
         return try {

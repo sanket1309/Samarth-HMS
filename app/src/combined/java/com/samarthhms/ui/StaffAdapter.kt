@@ -29,13 +29,13 @@ class StaffAdapter internal constructor(var recyclerOnItemViewClickListener: Rec
             staffLayoutBinding.lockImage.visibility = if(staffDetails.staffStatus!!.isLocked) View.VISIBLE else View.GONE
             staffLayoutBinding.unlockImage.visibility = if(!staffDetails.staffStatus!!.isLocked) View.VISIBLE else View.GONE
             staffLayoutBinding.infoBlock.setOnClickListener{
-                recyclerOnItemViewClickListener.onItemClicked(staffDetails, "Details")
+                recyclerOnItemViewClickListener.onItemClicked(staffDetails, "Details", false)
             }
             staffLayoutBinding.lockImage.setOnClickListener{
-                recyclerOnItemViewClickListener.onItemClicked(staffDetails, "LOCK")
+                recyclerOnItemViewClickListener.onItemClicked(staffDetails, "LOCK", false)
             }
             staffLayoutBinding.unlockImage.setOnClickListener{
-                recyclerOnItemViewClickListener.onItemClicked(staffDetails, "UNLOCK")
+                recyclerOnItemViewClickListener.onItemClicked(staffDetails, "UNLOCK", false)
             }
         }
     }

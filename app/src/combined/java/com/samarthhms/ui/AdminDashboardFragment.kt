@@ -93,13 +93,14 @@ class AdminDashboardFragment : Fragment(),RecyclerOnItemViewClickListener {
         }
 
         binding.patientsTodayCountTitle.setOnClickListener{
-            findNavController().navigate(R.id.action_adminDashboardFragment_to_patientsTodayFragment)
+            throw Exception("CRASHED ON PURPOSE")
+//            findNavController().navigate(R.id.action_adminDashboardFragment_to_patientsTodayFragment)
         }
 
         return binding.root
     }
 
-    override fun onItemClicked(data: Any?, requester: String) {
+    override fun onItemClicked(data: Any?, requester: String, isLongPress: Boolean) {
     }
 
     fun startProgressBar(isVisible: Boolean){

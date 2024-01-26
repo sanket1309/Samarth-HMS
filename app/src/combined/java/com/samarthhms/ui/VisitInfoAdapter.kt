@@ -50,7 +50,7 @@ class VisitInfoAdapter internal constructor(var context: Context?,var recyclerOn
             visitInfoLayoutBinding.patientAddress.text = patient.town + ", Tal." + patient.taluka
             visitInfoLayoutBinding.visitTime.text = getDisplayTime(DateTimeUtils.getTimestamp(patientVisitInfo.visitTime))
             visitInfoLayoutBinding.infoBlock.setOnClickListener{
-                recyclerOnItemViewClickListener.onItemClicked(patient)
+                recyclerOnItemViewClickListener.onItemClicked(patient, isLongPress = false)
             }
         }
 

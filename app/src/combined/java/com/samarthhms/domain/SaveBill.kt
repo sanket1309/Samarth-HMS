@@ -3,6 +3,7 @@ package com.samarthhms.domain
 import android.util.Log
 import com.samarthhms.repository.BillRepositoryImpl
 import com.samarthhms.usecase.UseCase
+import com.samarthhms.utils.Validation
 import javax.inject.Inject
 
 class SaveBill
@@ -12,7 +13,7 @@ class SaveBill
         return try {
             val response = SaveBillResponse()
             val previousBillNumber = params.previousBillNumber
-            if(previousBillNumber != params.bill.billNumber){
+            if(Validation.validateIpdNumber(previousBillNumber) && previousBillNumber != params.bill.billNumber){
                 billRepository.deleteBill(previousBillNumber)
             }
             billRepository.saveBill(params.bill)

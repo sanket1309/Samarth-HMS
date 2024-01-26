@@ -1,10 +1,12 @@
 package com.samarthhms.ui
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -44,10 +46,32 @@ class RecentDischargeCardsFragment : Fragment(), RecyclerOnItemViewClickListener
         return binding.root
     }
 
-    override fun onItemClicked(data: Any?, requester: String) {
+    override fun onItemClicked(data: Any?, requester: String, isLongPress: Boolean) {
         if(data is DischargeCard){
-            val action = RecentDischargeCardsFragmentDirections.actionRecentDischargeCardsFragmentToEditDischargeCardFragment(data)
-            findNavController().navigate(action)
+            if(isLongPress){
+                val dialogClickListener = DialogInterface.OnClickListener{
+                        dialog, which ->
+                    when(which){
+                        DialogInterface.BUTTON_POSITIVE -> {
+                            data.ipdNumber = ""
+                            val action = RecentDischargeCardsFragmentDirections.actionRecentDischargeCardsFragmentToEditDischargeCardFragment(data)
+                            findNavController().navigate(action)
+                        }
+                        DialogInterface.BUTTON_NEGATIVE -> {
+                            dialog.dismiss()
+                        }
+                    }
+                }
+                val alertDialogBuilder = AlertDialog.Builder(requireContext())
+                alertDialogBuilder.setMessage("Make copy of this card?")
+                    .setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener)
+                    .show()
+
+            }else{
+                val action = RecentDischargeCardsFragmentDirections.actionRecentDischargeCardsFragmentToEditDischargeCardFragment(data)
+                findNavController().navigate(action)
+            }
         }
     }
 }

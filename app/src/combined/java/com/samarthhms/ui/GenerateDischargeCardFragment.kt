@@ -3,7 +3,6 @@ package com.samarthhms.ui
 import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.drawable.DrawableContainer
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.StateListDrawable
@@ -20,7 +19,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -542,7 +540,7 @@ class GenerateDischargeCardFragment : Fragment(), RecyclerOnItemViewClickListene
         bottomSheetDialog?.show()
     }
 
-    override fun onItemClicked(data: Any?, requester: String) {
+    override fun onItemClicked(data: Any?, requester: String, isLongPress: Boolean) {
         if(data is PatientHistoryTemplate){
             binding.patientHistory.setText(data.templateData)
             bottomSheetDialog?.cancel()

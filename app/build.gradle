@@ -11,6 +11,7 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -19,7 +20,7 @@ android {
 
     defaultConfig {
         applicationId "com.samarthhms"
-        minSdk 30
+        minSdk 23
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -44,8 +45,8 @@ android {
 
         combined {
             dimension "role"
-            versionCode 1
-            versionName "1.0.1"
+            versionCode 3
+            versionName "1.0.2"
         }
     }
 
@@ -89,6 +90,8 @@ android {
 
 dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+//    implementation 'com.google.firebase:firebase-crashlytics-18.2.8'
+//    implementation 'com.google.firebase:firebase-analytics-21.0.0'
 
 //    Desugaring
 //    Used to make functions api compatible

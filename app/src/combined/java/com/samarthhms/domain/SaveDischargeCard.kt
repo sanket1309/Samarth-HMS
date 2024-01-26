@@ -3,6 +3,7 @@ package com.samarthhms.domain
 import android.util.Log
 import com.samarthhms.repository.DischargeCardRepositoryImpl
 import com.samarthhms.usecase.UseCase
+import com.samarthhms.utils.Validation
 import javax.inject.Inject
 
 class SaveDischargeCard
@@ -12,7 +13,7 @@ class SaveDischargeCard
         return try {
             val response = SaveDischargeCardResponse()
             val previousIpdNumber = params.previousIpdNumber
-            if(previousIpdNumber != params.dischargeCard.ipdNumber) {
+            if(Validation.validateIpdNumber(previousIpdNumber) && previousIpdNumber != params.dischargeCard.ipdNumber) {
                 dischargeCardRepository.deleteDischargeCard(previousIpdNumber)
             }
             dischargeCardRepository.saveDischargeCard(params.dischargeCard)

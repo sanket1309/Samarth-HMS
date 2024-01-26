@@ -44,7 +44,11 @@ class RecentDischargeCardAdapter internal constructor(var context: Context?, var
             dischargeCardInfoLayoutBinding.patientAge.text = dischargeCard.ageFormat
             dischargeCardInfoLayoutBinding.diagnosis.text = dischargeCard.diagnosis
             dischargeCardInfoLayoutBinding.infoBlock.setOnClickListener{
-                recyclerOnItemViewClickListener.onItemClicked(dischargeCard)
+                recyclerOnItemViewClickListener.onItemClicked(dischargeCard, isLongPress = false)
+            }
+            dischargeCardInfoLayoutBinding.infoBlock.setOnLongClickListener{
+                recyclerOnItemViewClickListener.onItemClicked(dischargeCard, isLongPress = true)
+                true
             }
         }
     }

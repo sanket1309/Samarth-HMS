@@ -44,7 +44,11 @@ class RecentBillAdapter internal constructor(var context: Context?, var recycler
             billInfoLayoutBinding.patientAge.text = bill.age
             billInfoLayoutBinding.diagnosis.text = bill.diagnosis
             billInfoLayoutBinding.infoBlock.setOnClickListener{
-                recyclerOnItemViewClickListener.onItemClicked(bill)
+                recyclerOnItemViewClickListener.onItemClicked(bill, isLongPress = false)
+            }
+            billInfoLayoutBinding.infoBlock.setOnLongClickListener{
+                recyclerOnItemViewClickListener.onItemClicked(bill, isLongPress = true)
+                true
             }
         }
     }

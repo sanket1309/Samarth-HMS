@@ -6,7 +6,6 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.samarthhms.databinding.SearchItemLayoutBinding
-import com.samarthhms.models.MedicineTemplate
 import com.samarthhms.models.PatientHistoryTemplate
 
 class PatientHistoryTemplateSearchAdapter internal constructor(var recyclerOnItemViewClickListener: RecyclerOnItemViewClickListener, var templates: List<PatientHistoryTemplate>, var templatesActual: List<PatientHistoryTemplate> = ArrayList(templates)) : RecyclerView.Adapter<PatientHistoryTemplateSearchAdapter.PatientHistoryTemplateHolder>(),Filterable {
@@ -27,7 +26,10 @@ class PatientHistoryTemplateSearchAdapter internal constructor(var recyclerOnIte
         fun bind(patientHistoryTemplate: PatientHistoryTemplate) {
             searchItemLayoutBinding.itemValue.text = patientHistoryTemplate.templateName
             searchItemLayoutBinding.searchItem.setOnClickListener{
-                recyclerOnItemViewClickListener.onItemClicked(patientHistoryTemplate)
+                recyclerOnItemViewClickListener.onItemClicked(
+                    patientHistoryTemplate,
+                    isLongPress = false
+                )
             }
         }
     }

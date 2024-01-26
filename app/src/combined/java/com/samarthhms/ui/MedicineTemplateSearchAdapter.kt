@@ -26,7 +26,7 @@ class MedicineTemplateSearchAdapter internal constructor(var recyclerOnItemViewC
         fun bind(medicineTemplate: MedicineTemplate) {
             searchItemLayoutBinding.itemValue.text = medicineTemplate.templateData
             searchItemLayoutBinding.searchItem.setOnClickListener{
-                recyclerOnItemViewClickListener.onItemClicked(medicineTemplate, requester)
+                recyclerOnItemViewClickListener.onItemClicked(medicineTemplate, requester, false)
             }
         }
     }

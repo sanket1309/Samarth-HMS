@@ -30,7 +30,7 @@ class SwitchAdminAdapter internal constructor(var recyclerOnItemViewClickListene
             adminLayoutBinding.switchStatus.visibility = if(switchAdmin.isCurrentUser) View.VISIBLE else View.GONE
             if(!switchAdmin.isCurrentUser){
                 adminLayoutBinding.infoBlock.setOnClickListener {
-                    recyclerOnItemViewClickListener.onItemClicked(switchAdmin)
+                    recyclerOnItemViewClickListener.onItemClicked(switchAdmin, isLongPress = false)
                 }
             }
         }

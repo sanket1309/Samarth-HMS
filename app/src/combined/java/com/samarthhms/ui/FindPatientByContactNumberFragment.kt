@@ -65,7 +65,7 @@ class FindPatientByContactNumberFragment : Fragment(), RecyclerOnItemViewClickLi
         return binding.root
     }
 
-    override fun onItemClicked(data: Any?, requester: String) {
+    override fun onItemClicked(data: Any?, requester: String, isLongPress: Boolean) {
         if(data is Patient){
             val action = FindPatientByContactNumberFragmentDirections.actionFindPatientByContactNumberFragmentToAddVisitFragment(data)
             findNavController().navigate(action)

@@ -57,7 +57,7 @@ class StaffSettingsFragment : Fragment(), RecyclerOnItemViewClickListener {
         return binding.root
     }
 
-    override fun onItemClicked(data: Any?, requester: String) {
+    override fun onItemClicked(data: Any?, requester: String, isLongPress: Boolean) {
         if(data is StaffDetails && requester == "LOCK"){
             val dialogClickListener = DialogInterface.OnClickListener{
                     _, which ->

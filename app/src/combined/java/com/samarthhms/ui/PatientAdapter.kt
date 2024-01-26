@@ -48,7 +48,7 @@ class PatientAdapter internal constructor(var context: Context?, var recyclerOnI
             patientInfoLayoutBinding.patientAge.text = getAgeText(DateTimeUtils.getTimestamp(patient.dateOfBirth))
             patientInfoLayoutBinding.patientAddress.text = patient.town + ", Tal." + patient.taluka
             patientInfoLayoutBinding.infoBlock.setOnClickListener{
-                recyclerOnItemViewClickListener.onItemClicked(patient)
+                recyclerOnItemViewClickListener.onItemClicked(patient, isLongPress = false)
             }
         }
 

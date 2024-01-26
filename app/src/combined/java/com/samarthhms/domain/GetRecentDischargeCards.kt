@@ -11,7 +11,7 @@ class GetRecentDischargeCards
     override suspend fun run(params: None): GetRecentDischargeCardsResponse {
         return try {
             val response = GetRecentDischargeCardsResponse()
-            response.dischargeCards = dischargeCardRepository.getAllDischargeCards(10)
+            response.dischargeCards = dischargeCardRepository.getAllDischargeCards(50)
             response.status = Status.SUCCESS
             Log.i("Get_Recent_Discharge_Cards","GetRecentDischargeCardsResponse = $response")
             response

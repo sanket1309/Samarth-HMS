@@ -54,7 +54,7 @@ class AdminSettingsFragment : Fragment(), RecyclerOnItemViewClickListener {
         return binding.root
     }
 
-    override fun onItemClicked(data: Any?, requester: String) {
+    override fun onItemClicked(data: Any?, requester: String, isLongPress: Boolean) {
         if (data is AdminDetails) {
             val action = AdminSettingsFragmentDirections.actionAdminSettingsFragmentToAdminDetailsFragment(data)
             findNavController().navigate(action)

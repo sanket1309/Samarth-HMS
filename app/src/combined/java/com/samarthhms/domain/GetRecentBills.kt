@@ -11,7 +11,7 @@ class GetRecentBills
     override suspend fun run(params: None): GetRecentBillsResponse {
         return try {
             val response = GetRecentBillsResponse()
-            response.bills = billRepository.getAllBills(10)
+            response.bills = billRepository.getAllBills(50)
             response.status = Status.SUCCESS
             Log.i("Get_Recent_Bills","GetRecentBillsResponse = $response")
             response

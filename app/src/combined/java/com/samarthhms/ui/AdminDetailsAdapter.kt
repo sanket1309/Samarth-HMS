@@ -31,7 +31,7 @@ class AdminDetailsAdapter internal constructor(var recyclerOnItemViewClickListen
             adminLayoutBinding.selfTitle.visibility = if(switchAdmin.isAccountOwner) View.VISIBLE else View.GONE
             adminLayoutBinding.switchStatus.visibility = if(switchAdmin.isCurrentUser) View.VISIBLE else View.GONE
             adminLayoutBinding.infoBlock.setOnClickListener {
-                recyclerOnItemViewClickListener.onItemClicked(adminDetails)
+                recyclerOnItemViewClickListener.onItemClicked(adminDetails, isLongPress = false)
             }
         }
     }
